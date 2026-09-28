@@ -110,6 +110,12 @@ ol.stops li.played .t{color:var(--muted);text-decoration:line-through;text-decor
 .cta{display:block;width:100%;padding:16px;border:0;border-radius:4px;background:var(--ink);color:var(--surface);font-family:var(--display);font-weight:700;font-size:22px;cursor:pointer}
 .cta2{display:block;width:100%;margin-top:10px;padding:13px;border:1px solid var(--ink);border-radius:4px;background:none;font-family:var(--display);font-weight:600;font-size:19px;cursor:pointer}
 .note{font-size:14px;color:var(--muted);margin-top:18px}
+.startpick{display:block;margin:0 0 22px}
+.startpick span{display:block;font-family:var(--display);font-weight:600;font-size:16px;color:var(--muted);margin-bottom:4px}
+.startpick select{width:100%;padding:11px 12px;border:1px solid var(--ink);border-radius:4px;background:var(--surface);color:var(--ink);font-family:var(--display);font-weight:600;font-size:19px}
+.stop.skipped{opacity:.35}
+ol.stops li.skipped .t,ol.stops li.skipped .n{color:var(--muted)}
+ol.stops li.skipped .s::after{content:" · skipped"}
 [hidden]{display:none!important}
 @media (prefers-reduced-motion:reduce){.play.nudge{animation:none}}
 </style>
@@ -121,11 +127,12 @@ ol.stops li.played .t{color:var(--muted);text-decoration:line-through;text-decor
     <h1 class="title"><span>Berlin</span><span>divided</span></h1>
     <div class="divider" aria-hidden="true"></div>
     <div class="facts">
-      <div><b>15.4 km</b><span>by bike</span></div>
-      <div><b>11</b><span>stops</span></div>
-      <div><b>~2 h</b><span>with stories</span></div>
+      <div><b id="factKm">15.4 km</b><span>by bike</span></div>
+      <div><b id="factStops">11</b><span>stops</span></div>
+      <div><b id="factTime">~2 h</b><span>with stories</span></div>
     </div>
-    <p class="lede">A self-guided Cold War ride from the Reichstag to Bernauer Strasse. Each story plays by itself when you reach the spot.</p>
+    <p class="lede">A self-guided Cold War ride from <span id="ledeFrom">the Reichstag</span> to Bernauer Strasse. Each story plays by itself when you reach the spot.</p>
+    <label class="startpick"><span>Starting point</span><select id="startSel"></select></label>
     <button class="cta" id="startBtn">Start the tour</button>
     <button class="cta2" id="testBtn">Try a test ride from here</button>
     <p class="note">Keep this page open with the screen on, and allow location access. Your phone's silent switch can mute the audio. Wear one earbud at most while riding.</p>
@@ -182,7 +189,7 @@ ol.stops li.played .t{color:var(--muted);text-decoration:line-through;text-decor
     <button class="chip" id="simSpeed">Speed 20×</button>
   </section>
 
-  <p class="foot">Narration voice is synthetic. Route distances are from OpenStreetMap bike routing. <button id="reset">Reset tour progress</button></p>
+  <p class="foot">Narration voice is synthetic. Route distances are from OpenStreetMap bike routing. <button id="changeStart">Change starting point</button> · <button id="reset">Reset tour progress</button></p>
 </div>
 
 <audio id="audio" preload="auto" playsinline></audio>
@@ -210,6 +217,13 @@ const cum=[0];for(let i=1;i<ROUTE.length;i++)cum.push(cum[i-1]+dist(ROUTE[i-1],R
 /* ---------- state ---------- */
 const store={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
 let played=new Set(store.get('bd_played',[]));
+let startAt=Math.min(Math.max(0,store.get('bd_start',0)|0),STOPS.length-1); // index of the first stop on this ride
+const active=i=>i>=startAt;                                   // stops before the starting point are skipped
+const activeStops=()=>STOPS.filter((s,i)=>active(i));
+const allHeard=()=>activeStops().every(s=>played.has(s.id));
+// route distance at each stop, so the test ride can begin at the chosen starting point
+const stopCum=STOPS.map(s=>{let b=0,m=Infinity;ROUTE.forEach((p,i)=>{const d=dist(p,[s.lat,s.lng]);if(d<m){m=d;b=i;}});return cum[b];});
+const simStart=()=>Math.max(0,stopCum[startAt]-60);
 let queue=[], current=null, me=null, meAcc=null, zoomMe=false;
 let navPlaying=false, resume=null, leg=-1, navIdx=0, offCount=0, lastOff=0, offRoute=false;
 const $=id=>document.getElementById(id);
@@ -242,13 +256,14 @@ $('zoomRoute').onclick=()=>{zoomMe=false;$('zoomRoute').setAttribute('aria-press
 $('zoomMe').onclick=()=>{zoomMe=true;$('zoomMe').setAttribute('aria-pressed','true');$('zoomRoute').setAttribute('aria-pressed','false');setView();};
 
 /* ---------- list ---------- */
-function nextIndex(){let last=-1;STOPS.forEach((s,i)=>{if(played.has(s.id))last=Math.max(last,i)});for(let i=last+1;i<STOPS.length;i++)if(!played.has(STOPS[i].id))return i;for(let i=0;i<STOPS.length;i++)if(!played.has(STOPS[i].id))return i;return -1;}
+function nextIndex(){let last=startAt-1;STOPS.forEach((s,i)=>{if(active(i)&&played.has(s.id))last=Math.max(last,i)});for(let i=last+1;i<STOPS.length;i++)if(!played.has(STOPS[i].id))return i;for(let i=startAt;i<STOPS.length;i++)if(!played.has(STOPS[i].id))return i;return -1;}
 function render(){
   const ni=nextIndex();
-  stopEls.forEach((g,i)=>{g.classList.toggle('played',played.has(STOPS[i].id));g.classList.toggle('next',i===ni);});
-  $('progress').textContent=`${played.size} of ${STOPS.length} stops`;
+  stopEls.forEach((g,i)=>{g.classList.toggle('played',played.has(STOPS[i].id));g.classList.toggle('next',i===ni);g.classList.toggle('skipped',!active(i));});
+  const act=activeStops();
+  $('progress').textContent=`${act.filter(s=>played.has(s.id)).length} of ${act.length} stops`;
   const ol=$('stopList');ol.innerHTML='';
-  STOPS.forEach((s,i)=>{const li=document.createElement('li');if(played.has(s.id))li.className='played';const b=document.createElement('button');
+  STOPS.forEach((s,i)=>{const li=document.createElement('li');if(played.has(s.id))li.className='played';else if(!active(i))li.className='skipped';const b=document.createElement('button');
     b.innerHTML=`<span class="n">${i+1}</span><span class="t"></span><span class="s">${fmt(s.dur)}</span>`;b.querySelector('.t').textContent=s.title;b.setAttribute('aria-label',`Play stop ${i+1}, ${s.title}`);
     b.onclick=()=>playTrack(s,true);li.appendChild(b);ol.appendChild(li);});
   if(ni<0){$('nextDist').textContent='Done';$('nextName').textContent='All stops heard. Bornholmer Strasse is 2 km north if you want an encore.';$('nextLink').hidden=true;}
@@ -283,7 +298,7 @@ audio.onended=()=>{
   if(navPlaying){navPlaying=false;$('playIcon').innerHTML=PLAY;if(queue.length)playTrack(queue.shift());return;}
   if(queue.length){playTrack(queue.shift());return;}
   const si=STOPS.indexOf(current); if(si>=0&&si<STOPS.length-1)startLeg(si);
-  if(played.size===STOPS.length&&current!==OUTRO){playTrack(OUTRO);return;}
+  if(allHeard()&&current!==OUTRO){playTrack(OUTRO);return;}
   $('kicker').textContent='Ride on to the next stop';
 };
 $('playBtn').onclick=()=>{if(!audio.src){playTrack(INTRO);return;}if(navPlaying||(resume&&audio.paused)){const r=resume;if(r)playTrack(r.track,true,r.time);else{audio.pause();navPlaying=false;}return;}audio.paused?audio.play():audio.pause();};
@@ -321,8 +336,8 @@ function onPosition(lat,lng,acc,sim){
   const [x,y]=proj(me); dot.setAttribute('cx',x);dot.setAttribute('cy',y);halo.setAttribute('cx',x);halo.setAttribute('cy',y);
   $('gps').textContent=sim?'Test ride':`GPS ±${Math.round(acc)} m`;
   const radius=Math.max(RADIUS,Math.min(acc||0,80));
-  STOPS.forEach(s=>{
-    if(played.has(s.id)||queue.includes(s)||current===s)return;
+  STOPS.forEach((s,i)=>{
+    if(!active(i)||played.has(s.id)||queue.includes(s)||current===s)return;
     if(dist(me,[s.lat,s.lng])<=radius){
       if(storyBusy())queue.push(s);else playTrack(s);
     }
@@ -334,6 +349,7 @@ function onPosition(lat,lng,acc,sim){
 let watchId=null;
 function startGPS(){
   if(!('geolocation' in navigator)){$('gps').textContent='No GPS on this device';return;}
+  if(watchId!==null)return;
   $('gps').textContent='Finding you…';
   watchId=navigator.geolocation.watchPosition(p=>{if(!simOn)onPosition(p.coords.latitude,p.coords.longitude,p.coords.accuracy,false)},
     e=>{$('gps').textContent=e.code===1?'Location blocked. Allow it in browser settings':'Location unavailable';},
@@ -360,7 +376,7 @@ function simTick(ts){
 }
 function toggleSim(on){
   simOn=on; $('simToggle').setAttribute('aria-pressed',on);$('simToggle').textContent=on?'Stop test ride':'Start test ride';
-  if(on){if(simPos>=cum[cum.length-1])simPos=0;lastTick=0;zoomMe=true;$('zoomMe').click();simT=requestAnimationFrame(simTick);}
+  if(on){if(simPos>=cum[cum.length-1])simPos=simStart();lastTick=0;zoomMe=true;$('zoomMe').click();simT=requestAnimationFrame(simTick);}
   else cancelAnimationFrame(simT);
 }
 $('simToggle').onclick=()=>toggleSim(!simOn);
@@ -370,13 +386,35 @@ $('simSpeed').onclick=()=>{simSpeed=SPEEDS[(SPEEDS.indexOf(simSpeed)+1)%SPEEDS.l
 function begin(test){
   $('start').hidden=true; keepAwake();
   playTrack(INTRO);                    // user gesture unlocks audio for later automatic stops
-  if(test){played=new Set();current=INTRO;leg=-1;navIdx=0;store.set('bd_played',[]);simPos=0;render();toggleSim(true);}
+  if(test){played=new Set();current=INTRO;leg=-1;navIdx=0;store.set('bd_played',[]);simPos=simStart();render();toggleSim(true);}
   else startGPS();
 }
 $('startBtn').onclick=()=>begin(false);
 $('testBtn').onclick=()=>begin(true);
-$('reset').onclick=()=>{if(confirm('Reset tour progress?')){played=new Set();queue=[];current=null;resume=null;leg=-1;navIdx=0;store.set('bd_played',[]);simPos=0;audio.pause();render();renderNav();}};
-if(played.size){$('startBtn').textContent='Continue the tour';}
+$('reset').onclick=()=>{if(confirm('Reset tour progress?')){played=new Set();queue=[];current=null;resume=null;leg=-1;navIdx=0;store.set('bd_played',[]);simPos=simStart();audio.pause();render();renderNav();}};
+/* ---------- starting point ---------- */
+const TOTAL_KM=15.4, TOTAL_MIN=120;
+function renderStart(){
+  const f=cum[cum.length-1]?(cum[cum.length-1]-stopCum[startAt])/cum[cum.length-1]:1;
+  $('factKm').textContent=`${(TOTAL_KM*f).toFixed(1)} km`;
+  $('factStops').textContent=STOPS.length-startAt;
+  const m=Math.max(15,Math.round(TOTAL_MIN*f/15)*15);
+  $('factTime').textContent=m>=60?`~${+(m/60).toFixed(1)} h`:`~${m} min`;
+  $('ledeFrom').textContent=startAt===0?'the Reichstag':STOPS[startAt].title.replace(/^The /,'the ');
+  $('startBtn').textContent=activeStops().some(s=>played.has(s.id))?'Continue the tour':'Start the tour';
+}
+const sel=$('startSel');
+STOPS.forEach((s,i)=>{const o=document.createElement('option');o.value=i;o.textContent=`${i+1}. ${s.title}`;sel.appendChild(o);});
+sel.value=startAt;
+sel.onchange=()=>{
+  startAt=+sel.value; store.set('bd_start',startAt);
+  queue=queue.filter(s=>active(STOPS.indexOf(s)));
+  leg=-1; navIdx=0; if(!simOn)simPos=simStart();
+  renderStart(); render(); renderNav();
+};
+$('changeStart').onclick=()=>{if(simOn)toggleSim(false);sel.value=startAt;renderStart();$('start').hidden=false;$('start').scrollTop=0;};
+simPos=simStart();
+renderStart();
 setView(); render();
 window.addEventListener('resize',setView);
 </script>
