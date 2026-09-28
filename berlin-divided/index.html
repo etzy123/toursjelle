@@ -6,6 +6,8 @@
 <title>Berlin Divided: Cold War bike tour</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,500;1,7..72,400&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -41,20 +43,17 @@ h1{font-family:var(--display);font-weight:700;font-size:28px;letter-spacing:.01e
 
 /* map */
 .map{position:relative;background:var(--surface);border-radius:4px;overflow:hidden;border:1px solid var(--line)}
-.map svg{display:block;width:100%;height:auto;aspect-ratio:1/1;max-height:52vh}
-.route-base{fill:none;stroke:var(--cobble-soft);stroke-width:9;stroke-linecap:round;stroke-linejoin:round}
-.route-cobble{fill:none;stroke:var(--cobble);stroke-width:2.2;stroke-dasharray:3 3;stroke-linecap:butt;stroke-linejoin:round}
-.stop circle{fill:var(--surface);stroke:var(--ink);stroke-width:2}
-.stop text{font-family:var(--display);font-weight:700;fill:var(--ink);text-anchor:middle;dominant-baseline:central}
-.stop.played circle{fill:var(--played);stroke:var(--played)}
-.stop.played text{fill:var(--surface)}
-.stop.next circle{stroke:var(--signal);stroke-width:3}
-.me{fill:var(--signal);stroke:var(--surface);stroke-width:3}
-.me-halo{fill:var(--signal);opacity:.18}
-.maptools{position:absolute;right:8px;top:8px;display:flex;gap:6px}
+#mapCanvas{width:100%;height:min(52vh,calc(100vw - 32px),528px);background:var(--surface)}
+.mapoff{margin:0;padding:40px 20px;text-align:center;color:var(--muted);font-size:15px}
+.leaflet-container{font-family:var(--display)}
+.stopicon{display:grid;place-items:center;border-radius:50%;background:#fff;color:#1C2332;border:2.5px solid #1C2332;font-family:var(--display);font-weight:700;font-size:14px;box-shadow:0 1px 3px rgba(0,0,0,.35)}
+.stopicon.is-next{border-color:#A8322A;border-width:3.5px;transform-origin:center}
+.stopicon.played{background:#8C8A84;border-color:#8C8A84;color:#fff}
+.stopicon.skipped{opacity:.45}
+.maptools{position:absolute;right:8px;top:8px;display:flex;gap:6px;z-index:500}
 .chip{background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:5px 10px;font-family:var(--display);font-weight:600;font-size:15px;cursor:pointer}
 .chip[aria-pressed="true"]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
-.gps{position:absolute;left:8px;bottom:8px;font-family:var(--display);font-size:14px;font-weight:500;background:var(--surface);padding:3px 8px;border-radius:3px;color:var(--muted)}
+.gps{position:absolute;left:8px;top:8px;z-index:500;font-family:var(--display);font-size:14px;font-weight:500;background:var(--surface);padding:3px 8px;border-radius:3px;color:var(--muted)}
 
 /* player */
 .player{margin-top:14px;padding:16px 0 4px;border-top:4px double var(--cobble)}
@@ -110,6 +109,8 @@ ol.stops li.played .t{color:var(--muted);text-decoration:line-through;text-decor
 .cta{display:block;width:100%;padding:16px;border:0;border-radius:4px;background:var(--ink);color:var(--surface);font-family:var(--display);font-weight:700;font-size:22px;cursor:pointer}
 .cta2{display:block;width:100%;margin-top:10px;padding:13px;border:1px solid var(--ink);border-radius:4px;background:none;font-family:var(--display);font-weight:600;font-size:19px;cursor:pointer}
 .note{font-size:14px;color:var(--muted);margin-top:18px}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .leaflet-tile-pane{filter:invert(1) hue-rotate(180deg) brightness(.9) contrast(.9)}}
+:root[data-theme="dark"] .leaflet-tile-pane{filter:invert(1) hue-rotate(180deg) brightness(.9) contrast(.9)}
 .startpick{display:block;margin:0 0 22px}
 .startpick span{display:block;font-family:var(--display);font-weight:600;font-size:16px;color:var(--muted);margin-bottom:4px}
 .startpick select{width:100%;padding:11px 12px;border:1px solid var(--ink);border-radius:4px;background:var(--surface);color:var(--ink);font-family:var(--display);font-weight:600;font-size:19px}
@@ -131,7 +132,7 @@ ol.stops li.skipped .s::after{content:" · skipped"}
       <div><b id="factStops">11</b><span>stops</span></div>
       <div><b id="factTime">~2 h</b><span>with stories</span></div>
     </div>
-    <p class="lede">A self-guided Cold War ride from <span id="ledeFrom">the Reichstag</span> to Bernauer Strasse. Each story plays by itself when you reach the spot.</p>
+    <p class="lede">A self-guided Cold War ride from <span id="ledeFrom">the Reichstag</span> to Bernauer Strasse. When you reach a spot, its story is ready. Tap play whenever you want to listen.</p>
     <label class="startpick"><span>Starting point</span><select id="startSel"></select></label>
     <button class="cta" id="startBtn">Start the tour</button>
     <button class="cta2" id="testBtn">Try a test ride from here</button>
@@ -146,7 +147,7 @@ ol.stops li.skipped .s::after{content:" · skipped"}
   </header>
 
   <div class="map">
-    <svg id="map" viewBox="0 0 1000 1000" role="img" aria-label="Route map with stops"></svg>
+    <div id="mapCanvas" role="region" aria-label="Route map with stops"></div>
     <div class="maptools">
       <button class="chip" id="zoomRoute" aria-pressed="true">Whole route</button>
       <button class="chip" id="zoomMe" aria-pressed="false">Around me</button>
@@ -184,7 +185,7 @@ ol.stops li.skipped .s::after{content:" · skipped"}
   </section>
 
   <section class="test">
-    <p>Test ride moves a virtual bike along the route and pauses at each stop while the story plays, just like a real ride.</p>
+    <p>Test ride moves a virtual bike along the route and waits at each stop until you tap play and the story ends, just like a real ride.</p>
     <button class="chip" id="simToggle" aria-pressed="false">Start test ride</button>
     <button class="chip" id="simSpeed">Speed 20×</button>
   </section>
@@ -224,42 +225,44 @@ const allHeard=()=>activeStops().every(s=>played.has(s.id));
 // route distance at each stop, so the test ride can begin at the chosen starting point
 const stopCum=STOPS.map(s=>{let b=0,m=Infinity;ROUTE.forEach((p,i)=>{const d=dist(p,[s.lat,s.lng]);if(d<m){m=d;b=i;}});return cum[b];});
 const simStart=()=>Math.max(0,stopCum[startAt]-60);
-let queue=[], current=null, me=null, meAcc=null, zoomMe=false;
+let queue=[], pending=null, current=null, me=null, meAcc=null, zoomMe=false;
 let navPlaying=false, resume=null, leg=-1, navIdx=0, offCount=0, lastOff=0, offRoute=false;
 const $=id=>document.getElementById(id);
 const audio=$('audio');
 
 /* ---------- map ---------- */
-const svg=$('map'), NS='http://www.w3.org/2000/svg';
-function el(n,a,parent){const e=document.createElementNS(NS,n);for(const x in a)e.setAttribute(x,a[x]);(parent||svg).appendChild(e);return e;}
-const pts=ROUTE.map(proj).map(p=>p.map(v=>v.toFixed(1)).join(',')).join(' ');
-const gRoute=el('g',{});
-const base=el('polyline',{points:pts,class:'route-base'},gRoute);
-const cob=el('polyline',{points:pts,class:'route-cobble'},gRoute);
-const gStops=el('g',{});
-const stopEls=STOPS.map((s,i)=>{const [x,y]=proj([s.lat,s.lng]);const g=el('g',{class:'stop'},gStops);g.dataset.x=x;g.dataset.y=y;el('circle',{cx:x,cy:y},g);const t=el('text',{x,y},g);t.textContent=i+1;return g;});
-const halo=el('circle',{class:'me-halo',r:0,cx:-999,cy:-999});
-const dot=el('circle',{class:'me',r:0,cx:-999,cy:-999});
-
-function setView(){
-  let vb;
-  if(zoomMe&&me){const [x,y]=proj(me);const s=1400;vb=[x-s/2,y-s/2,s,s];}
-  else{const pad=350;const s=Math.max(W,H)+pad*2;vb=[W/2-s/2,H/2-s/2,s,s];}
-  svg.setAttribute('viewBox',vb.map(v=>v.toFixed(0)).join(' '));
-  const u=vb[2]/(svg.getBoundingClientRect().width||360); // viewBox units per screen pixel
-  base.style.strokeWidth=7*u; cob.style.strokeWidth=2*u; cob.style.strokeDasharray=`${3*u} ${2.5*u}`;
-  stopEls.forEach(g=>{const c=g.querySelector('circle'),t=g.querySelector('text');c.setAttribute('r',11*u);c.style.strokeWidth=2*u;t.style.fontSize=(13*u)+'px';});
-  dot.setAttribute('r',me?7*u:0); dot.style.strokeWidth=2.5*u;
-  halo.setAttribute('r',me?Math.max(meAcc||20,14*u):0);
+const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+let map=null, stopMarkers=[], meDot=null, meHalo=null;
+function stopIcon(i){return L.divIcon({className:'stopicon',html:String(i+1),iconSize:[26,26],iconAnchor:[13,13]});}
+function initMap(){
+  if(!window.L){$('mapCanvas').innerHTML='<p class="mapoff">The map needs an internet connection. Stories and directions still work.</p>';return;}
+  map=L.map('mapCanvas',{zoomControl:false});
+  L.control.zoom({position:'bottomright'}).addTo(map);
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'}).addTo(map);
+  L.polyline(ROUTE,{color:'#fff',weight:9,opacity:.9,lineJoin:'round',interactive:false}).addTo(map);
+  L.polyline(ROUTE,{color:css('--signal')||'#A8322A',weight:5,opacity:.9,lineJoin:'round',interactive:false}).addTo(map);
+  stopMarkers=STOPS.map((s,i)=>L.marker([s.lat,s.lng],{icon:stopIcon(i),title:`${i+1}. ${s.title}`,keyboard:false})
+    .bindTooltip(`${i+1}. ${s.title}`,{direction:'top',offset:[0,-14]}).addTo(map));
+  meHalo=L.circle([0,0],{radius:0,stroke:false,fillColor:'#A8322A',fillOpacity:.18,interactive:false});
+  meDot=L.circleMarker([0,0],{radius:8,color:'#fff',weight:3,fillColor:'#A8322A',fillOpacity:1,interactive:false});
+  map.on('dragstart',()=>{if(zoomMe)setMode(false,false);}); // panning by hand stops following you
+  fitRoute();
 }
-$('zoomRoute').onclick=()=>{zoomMe=false;$('zoomRoute').setAttribute('aria-pressed','true');$('zoomMe').setAttribute('aria-pressed','false');setView();};
-$('zoomMe').onclick=()=>{zoomMe=true;$('zoomMe').setAttribute('aria-pressed','true');$('zoomRoute').setAttribute('aria-pressed','false');setView();};
+function fitRoute(){if(map)map.fitBounds(L.latLngBounds(ROUTE),{padding:[24,24]});}
+function follow(){if(map&&zoomMe&&me)map.setView(me,Math.max(map.getZoom(),16),{animate:!simOn});}
+function setMode(aroundMe,move=true){
+  zoomMe=aroundMe;$('zoomMe').setAttribute('aria-pressed',aroundMe);$('zoomRoute').setAttribute('aria-pressed',!aroundMe);
+  if(!move)return; if(aroundMe)follow(); else fitRoute();
+}
+function setView(){if(map)map.invalidateSize();}
+$('zoomRoute').onclick=()=>setMode(false);
+$('zoomMe').onclick=()=>setMode(true);
 
 /* ---------- list ---------- */
 function nextIndex(){let last=startAt-1;STOPS.forEach((s,i)=>{if(active(i)&&played.has(s.id))last=Math.max(last,i)});for(let i=last+1;i<STOPS.length;i++)if(!played.has(STOPS[i].id))return i;for(let i=startAt;i<STOPS.length;i++)if(!played.has(STOPS[i].id))return i;return -1;}
 function render(){
   const ni=nextIndex();
-  stopEls.forEach((g,i)=>{g.classList.toggle('played',played.has(STOPS[i].id));g.classList.toggle('next',i===ni);g.classList.toggle('skipped',!active(i));});
+  stopMarkers.forEach((m,i)=>{const e=m.getElement();if(!e)return;e.classList.toggle('played',played.has(STOPS[i].id));e.classList.toggle('is-next',i===ni);e.classList.toggle('skipped',!active(i));});
   const act=activeStops();
   $('progress').textContent=`${act.filter(s=>played.has(s.id)).length} of ${act.length} stops`;
   const ol=$('stopList');ol.innerHTML='';
@@ -277,31 +280,44 @@ function fmtDist(m){return m<1000?`${Math.round(m/10)*10} m`:`${(m/1000).toFixed
 /* ---------- audio ---------- */
 const PLAY='<path d="M7 4v16l13-8z"/>', PAUSE='<path d="M6 4h4v16H6zM14 4h4v16h-4z"/>';
 function storyBusy(){return !navPlaying&&!audio.paused&&!audio.ended&&!!current;}
+// a stop was reached: get its story ready, but wait for the rider to tap play
+function arrive(s){
+  pending=s; const i=STOPS.indexOf(s);
+  $('kicker').textContent=`You have arrived · Stop ${i+1} of ${STOPS.length}`;
+  $('nowTitle').textContent=s.title;
+  $('transcript').innerHTML=paras(s.text);
+  $('tCur').textContent='0:00';$('tDur').textContent=fmt(s.dur);$('seek').value=0;
+  $('playIcon').innerHTML=PLAY;$('playBtn').setAttribute('aria-label',`Play ${s.title}`);$('playBtn').classList.add('nudge');
+  try{navigator.vibrate&&navigator.vibrate([200,100,200]);}catch(e){}
+}
+function paras(text){return text.split(/(?<=\.)\s+(?=[A-Z])/).reduce((acc,s,j)=>{const pi=Math.floor(j/4);(acc[pi]=acc[pi]||[]).push(s);return acc},[]).map(p=>`<p>${p.join(' ')}</p>`).join('');}
 function playTrack(t,manual,at){
+  if(pending===t)pending=null;
+  queue=queue.filter(q=>q!==t);
   current=t; navPlaying=false; resume=null;
   audio.src=t.audio; audio.currentTime=at||0;
   $('nowTitle').textContent=t.title;
   const i=STOPS.indexOf(t);
   $('kicker').textContent=i>=0?`Stop ${i+1} of ${STOPS.length}`:(t===INTRO?'Introduction':'Finish');
-  $('transcript').innerHTML=t.text.split(/(?<=\.)\s+(?=[A-Z])/).reduce((acc,s,j)=>{const pi=Math.floor(j/4);(acc[pi]=acc[pi]||[]).push(s);return acc},[]).map(p=>`<p>${p.join(' ')}</p>`).join('');
+  $('transcript').innerHTML=paras(t.text);
   if('mediaSession' in navigator){try{navigator.mediaSession.metadata=new MediaMetadata({title:t.title,artist:'Berlin divided',album:'Cold War bike tour'});}catch(e){}}
   const pr=audio.play();
   if(pr&&pr.catch)pr.catch(()=>{$('playBtn').classList.add('nudge');$('kicker').textContent='You have arrived. Tap play to listen';});
   if(i>=0){played.add(t.id);store.set('bd_played',[...played]);}
   render();
 }
-audio.onplay=()=>{if(navPlaying)return;$('playIcon').innerHTML=PAUSE;$('playBtn').setAttribute('aria-label','Pause');$('playBtn').classList.remove('nudge');};
-audio.onpause=()=>{if(navPlaying)return;$('playIcon').innerHTML=PLAY;$('playBtn').setAttribute('aria-label','Play');};
-audio.onloadedmetadata=()=>{if(navPlaying)return;$('tDur').textContent=fmt(audio.duration);};
-audio.ontimeupdate=()=>{if(navPlaying)return;$('tCur').textContent=fmt(audio.currentTime);if(audio.duration)$('seek').value=audio.currentTime/audio.duration*100;};
+audio.onplay=()=>{if(navPlaying||pending)return;$('playIcon').innerHTML=PAUSE;$('playBtn').setAttribute('aria-label','Pause');$('playBtn').classList.remove('nudge');};
+audio.onpause=()=>{if(navPlaying||pending)return;$('playIcon').innerHTML=PLAY;$('playBtn').setAttribute('aria-label','Play');};
+audio.onloadedmetadata=()=>{if(navPlaying||pending)return;$('tDur').textContent=fmt(audio.duration);};
+audio.ontimeupdate=()=>{if(navPlaying||pending)return;$('tCur').textContent=fmt(audio.currentTime);if(audio.duration)$('seek').value=audio.currentTime/audio.duration*100;};
 audio.onended=()=>{
-  if(navPlaying){navPlaying=false;$('playIcon').innerHTML=PLAY;if(queue.length)playTrack(queue.shift());return;}
-  if(queue.length){playTrack(queue.shift());return;}
+  if(navPlaying){navPlaying=false;if(!pending){$('playIcon').innerHTML=PLAY;if(queue.length)arrive(queue.shift());}return;}
+  if(queue.length){arrive(queue.shift());return;}
   const si=STOPS.indexOf(current); if(si>=0&&si<STOPS.length-1)startLeg(si);
   if(allHeard()&&current!==OUTRO){playTrack(OUTRO);return;}
   $('kicker').textContent='Ride on to the next stop';
 };
-$('playBtn').onclick=()=>{if(!audio.src){playTrack(INTRO);return;}if(navPlaying||(resume&&audio.paused)){const r=resume;if(r)playTrack(r.track,true,r.time);else{audio.pause();navPlaying=false;}return;}audio.paused?audio.play():audio.pause();};
+$('playBtn').onclick=()=>{if(pending){playTrack(pending,true);return;}if(!audio.src){playTrack(INTRO);return;}if(navPlaying||(resume&&audio.paused)){const r=resume;if(r)playTrack(r.track,true,r.time);else{audio.pause();navPlaying=false;}return;}audio.paused?audio.play():audio.pause();};
 $('seek').oninput=e=>{if(audio.duration)audio.currentTime=e.target.value/100*audio.duration;};
 $('back15').onclick=()=>{audio.currentTime=Math.max(0,audio.currentTime-15);};
 
@@ -333,18 +349,18 @@ function renderNav(){
 /* ---------- position handling ---------- */
 function onPosition(lat,lng,acc,sim){
   me=[lat,lng]; meAcc=acc;
-  const [x,y]=proj(me); dot.setAttribute('cx',x);dot.setAttribute('cy',y);halo.setAttribute('cx',x);halo.setAttribute('cy',y);
+  if(map){meDot.setLatLng(me).addTo(map);meHalo.setLatLng(me).setRadius(acc||0).addTo(map);}
   $('gps').textContent=sim?'Test ride':`GPS ±${Math.round(acc)} m`;
   const radius=Math.max(RADIUS,Math.min(acc||0,80));
   STOPS.forEach((s,i)=>{
-    if(!active(i)||played.has(s.id)||queue.includes(s)||current===s)return;
+    if(!active(i)||played.has(s.id)||queue.includes(s)||current===s||pending===s)return;
     if(dist(me,[s.lat,s.lng])<=radius){
-      if(storyBusy())queue.push(s);else playTrack(s);
+      if(storyBusy())queue.push(s);else arrive(s);
     }
   });
   checkNav(sim,acc);
   if(!sim)$('gps').textContent=offRoute?'Off route':`GPS ±${Math.round(acc)} m`;
-  setView(); render(); renderNav();
+  follow(); render(); renderNav();
 }
 let watchId=null;
 function startGPS(){
@@ -366,17 +382,17 @@ function simPoint(d){let i=cum.findIndex(c=>c>=d);if(i<=0)return ROUTE[0];if(i<0
 function simTick(ts){
   if(!simOn)return;
   const dt=lastTick?(ts-lastTick)/1000:0; lastTick=ts;
-  const talking=storyBusy()||queue.length>0;
+  const talking=storyBusy()||queue.length>0||!!pending;
   if(!talking){ // 4.2 m/s ≈ 15 km/h, stepped in 8 m increments so no stop is skipped
     let left=Math.min(4.2*simSpeed*Math.min(dt,0.5),cum[cum.length-1]-simPos);
-    while(left>0){const step=Math.min(8,left);simPos+=step;left-=step;const p=simPoint(simPos);onPosition(p[0],p[1],8,true);if(storyBusy()||queue.length)break;}
+    while(left>0){const step=Math.min(8,left);simPos+=step;left-=step;const p=simPoint(simPos);onPosition(p[0],p[1],8,true);if(storyBusy()||queue.length||pending)break;}
   } else {const p=simPoint(simPos);onPosition(p[0],p[1],8,true);}
   if(simPos>=cum[cum.length-1]){toggleSim(false);return;}
   simT=requestAnimationFrame(simTick);
 }
 function toggleSim(on){
   simOn=on; $('simToggle').setAttribute('aria-pressed',on);$('simToggle').textContent=on?'Stop test ride':'Start test ride';
-  if(on){if(simPos>=cum[cum.length-1])simPos=simStart();lastTick=0;zoomMe=true;$('zoomMe').click();simT=requestAnimationFrame(simTick);}
+  if(on){if(simPos>=cum[cum.length-1])simPos=simStart();lastTick=0;setMode(true);simT=requestAnimationFrame(simTick);}
   else cancelAnimationFrame(simT);
 }
 $('simToggle').onclick=()=>toggleSim(!simOn);
@@ -386,12 +402,12 @@ $('simSpeed').onclick=()=>{simSpeed=SPEEDS[(SPEEDS.indexOf(simSpeed)+1)%SPEEDS.l
 function begin(test){
   $('start').hidden=true; keepAwake();
   playTrack(INTRO);                    // user gesture unlocks audio for later automatic stops
-  if(test){played=new Set();current=INTRO;leg=-1;navIdx=0;store.set('bd_played',[]);simPos=simStart();render();toggleSim(true);}
+  if(test){played=new Set();pending=null;queue=[];current=INTRO;leg=-1;navIdx=0;store.set('bd_played',[]);simPos=simStart();render();toggleSim(true);}
   else startGPS();
 }
 $('startBtn').onclick=()=>begin(false);
 $('testBtn').onclick=()=>begin(true);
-$('reset').onclick=()=>{if(confirm('Reset tour progress?')){played=new Set();queue=[];current=null;resume=null;leg=-1;navIdx=0;store.set('bd_played',[]);simPos=simStart();audio.pause();render();renderNav();}};
+$('reset').onclick=()=>{if(confirm('Reset tour progress?')){played=new Set();queue=[];pending=null;current=null;resume=null;leg=-1;navIdx=0;store.set('bd_played',[]);simPos=simStart();audio.pause();render();renderNav();}};
 /* ---------- starting point ---------- */
 const TOTAL_KM=15.4, TOTAL_MIN=120;
 function renderStart(){
@@ -408,14 +424,14 @@ STOPS.forEach((s,i)=>{const o=document.createElement('option');o.value=i;o.textC
 sel.value=startAt;
 sel.onchange=()=>{
   startAt=+sel.value; store.set('bd_start',startAt);
-  queue=queue.filter(s=>active(STOPS.indexOf(s)));
+  queue=queue.filter(s=>active(STOPS.indexOf(s))); if(pending&&!active(STOPS.indexOf(pending)))pending=null;
   leg=-1; navIdx=0; if(!simOn)simPos=simStart();
   renderStart(); render(); renderNav();
 };
 $('changeStart').onclick=()=>{if(simOn)toggleSim(false);sel.value=startAt;renderStart();$('start').hidden=false;$('start').scrollTop=0;};
 simPos=simStart();
 renderStart();
-setView(); render();
+initMap(); render();
 window.addEventListener('resize',setView);
 </script>
 </body>
