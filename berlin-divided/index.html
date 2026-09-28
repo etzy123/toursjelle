@@ -118,6 +118,39 @@ ol.stops li.played .t{color:var(--muted);text-decoration:line-through;text-decor
 ol.stops li.skipped .t,ol.stops li.skipped .n{color:var(--muted)}
 ol.stops li.skipped .s::after{content:" · skipped"}
 [hidden]{display:none!important}
+
+/* navigation mode */
+body.navmode{overflow:hidden}
+.navgo{display:block;width:100%;margin:4px 0 10px;padding:13px;border:0;border-radius:4px;background:var(--ink);color:var(--surface);font-family:var(--display);font-weight:700;font-size:20px;cursor:pointer}
+.navui{position:fixed;inset:0;z-index:20;display:flex;flex-direction:column;background:var(--bg);padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}
+.navbanner{display:flex;gap:14px;align-items:center;background:var(--ink);color:var(--surface);padding:12px 16px;min-height:88px}
+.navbanner.off{background:var(--signal);color:#fff}
+.navarrow{width:50px;height:50px;flex:none}
+.navarrow svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.navtxt{min-width:0}
+.navdist{font-family:var(--display);font-weight:700;font-size:34px;line-height:1}
+.navinstr{font-family:var(--display);font-weight:600;font-size:20px;line-height:1.2;margin-top:3px}
+.navthen{font-family:var(--display);font-size:15px;opacity:.75;margin-top:4px}
+.navmapslot{flex:1;position:relative;min-height:0}
+.navmapslot .map{height:100%;border:0;border-radius:0}
+.navmapslot #mapCanvas{height:100%}
+.navmapslot .maptools{display:none}
+.recenter{position:absolute;left:12px;bottom:14px;z-index:600;padding:10px 16px;border:0;border-radius:22px;background:var(--ink);color:var(--surface);font-family:var(--display);font-weight:700;font-size:17px;box-shadow:0 2px 6px rgba(0,0,0,.3);cursor:pointer}
+.navsheet{background:var(--surface);border-top:1px solid var(--line);padding:10px 16px 12px}
+.navstop{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.navstop b{display:block;font-family:var(--display);font-weight:700;font-size:20px;line-height:1.15}
+.navstop span{font-family:var(--display);font-size:16px;color:var(--muted)}
+.navbtns{display:flex;gap:6px;flex:none}
+.navsheet .player{margin:8px 0 0;padding:8px 0 0;border-top:1px solid var(--line)}
+.navsheet .player .kicker{font-size:14px}
+.navsheet .player h2{font-size:21px;margin:0 0 6px}
+.navsheet .player details{display:none}
+.navsheet .play{width:48px;height:48px}
+.mepin{width:30px;height:30px;display:grid;place-items:center}
+.mepin i{display:block;width:18px;height:18px;border-radius:50%;background:#A8322A;border:3px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.4)}
+.mepin svg{display:none;width:30px;height:30px;filter:drop-shadow(0 1px 2px rgba(0,0,0,.45))}
+.mepin.dir i{display:none}
+.mepin.dir svg{display:block}
 @media (prefers-reduced-motion:reduce){.play.nudge{animation:none}}
 </style>
 </head>
@@ -176,6 +209,7 @@ ol.stops li.skipped .s::after{content:" · skipped"}
     <div class="dist" id="nextDist">…</div>
     <div class="name" id="nextName">Next stop</div>
     <p class="turn" id="navText" hidden><b></b><span></span></p>
+    <button class="navgo" id="navGo">Start navigation</button>
     <a id="nextLink" href="#" target="_blank" rel="noopener">Open in Google Maps instead</a>
   </section>
 
@@ -191,6 +225,30 @@ ol.stops li.skipped .s::after{content:" · skipped"}
   </section>
 
   <p class="foot">Narration voice is synthetic. Route distances are from OpenStreetMap bike routing. <button id="changeStart">Change starting point</button> · <button id="reset">Reset tour progress</button></p>
+</div>
+
+<div class="navui" id="navui" hidden>
+  <div class="navbanner" id="navBanner" aria-live="polite">
+    <div class="navarrow" id="navArrow" aria-hidden="true"></div>
+    <div class="navtxt">
+      <div class="navdist" id="navDist">…</div>
+      <div class="navinstr" id="navInstr">Finding you…</div>
+      <div class="navthen" id="navThen"></div>
+    </div>
+  </div>
+  <div class="navmapslot" id="navMapSlot">
+    <button class="recenter" id="recenter" hidden>Re-center</button>
+  </div>
+  <div class="navsheet">
+    <div class="navstop">
+      <div><b id="navStop">Next stop</b><span id="navEta"></span></div>
+      <div class="navbtns">
+        <button class="chip" id="navSim" hidden>20×</button>
+        <button class="chip" id="navExit">Overview</button>
+      </div>
+    </div>
+    <div id="navPlayerSlot"></div>
+  </div>
 </div>
 
 <audio id="audio" preload="auto" playsinline></audio>
@@ -232,7 +290,7 @@ const audio=$('audio');
 
 /* ---------- map ---------- */
 const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
-let map=null, stopMarkers=[], meDot=null, meHalo=null;
+let map=null, stopMarkers=[], meDot=null, meHalo=null, ridden=null, guide=null;
 function stopIcon(i){return L.divIcon({className:'stopicon',html:String(i+1),iconSize:[26,26],iconAnchor:[13,13]});}
 function initMap(){
   if(!window.L){$('mapCanvas').innerHTML='<p class="mapoff">The map needs an internet connection. Stories and directions still work.</p>';return;}
@@ -244,14 +302,24 @@ function initMap(){
   stopMarkers=STOPS.map((s,i)=>L.marker([s.lat,s.lng],{icon:stopIcon(i),title:`${i+1}. ${s.title}`,keyboard:false})
     .bindTooltip(`${i+1}. ${s.title}`,{direction:'top',offset:[0,-14]}).addTo(map));
   meHalo=L.circle([0,0],{radius:0,stroke:false,fillColor:'#A8322A',fillOpacity:.18,interactive:false});
-  meDot=L.circleMarker([0,0],{radius:8,color:'#fff',weight:3,fillColor:'#A8322A',fillOpacity:1,interactive:false});
+  meDot=L.marker([0,0],{interactive:false,keyboard:false,zIndexOffset:1000,icon:L.divIcon({className:'',iconSize:[30,30],iconAnchor:[15,15],
+    html:'<div class="mepin"><i></i><svg viewBox="0 0 30 30"><path d="M15 3l9 23-9-5-9 5z" fill="#A8322A" stroke="#fff" stroke-width="2.5" stroke-linejoin="round"/></svg></div>'})});
+  ridden=L.polyline([],{color:'#8C8A84',weight:5,opacity:.95,lineJoin:'round',interactive:false}).addTo(map);
+  guide=L.polyline([],{color:'#1C2332',weight:3,dashArray:'1 9',lineCap:'round',interactive:false});
   map.on('dragstart',()=>{if(zoomMe)setMode(false,false);}); // panning by hand stops following you
+  // the map's height changes with the turn banner's text, so re-measure whenever it resizes
+  if('ResizeObserver' in window)new ResizeObserver(()=>{map.invalidateSize({pan:false});follow();}).observe($('mapCanvas'));
   fitRoute();
 }
 function fitRoute(){if(map)map.fitBounds(L.latLngBounds(ROUTE),{padding:[24,24]});}
-function follow(){if(map&&zoomMe&&me)map.setView(me,Math.max(map.getZoom(),16),{animate:!simOn});}
+function follow(){
+  if(!map||!zoomMe||!me)return;
+  if(navOn){const z=17,c=map.project(me,z).subtract([0,map.getSize().y*0.2]);map.setView(map.unproject(c,z),z,{animate:!simOn});} // you sit in the lower part of the screen
+  else map.setView(me,Math.max(map.getZoom(),16),{animate:!simOn});
+}
 function setMode(aroundMe,move=true){
   zoomMe=aroundMe;$('zoomMe').setAttribute('aria-pressed',aroundMe);$('zoomRoute').setAttribute('aria-pressed',!aroundMe);
+  $('recenter').hidden=!(navOn&&!aroundMe);
   if(!move)return; if(aroundMe)follow(); else fitRoute();
 }
 function setView(){if(map)map.invalidateSize();}
@@ -329,14 +397,12 @@ function say(clip){
   const p=audio.play(); if(p&&p.catch)p.catch(()=>{});
 }
 function startLeg(i){leg=i;navIdx=0;const st=NAV[i]||[];if(st[0]){say(st[0].clip);navIdx=1;}renderNav();}
-function segDist(p,a,b){const [px,py]=proj(p),[ax,ay]=proj(a),[bx,by]=proj(b);const dx=bx-ax,dy=by-ay,l=dx*dx+dy*dy;let u=l?((px-ax)*dx+(py-ay)*dy)/l:0;u=Math.max(0,Math.min(1,u));return Math.hypot(px-ax-u*dx,py-ay-u*dy);}
-function distToRoute(p){let m=Infinity;for(let i=1;i<ROUTE.length;i++){const d=segDist(p,ROUTE[i-1],ROUTE[i]);if(d<m)m=d;}return m;}
 function checkNav(sim,acc){
+  if(!sim&&played.size>0){const off=snapNow.d>Math.max(60,acc||0);offCount=off?offCount+1:0;offRoute=offCount>=3;}
   if(storyBusy())return;
   const st=NAV[leg];
   if(st){for(let j=navIdx;j<Math.min(st.length,navIdx+3);j++){if(dist(me,[st[j].lat,st[j].lng])<=TURN_RADIUS){say(st[j].clip);navIdx=j+1;break;}}}
-  if(!sim&&played.size>0){const off=distToRoute(me)>Math.max(60,acc||0);offCount=off?offCount+1:0;offRoute=offCount>=3;
-    if(offRoute&&Date.now()-lastOff>60000){say(OFFROUTE);lastOff=Date.now();}}
+  if(offRoute&&Date.now()-lastOff>60000){say(OFFROUTE);lastOff=Date.now();}
 }
 function renderNav(){
   const st=NAV[leg]; const box=$('navText');
@@ -347,9 +413,13 @@ function renderNav(){
 }
 
 /* ---------- position handling ---------- */
-function onPosition(lat,lng,acc,sim){
-  me=[lat,lng]; meAcc=acc;
-  if(map){meDot.setLatLng(me).addTo(map);meHalo.setLatLng(me).setRadius(acc||0).addTo(map);}
+function onPosition(lat,lng,acc,sim,hdg){
+  const prev=me; me=[lat,lng]; meAcc=acc;
+  if(hdg!=null&&isFinite(hdg))heading=hdg; else if(prev&&dist(prev,me)>=4)heading=bearing(prev,me);
+  snapNow=snap(me,ridePos);
+  if(snapNow.d<=Math.max(40,acc||0))ridePos=snapNow.pos;
+  if(map){meDot.setLatLng(me).addTo(map);meHalo.setLatLng(me).setRadius(acc||0).addTo(map);
+    const e=meDot.getElement()&&meDot.getElement().firstChild;if(e){e.classList.toggle('dir',heading!=null);if(heading!=null)e.querySelector('svg').style.transform=`rotate(${heading}deg)`;}}
   $('gps').textContent=sim?'Test ride':`GPS ±${Math.round(acc)} m`;
   const radius=Math.max(RADIUS,Math.min(acc||0,80));
   STOPS.forEach((s,i)=>{
@@ -360,20 +430,112 @@ function onPosition(lat,lng,acc,sim){
   });
   checkNav(sim,acc);
   if(!sim)$('gps').textContent=offRoute?'Off route':`GPS ±${Math.round(acc)} m`;
-  follow(); render(); renderNav();
+  follow(); render(); renderNav(); updateNav();
 }
 let watchId=null;
 function startGPS(){
   if(!('geolocation' in navigator)){$('gps').textContent='No GPS on this device';return;}
   if(watchId!==null)return;
   $('gps').textContent='Finding you…';
-  watchId=navigator.geolocation.watchPosition(p=>{if(!simOn)onPosition(p.coords.latitude,p.coords.longitude,p.coords.accuracy,false)},
+  watchId=navigator.geolocation.watchPosition(p=>{if(!simOn)onPosition(p.coords.latitude,p.coords.longitude,p.coords.accuracy,false,(p.coords.speed||0)>1?p.coords.heading:null)},
     e=>{$('gps').textContent=e.code===1?'Location blocked. Allow it in browser settings':'Location unavailable';},
     {enableHighAccuracy:true,maximumAge:3000,timeout:20000});
 }
 let wake=null;
 async function keepAwake(){try{if('wakeLock' in navigator)wake=await navigator.wakeLock.request('screen');}catch(e){}}
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')keepAwake();});
+
+/* ---------- navigation ---------- */
+let navOn=false, ridePos=null, heading=null, snapNow={d:Infinity,pos:0};
+const PR=ROUTE.map(proj);
+function bearing(a,b){const y=Math.sin(rad(b[1]-a[1]))*Math.cos(rad(b[0])),x=Math.cos(rad(a[0]))*Math.sin(rad(b[0]))-Math.sin(rad(a[0]))*Math.cos(rad(b[0]))*Math.cos(rad(b[1]-a[1]));return (Math.atan2(y,x)*180/Math.PI+360)%360;}
+// nearest point on the route (and how far along it that is), preferring the stretch you are already riding
+function snap(p,near){
+  const [px,py]=proj(p);let best={d:Infinity},win={d:Infinity};
+  for(let i=1;i<PR.length;i++){
+    const [ax,ay]=PR[i-1],[bx,by]=PR[i],dx=bx-ax,dy=by-ay,l=dx*dx+dy*dy;
+    const u=Math.max(0,Math.min(1,l?((px-ax)*dx+(py-ay)*dy)/l:0)),d=Math.hypot(px-ax-u*dx,py-ay-u*dy),pos=cum[i-1]+u*(cum[i]-cum[i-1]);
+    if(d<best.d)best={d,pos,i,u};
+    if(near!=null&&pos>=near-150&&pos<=near+400&&d<win.d)win={d,pos,i,u};
+  }
+  const r=win.d<40?win:best,a=ROUTE[r.i-1],b=ROUTE[r.i];
+  r.pt=[a[0]+(b[0]-a[0])*r.u,a[1]+(b[1]-a[1])*r.u];return r;
+}
+// how far along the route each spoken turn is
+const STEP_POS=NAV.map((st,l)=>st.map(s=>{const lo=stopCum[l]-60,hi=(stopCum[l+1]??cum[cum.length-1])+60;let b=-1,m=Infinity;
+  ROUTE.forEach((p,i)=>{if(cum[i]<lo||cum[i]>hi)return;const d=dist(p,[s.lat,s.lng]);if(d<m){m=d;b=i;}});return b<0?stopCum[l]:cum[b];}));
+const ICONS={
+  straight:'<path d="M12 21V5M6 11l6-6 6 6"/>',
+  left:'<path d="M17 21v-7a5 5 0 0 0-5-5H5M9 5 5 9l4 4"/>',
+  right:'<path d="M7 21v-7a5 5 0 0 1 5-5h7M15 5l4 4-4 4"/>',
+  sleft:'<path d="M16 21v-6a3 3 0 0 0-.9-2.1L8 6M8 12V6h6"/>',
+  sright:'<path d="M8 21v-6a3 3 0 0 1 .9-2.1L16 6M10 6h6v6"/>',
+  arrive:'<path d="M12 21s-6.5-5.6-6.5-10.5a6.5 6.5 0 0 1 13 0C18.5 15.4 12 21 12 21z"/><circle cx="12" cy="10.5" r="2.2"/>',
+  back:'<path d="M9 14 4 9l5-5M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/>',
+  wait:'<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2.5"/>'
+};
+const clean=t=>t.replace('Directions to the next stop. ','');
+function turnKind(t){const m=/(turn|bear|keep) (left|right)|straight|head/i.exec(t);if(!m||!m[2])return 'straight';return (/turn/i.test(m[1])?'':'s')+m[2].toLowerCase();}
+const firstClause=t=>clean(t).split(/, (?:then |and )/)[0].replace(/\.$/,'');
+function navTarget(){ // the next unheard stop ahead of you on the route
+  if(ridePos!=null)for(let i=startAt;i<STOPS.length;i++)if(!played.has(STOPS[i].id)&&stopCum[i]>=ridePos-RADIUS)return i;
+  return nextIndex();
+}
+function banner(icon,d,instr,then,off){
+  $('navArrow').innerHTML=`<svg viewBox="0 0 24 24">${ICONS[icon]}</svg>`;$('navDist').textContent=d;$('navInstr').textContent=instr;
+  $('navThen').textContent=then||'';$('navThen').hidden=!then;$('navBanner').classList.toggle('off',!!off);
+}
+function updateNav(){
+  if(map&&ridden)ridden.setLatLngs(ridePos==null?[]:ROUTE.filter((p,i)=>cum[i]<=ridePos).concat(snapNow.d<=40?[snapNow.pt]:[]));
+  if(!navOn)return;
+  let guideTo=null;
+  const ti=navTarget();
+  if(!me){banner('wait','…','Finding you…','Allow location access to navigate');}
+  else if(ti<0){banner('arrive','Done','Tour complete','All stops heard');}
+  else if(pending){banner('arrive','Arrived',pending.title,'Tap play to hear the story');}
+  else{
+    const s=STOPS[ti],l=ti-1,onRoute=snapNow.d<=Math.max(40,meAcc||0);
+    if(offRoute||(!onRoute&&ridePos!=null&&played.size)){
+      const r=snap(me,ridePos);guideTo=r.pt;banner('back',fmtDist(r.d),'Head back to the route',`Then continue to ${ti+1}. ${s.title}`,true);
+    }else if(!onRoute||ridePos==null||stopCum[ti]<ridePos){
+      guideTo=[s.lat,s.lng];banner('straight',fmtDist(dist(me,guideTo)),`Head to ${ti+1}. ${s.title}`,'Follow the dotted line to your first stop');
+    }else{
+      const st=NAV[l],pos=STEP_POS[l]||[];let j=-1;
+      if(l>=startAt&&st&&ridePos>=stopCum[l]-60)j=pos.findIndex(x=>x>ridePos+5);
+      if(j>=0){
+        const then=j+1<st.length?`Then ${firstClause(st[j+1].text).replace(/^./,c=>c.toLowerCase())}`:`Then arrive at ${ti+1}. ${s.title}`;
+        banner(turnKind(clean(st[j].text)),fmtDist(Math.max(0,pos[j]-ridePos)),clean(st[j].text),then);
+      }else banner('arrive',fmtDist(Math.max(0,stopCum[ti]-ridePos)),`Arrive at ${ti+1}. ${s.title}`,'');
+    }
+  }
+  if(map){if(guideTo){guide.setLatLngs([me,guideTo]);guide.addTo(map);}else guide.remove();}
+  // next stop, distance and arrival time
+  if(ti<0){$('navStop').textContent='Tour complete';$('navEta').textContent='';return;}
+  const s=STOPS[ti];$('navStop').textContent=`${ti+1}. ${s.title}`;
+  if(!me){$('navEta').textContent='';return;}
+  const m=(snapNow.d<=40&&ridePos!=null&&stopCum[ti]>=ridePos)?stopCum[ti]-ridePos:dist(me,[s.lat,s.lng])*1.3;
+  const min=Math.max(1,Math.round(m/4.2/60)),at=new Date(Date.now()+min*60000);
+  $('navEta').textContent=`${fmtDist(m)} · ${min} min · arrive ${at.getHours()}:${String(at.getMinutes()).padStart(2,'0')}`;
+}
+const mapWrap=document.querySelector('.map'), playerSec=document.querySelector('.player');
+const mapHome=document.createComment('map'), playerHome=document.createComment('player');
+mapWrap.before(mapHome); playerSec.before(playerHome);
+function enterNav(){
+  if(navOn)return; navOn=true;
+  $('navMapSlot').prepend(mapWrap); $('navPlayerSlot').appendChild(playerSec);
+  $('navui').hidden=false; document.body.classList.add('navmode'); $('navSim').hidden=!simOn;
+  requestAnimationFrame(()=>{if(map)map.invalidateSize();setMode(true);updateNav();});
+}
+function exitNav(){
+  if(!navOn)return; navOn=false;
+  mapHome.after(mapWrap); playerHome.after(playerSec);
+  $('navui').hidden=true; document.body.classList.remove('navmode'); if(guide)guide.remove();
+  requestAnimationFrame(()=>{if(map)map.invalidateSize();setMode(false);});
+}
+$('navGo').onclick=()=>{if(!simOn)startGPS();keepAwake();enterNav();};
+$('navExit').onclick=exitNav;
+$('recenter').onclick=()=>setMode(true);
+$('navSim').onclick=()=>{$('simSpeed').click();$('navSim').textContent=`${simSpeed}×`;};
 
 /* ---------- simulation ---------- */
 let simOn=false, simPos=0, simSpeed=20, simT=null, lastTick=0;
@@ -392,6 +554,7 @@ function simTick(ts){
 }
 function toggleSim(on){
   simOn=on; $('simToggle').setAttribute('aria-pressed',on);$('simToggle').textContent=on?'Stop test ride':'Start test ride';
+  $('navSim').hidden=!(on&&navOn);$('navSim').textContent=`${simSpeed}×`;
   if(on){if(simPos>=cum[cum.length-1])simPos=simStart();lastTick=0;setMode(true);simT=requestAnimationFrame(simTick);}
   else cancelAnimationFrame(simT);
 }
@@ -402,12 +565,13 @@ $('simSpeed').onclick=()=>{simSpeed=SPEEDS[(SPEEDS.indexOf(simSpeed)+1)%SPEEDS.l
 function begin(test){
   $('start').hidden=true; keepAwake();
   playTrack(INTRO);                    // user gesture unlocks audio for later automatic stops
+  ridePos=null;heading=null;enterNav();
   if(test){played=new Set();pending=null;queue=[];current=INTRO;leg=-1;navIdx=0;store.set('bd_played',[]);simPos=simStart();render();toggleSim(true);}
   else startGPS();
 }
 $('startBtn').onclick=()=>begin(false);
 $('testBtn').onclick=()=>begin(true);
-$('reset').onclick=()=>{if(confirm('Reset tour progress?')){played=new Set();queue=[];pending=null;current=null;resume=null;leg=-1;navIdx=0;store.set('bd_played',[]);simPos=simStart();audio.pause();render();renderNav();}};
+$('reset').onclick=()=>{if(confirm('Reset tour progress?')){played=new Set();queue=[];pending=null;current=null;resume=null;ridePos=null;leg=-1;navIdx=0;store.set('bd_played',[]);simPos=simStart();audio.pause();render();renderNav();}};
 /* ---------- starting point ---------- */
 const TOTAL_KM=15.4, TOTAL_MIN=120;
 function renderStart(){
@@ -428,7 +592,7 @@ sel.onchange=()=>{
   leg=-1; navIdx=0; if(!simOn)simPos=simStart();
   renderStart(); render(); renderNav();
 };
-$('changeStart').onclick=()=>{if(simOn)toggleSim(false);sel.value=startAt;renderStart();$('start').hidden=false;$('start').scrollTop=0;};
+$('changeStart').onclick=()=>{if(simOn)toggleSim(false);exitNav();sel.value=startAt;renderStart();$('start').hidden=false;$('start').scrollTop=0;};
 simPos=simStart();
 renderStart();
 initMap(); render();
