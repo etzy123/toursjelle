@@ -1,7 +1,7 @@
 // End-to-end ride tests for Berlin divided.
 // Fakes the phone's GPS along the real route in Chromium and checks what the app says and plays.
 //
-//   cd tests && npm install && npm test
+//   (cd berlin-divided && npm install) && cd tests && npm install && npm test
 //
 // Set CHROMIUM_PATH to use a specific browser binary. Map tiles and web fonts are blocked so the
 // tests run offline and do not load the OpenStreetMap tile servers.
@@ -225,6 +225,64 @@ test('then and now: the stop photo shows with its credit and licence, and opens 
   assert.equal(await page.getAttribute('#lightCredit a[href*="commons.wikimedia"]', 'href'), photo.source);
   await page.keyboard.press('Escape');
   assert.equal(await page.isHidden('#lightbox'), true);
+  assert.deepEqual(errors, []);
+  await ctx.close();
+});
+
+test('group ride: followers hear the leader\'s story in step and see each other on the map', { timeout: 90000 }, async () => {
+  const lead = await openTour({ mode: 'auto', at: [52.5203, 13.3738] }); // 250 m from the first stop
+  await lead.page.fill('#groupName', 'Anna');
+  await lead.page.click('#groupCreate');
+  await lead.page.waitForFunction(() => __tour.group && __tour.group.online && __tour.group.code);
+  const code = await lead.page.textContent('#groupCodeShow');
+  assert.match(code, /^[A-HJKMNP-Z]{4}$/);
+
+  // the follower stands somewhere else: stories follow the leader, not the follower's own position
+  const fol = await openTour({ mode: 'auto', at: pointAt(3000) });
+  await fol.page.fill('#groupName', 'Ben');
+  await fol.page.fill('#groupCode', code.toLowerCase());
+  await fol.page.click('#groupJoin');
+  await fol.page.waitForFunction(() => __tour.group && __tour.group.online && __tour.group.members === 2);
+  assert.match(await fol.page.textContent('#groupWho'), /Following Anna/);
+  await lead.page.waitForFunction(() => __tour.group.members === 2);
+  assert.match(await lead.page.textContent('#groupWho'), /You lead · 1 rider with you/);
+
+  await lead.page.click('#startBtn'); await fol.page.click('#startBtn');
+  await finishAudio(lead.page);
+  await lead.ctx.setGeolocation(geo(pointAt(5)));
+  await lead.page.waitForFunction(() => __tour.current === 'reichstag' && !document.getElementById('audio').paused);
+  await fol.page.waitForFunction(() => __tour.current === 'reichstag' && !document.getElementById('audio').paused, null, { timeout: 8000 });
+  // jump the leader ahead: the follower catches up
+  await lead.page.evaluate(() => { document.getElementById('audio').currentTime = 40; });
+  await fol.page.waitForFunction(() => Math.abs(document.getElementById('audio').currentTime - 40) < 3, null, { timeout: 8000 });
+  const [a, b] = await Promise.all([lead.page, fol.page].map(p => p.evaluate(() => document.getElementById('audio').currentTime)));
+  assert.ok(Math.abs(a - b) < 2.5, `in step: leader ${a.toFixed(1)} s, follower ${b.toFixed(1)} s`);
+  // pause and resume together
+  await lead.page.click('#playBtn');
+  await fol.page.waitForFunction(() => document.getElementById('audio').paused, null, { timeout: 8000 });
+  await lead.page.click('#playBtn');
+  await fol.page.waitForFunction(() => !document.getElementById('audio').paused, null, { timeout: 8000 });
+
+  // positions: each sees the other on the map, with a name
+  await fol.ctx.setGeolocation(geo(pointAt(3010)));
+  await lead.page.waitForFunction(() => [...document.querySelectorAll('.membername')].some(e => e.textContent === 'Ben'), null, { timeout: 10000 });
+  await lead.ctx.setGeolocation(geo(pointAt(8)));
+  await fol.page.waitForFunction(() => [...document.querySelectorAll('.membername')].some(e => e.textContent === 'Anna (leads)'), null, { timeout: 10000 });
+  assert.ok(!(await log(fol.page)).some(x => x.kind === 'story' && x.id === 'potsdamer'), 'follower\'s own position does not start stories');
+
+  // the leader reloads the page and is still the leader
+  await lead.page.reload(); await lead.page.waitForFunction(() => __tour.group && __tour.group.online);
+  assert.equal(await lead.page.evaluate(() => __tour.group.leader), true);
+  assert.deepEqual([...lead.errors, ...fol.errors], []);
+  await lead.ctx.close(); await fol.ctx.close();
+});
+
+test('group ride: a wrong code says so', async () => {
+  const { ctx, page, errors } = await openTour();
+  await page.fill('#groupCode', 'QQQQ'); await page.click('#groupJoin');
+  await page.waitForFunction(() => !document.getElementById('groupErr').hidden);
+  assert.match(await page.textContent('#groupErr'), /No group with that code/);
+  assert.equal(await page.evaluate(() => __tour.group), null);
   assert.deepEqual(errors, []);
   await ctx.close();
 });
