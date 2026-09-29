@@ -3,7 +3,11 @@
 Web app plus a small Node server (`server.js`) that serves it and runs group rides over a
 WebSocket at `/group`. `index.html` holds the app; the tour itself lives in data files:
 
-- `data/berlin-divided.json`: route, stops, turn instructions and paths to audio
+- `data/berlin-divided.json`: route, stops, turn instructions and paths to audio (English)
+- `data/berlin-divided.nl.json`, `data/berlin-divided.de.json`: Dutch and German texts with the same
+  shape, minus the geometry; their audio goes to `audio/nl/` and `audio/de/`
+  (`python scripts/build_audio.py --lang nl`). Until it is built, the phone's own voice reads them.
+- `strings.js`: interface text in English, Dutch and German
 - `audio/stories/*.mp3`: intro, outro and one story per stop (loaded on demand)
 - `audio/nav/*.mp3`: spoken turn instructions (file name = first 10 hex of md5 of the text)
 - `audio/more/*.mp3`: optional "Tell me more" deep dives

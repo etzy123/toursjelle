@@ -6,6 +6,7 @@ Usage (from the repo root):
     python scripts/build_audio.py                  # add missing clips only
     python scripts/build_audio.py --all            # rebuild every clip, stories included
     python scripts/build_audio.py --texts-only     # only (re)derive prompt texts, no audio
+    python scripts/build_audio.py --lang nl        # Dutch: data/<tour>.nl.json, audio/nl/..., its own voice
 
 What it produces, next to the tour's index.html:
     audio/stories/<id>-<md5 of mp3, 8 hex>.mp3   intro, outro and one story per stop
@@ -17,9 +18,12 @@ Spoken directions:
     nav[leg][step].text / .clip          at-turn prompt (existing)
     nav[leg][step].pre.text / .clip      "In 150 metres, ..." pre-announcement (steps after the first)
     turnaround.text / .clip              "Turn around" prompt for off-route recovery
-    offroute                             clip id of the off-route warning (text unknown, never rebuilt)
+    offroute                             English: clip id of the off-route warning (text unknown, never
+                                         rebuilt); other languages: {text, clip} like any direction
 
-The voice is taken from the tour JSON ("voice"), default en-GB-RyanNeural.
+Other languages live in data/<tour>.<lang>.json with the same shape as the English file, minus the
+geometry (route, coordinates), and their audio goes to audio/<lang>/. The voice is taken from each
+JSON file ("voice"), default en-GB-RyanNeural.
 User-facing text must not contain em dashes; the script refuses to voice any that do.
 """
 import argparse
@@ -31,17 +35,19 @@ import re
 import sys
 
 PRE_DISTANCE = 150  # metres, must match PRE_AT in index.html
-TURNAROUND_TEXT = "Turn around when it is safe, then ride back to the route."
+TURNAROUND_TEXT = "Turn around when it is safe, then ride back to the route."  # English; other languages keep their own
+# how "in 150 metres" is put in front of a direction; directions in nl and de are written so this reads well
+PRE_PREFIX = {"en": f"In {PRE_DISTANCE} metres, ", "nl": f"Over {PRE_DISTANCE} meter ", "de": f"In {PRE_DISTANCE} Metern "}
 
 
 def clip_id(text):
     return hashlib.md5(text.encode("utf-8")).hexdigest()[:10]
 
 
-def pre_text(text):
-    """'Turn left onto X.' -> 'In 150 metres, turn left onto X.'"""
-    text = text.replace("Directions to the next stop. ", "")
-    return f"In {PRE_DISTANCE} metres, {text[0].lower()}{text[1:]}"
+def pre_text(text, lang="en", intro="Directions to the next stop. "):
+    """'Turn left onto X.' -> 'In 150 metres, turn left onto X.'; 'Linksaf.' -> 'Over 150 meter linksaf.'"""
+    text = text.replace(intro, "")
+    return f"{PRE_PREFIX[lang]}{text[0].lower()}{text[1:]}"
 
 
 def mp3_duration(path):
@@ -83,28 +89,34 @@ def main():
     ap.add_argument("--tour", default="berlin-divided", help="folder with index.html and data/<tour>.json")
     ap.add_argument("--all", action="store_true", help="rebuild every clip, not only missing ones")
     ap.add_argument("--texts-only", action="store_true", help="derive prompt texts without generating audio")
+    ap.add_argument("--lang", default="en", choices=sorted(PRE_PREFIX), help="which language file to voice")
     args = ap.parse_args()
 
-    root = args.tour
-    json_path = os.path.join(root, "data", os.path.basename(os.path.normpath(root)) + ".json")
+    root, lang = args.tour, args.lang
+    name = os.path.basename(os.path.normpath(root))
+    json_path = os.path.join(root, "data", name + (".json" if lang == "en" else f".{lang}.json"))
     tour = json.load(open(json_path, encoding="utf-8"))
     voice = tour.get("voice", "en-GB-RyanNeural")
+    audio_dir = "audio" if lang == "en" else f"audio/{lang}"
+    intro = tour.get("navIntro", "Directions to the next stop. ")
 
     # 1. derive texts for the prompts that are built from other texts
     for leg in tour["nav"]:
         for j, step in enumerate(leg):
             if j == 0:
                 continue  # the first step is spoken as the leg starts, no pre-announcement
-            text = pre_text(step["text"])
+            text = pre_text(step["text"], lang, intro)
             if step.get("pre", {}).get("text") != text:
                 step["pre"] = {"text": text}
-    if tour.get("turnaround", {}).get("text") != TURNAROUND_TEXT:
+    if lang == "en" and tour.get("turnaround", {}).get("text") != TURNAROUND_TEXT:
         tour["turnaround"] = {"text": TURNAROUND_TEXT}
 
     # 2. everything that is spoken
     nav_items = [s for leg in tour["nav"] for s in leg]
     nav_items += [s["pre"] for leg in tour["nav"] for s in leg if "pre" in s]
     nav_items.append(tour["turnaround"])
+    if isinstance(tour.get("offroute"), dict):
+        nav_items.append(tour["offroute"])
     # (item, folder, file id): stories and deep dives both get content-hashed file names
     stories = [(t, "stories", t["id"]) for t in (tour["intro"], tour["outro"], *tour["stops"])]
     stories += [(s["more"], "more", s["id"]) for s in tour["stops"] if s.get("more")]
@@ -117,7 +129,7 @@ def main():
     jobs = []
     for item in nav_items:
         cid = clip_id(item["text"])
-        rel = f"audio/nav/{cid}.mp3"
+        rel = f"{audio_dir}/nav/{cid}.mp3"
         have = os.path.exists(os.path.join(root, rel))
         if have and not args.all:
             item["clip"] = cid
@@ -132,9 +144,8 @@ def main():
     if args.texts_only:
         print(f"{len(jobs)} clips still need audio; run without --texts-only to generate them.")
     else:
-        os.makedirs(os.path.join(root, "audio", "nav"), exist_ok=True)
-        os.makedirs(os.path.join(root, "audio", "stories"), exist_ok=True)
-        os.makedirs(os.path.join(root, "audio", "more"), exist_ok=True)
+        for sub in ("nav", "stories", "more"):
+            os.makedirs(os.path.join(root, audio_dir, sub), exist_ok=True)
 
         async def run():
             for n, (kind, item, cid, rel) in enumerate(jobs, 1):
@@ -145,10 +156,10 @@ def main():
                     tour["clips"][cid] = rel
                 else:
                     fid, folder = cid, rel
-                    tmp = os.path.join(root, "audio", folder, f"{fid}.mp3")
+                    tmp = os.path.join(root, audio_dir, folder, f"{fid}.mp3")
                     await speak(item["text"], voice, tmp)
                     digest = hashlib.md5(open(tmp, "rb").read()).hexdigest()[:8]
-                    rel = f"audio/{folder}/{fid}-{digest}.mp3"
+                    rel = f"{audio_dir}/{folder}/{fid}-{digest}.mp3"
                     old = item.get("audio")
                     os.replace(tmp, os.path.join(root, rel))
                     if old and old != rel and os.path.exists(os.path.join(root, old)):
@@ -159,7 +170,8 @@ def main():
         asyncio.run(run())
 
         # drop nav clips nothing refers to any more
-        used = {tour["offroute"]} | {i["clip"] for i in nav_items if "clip" in i}
+        used = {tour["offroute"]} if isinstance(tour.get("offroute"), str) else set()
+        used |= {i["clip"] for i in nav_items if "clip" in i}
         for cid in list(tour["clips"]):
             if cid not in used:
                 path = os.path.join(root, tour["clips"].pop(cid))

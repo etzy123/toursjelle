@@ -34,6 +34,7 @@ function pointAt(d) {
   return [ROUTE[i - 1][0] + (ROUTE[i][0] - ROUTE[i - 1][0]) * f, ROUTE[i - 1][1] + (ROUTE[i][1] - ROUTE[i - 1][1]) * f];
 }
 const geo = ([latitude, longitude]) => ({ latitude, longitude, accuracy: 8 });
+function stopAt(i) { const s = TOUR.stops[i]; let best = 0, m = Infinity; ROUTE.forEach((p, k) => { const d = dist(p, [s.lat, s.lng]); if (d < m) { m = d; best = k; } }); return cum[best]; }
 
 // ---------- browser helpers ----------
 let server, browser;
@@ -46,9 +47,9 @@ before(async () => {
 });
 after(async () => { await browser?.close(); server?.close(); });
 
-async function openTour({ mode = 'tap', travel = 'bike', bonus = [], at = ROUTE[0], serviceWorkers = 'block' } = {}) {
+async function openTour({ mode = 'tap', travel = 'bike', bonus = [], at = ROUTE[0], serviceWorkers = 'block', locale = 'en-GB' } = {}) {
   const ctx = await browser.newContext({
-    viewport: { width: 390, height: 800 }, geolocation: geo(at), permissions: ['geolocation'], serviceWorkers,
+    viewport: { width: 390, height: 800 }, geolocation: geo(at), permissions: ['geolocation'], serviceWorkers, locale,
   });
   await ctx.route(/tile\.openstreetmap\.org|fonts\.googleapis\.com|fonts\.gstatic\.com/, r => r.abort());
   await ctx.addInitScript(([m, t, b]) => { if (!sessionStorage.seeded) { localStorage.clear(); localStorage.setItem('bd_storymode', JSON.stringify(m)); localStorage.setItem('bd_travel', JSON.stringify(t)); localStorage.setItem('bd_bonus', JSON.stringify(b)); sessionStorage.seeded = 1; } }, [mode, travel, bonus]);
@@ -283,6 +284,46 @@ test('group ride: a wrong code says so', async () => {
   await page.waitForFunction(() => !document.getElementById('groupErr').hidden);
   assert.match(await page.textContent('#groupErr'), /No group with that code/);
   assert.equal(await page.evaluate(() => __tour.group), null);
+  assert.deepEqual(errors, []);
+  await ctx.close();
+});
+
+test('languages: Dutch from the phone setting, spoken and shown in Dutch; switch to German', { timeout: 180000 }, async () => {
+  const NL = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/berlin-divided.nl.json'), 'utf8'));
+  const { ctx, page, errors } = await openTour({ mode: 'auto', locale: 'nl-NL', at: [52.5203, 13.3738] });
+  assert.equal(await page.evaluate(() => __tour.lang), 'nl');
+  assert.equal(await page.textContent('#startBtn'), 'Start de tour');
+  assert.equal(await page.textContent('#factHow'), 'op de fiets');
+  assert.match(await page.textContent('#ledeMain'), /van de Rijksdag en de luchtbrug naar de Bernauer Straße/);
+  assert.equal(await page.inputValue('#langSel'), 'nl');
+  await page.click('#startBtn');
+  const spoken = () => page.evaluate(() => window.__spoken.join(' | '));
+  await page.waitForFunction(() => window.__spoken.some(x => x.startsWith('Welkom in Berlijn')));
+  await page.waitForFunction(() => !__tour.tts);
+  // ride from 250 m away onto the route and along it to the third stop; untranslated audio is read by the phone
+  for (let i = 1; i <= 5; i++) { await ctx.setGeolocation(geo([52.5203 + (ROUTE[0][0] - 52.5203) * i / 5, 13.3738 + (ROUTE[0][1] - 13.3738) * i / 5])); await page.waitForTimeout(40); }
+  for (let d = 0; d <= stopAt(2) + 8; d += 8) {
+    await ctx.setGeolocation(geo(pointAt(d)));
+    await page.waitForTimeout(15);
+    if (d === 120) { assert.match(await page.textContent('#navEta'), /aankomst/); }
+    for (let k = 0; k < 400 && await page.evaluate(() => __tour.tts || __tour.pending); k++) await page.waitForTimeout(25);
+  }
+  const said = await spoken();
+  assert.ok(said.includes(NL.stops[0].text.split('. ')[0]), 'first story in Dutch');
+  assert.ok(said.includes(NL.stops[2].text.split('. ')[0]), 'third story in Dutch');
+  assert.ok(said.includes(NL.nav[0][0].text), 'leg start direction in Dutch');
+  assert.match(said, /Over 150 meter /, 'Dutch pre-announcement');
+  assert.doesNotMatch(said, /Directions to the next stop|Turn (left|right)/, 'nothing spoken in English');
+  assert.equal(await page.textContent('#nowTitle'), NL.stops[2].title);
+  assert.match(await page.textContent('#progress'), /^3 van 11 stops$/);
+  // switching language reloads in German
+  await page.click('#navExit'); await page.click('#changeStart');
+  await page.selectOption('#langSel', 'de');
+  await page.waitForFunction(() => window.__tour && __tour.lang === 'de');
+  await page.waitForFunction(() => !document.getElementById('startBtn').disabled);
+  assert.equal(await page.textContent('#startBtn'), 'Tour fortsetzen');
+  assert.match(await page.textContent('#ledeMain'), /Start: Der Reichstag und die Luftbrücke, Ziel: Bernauer Straße/);
+  assert.equal(await page.textContent('#factHow'), 'mit dem Rad');
   assert.deepEqual(errors, []);
   await ctx.close();
 });
