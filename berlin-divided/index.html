@@ -4,6 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Berlin Divided: Cold War bike tour</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#1C2332">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Berlin divided">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="vendor/leaflet/leaflet.css">
@@ -109,6 +115,12 @@ ol.stops li.played .t{color:var(--muted);text-decoration:line-through;text-decor
 .cta{display:block;width:100%;padding:16px;border:0;border-radius:4px;background:var(--ink);color:var(--surface);font-family:var(--display);font-weight:700;font-size:22px;cursor:pointer}
 .cta2{display:block;width:100%;margin-top:10px;padding:13px;border:1px solid var(--ink);border-radius:4px;background:none;font-family:var(--display);font-weight:600;font-size:19px;cursor:pointer}
 .note{font-size:14px;color:var(--muted);margin-top:18px}
+.offline{font-family:var(--display);font-weight:600;font-size:16px;color:var(--muted);margin:14px 0 0;display:flex;align-items:center;gap:8px}
+.offline::before{content:"";width:10px;height:10px;border-radius:50%;border:2px solid currentColor;flex:none}
+.offline.busy::before{border-right-color:transparent;animation:spin 1s linear infinite}
+.offline.ready{color:var(--ink)}
+.offline.ready::before{background:#3F7D4E;border-color:#3F7D4E}
+@keyframes spin{to{transform:rotate(360deg)}}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .leaflet-tile-pane{filter:invert(1) hue-rotate(180deg) brightness(.9) contrast(.9)}}
 :root[data-theme="dark"] .leaflet-tile-pane{filter:invert(1) hue-rotate(180deg) brightness(.9) contrast(.9)}
 .startpick{display:block;margin:0 0 22px}
@@ -169,6 +181,7 @@ body.navmode{overflow:hidden}
     <label class="startpick"><span>Starting point</span><select id="startSel"></select></label>
     <button class="cta" id="startBtn" disabled>Loading tour…</button>
     <button class="cta2" id="testBtn" disabled>Try a test ride from here</button>
+    <p class="offline" id="offlineStart" hidden></p>
     <p class="note">Keep this page open with the screen on, and allow location access. Your phone's silent switch can mute the audio. Wear one earbud at most while riding.</p>
   </div>
 </section>
@@ -224,6 +237,7 @@ body.navmode{overflow:hidden}
     <button class="chip" id="simSpeed">Speed 20×</button>
   </section>
 
+  <p class="offline" id="offlineFoot" hidden></p>
   <p class="foot">Narration voice is synthetic. Route distances are from OpenStreetMap bike routing. <button id="changeStart">Change starting point</button> · <button id="reset">Reset tour progress</button></p>
 </div>
 
@@ -598,6 +612,26 @@ $('changeStart').onclick=()=>{if(simOn)toggleSim(false);exitNav();sel.value=star
 simPos=simStart();
 renderStart();
 $('startBtn').disabled=$('testBtn').disabled=false;
+/* ---------- offline ---------- */
+const AUDIO_FILES=[...new Set([INTRO,OUTRO,...STOPS].map(t=>t.audio).concat(Object.values(CLIPS)))];
+function offlineMsg(text,cls){for(const id of ['offlineStart','offlineFoot']){const e=$(id);e.hidden=false;e.textContent=text;e.className='offline '+cls;}}
+async function downloadTour(){
+  if(!('caches' in window))return;
+  try{
+    const cache=await caches.open('bd-audio'),want=new Set(AUDIO_FILES.map(f=>new URL(f,location.href).href));
+    for(const r of await cache.keys())if(!want.has(r.url))cache.delete(r); // files from an older version of the tour
+    const missing=[];for(const u of want)if(!await cache.match(u))missing.push(u);
+    let done=want.size-missing.length;
+    const show=()=>offlineMsg(done<want.size?`Downloading tour for offline use: ${Math.round(done/want.size*100)}%`:'Tour downloaded, ready offline',done<want.size?'busy':'ready');
+    show();
+    const next=async()=>{while(missing.length){const u=missing.shift();const r=await fetch(u);if(!r.ok)throw new Error(u);await cache.put(u,r);done++;show();}};
+    await Promise.all([next(),next(),next()]);
+    if(navigator.storage&&navigator.storage.persist)navigator.storage.persist().catch(()=>{});
+  }catch(e){offlineMsg('Tour not fully downloaded yet. It will finish next time you are online.','');}
+}
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
+downloadTour();
+
 // read-only hook for the automated ride test
 window.__tour={get current(){return current&&current.id},get pending(){return pending&&pending.id},get played(){return [...played]},get navPlaying(){return navPlaying},stops:STOPS.map(s=>s.id)};
 initMap(); render();
