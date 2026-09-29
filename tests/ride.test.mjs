@@ -46,12 +46,12 @@ before(async () => {
 });
 after(async () => { await browser?.close(); server?.close(); });
 
-async function openTour({ mode = 'tap', travel = 'bike', at = ROUTE[0], serviceWorkers = 'block' } = {}) {
+async function openTour({ mode = 'tap', travel = 'bike', bonus = [], at = ROUTE[0], serviceWorkers = 'block' } = {}) {
   const ctx = await browser.newContext({
     viewport: { width: 390, height: 800 }, geolocation: geo(at), permissions: ['geolocation'], serviceWorkers,
   });
   await ctx.route(/tile\.openstreetmap\.org|fonts\.googleapis\.com|fonts\.gstatic\.com/, r => r.abort());
-  await ctx.addInitScript(([m, t]) => { if (!sessionStorage.seeded) { localStorage.clear(); localStorage.setItem('bd_storymode', JSON.stringify(m)); localStorage.setItem('bd_travel', JSON.stringify(t)); sessionStorage.seeded = 1; } }, [mode, travel]);
+  await ctx.addInitScript(([m, t, b]) => { if (!sessionStorage.seeded) { localStorage.clear(); localStorage.setItem('bd_storymode', JSON.stringify(m)); localStorage.setItem('bd_travel', JSON.stringify(t)); localStorage.setItem('bd_bonus', JSON.stringify(b)); sessionStorage.seeded = 1; } }, [mode, travel, bonus]);
   // headless Chromium has no voices; a stand-in that "speaks" each sentence in 20 ms keeps runs deterministic
   await ctx.addInitScript(() => {
     const q = []; let busy = false;
@@ -160,6 +160,46 @@ test('tell me more: offered after the story, then read out in full', async () =>
   assert.ok((await log(page)).some(x => x.kind === 'more' && x.id === 'reichstag'));
   assert.deepEqual(errors, []);
   await ctx.close();
+});
+
+test('bonus stop: detour after its stop, story, back to the route; can be skipped', { timeout: 90000 }, async () => {
+  const bonus = TOUR.bonus.find(b => b.id === 'traenenpalast');
+  const { ctx, page, errors } = await openTour({ mode: 'auto', bonus: ['traenenpalast'] });
+  assert.match(await page.textContent('#bonusPick'), /Tränenpalast/);
+  await page.click('#startBtn');
+  await ctx.setGeolocation(geo(pointAt(5)));
+  await finishAudio(page); await page.waitForFunction(() => __tour.current === 'reichstag'); await finishAudio(page);
+  await page.waitForFunction(() => __tour.bonus === 'traenenpalast');
+  assert.match(await page.textContent('#navInstr'), /Bonus stop: The Tränenpalast/);
+  assert.equal(await page.isVisible('#navSkip'), true);
+  const legStart = TOUR.nav[0][0].clip;
+  assert.ok(!(await log(page)).some(x => x.clip === legStart), 'directions to stop 2 wait until after the detour');
+  // ride there in a straight line, well off the route
+  const from = pointAt(5), to = [bonus.lat, bonus.lng];
+  for (let i = 1; i <= 12; i++) {
+    await ctx.setGeolocation(geo([from[0] + (to[0] - from[0]) * i / 12, from[1] + (to[1] - from[1]) * i / 12]));
+    await page.waitForTimeout(250);
+  }
+  await page.waitForFunction(() => __tour.current === 'traenenpalast', null, { timeout: 5000 });
+  assert.ok(!(await log(page)).some(x => x.clip === TOUR.offroute), 'no off-route warning on the detour');
+  await page.waitForFunction(() => !__tour.tts, null, { timeout: 20000 }); // read by the stand-in voice
+  assert.equal(await page.evaluate(() => __tour.bonus), null);
+  assert.match(await page.textContent('#navInstr'), /head back to the route/i);
+  assert.ok(await page.evaluate(() => __tour.played.includes('traenenpalast')));
+  assert.match(await page.textContent('#stopList'), /bonus/);
+  await ctx.close();
+
+  // skipping it starts the normal directions straight away
+  const second = await openTour({ mode: 'auto', bonus: ['traenenpalast'] });
+  await second.page.click('#startBtn');
+  await second.ctx.setGeolocation(geo(pointAt(5)));
+  await finishAudio(second.page); await second.page.waitForFunction(() => __tour.current === 'reichstag'); await finishAudio(second.page);
+  await second.page.waitForFunction(() => __tour.bonus === 'traenenpalast');
+  await second.page.click('#navSkip');
+  await second.page.waitForFunction(c => __tour.log.some(x => x.clip === c), legStart);
+  assert.equal(await second.page.evaluate(() => __tour.bonus), null);
+  assert.deepEqual([...errors, ...second.errors], []);
+  await second.ctx.close();
 });
 
 test('stop-safe mode: waits until the rider has stopped for 5 seconds', { timeout: 60000 }, async () => {

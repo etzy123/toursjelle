@@ -10,6 +10,7 @@ Usage (from the repo root):
 What it produces, next to the tour's index.html:
     audio/stories/<id>-<md5 of mp3, 8 hex>.mp3   intro, outro and one story per stop
     audio/more/<id>-<md5 of mp3, 8 hex>.mp3      optional "Tell me more" deep dive per stop (stops[].more)
+    bonus stops (bonus[]) are voiced into audio/stories/ like the other stories
     audio/nav/<md5 of text, 10 hex>.mp3          every spoken direction
 
 Spoken directions:
@@ -107,6 +108,7 @@ def main():
     # (item, folder, file id): stories and deep dives both get content-hashed file names
     stories = [(t, "stories", t["id"]) for t in (tour["intro"], tour["outro"], *tour["stops"])]
     stories += [(s["more"], "more", s["id"]) for s in tour["stops"] if s.get("more")]
+    stories += [(b, "stories", b["id"]) for b in tour.get("bonus", [])]
 
     for item in nav_items + [t for t, _, _ in stories]:
         if "—" in item["text"]:

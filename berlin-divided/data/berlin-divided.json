@@ -3176,5 +3176,30 @@
  },
  "turnaround": {
   "text": "Turn around when it is safe, then ride back to the route."
- }
+ },
+ "bonus": [
+  {
+   "id": "traenenpalast",
+   "title": "The Tränenpalast, the Palace of Tears",
+   "lat": 52.52085,
+   "lng": 13.38694,
+   "after": "reichstag",
+   "detour": 1500,
+   "hint": "About 900 metres east along the river. Afterwards, come back to the route at the Reichstag.",
+   "text": "You're standing in front of a glass and steel pavilion next to Friedrichstrasse station. Berliners called it the Tränenpalast, the Palace of Tears. After 1961, Friedrichstrasse was the one station in the city centre where trains from East and West met. It sat entirely in East Berlin, but West Berlin S-Bahn and U-Bahn trains still stopped deep inside it, behind walls and passport controls. In 1962 East Germany built this hall as the departure point for people leaving the East for West Berlin. Mostly they were visitors from the West, going home after seeing family, and pensioners, who were allowed to travel. The East German relatives were not allowed to follow. So this was where families said goodbye. Outside the entrance, they hugged, cried and waved, not knowing when or whether they would see each other again. Inside, travellers queued for narrow control booths, one at a time, where border officers compared faces with passport photos, stamped papers and could order a search. The hall was used until the Wall opened in 1989. Since 2011 it has been a museum about everyday life at the border, and entry is free. If you have twenty minutes, go inside: you can walk through a reconstruction of the control booths. When you're ready, ride back along the river to the Reichstag and continue the tour to the Brandenburg Gate.",
+   "short": "Tränenpalast"
+  },
+  {
+   "id": "bornholmer",
+   "title": "Bornholmer Strasse, where the Wall opened",
+   "lat": 52.5547,
+   "lng": 13.3981,
+   "radius": 80,
+   "after": "bernauer",
+   "detour": 2500,
+   "hint": "About 2 kilometres north of Bernauer Strasse, on the bridge over the railway.",
+   "text": "This steel bridge over the railway tracks is the Bösebrücke, named after Wilhelm Böse, a resistance fighter executed by the Nazis in 1944. At its eastern end stood the border crossing at Bornholmer Strasse, and this is where the Berlin Wall first opened. On the evening of the ninth of November 1989, after Günter Schabowski's confused announcement on television, East Berliners began to gather here. Nobody at the checkpoint had any orders. The officer in charge that night was Harald Jäger, a lieutenant colonel of the Stasi's passport control unit. As the crowd grew into the thousands, chanting open the gate, he called his superiors again and again. They told him to let a few of the loudest people out, but to stamp their passports so that they could not come back, in effect expelling them without telling them. The crowd kept growing. Jäger feared that people would be crushed, or that someone would start shooting. At around half past eleven at night, on his own authority, he gave the order to open the barrier. Thousands of people poured across this bridge into the West, many of them laughing and crying at the same time. Within the next hours, the other crossings in the city opened too. One of the people who crossed here that night was a young physicist from East Berlin named Angela Merkel. She had been to the sauna, as she did every Thursday, and followed the crowd across the bridge. The square at the eastern end is now called Platz des Neunten November 1989. Look for the photographs and the markers of the old checkpoint. After twenty-eight years, the end of the Berlin Wall began right here, with one tired officer who decided not to shoot.",
+   "short": "Bornholmer Strasse"
+  }
+ ]
 }
