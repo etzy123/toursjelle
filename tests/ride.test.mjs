@@ -52,6 +52,16 @@ async function openTour({ mode = 'tap', travel = 'bike', at = ROUTE[0], serviceW
   });
   await ctx.route(/tile\.openstreetmap\.org|fonts\.googleapis\.com|fonts\.gstatic\.com/, r => r.abort());
   await ctx.addInitScript(([m, t]) => { if (!sessionStorage.seeded) { localStorage.clear(); localStorage.setItem('bd_storymode', JSON.stringify(m)); localStorage.setItem('bd_travel', JSON.stringify(t)); sessionStorage.seeded = 1; } }, [mode, travel]);
+  // headless Chromium has no voices; a stand-in that "speaks" each sentence in 20 ms keeps runs deterministic
+  await ctx.addInitScript(() => {
+    const q = []; let busy = false;
+    const next = () => { const u = q.shift(); if (!u) { busy = false; return; } busy = true; setTimeout(() => { u.onend && u.onend(); next(); }, 20); };
+    window.__spoken = [];
+    Object.defineProperty(window, 'speechSynthesis', { value: {
+      speak(u) { if (u.text) window.__spoken.push(u.text); q.push(u); if (!busy) next(); },
+      cancel() { q.length = 0; }, pause() {}, resume() {}, getVoices: () => [], get speaking() { return busy; },
+    } });
+  });
   const page = await ctx.newPage();
   const errors = [];
   page.on('pageerror', e => errors.push(e.message));
@@ -124,6 +134,30 @@ test('tap mode: arriving never starts the story by itself', async () => {
   assert.match(await page.textContent('#navDist'), /Arrived/);
   await page.click('#playBtn');
   await page.waitForFunction(() => __tour.current === 'reichstag' && !document.getElementById('audio').paused);
+  assert.deepEqual(errors, []);
+  await ctx.close();
+});
+
+test('tell me more: offered after the story, then read out in full', async () => {
+  const { ctx, page, errors } = await openTour({ mode: 'tap' });
+  await page.click('#startBtn');
+  await finishAudio(page);
+  await ctx.setGeolocation(geo(pointAt(5)));
+  await page.waitForFunction(() => __tour.pending === 'reichstag');
+  await page.click('#playBtn');
+  await page.waitForFunction(() => __tour.current === 'reichstag');
+  await finishAudio(page);
+  await page.waitForFunction(() => document.getElementById('moreBtn').classList.contains('offer'));
+  assert.match(await page.textContent('#moreBtn'), /Tell me more about the Reichstag/);
+  assert.match(await page.textContent('#kicker'), /Tell me more/);
+  const before = await page.evaluate(() => window.__spoken.length);
+  await page.click('#moreBtn');
+  assert.equal(await page.isHidden('#moreBtn'), true, 'no offer while it plays');
+  await page.waitForFunction(() => !__tour.tts, null, { timeout: 20000 });
+  const read = await page.evaluate(n => window.__spoken.slice(n).join(' '), before);
+  const more = TOUR.stops[0].more.text;
+  assert.ok(read.startsWith(more.slice(0, 40)) && read.endsWith(more.slice(-40)), 'whole deep dive read out');
+  assert.ok((await log(page)).some(x => x.kind === 'more' && x.id === 'reichstag'));
   assert.deepEqual(errors, []);
   await ctx.close();
 });
