@@ -42,7 +42,7 @@ h1{font-family:var(--display);font-weight:700;font-size:28px;letter-spacing:.01e
 .progress{font-family:var(--display);font-weight:600;font-size:17px;color:var(--muted);white-space:nowrap}
 
 /* map */
-.map{position:relative;background:var(--surface);border-radius:4px;overflow:hidden;border:1px solid var(--line)}
+.map{position:relative;isolation:isolate;background:var(--surface);border-radius:4px;overflow:hidden;border:1px solid var(--line)}
 #mapCanvas{width:100%;height:min(52vh,calc(100vw - 32px),528px);background:var(--surface)}
 .mapoff{margin:0;padding:40px 20px;text-align:center;color:var(--muted);font-size:15px}
 .leaflet-container{font-family:var(--display)}
