@@ -173,12 +173,16 @@ body.navmode{overflow:hidden}
     <h1 class="title"><span>Berlin</span><span>divided</span></h1>
     <div class="divider" aria-hidden="true"></div>
     <div class="facts">
-      <div><b id="factKm">15.4 km</b><span>by bike</span></div>
+      <div><b id="factKm">15.4 km</b><span id="factHow">by bike</span></div>
       <div><b id="factStops">11</b><span>stops</span></div>
       <div><b id="factTime">~2 h</b><span>with stories</span></div>
     </div>
     <p class="lede">A self-guided Cold War ride from <span id="ledeFrom">the Reichstag</span> to Bernauer Strasse. <span id="ledeMode"></span></p>
     <label class="startpick"><span>Starting point</span><select id="startSel"></select></label>
+    <label class="startpick"><span>Getting around</span><select id="travelSel">
+      <option value="bike">By bike</option>
+      <option value="walk">On foot</option>
+    </select></label>
     <label class="startpick"><span>Stories start</span><select id="modeSel">
       <option value="tap">When I tap play</option>
       <option value="stopped">Once I've stopped at the spot</option>
@@ -187,7 +191,7 @@ body.navmode{overflow:hidden}
     <button class="cta" id="startBtn" disabled>Loading tour…</button>
     <button class="cta2" id="testBtn" disabled>Try a test ride from here</button>
     <p class="offline" id="offlineStart" hidden></p>
-    <p class="note">Keep this page open with the screen on, and allow location access. Your phone's silent switch can mute the audio. Wear one earbud at most while riding.</p>
+    <p class="note">Keep this page open with the screen on, and allow location access. Your phone's silent switch can mute the audio. <span id="safety">Wear one earbud at most while riding.</span></p>
   </div>
 </section>
 
@@ -237,7 +241,7 @@ body.navmode{overflow:hidden}
   </section>
 
   <section class="test">
-    <p>Test ride moves a virtual bike along the route and waits at each stop until the story is over, just like a real ride.</p>
+    <p>Test ride moves you along the route on screen and waits at each stop until the story is over, just like the real thing.</p>
     <button class="chip" id="simToggle" aria-pressed="false">Start test ride</button>
     <button class="chip" id="simSpeed">Speed 20×</button>
   </section>
@@ -279,9 +283,12 @@ catch(e){document.getElementById('startBtn').textContent='Could not load the tou
 const ROUTE = DATA.route;            // [[lat,lng],...]
 const STOPS = DATA.stops;            // {id,title,lat,lng,text,audio}
 const INTRO = DATA.intro, OUTRO = DATA.outro;
-const RADIUS = 45;                   // metres
+// walking and cycling differ in trigger radii, speeds and what counts as "stopped"
+const PROFILES={
+  bike:{how:'by bike',speed:4.2,radius:45,maxRadius:80,turn:35,offRoute:60,slow:4/3.6,safety:'Wear one earbud at most while riding.'},
+  walk:{how:'on foot',speed:1.3,radius:30,maxRadius:50,turn:20,offRoute:40,slow:1.5/3.6,safety:'Keep one ear free for traffic when crossing streets.'}
+};
 const NAV = DATA.nav, CLIPS = DATA.clips, OFFROUTE = DATA.offroute;
-const TURN_RADIUS = 35;
 
 /* ---------- geometry ---------- */
 const R=6371000, rad=x=>x*Math.PI/180;
@@ -306,7 +313,8 @@ const stopCum=STOPS.map(s=>{let b=0,m=Infinity;ROUTE.forEach((p,i)=>{const d=dis
 const simStart=()=>Math.max(0,stopCum[startAt]-60);
 const MODES=['tap','stopped','auto'];
 let storyMode=MODES.includes(store.get('bd_storymode'))?store.get('bd_storymode'):'tap';
-const SLOW=4/3.6, STOP_WAIT=5000;            // "stopped" = below 4 km/h for 5 seconds
+let travel=PROFILES[store.get('bd_travel')]?store.get('bd_travel'):'bike', P=PROFILES[travel];
+const STOP_WAIT=5000;                        // "stopped" = below P.slow for 5 seconds
 let slowSince=null, lastFixAt=0;
 const PRE_AT=150;                            // metres; must match PRE_DISTANCE in scripts/build_audio.py
 const preDone=new Set(), log=[];             // log: what was spoken, for the ride test
@@ -452,11 +460,11 @@ function speakItem(item,kind){
 }
 function startLeg(i){leg=i;navIdx=0;const st=NAV[i]||[];if(st[0]){say(st[0].clip);navIdx=1;}renderNav();}
 function checkNav(sim,acc){
-  if(!sim&&played.size>0){const off=snapNow.d>Math.max(60,acc||0);offCount=off?offCount+1:0;offRoute=offCount>=3;}
+  if(!sim&&played.size>0){const off=snapNow.d>Math.max(P.offRoute,acc||0);offCount=off?offCount+1:0;offRoute=offCount>=3;}
   if(storyBusy())return;
   const st=NAV[leg];
   let spoke=false;
-  if(st){for(let j=navIdx;j<Math.min(st.length,navIdx+3);j++){if(dist(me,[st[j].lat,st[j].lng])<=TURN_RADIUS){say(st[j].clip);navIdx=j+1;spoke=true;break;}}}
+  if(st){for(let j=navIdx;j<Math.min(st.length,navIdx+3);j++){if(dist(me,[st[j].lat,st[j].lng])<=P.turn){say(st[j].clip);navIdx=j+1;spoke=true;break;}}}
   // pre-announce the next turn about 150 m ahead, if it is far enough from the previous one to need it
   if(st&&!spoke&&ridePos!=null&&snapNow.d<=40){const pos=STEP_POS[leg]||[];
     for(let j=Math.max(1,navIdx);j<st.length;j++){const ahead=pos[j]-ridePos;if(ahead<0)continue;
@@ -482,14 +490,14 @@ function renderNav(){
 function onPosition(lat,lng,acc,sim,hdg,spd){
   const prev=me,now=Date.now(); me=[lat,lng]; meAcc=acc;
   const v=spd!=null&&isFinite(spd)?spd:(prev&&lastFixAt?dist(prev,me)/Math.max(0.5,(now-lastFixAt)/1000):null);
-  lastFixAt=now; if(v!=null)slowSince=v<SLOW?(slowSince||now):null;
+  lastFixAt=now; if(v!=null)slowSince=v<P.slow?(slowSince||now):null;
   if(hdg!=null&&isFinite(hdg))heading=hdg; else if(prev&&dist(prev,me)>=4)heading=bearing(prev,me);
   snapNow=snap(me,ridePos);
   if(snapNow.d<=Math.max(40,acc||0))ridePos=snapNow.pos;
   if(map){meDot.setLatLng(me).addTo(map);meHalo.setLatLng(me).setRadius(acc||0).addTo(map);
     const e=meDot.getElement()&&meDot.getElement().firstChild;if(e){e.classList.toggle('dir',heading!=null);if(heading!=null)e.querySelector('svg').style.transform=`rotate(${heading}deg)`;}}
   $('gps').textContent=sim?'Test ride':`GPS ±${Math.round(acc)} m`;
-  const radius=Math.max(RADIUS,Math.min(acc||0,80));
+  const radius=Math.max(P.radius,Math.min(acc||0,P.maxRadius));
   STOPS.forEach((s,i)=>{
     if(!active(i)||played.has(s.id)||queue.includes(s)||current===s||pending===s)return;
     if(dist(me,[s.lat,s.lng])<=radius){
@@ -546,7 +554,7 @@ const clean=t=>t.replace('Directions to the next stop. ','');
 function turnKind(t){const m=/(turn|bear|keep) (left|right)|straight|head/i.exec(t);if(!m||!m[2])return 'straight';return (/turn/i.test(m[1])?'':'s')+m[2].toLowerCase();}
 const firstClause=t=>clean(t).split(/, (?:then |and )/)[0].replace(/\.$/,'');
 function navTarget(){ // the next unheard stop ahead of you on the route
-  if(ridePos!=null)for(let i=startAt;i<STOPS.length;i++)if(!played.has(STOPS[i].id)&&stopCum[i]>=ridePos-RADIUS)return i;
+  if(ridePos!=null)for(let i=startAt;i<STOPS.length;i++)if(!played.has(STOPS[i].id)&&stopCum[i]>=ridePos-P.radius)return i;
   return nextIndex();
 }
 function banner(icon,d,instr,then,off,turn){
@@ -584,7 +592,7 @@ function updateNav(){
   const s=STOPS[ti];$('navStop').textContent=`${ti+1}. ${s.title}`;
   if(!me){$('navEta').textContent='';return;}
   const m=(snapNow.d<=40&&ridePos!=null&&stopCum[ti]>=ridePos)?stopCum[ti]-ridePos:dist(me,[s.lat,s.lng])*1.3;
-  const min=Math.max(1,Math.round(m/4.2/60)),at=new Date(Date.now()+min*60000);
+  const min=Math.max(1,Math.round(m/P.speed/60)),at=new Date(Date.now()+min*60000);
   $('navEta').textContent=`${fmtDist(m)} · ${min} min · arrive ${at.getHours()}:${String(at.getMinutes()).padStart(2,'0')}`;
 }
 const mapWrap=document.querySelector('.map'), playerSec=document.querySelector('.player');
@@ -615,8 +623,8 @@ function simTick(ts){
   if(!simOn)return;
   const dt=lastTick?(ts-lastTick)/1000:0; lastTick=ts;
   const talking=storyBusy()||queue.length>0||!!pending;
-  if(!talking){ // 4.2 m/s ≈ 15 km/h, stepped in 8 m increments so no stop is skipped
-    let left=Math.min(4.2*simSpeed*Math.min(dt,0.5),cum[cum.length-1]-simPos);
+  if(!talking){ // at the profile's speed, stepped in 8 m increments so no stop is skipped
+    let left=Math.min(P.speed*simSpeed*Math.min(dt,0.5),cum[cum.length-1]-simPos);
     while(left>0){const step=Math.min(8,left);simPos+=step;left-=step;const p=simPoint(simPos);onPosition(p[0],p[1],8,true);if(storyBusy()||queue.length||pending)break;}
   } else {const p=simPoint(simPos);onPosition(p[0],p[1],8,true);}
   if(simPos>=cum[cum.length-1]){toggleSim(false);return;}
@@ -644,13 +652,16 @@ $('startBtn').onclick=()=>begin(false);
 $('testBtn').onclick=()=>begin(true);
 $('reset').onclick=()=>{if(confirm('Reset tour progress?')){played=new Set();queue=[];pending=null;current=null;resume=null;ridePos=null;preDone.clear();leg=-1;navIdx=0;store.set('bd_played',[]);simPos=simStart();audio.pause();render();renderNav();}};
 /* ---------- starting point ---------- */
-const TOTAL_KM=15.4, TOTAL_MIN=120;
+function tourMinutes(){
+  const metres=cum[cum.length-1]-stopCum[startAt],stops=activeStops();
+  return metres/P.speed/60*1.2+stops.reduce((t,s)=>t+s.dur/60,0)+2*stops.length;
+}
 function renderStart(){
-  const f=cum[cum.length-1]?(cum[cum.length-1]-stopCum[startAt])/cum[cum.length-1]:1;
-  $('factKm').textContent=`${(TOTAL_KM*f).toFixed(1)} km`;
+  $('factKm').textContent=`${((cum[cum.length-1]-stopCum[startAt])/1000).toFixed(1)} km`;
+  $('factHow').textContent=P.how; $('safety').textContent=P.safety;
   $('factStops').textContent=STOPS.length-startAt;
-  const m=Math.max(15,Math.round(TOTAL_MIN*f/15)*15);
-  $('factTime').textContent=m>=60?`~${+(m/60).toFixed(1)} h`:`~${m} min`;
+  const m=tourMinutes();
+  $('factTime').textContent=m>=150?`~${Math.round(m/30)/2} h`:m>=60?`~${+(Math.round(m/15)/4).toFixed(1)} h`:`~${Math.max(15,Math.round(m/15)*15)} min`;
   $('ledeFrom').textContent=startAt===0?'the Reichstag':STOPS[startAt].title.replace(/^The /,'the ');
   $('startBtn').textContent=activeStops().some(s=>played.has(s.id))?'Continue the tour':'Start the tour';
   $('ledeMode').textContent={tap:'When you reach a spot, its story is ready. Tap play whenever you want to listen.',
@@ -660,6 +671,8 @@ const sel=$('startSel');
 STOPS.forEach((s,i)=>{const o=document.createElement('option');o.value=i;o.textContent=`${i+1}. ${s.title}`;sel.appendChild(o);});
 sel.value=startAt;
 $('modeSel').value=storyMode;
+$('travelSel').value=travel;
+$('travelSel').onchange=e=>{travel=e.target.value;P=PROFILES[travel];store.set('bd_travel',travel);renderStart();};
 $('modeSel').onchange=e=>{storyMode=e.target.value;store.set('bd_storymode',storyMode);renderStart();};
 sel.onchange=()=>{
   startAt=+sel.value; store.set('bd_start',startAt);
@@ -692,7 +705,7 @@ if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(
 downloadTour();
 
 // read-only hook for the automated ride test
-window.__tour={log,get mode(){return storyMode},get offRoute(){return offRoute},get current(){return current&&current.id},get pending(){return pending&&pending.id},get played(){return [...played]},get navPlaying(){return navPlaying},stops:STOPS.map(s=>s.id)};
+window.__tour={log,get travel(){return travel},get mode(){return storyMode},get offRoute(){return offRoute},get current(){return current&&current.id},get pending(){return pending&&pending.id},get played(){return [...played]},get navPlaying(){return navPlaying},stops:STOPS.map(s=>s.id)};
 initMap(); render();
 window.addEventListener('resize',setView);
 </script>
