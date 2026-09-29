@@ -56,6 +56,8 @@ h1{font-family:var(--display);font-weight:700;font-size:28px;letter-spacing:.01e
 .stopicon.is-next{border-color:#A8322A;border-width:3.5px;transform-origin:center}
 .stopicon.played{background:#8C8A84;border-color:#8C8A84;color:#fff}
 .stopicon.skipped{opacity:.45}
+.stopicon.bonus{border-style:dashed;border-color:#7A6450;color:#7A6450}
+.stopicon.bonus.played{background:#8C8A84;border-color:#8C8A84;border-style:solid;color:#fff}
 .maptools{position:absolute;right:8px;top:8px;display:flex;gap:6px;z-index:500}
 .chip{background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:5px 10px;font-family:var(--display);font-weight:600;font-size:15px;cursor:pointer}
 .chip[aria-pressed="true"]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
@@ -100,6 +102,7 @@ ol.stops button{display:flex;gap:12px;align-items:baseline;width:100%;text-align
 ol.stops .n{font-family:var(--display);font-weight:700;font-size:18px;width:24px;flex:none;color:var(--muted)}
 ol.stops .t{font-family:var(--display);font-weight:600;font-size:19px;flex:1}
 ol.stops .s{font-family:var(--display);font-size:15px;color:var(--muted)}
+ol.stops li.bonus .n{color:var(--cobble)}
 ol.stops li.played .t{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--cobble)}
 
 .test{margin-top:26px;padding-top:14px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:8px;align-items:center}
@@ -129,6 +132,12 @@ ol.stops li.played .t{color:var(--muted);text-decoration:line-through;text-decor
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .leaflet-tile-pane{filter:invert(1) hue-rotate(180deg) brightness(.9) contrast(.9)}}
 :root[data-theme="dark"] .leaflet-tile-pane{filter:invert(1) hue-rotate(180deg) brightness(.9) contrast(.9)}
 .startpick{display:block;margin:0 0 22px}
+.bonuspick{border:0;margin:0 0 22px;padding:0}
+.bonuspick legend{font-family:var(--display);font-weight:600;font-size:16px;color:var(--muted);margin-bottom:4px;padding:0}
+.bonuspick label{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--line);cursor:pointer}
+.bonuspick input{width:20px;height:20px;margin:2px 0 0;accent-color:var(--ink);flex:none}
+.bonuspick b{display:block;font-family:var(--display);font-weight:600;font-size:18px;line-height:1.2}
+.bonuspick span{font-size:14px;color:var(--muted)}
 .startpick span{display:block;font-family:var(--display);font-weight:600;font-size:16px;color:var(--muted);margin-bottom:4px}
 .startpick select{width:100%;padding:11px 12px;border:1px solid var(--ink);border-radius:4px;background:var(--surface);color:var(--ink);font-family:var(--display);font-weight:600;font-size:19px}
 .stop.skipped{opacity:.35}
@@ -157,7 +166,8 @@ body.navmode{overflow:hidden}
 .navstop{display:flex;justify-content:space-between;align-items:center;gap:10px}
 .navstop b{display:block;font-family:var(--display);font-weight:700;font-size:20px;line-height:1.15}
 .navstop span{font-family:var(--display);font-size:16px;color:var(--muted)}
-.navbtns{display:flex;gap:6px;flex:none}
+.navbtns{display:flex;gap:6px;flex:none;flex-wrap:wrap;justify-content:flex-end}
+.gmaps{font-family:var(--display);font-weight:600;font-size:16px;color:var(--ink)}
 .navsheet .player{margin:8px 0 0;padding:8px 0 0;border-top:1px solid var(--line)}
 .navsheet .player .kicker{font-size:14px}
 .navsheet .player h2{font-size:21px;margin:0 0 6px}
@@ -188,6 +198,7 @@ body.navmode{overflow:hidden}
       <option value="bike">By bike</option>
       <option value="walk">On foot</option>
     </select></label>
+    <fieldset class="bonuspick" id="bonusPick"><legend>Bonus stops</legend></fieldset>
     <label class="startpick"><span>Stories start</span><select id="modeSel">
       <option value="tap">When I tap play</option>
       <option value="stopped">Once I've stopped at the spot</option>
@@ -270,9 +281,10 @@ body.navmode{overflow:hidden}
   </div>
   <div class="navsheet">
     <div class="navstop">
-      <div><b id="navStop">Next stop</b><span id="navEta"></span></div>
+      <div><b id="navStop">Next stop</b><span id="navEta"></span> <a id="navGmaps" class="gmaps" href="#" target="_blank" rel="noopener" hidden>Directions</a></div>
       <div class="navbtns">
         <button class="chip" id="navSim" hidden>20×</button>
+        <button class="chip" id="navSkip" hidden>Skip bonus</button>
         <button class="chip" id="navExit">Overview</button>
       </div>
     </div>
@@ -325,7 +337,18 @@ let slowSince=null, lastFixAt=0;
 const PRE_AT=150;                            // metres; must match PRE_DISTANCE in scripts/build_audio.py
 const preDone=new Set(), log=[];             // log: what was spoken, for the ride test
 let lastTurnaround=0;
-let moreFor=null, tts=null;                  // stop whose deep dive is on offer; deep dive being read by the phone's voice
+let moreFor=null, tts=null;
+const BONUS=(DATA.bonus||[]).map(b=>({...b,bonus:true,dur:b.dur||b.text.split(/\s+/).length/2.5}));
+let bonusOn=new Set(store.get('bd_bonus',[]).filter(id=>BONUS.some(b=>b.id===id))), bonusSkipped=new Set();
+const bonusAfter=id=>STOPS.findIndex(s=>s.id===id);
+// the bonus stop to head for now: switched on, not yet heard or skipped, its stop heard and the next one not yet
+function bonusTarget(){
+  if(simOn)return null;
+  for(const b of BONUS){if(!bonusOn.has(b.id)||played.has(b.id)||bonusSkipped.has(b.id))continue;
+    const a=bonusAfter(b.after);if(a<startAt||!played.has(STOPS[a].id))continue;
+    if(a+1<STOPS.length&&played.has(STOPS[a+1].id))continue;return b;}
+  return null;
+}                  // stop whose deep dive is on offer; deep dive being read by the phone's voice
 let queue=[], pending=null, current=null, me=null, meAcc=null, zoomMe=false;
 let navPlaying=false, resume=null, leg=-1, navIdx=0, offCount=0, lastOff=0, offRoute=false;
 const $=id=>document.getElementById(id);
@@ -333,7 +356,7 @@ const audio=$('audio');
 
 /* ---------- map ---------- */
 const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
-let map=null, stopMarkers=[], meDot=null, meHalo=null, ridden=null, guide=null;
+let map=null, stopMarkers=[], bonusMarkers=[], meDot=null, meHalo=null, ridden=null, guide=null;
 function stopIcon(i){return L.divIcon({className:'stopicon',html:String(i+1),iconSize:[26,26],iconAnchor:[13,13]});}
 function initMap(){
   if(!window.L){$('mapCanvas').innerHTML='<p class="mapoff">The map needs an internet connection. Stories and directions still work.</p>';return;}
@@ -344,6 +367,8 @@ function initMap(){
   L.polyline(ROUTE,{color:css('--signal')||'#A8322A',weight:5,opacity:.9,lineJoin:'round',interactive:false}).addTo(map);
   stopMarkers=STOPS.map((s,i)=>L.marker([s.lat,s.lng],{icon:stopIcon(i),title:`${i+1}. ${s.title}`,keyboard:false})
     .bindTooltip(`${i+1}. ${s.title}`,{direction:'top',offset:[0,-14]}).addTo(map));
+  bonusMarkers=BONUS.map(b=>L.marker([b.lat,b.lng],{icon:L.divIcon({className:'stopicon bonus',html:'+',iconSize:[26,26],iconAnchor:[13,13]}),title:b.title,keyboard:false})
+    .bindTooltip(`Bonus: ${b.title}`,{direction:'top',offset:[0,-14]}));
   meHalo=L.circle([0,0],{radius:0,stroke:false,fillColor:'#A8322A',fillOpacity:.18,interactive:false});
   meDot=L.marker([0,0],{interactive:false,keyboard:false,zIndexOffset:1000,icon:L.divIcon({className:'',iconSize:[30,30],iconAnchor:[15,15],
     html:'<div class="mepin"><i></i><svg viewBox="0 0 30 30"><path d="M15 3l9 23-9-5-9 5z" fill="#A8322A" stroke="#fff" stroke-width="2.5" stroke-linejoin="round"/></svg></div>'})});
@@ -379,7 +404,12 @@ function render(){
   const ol=$('stopList');ol.innerHTML='';
   STOPS.forEach((s,i)=>{const li=document.createElement('li');if(played.has(s.id))li.className='played';else if(!active(i))li.className='skipped';const b=document.createElement('button');
     b.innerHTML=`<span class="n">${i+1}</span><span class="t"></span><span class="s">${fmt(s.dur)}</span>`;b.querySelector('.t').textContent=s.title;b.setAttribute('aria-label',`Play stop ${i+1}, ${s.title}`);
-    b.onclick=()=>playTrack(s,true);li.appendChild(b);ol.appendChild(li);});
+    b.onclick=()=>playTrack(s,true);li.appendChild(b);ol.appendChild(li);
+    BONUS.filter(x=>x.after===s.id&&bonusOn.has(x.id)).forEach(x=>{const li=document.createElement('li');li.className='bonus'+(played.has(x.id)?' played':'');
+      const b=document.createElement('button');b.innerHTML=`<span class="n">+</span><span class="t"></span><span class="s">bonus · ${fmt(x.dur)}</span>`;b.querySelector('.t').textContent=x.title;
+      b.setAttribute('aria-label',`Play bonus stop, ${x.title}`);b.onclick=()=>playTrack(x,true);li.appendChild(b);ol.appendChild(li);});});
+  bonusMarkers.forEach((m,i)=>{const on=bonusOn.has(BONUS[i].id);if(on&&map&&!map.hasLayer(m))m.addTo(map);if(!on&&map&&map.hasLayer(m))m.remove();
+    const e=m.getElement();if(e)e.classList.toggle('played',played.has(BONUS[i].id));});
   if(ni<0){$('nextDist').textContent='Done';$('nextName').textContent='All stops heard. Bornholmer Strasse is 2 km north if you want an encore.';$('nextLink').hidden=true;}
   else{const s=STOPS[ni];$('nextName').textContent=`Next: ${ni+1}. ${s.title}`;$('nextLink').hidden=false;
     $('nextLink').href=`https://www.google.com/maps/dir/?api=1&destination=${s.lat},${s.lng}&travelmode=bicycling`;
@@ -393,8 +423,8 @@ const PLAY='<path d="M7 4v16l13-8z"/>', PAUSE='<path d="M6 4h4v16H6zM14 4h4v16h-
 function storyBusy(){return (!navPlaying&&!audio.paused&&!audio.ended&&!!current)||(!!tts&&!tts.paused);}
 // a stop was reached: get its story ready, but wait for the rider to tap play
 function arrive(s){
-  pending=s; const i=STOPS.indexOf(s);
-  $('kicker').textContent=`You have arrived · Stop ${i+1} of ${STOPS.length}`;
+  pending=s;
+  $('kicker').textContent=`You have arrived · ${kickerFor(s)}`;
   $('nowTitle').textContent=s.title;
   $('transcript').innerHTML=paras(s.text);
   $('tCur').textContent='0:00';$('tDur').textContent=fmt(s.dur);$('seek').value=0;
@@ -413,22 +443,24 @@ function autoStart(){
     if(still||quiet)playTrack(pending);
   }
 }
-setInterval(autoStart,1000);
+setInterval(()=>{autoStart();if(navOn)updateNav();},1000); // the banner also changes while standing still
 function paras(text){return text.split(/(?<=\.)\s+(?=[A-Z])/).reduce((acc,s,j)=>{const pi=Math.floor(j/4);(acc[pi]=acc[pi]||[]).push(s);return acc},[]).map(p=>`<p>${p.join(' ')}</p>`).join('');}
+function kickerFor(t){const i=STOPS.indexOf(t);return i>=0?`Stop ${i+1} of ${STOPS.length}`:t.more?'Tell me more':t.bonus?'Bonus stop':(t===INTRO?'Introduction':'Finish');}
 function playTrack(t,manual,at){
   if(pending===t)pending=null;
   queue=queue.filter(q=>q!==t); stopTTS();
   current=t; navPlaying=false; resume=null; log.push({kind:'story',id:t.id});
-  audio.src=t.audio; audio.currentTime=at||0;
   $('nowTitle').textContent=t.title;
   const i=STOPS.indexOf(t);
-  $('kicker').textContent=i>=0?`Stop ${i+1} of ${STOPS.length}`:t.more?'Tell me more':(t===INTRO?'Introduction':'Finish');
-  if(i>=0&&t.more)moreFor=t; renderMore();
+  $('kicker').textContent=kickerFor(t);
+  if(i>=0&&t.more)moreFor=t;
   $('transcript').innerHTML=paras(t.text);
+  if(i>=0||t.bonus){played.add(t.id);store.set('bd_played',[...played]);}
+  if(!t.audio){speakTrack(t);render();return;}
+  audio.src=t.audio; audio.currentTime=at||0; renderMore();
   if('mediaSession' in navigator){try{navigator.mediaSession.metadata=new MediaMetadata({title:t.title,artist:'Berlin divided',album:'Cold War bike tour'});}catch(e){}}
   const pr=audio.play();
   if(pr&&pr.catch)pr.catch(()=>{$('playBtn').classList.add('nudge');$('kicker').textContent='You have arrived. Tap play to listen';});
-  if(i>=0){played.add(t.id);store.set('bd_played',[...played]);}
   render();
 }
 audio.onplay=()=>{renderMore();if(navPlaying||pending)return;$('playIcon').innerHTML=PAUSE;$('playBtn').setAttribute('aria-label','Pause');$('playBtn').classList.remove('nudge');};
@@ -446,7 +478,11 @@ $('back15').onclick=()=>{audio.currentTime=Math.max(0,audio.currentTime-15);};
 
 function storyEnded(){
   if(queue.length){arrive(queue.shift());return;}
-  const si=STOPS.indexOf(current); if(si>=0&&si<STOPS.length-1)startLeg(si);
+  const si=STOPS.indexOf(current);
+  if(current&&current.bonus){const a=bonusAfter(current.after);if(a<STOPS.length-1){leg=a;navIdx=1;} // back to the route, then the leg's turns
+    $('kicker').textContent=a<STOPS.length-1?'Head back to the route':'Thanks for riding';render();updateNav();return;}
+  if(si>=0&&si<STOPS.length-1){if(bonusTarget())leg=-1;else startLeg(si);}
+  updateNav();
   if(si>=0&&allHeard()){playTrack(OUTRO);return;}
   $('kicker').textContent=si>=0&&current.more?'Want the longer story? Tap Tell me more':'Ride on to the next stop';
   renderMore();
@@ -461,15 +497,14 @@ function renderMore(){
   $('moreLen').textContent=`${Math.round(moreTrack(moreFor).dur/60)} min`;
   b.classList.toggle('offer',current===moreFor&&!storyBusy());
 }
-function playMore(s){
-  const t=moreTrack(s);
-  log.push({kind:'more',id:s.id});
-  if(t.audio){playTrack(t,true);return;}
-  // no recording yet: the phone reads it, sentence by sentence (long utterances get cut off in some browsers)
-  audio.pause(); stopTTS(); current=t; navPlaying=false; resume=null; pending=null;
-  $('nowTitle').textContent=t.title; $('kicker').textContent='Tell me more · read by your phone';
-  $('transcript').innerHTML=paras(t.text); $('tCur').textContent='0:00'; $('tDur').textContent=fmt(t.dur); $('seek').value=0;
-  if(!('speechSynthesis' in window)){$('kicker').textContent='Tell me more · open Read along';return;}
+function playMore(s){log.push({kind:'more',id:s.id});playTrack(moreTrack(s),true);}
+// no recording yet: the phone reads it, sentence by sentence (long utterances get cut off in some browsers)
+function speakTrack(t){
+  audio.pause(); pending=null;
+  const k=kickerFor(t);
+  $('kicker').textContent=`${k} · read by your phone`;
+  $('tCur').textContent='0:00'; $('tDur').textContent=fmt(t.dur||t.text.split(/\s+/).length/2.5); $('seek').value=0;
+  if(!('speechSynthesis' in window)){$('kicker').textContent=`${k} · open Read along`;return;}
   const parts=t.text.match(/[^.!?]+[.!?]+/g)||[t.text],v=speechSynthesis.getVoices(),voice=v.find(x=>/^en-GB/i.test(x.lang))||v.find(x=>/^en/i.test(x.lang))||null;
   const me_={t,paused:false,done:0,total:parts.length}; tts=me_;
   parts.forEach((p,k)=>{const u=new SpeechSynthesisUtterance(p.trim());u.lang='en-GB';u.voice=voice;
@@ -502,8 +537,8 @@ function speakItem(item,kind){
   }catch(e){}
 }
 function startLeg(i){leg=i;navIdx=0;const st=NAV[i]||[];if(st[0]){say(st[0].clip);navIdx=1;}renderNav();}
-function checkNav(sim,acc){
-  if(!sim&&played.size>0){const off=snapNow.d>Math.max(P.offRoute,acc||0);offCount=off?offCount+1:0;offRoute=offCount>=3;}
+function checkNav(sim,acc,detour){
+  if(!sim&&played.size>0){const off=!detour&&snapNow.d>Math.max(P.offRoute,acc||0);offCount=off?offCount+1:0;offRoute=offCount>=3;}
   if(storyBusy())return;
   const st=NAV[leg];
   let spoke=false;
@@ -547,7 +582,9 @@ function onPosition(lat,lng,acc,sim,hdg,spd){
       if(storyBusy())queue.push(s);else arrive(s);
     }
   });
-  checkNav(sim,acc); autoStart();
+  const bt=bonusTarget();
+  if(bt&&!played.has(bt.id)&&pending!==bt&&!queue.includes(bt)&&current!==bt&&dist(me,[bt.lat,bt.lng])<=Math.max(bt.radius||0,radius)){if(storyBusy())queue.push(bt);else arrive(bt);}
+  checkNav(sim,acc,!!bt); autoStart();
   if(!sim)$('gps').textContent=offRoute?'Off route':`GPS ±${Math.round(acc)} m`;
   follow(); render(); renderNav(); updateNav();
 }
@@ -610,8 +647,10 @@ function updateNav(){
   let guideTo=null;
   const ti=navTarget();
   if(!me){banner('wait','…','Finding you…','Allow location access to navigate');}
-  else if(ti<0){banner('arrive','Done','Tour complete','All stops heard');}
   else if(pending){banner('arrive','Arrived',pending.title,storyMode==='stopped'?'The story starts once you have stopped':'Tap play to hear the story');}
+  else if(bonusTarget()){const b=bonusTarget();guideTo=[b.lat,b.lng];const br=bearing(me,guideTo);
+    banner('straight',fmtDist(dist(me,guideTo)),`Bonus stop: ${b.title}`,b.hint,false,heading!=null?br-heading:br);}
+  else if(ti<0){banner('arrive','Done','Tour complete','All stops heard');}
   else{
     const s=STOPS[ti],l=ti-1,onRoute=snapNow.d<=Math.max(40,meAcc||0);
     if(offRoute||(!onRoute&&ridePos!=null&&played.size)){
@@ -631,6 +670,10 @@ function updateNav(){
   }
   if(map){if(guideTo){guide.setLatLngs([me,guideTo]);guide.addTo(map);}else guide.remove();}
   // next stop, distance and arrival time
+  const bt=bonusTarget(); $('navSkip').hidden=!bt; $('navGmaps').hidden=!bt;
+  if(bt&&me){const m=dist(me,[bt.lat,bt.lng])*1.3,min=Math.max(1,Math.round(m/P.speed/60));
+    $('navStop').textContent=`Bonus: ${bt.short||bt.title}`;$('navEta').textContent=`${fmtDist(m)} · ${min} min`;
+    $('navGmaps').href=`https://www.google.com/maps/dir/?api=1&destination=${bt.lat},${bt.lng}&travelmode=${travel==='walk'?'walking':'bicycling'}`;return;}
   if(ti<0){$('navStop').textContent='Tour complete';$('navEta').textContent='';return;}
   const s=STOPS[ti];$('navStop').textContent=`${ti+1}. ${s.title}`;
   if(!me){$('navEta').textContent='';return;}
@@ -655,6 +698,7 @@ function exitNav(){
 }
 $('navGo').onclick=()=>{if(!simOn)startGPS();keepAwake();enterNav();};
 $('navExit').onclick=exitNav;
+$('navSkip').onclick=()=>{const b=bonusTarget();if(!b)return;bonusSkipped.add(b.id);const a=bonusAfter(b.after);if(a<STOPS.length-1&&played.has(STOPS[a].id))startLeg(a);render();updateNav();};
 $('recenter').onclick=()=>setMode(true);
 $('navSim').onclick=()=>{$('simSpeed').click();$('navSim').textContent=`${simSpeed}×`;};
 
@@ -693,14 +737,16 @@ function begin(test){
 }
 $('startBtn').onclick=()=>begin(false);
 $('testBtn').onclick=()=>begin(true);
-$('reset').onclick=()=>{if(confirm('Reset tour progress?')){played=new Set();queue=[];pending=null;current=null;resume=null;ridePos=null;preDone.clear();moreFor=null;stopTTS();renderMore();leg=-1;navIdx=0;store.set('bd_played',[]);simPos=simStart();audio.pause();render();renderNav();}};
+$('reset').onclick=()=>{if(confirm('Reset tour progress?')){played=new Set();queue=[];pending=null;current=null;resume=null;ridePos=null;preDone.clear();moreFor=null;bonusSkipped.clear();stopTTS();renderMore();leg=-1;navIdx=0;store.set('bd_played',[]);simPos=simStart();audio.pause();render();renderNav();}};
 /* ---------- starting point ---------- */
+const extras=()=>BONUS.filter(b=>bonusOn.has(b.id)&&bonusAfter(b.after)>=startAt);
+const tourMetres=()=>cum[cum.length-1]-stopCum[startAt]+extras().reduce((t,b)=>t+b.detour,0);
 function tourMinutes(){
-  const metres=cum[cum.length-1]-stopCum[startAt],stops=activeStops();
-  return metres/P.speed/60*1.2+stops.reduce((t,s)=>t+s.dur/60,0)+2*stops.length;
+  const stops=[...activeStops(),...extras()];
+  return tourMetres()/P.speed/60*1.2+stops.reduce((t,s)=>t+s.dur/60,0)+2*stops.length;
 }
 function renderStart(){
-  $('factKm').textContent=`${((cum[cum.length-1]-stopCum[startAt])/1000).toFixed(1)} km`;
+  $('factKm').textContent=`${(tourMetres()/1000).toFixed(1)} km`;
   $('factHow').textContent=P.how; $('safety').textContent=P.safety;
   $('factStops').textContent=STOPS.length-startAt;
   const m=tourMinutes();
@@ -715,6 +761,14 @@ STOPS.forEach((s,i)=>{const o=document.createElement('option');o.value=i;o.textC
 sel.value=startAt;
 $('modeSel').value=storyMode;
 $('travelSel').value=travel;
+BONUS.forEach(b=>{const l=document.createElement('label'),a=bonusAfter(b.after);
+  l.innerHTML=`<input type="checkbox" value="${b.id}"><div><b></b><span></span></div>`;
+  l.querySelector('b').textContent=b.title;
+  l.querySelector('span').textContent=a===STOPS.length-1?`About ${(b.detour/1000).toFixed(1)} km on from the last stop`:`A detour of about ${(b.detour/1000).toFixed(1)} km after stop ${a+1}`;
+  const c=l.querySelector('input');c.checked=bonusOn.has(b.id);
+  c.onchange=()=>{c.checked?bonusOn.add(b.id):bonusOn.delete(b.id);store.set('bd_bonus',[...bonusOn]);renderStart();render();};
+  $('bonusPick').appendChild(l);});
+$('bonusPick').hidden=!BONUS.length;
 $('travelSel').onchange=e=>{travel=e.target.value;P=PROFILES[travel];store.set('bd_travel',travel);renderStart();};
 $('modeSel').onchange=e=>{storyMode=e.target.value;store.set('bd_storymode',storyMode);renderStart();};
 sel.onchange=()=>{
@@ -728,7 +782,7 @@ simPos=simStart();
 renderStart();
 $('startBtn').disabled=$('testBtn').disabled=false;
 /* ---------- offline ---------- */
-const AUDIO_FILES=[...new Set([INTRO,OUTRO,...STOPS,...STOPS.map(s=>s.more||{})].map(t=>t.audio).filter(Boolean).concat(Object.values(CLIPS)))];
+const AUDIO_FILES=[...new Set([INTRO,OUTRO,...STOPS,...BONUS,...STOPS.map(s=>s.more||{})].map(t=>t.audio).filter(Boolean).concat(Object.values(CLIPS)))];
 function offlineMsg(text,cls){for(const id of ['offlineStart','offlineFoot']){const e=$(id);e.hidden=false;e.textContent=text;e.className='offline '+cls;}}
 async function downloadTour(){
   if(!('caches' in window))return;
@@ -748,7 +802,7 @@ if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(
 downloadTour();
 
 // read-only hook for the automated ride test
-window.__tour={log,get tts(){return !!tts},get travel(){return travel},get mode(){return storyMode},get offRoute(){return offRoute},get current(){return current&&current.id},get pending(){return pending&&pending.id},get played(){return [...played]},get navPlaying(){return navPlaying},stops:STOPS.map(s=>s.id)};
+window.__tour={log,get bonus(){return bonusTarget()&&bonusTarget().id},get tts(){return !!tts},get travel(){return travel},get mode(){return storyMode},get offRoute(){return offRoute},get current(){return current&&current.id},get pending(){return pending&&pending.id},get played(){return [...played]},get navPlaying(){return navPlaying},stops:STOPS.map(s=>s.id)};
 initMap(); render();
 window.addEventListener('resize',setView);
 </script>
