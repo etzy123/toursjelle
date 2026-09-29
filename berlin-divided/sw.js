@@ -1,9 +1,10 @@
 // Berlin divided service worker.
 // App shell and tour data: network first, cache as fallback, so updates arrive when online.
+// Photos: cache first, pre-cached by the page with the audio.
 // Audio: cache first (the page pre-caches every file after first load), with Range support,
 // because iPhone Safari only plays audio served as byte ranges.
 // OpenStreetMap tiles are left to the browser: the tile usage policy forbids bulk offline caching.
-const SHELL = 'bd-shell-v1', AUDIO = 'bd-audio', FONTS = 'bd-fonts';
+const SHELL = 'bd-shell-v2', AUDIO = 'bd-audio', FONTS = 'bd-fonts';
 const SHELL_FILES = [
   './', 'manifest.webmanifest', 'data/berlin-divided.json',
   'vendor/leaflet/leaflet.js', 'vendor/leaflet/leaflet.css',
@@ -33,7 +34,7 @@ async function networkFirst(req) {
 }
 async function cacheFirst(req, name) {
   const cache = await caches.open(name);
-  const hit = await cache.match(req);
+  const hit = await caches.match(req); // any cache: photos are pre-cached next to the audio
   if (hit) return hit;
   const res = await fetch(req);
   if (res.ok || res.type === 'opaque') cache.put(req, res.clone());

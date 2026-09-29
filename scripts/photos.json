@@ -1,0 +1,10 @@
+[
+ {"stop": "reichstag", "file": "File:C-54 landing at Tempelhof 1948.jpg", "caption": "A C-54 comes in to land at Tempelhof during the Berlin Airlift"},
+ {"stop": "gate", "file": "File:Bundesarchiv Bild 183-88222-0002, Berlin, Mauer am Brandenburger Tor.jpg", "caption": "The Wall in front of the Brandenburg Gate"},
+ {"stop": "potsdamer", "file": "File:Bundesarchiv Bild 183-1989-1111-008, Berlin, neuer Grenzübergang Potsdamer Platz.jpg", "caption": "A new crossing is opened through the Wall at Potsdamer Platz, November 1989"},
+ {"stop": "charlie", "file": "File:US Army tanks face off against Soviet tanks, Berlin 1961.jpg", "caption": "American and Soviet tanks face each other at Checkpoint Charlie, October 1961"},
+ {"stop": "kma", "file": "File:Bundesarchiv Bild 183-18095-0018, Berlin, Bau Karl-Marx-Allee, Block C-Süd, Block C-Nord.jpg", "caption": "Building the avenue in the early fifties"},
+ {"stop": "alex", "file": "File:Bundesarchiv Bild 183-1989-1104-437, Berlin, Demonstration am 4. November.jpg", "caption": "The demonstration on Alexanderplatz, 4 November 1989"},
+ {"stop": "traenenpalast", "file": "File:Bundesarchiv Bild 183-L0520-0020, Berlin, Grenzübergang S-Bahnhof Friedrichstraße.jpg", "caption": "The border crossing at Friedrichstrasse station"},
+ {"stop": "bornholmer", "file": "File:Bundesarchiv Bild 183-1989-1118-028, Berlin, Grenzübergang Bornholmer Straße.jpg", "caption": "The Bornholmer Strasse crossing, November 1989"}
+]
