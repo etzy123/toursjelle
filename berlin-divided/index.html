@@ -74,6 +74,11 @@ h1{font-family:var(--display);font-weight:700;font-size:28px;letter-spacing:.01e
 input[type=range]{width:100%;accent-color:var(--signal)}
 .time{font-family:var(--display);font-size:15px;color:var(--muted);display:flex;justify-content:space-between}
 .skip{background:none;border:1px solid var(--line);border-radius:3px;padding:6px 10px;font-family:var(--display);font-weight:600;font-size:15px;cursor:pointer}
+.more{display:flex;align-items:center;gap:10px;width:100%;margin-top:12px;padding:10px 12px;border:1px solid var(--cobble);border-radius:4px;background:var(--surface);color:var(--ink);text-align:left;cursor:pointer;font-family:var(--display)}
+.more b{font-weight:700;font-size:18px}
+.more span{font-size:15px;color:var(--muted);margin-left:auto;white-space:nowrap}
+.more.offer{border-color:var(--signal);box-shadow:0 0 0 2px color-mix(in srgb,var(--signal) 25%,transparent)}
+.navsheet .more{margin-top:8px;padding:8px 10px}
 details{margin-top:12px}
 summary{cursor:pointer;font-family:var(--display);font-weight:600;font-size:17px;color:var(--muted)}
 .transcript{max-width:65ch;margin-top:8px}
@@ -221,6 +226,7 @@ body.navmode{overflow:hidden}
       </div>
       <button class="skip" id="back15" aria-label="Back 15 seconds">−15s</button>
     </div>
+    <button class="more" id="moreBtn" hidden><b>Tell me more</b><span id="moreLen"></span></button>
     <details>
       <summary>Read along</summary>
       <div class="transcript" id="transcript"></div>
@@ -319,6 +325,7 @@ let slowSince=null, lastFixAt=0;
 const PRE_AT=150;                            // metres; must match PRE_DISTANCE in scripts/build_audio.py
 const preDone=new Set(), log=[];             // log: what was spoken, for the ride test
 let lastTurnaround=0;
+let moreFor=null, tts=null;                  // stop whose deep dive is on offer; deep dive being read by the phone's voice
 let queue=[], pending=null, current=null, me=null, meAcc=null, zoomMe=false;
 let navPlaying=false, resume=null, leg=-1, navIdx=0, offCount=0, lastOff=0, offRoute=false;
 const $=id=>document.getElementById(id);
@@ -383,7 +390,7 @@ function fmtDist(m){return m<1000?`${Math.round(m/10)*10} m`:`${(m/1000).toFixed
 
 /* ---------- audio ---------- */
 const PLAY='<path d="M7 4v16l13-8z"/>', PAUSE='<path d="M6 4h4v16H6zM14 4h4v16h-4z"/>';
-function storyBusy(){return !navPlaying&&!audio.paused&&!audio.ended&&!!current;}
+function storyBusy(){return (!navPlaying&&!audio.paused&&!audio.ended&&!!current)||(!!tts&&!tts.paused);}
 // a stop was reached: get its story ready, but wait for the rider to tap play
 function arrive(s){
   pending=s; const i=STOPS.indexOf(s);
@@ -410,12 +417,13 @@ setInterval(autoStart,1000);
 function paras(text){return text.split(/(?<=\.)\s+(?=[A-Z])/).reduce((acc,s,j)=>{const pi=Math.floor(j/4);(acc[pi]=acc[pi]||[]).push(s);return acc},[]).map(p=>`<p>${p.join(' ')}</p>`).join('');}
 function playTrack(t,manual,at){
   if(pending===t)pending=null;
-  queue=queue.filter(q=>q!==t);
+  queue=queue.filter(q=>q!==t); stopTTS();
   current=t; navPlaying=false; resume=null; log.push({kind:'story',id:t.id});
   audio.src=t.audio; audio.currentTime=at||0;
   $('nowTitle').textContent=t.title;
   const i=STOPS.indexOf(t);
-  $('kicker').textContent=i>=0?`Stop ${i+1} of ${STOPS.length}`:(t===INTRO?'Introduction':'Finish');
+  $('kicker').textContent=i>=0?`Stop ${i+1} of ${STOPS.length}`:t.more?'Tell me more':(t===INTRO?'Introduction':'Finish');
+  if(i>=0&&t.more)moreFor=t; renderMore();
   $('transcript').innerHTML=paras(t.text);
   if('mediaSession' in navigator){try{navigator.mediaSession.metadata=new MediaMetadata({title:t.title,artist:'Berlin divided',album:'Cold War bike tour'});}catch(e){}}
   const pr=audio.play();
@@ -423,20 +431,55 @@ function playTrack(t,manual,at){
   if(i>=0){played.add(t.id);store.set('bd_played',[...played]);}
   render();
 }
-audio.onplay=()=>{if(navPlaying||pending)return;$('playIcon').innerHTML=PAUSE;$('playBtn').setAttribute('aria-label','Pause');$('playBtn').classList.remove('nudge');};
+audio.onplay=()=>{renderMore();if(navPlaying||pending)return;$('playIcon').innerHTML=PAUSE;$('playBtn').setAttribute('aria-label','Pause');$('playBtn').classList.remove('nudge');};
 audio.onpause=()=>{if(navPlaying||pending)return;$('playIcon').innerHTML=PLAY;$('playBtn').setAttribute('aria-label','Play');};
 audio.onloadedmetadata=()=>{if(navPlaying||pending)return;$('tDur').textContent=fmt(audio.duration);};
 audio.ontimeupdate=()=>{if(navPlaying||pending)return;$('tCur').textContent=fmt(audio.currentTime);if(audio.duration)$('seek').value=audio.currentTime/audio.duration*100;};
 audio.onended=()=>{
   if(navPlaying){navPlaying=false;if(!pending){$('playIcon').innerHTML=PLAY;if(queue.length)arrive(queue.shift());}else autoStart();return;}
-  if(queue.length){arrive(queue.shift());return;}
-  const si=STOPS.indexOf(current); if(si>=0&&si<STOPS.length-1)startLeg(si);
-  if(allHeard()&&current!==OUTRO){playTrack(OUTRO);return;}
-  $('kicker').textContent='Ride on to the next stop';
+  storyEnded();
 };
-$('playBtn').onclick=()=>{if(pending){playTrack(pending,true);return;}if(!audio.src){playTrack(INTRO);return;}if(navPlaying||(resume&&audio.paused)){const r=resume;if(r)playTrack(r.track,true,r.time);else{audio.pause();navPlaying=false;}return;}audio.paused?audio.play():audio.pause();};
+$('playBtn').onclick=()=>{if(pending){playTrack(pending,true);return;}
+  if(tts){tts.paused=!tts.paused;tts.paused?speechSynthesis.pause():speechSynthesis.resume();$('playIcon').innerHTML=tts.paused?PLAY:PAUSE;return;}if(!audio.src){playTrack(INTRO);return;}if(navPlaying||(resume&&audio.paused)){const r=resume;if(r)playTrack(r.track,true,r.time);else{audio.pause();navPlaying=false;}return;}audio.paused?audio.play():audio.pause();};
 $('seek').oninput=e=>{if(audio.duration)audio.currentTime=e.target.value/100*audio.duration;};
 $('back15').onclick=()=>{audio.currentTime=Math.max(0,audio.currentTime-15);};
+
+function storyEnded(){
+  if(queue.length){arrive(queue.shift());return;}
+  const si=STOPS.indexOf(current); if(si>=0&&si<STOPS.length-1)startLeg(si);
+  if(si>=0&&allHeard()){playTrack(OUTRO);return;}
+  $('kicker').textContent=si>=0&&current.more?'Want the longer story? Tap Tell me more':'Ride on to the next stop';
+  renderMore();
+}
+
+/* ---------- tell me more ---------- */
+const moreTrack=s=>s._more||(s._more={id:s.id+'-more',title:s.title,more:true,stop:s,text:s.more.text,audio:s.more.audio,dur:s.more.dur||s.more.text.split(/\s+/).length/2.5});
+function renderMore(){
+  const b=$('moreBtn'),on=!!(moreFor&&moreFor.more)&&!(current&&current.more&&current.stop===moreFor&&(storyBusy()||audio.paused&&audio.currentTime>0&&!audio.ended));
+  b.hidden=!on; if(!on)return;
+  b.querySelector('b').textContent=`Tell me more about ${moreFor.title.replace(/^The /,'the ')}`;
+  $('moreLen').textContent=`${Math.round(moreTrack(moreFor).dur/60)} min`;
+  b.classList.toggle('offer',current===moreFor&&!storyBusy());
+}
+function playMore(s){
+  const t=moreTrack(s);
+  log.push({kind:'more',id:s.id});
+  if(t.audio){playTrack(t,true);return;}
+  // no recording yet: the phone reads it, sentence by sentence (long utterances get cut off in some browsers)
+  audio.pause(); stopTTS(); current=t; navPlaying=false; resume=null; pending=null;
+  $('nowTitle').textContent=t.title; $('kicker').textContent='Tell me more · read by your phone';
+  $('transcript').innerHTML=paras(t.text); $('tCur').textContent='0:00'; $('tDur').textContent=fmt(t.dur); $('seek').value=0;
+  if(!('speechSynthesis' in window)){$('kicker').textContent='Tell me more · open Read along';return;}
+  const parts=t.text.match(/[^.!?]+[.!?]+/g)||[t.text],v=speechSynthesis.getVoices(),voice=v.find(x=>/^en-GB/i.test(x.lang))||v.find(x=>/^en/i.test(x.lang))||null;
+  const me_={t,paused:false,done:0,total:parts.length}; tts=me_;
+  parts.forEach((p,k)=>{const u=new SpeechSynthesisUtterance(p.trim());u.lang='en-GB';u.voice=voice;
+    u.onend=()=>{if(tts!==me_)return;me_.done=k+1;$('seek').value=me_.done/me_.total*100;$('tCur').textContent=fmt(t.dur*me_.done/me_.total);
+      if(k===parts.length-1){tts=null;$('playIcon').innerHTML=PLAY;storyEnded();}};
+    speechSynthesis.speak(u);});
+  $('playIcon').innerHTML=PAUSE; renderMore();
+}
+function stopTTS(){if(tts){tts=null;try{speechSynthesis.cancel();}catch(e){}}}
+$('moreBtn').onclick=()=>{if(moreFor)playMore(moreFor);};
 
 /* ---------- turn-by-turn ---------- */
 function say(clip){
@@ -645,12 +688,12 @@ function begin(test){
   playTrack(INTRO);                    // user gesture unlocks audio for later automatic stops
   ridePos=null;heading=null;preDone.clear();enterNav();
   try{speechSynthesis.speak(new SpeechSynthesisUtterance(''));}catch(e){} // iPhone only speaks after a tap has used it once
-  if(test){played=new Set();pending=null;queue=[];current=INTRO;leg=-1;navIdx=0;store.set('bd_played',[]);simPos=simStart();render();toggleSim(true);}
+  if(test){played=new Set();pending=null;queue=[];moreFor=null;current=INTRO;leg=-1;navIdx=0;store.set('bd_played',[]);simPos=simStart();render();toggleSim(true);}
   else startGPS();
 }
 $('startBtn').onclick=()=>begin(false);
 $('testBtn').onclick=()=>begin(true);
-$('reset').onclick=()=>{if(confirm('Reset tour progress?')){played=new Set();queue=[];pending=null;current=null;resume=null;ridePos=null;preDone.clear();leg=-1;navIdx=0;store.set('bd_played',[]);simPos=simStart();audio.pause();render();renderNav();}};
+$('reset').onclick=()=>{if(confirm('Reset tour progress?')){played=new Set();queue=[];pending=null;current=null;resume=null;ridePos=null;preDone.clear();moreFor=null;stopTTS();renderMore();leg=-1;navIdx=0;store.set('bd_played',[]);simPos=simStart();audio.pause();render();renderNav();}};
 /* ---------- starting point ---------- */
 function tourMinutes(){
   const metres=cum[cum.length-1]-stopCum[startAt],stops=activeStops();
@@ -685,7 +728,7 @@ simPos=simStart();
 renderStart();
 $('startBtn').disabled=$('testBtn').disabled=false;
 /* ---------- offline ---------- */
-const AUDIO_FILES=[...new Set([INTRO,OUTRO,...STOPS].map(t=>t.audio).concat(Object.values(CLIPS)))];
+const AUDIO_FILES=[...new Set([INTRO,OUTRO,...STOPS,...STOPS.map(s=>s.more||{})].map(t=>t.audio).filter(Boolean).concat(Object.values(CLIPS)))];
 function offlineMsg(text,cls){for(const id of ['offlineStart','offlineFoot']){const e=$(id);e.hidden=false;e.textContent=text;e.className='offline '+cls;}}
 async function downloadTour(){
   if(!('caches' in window))return;
@@ -705,7 +748,7 @@ if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(
 downloadTour();
 
 // read-only hook for the automated ride test
-window.__tour={log,get travel(){return travel},get mode(){return storyMode},get offRoute(){return offRoute},get current(){return current&&current.id},get pending(){return pending&&pending.id},get played(){return [...played]},get navPlaying(){return navPlaying},stops:STOPS.map(s=>s.id)};
+window.__tour={log,get tts(){return !!tts},get travel(){return travel},get mode(){return storyMode},get offRoute(){return offRoute},get current(){return current&&current.id},get pending(){return pending&&pending.id},get played(){return [...played]},get navPlaying(){return navPlaying},stops:STOPS.map(s=>s.id)};
 initMap(); render();
 window.addEventListener('resize',setView);
 </script>

@@ -9,6 +9,7 @@ Usage (from the repo root):
 
 What it produces, next to the tour's index.html:
     audio/stories/<id>-<md5 of mp3, 8 hex>.mp3   intro, outro and one story per stop
+    audio/more/<id>-<md5 of mp3, 8 hex>.mp3      optional "Tell me more" deep dive per stop (stops[].more)
     audio/nav/<md5 of text, 10 hex>.mp3          every spoken direction
 
 Spoken directions:
@@ -103,9 +104,11 @@ def main():
     nav_items = [s for leg in tour["nav"] for s in leg]
     nav_items += [s["pre"] for leg in tour["nav"] for s in leg if "pre" in s]
     nav_items.append(tour["turnaround"])
-    stories = [tour["intro"], tour["outro"], *tour["stops"]]
+    # (item, folder, file id): stories and deep dives both get content-hashed file names
+    stories = [(t, "stories", t["id"]) for t in (tour["intro"], tour["outro"], *tour["stops"])]
+    stories += [(s["more"], "more", s["id"]) for s in tour["stops"] if s.get("more")]
 
-    for item in nav_items + stories:
+    for item in nav_items + [t for t, _, _ in stories]:
         if "—" in item["text"]:
             sys.exit(f"Em dash in text, rewrite it first: {item['text'][:80]}")
 
@@ -119,16 +122,17 @@ def main():
             tour["clips"][cid] = rel
         else:
             jobs.append(("nav", item, cid, rel))
-    for t in stories:
+    for t, folder, fid in stories:
         have = t.get("audio") and os.path.exists(os.path.join(root, t["audio"]))
         if args.all or not have:
-            jobs.append(("story", t, None, None))
+            jobs.append(("story", t, fid, folder))
 
     if args.texts_only:
         print(f"{len(jobs)} clips still need audio; run without --texts-only to generate them.")
     else:
         os.makedirs(os.path.join(root, "audio", "nav"), exist_ok=True)
         os.makedirs(os.path.join(root, "audio", "stories"), exist_ok=True)
+        os.makedirs(os.path.join(root, "audio", "more"), exist_ok=True)
 
         async def run():
             for n, (kind, item, cid, rel) in enumerate(jobs, 1):
@@ -138,10 +142,11 @@ def main():
                     item["clip"] = cid
                     tour["clips"][cid] = rel
                 else:
-                    tmp = os.path.join(root, "audio", "stories", f"{item['id']}.mp3")
+                    fid, folder = cid, rel
+                    tmp = os.path.join(root, "audio", folder, f"{fid}.mp3")
                     await speak(item["text"], voice, tmp)
                     digest = hashlib.md5(open(tmp, "rb").read()).hexdigest()[:8]
-                    rel = f"audio/stories/{item['id']}-{digest}.mp3"
+                    rel = f"audio/{folder}/{fid}-{digest}.mp3"
                     old = item.get("audio")
                     os.replace(tmp, os.path.join(root, rel))
                     if old and old != rel and os.path.exists(os.path.join(root, old)):
