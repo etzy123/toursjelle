@@ -177,8 +177,13 @@ body.navmode{overflow:hidden}
       <div><b id="factStops">11</b><span>stops</span></div>
       <div><b id="factTime">~2 h</b><span>with stories</span></div>
     </div>
-    <p class="lede">A self-guided Cold War ride from <span id="ledeFrom">the Reichstag</span> to Bernauer Strasse. When you reach a spot, its story is ready. Tap play whenever you want to listen.</p>
+    <p class="lede">A self-guided Cold War ride from <span id="ledeFrom">the Reichstag</span> to Bernauer Strasse. <span id="ledeMode"></span></p>
     <label class="startpick"><span>Starting point</span><select id="startSel"></select></label>
+    <label class="startpick"><span>Stories start</span><select id="modeSel">
+      <option value="tap">When I tap play</option>
+      <option value="stopped">Once I've stopped at the spot</option>
+      <option value="auto">As soon as I arrive</option>
+    </select></label>
     <button class="cta" id="startBtn" disabled>Loading tour…</button>
     <button class="cta2" id="testBtn" disabled>Try a test ride from here</button>
     <p class="offline" id="offlineStart" hidden></p>
@@ -232,13 +237,13 @@ body.navmode{overflow:hidden}
   </section>
 
   <section class="test">
-    <p>Test ride moves a virtual bike along the route and waits at each stop until you tap play and the story ends, just like a real ride.</p>
+    <p>Test ride moves a virtual bike along the route and waits at each stop until the story is over, just like a real ride.</p>
     <button class="chip" id="simToggle" aria-pressed="false">Start test ride</button>
     <button class="chip" id="simSpeed">Speed 20×</button>
   </section>
 
   <p class="offline" id="offlineFoot" hidden></p>
-  <p class="foot">Narration voice is synthetic. Route distances are from OpenStreetMap bike routing. <button id="changeStart">Change starting point</button> · <button id="reset">Reset tour progress</button></p>
+  <p class="foot">Narration voice is synthetic. Route distances are from OpenStreetMap bike routing. <button id="changeStart">Starting point and settings</button> · <button id="reset">Reset tour progress</button></p>
 </div>
 
 <div class="navui" id="navui" hidden>
@@ -299,6 +304,13 @@ const allHeard=()=>activeStops().every(s=>played.has(s.id));
 // route distance at each stop, so the test ride can begin at the chosen starting point
 const stopCum=STOPS.map(s=>{let b=0,m=Infinity;ROUTE.forEach((p,i)=>{const d=dist(p,[s.lat,s.lng]);if(d<m){m=d;b=i;}});return cum[b];});
 const simStart=()=>Math.max(0,stopCum[startAt]-60);
+const MODES=['tap','stopped','auto'];
+let storyMode=MODES.includes(store.get('bd_storymode'))?store.get('bd_storymode'):'tap';
+const SLOW=4/3.6, STOP_WAIT=5000;            // "stopped" = below 4 km/h for 5 seconds
+let slowSince=null, lastFixAt=0;
+const PRE_AT=150;                            // metres; must match PRE_DISTANCE in scripts/build_audio.py
+const preDone=new Set(), log=[];             // log: what was spoken, for the ride test
+let lastTurnaround=0;
 let queue=[], pending=null, current=null, me=null, meAcc=null, zoomMe=false;
 let navPlaying=false, resume=null, leg=-1, navIdx=0, offCount=0, lastOff=0, offRoute=false;
 const $=id=>document.getElementById(id);
@@ -373,12 +385,25 @@ function arrive(s){
   $('tCur').textContent='0:00';$('tDur').textContent=fmt(s.dur);$('seek').value=0;
   $('playIcon').innerHTML=PLAY;$('playBtn').setAttribute('aria-label',`Play ${s.title}`);$('playBtn').classList.add('nudge');
   try{navigator.vibrate&&navigator.vibrate([200,100,200]);}catch(e){}
+  if(storyMode==='stopped')$('kicker').textContent='Stop when it is safe. The story starts once you have stopped';
+  autoStart();
 }
+const promptBusy=()=>navPlaying&&!audio.paused&&!audio.ended;
+// in the automatic modes, start the waiting story when the rider is ready for it
+function autoStart(){
+  if(!pending||storyBusy()||promptBusy())return;
+  if(storyMode==='auto')playTrack(pending);
+  else if(storyMode==='stopped'){
+    const now=Date.now(),still=slowSince&&now-slowSince>=STOP_WAIT,quiet=lastFixAt&&now-lastFixAt>8000; // no GPS updates: not moving
+    if(still||quiet)playTrack(pending);
+  }
+}
+setInterval(autoStart,1000);
 function paras(text){return text.split(/(?<=\.)\s+(?=[A-Z])/).reduce((acc,s,j)=>{const pi=Math.floor(j/4);(acc[pi]=acc[pi]||[]).push(s);return acc},[]).map(p=>`<p>${p.join(' ')}</p>`).join('');}
 function playTrack(t,manual,at){
   if(pending===t)pending=null;
   queue=queue.filter(q=>q!==t);
-  current=t; navPlaying=false; resume=null;
+  current=t; navPlaying=false; resume=null; log.push({kind:'story',id:t.id});
   audio.src=t.audio; audio.currentTime=at||0;
   $('nowTitle').textContent=t.title;
   const i=STOPS.indexOf(t);
@@ -395,7 +420,7 @@ audio.onpause=()=>{if(navPlaying||pending)return;$('playIcon').innerHTML=PLAY;$(
 audio.onloadedmetadata=()=>{if(navPlaying||pending)return;$('tDur').textContent=fmt(audio.duration);};
 audio.ontimeupdate=()=>{if(navPlaying||pending)return;$('tCur').textContent=fmt(audio.currentTime);if(audio.duration)$('seek').value=audio.currentTime/audio.duration*100;};
 audio.onended=()=>{
-  if(navPlaying){navPlaying=false;if(!pending){$('playIcon').innerHTML=PLAY;if(queue.length)arrive(queue.shift());}return;}
+  if(navPlaying){navPlaying=false;if(!pending){$('playIcon').innerHTML=PLAY;if(queue.length)arrive(queue.shift());}else autoStart();return;}
   if(queue.length){arrive(queue.shift());return;}
   const si=STOPS.indexOf(current); if(si>=0&&si<STOPS.length-1)startLeg(si);
   if(allHeard()&&current!==OUTRO){playTrack(OUTRO);return;}
@@ -409,16 +434,41 @@ $('back15').onclick=()=>{audio.currentTime=Math.max(0,audio.currentTime-15);};
 function say(clip){
   if(storyBusy())return;
   if(current&&!navPlaying&&audio.src&&!audio.ended&&audio.currentTime>0)resume={track:current,time:audio.currentTime};
+  log.push({kind:'clip',clip});
   navPlaying=true; audio.src=CLIPS[clip]; audio.currentTime=0;
   const p=audio.play(); if(p&&p.catch)p.catch(()=>{});
+}
+// a direction that may not have recorded audio yet: fall back to the phone's own voice
+function speakItem(item,kind){
+  if(storyBusy()||promptBusy())return;
+  log.push({kind,text:item.text});
+  if(item.clip&&CLIPS[item.clip]){say(item.clip);return;}
+  try{
+    if(!('speechSynthesis' in window))return;
+    const u=new SpeechSynthesisUtterance(item.text),v=speechSynthesis.getVoices();
+    u.lang='en-GB';u.voice=v.find(x=>/^en-GB/i.test(x.lang))||v.find(x=>/^en/i.test(x.lang))||null;
+    speechSynthesis.cancel();speechSynthesis.speak(u);
+  }catch(e){}
 }
 function startLeg(i){leg=i;navIdx=0;const st=NAV[i]||[];if(st[0]){say(st[0].clip);navIdx=1;}renderNav();}
 function checkNav(sim,acc){
   if(!sim&&played.size>0){const off=snapNow.d>Math.max(60,acc||0);offCount=off?offCount+1:0;offRoute=offCount>=3;}
   if(storyBusy())return;
   const st=NAV[leg];
-  if(st){for(let j=navIdx;j<Math.min(st.length,navIdx+3);j++){if(dist(me,[st[j].lat,st[j].lng])<=TURN_RADIUS){say(st[j].clip);navIdx=j+1;break;}}}
-  if(offRoute&&Date.now()-lastOff>60000){say(OFFROUTE);lastOff=Date.now();}
+  let spoke=false;
+  if(st){for(let j=navIdx;j<Math.min(st.length,navIdx+3);j++){if(dist(me,[st[j].lat,st[j].lng])<=TURN_RADIUS){say(st[j].clip);navIdx=j+1;spoke=true;break;}}}
+  // pre-announce the next turn about 150 m ahead, if it is far enough from the previous one to need it
+  if(st&&!spoke&&ridePos!=null&&snapNow.d<=40){const pos=STEP_POS[leg]||[];
+    for(let j=Math.max(1,navIdx);j<st.length;j++){const ahead=pos[j]-ridePos;if(ahead<0)continue;
+      const gap=pos[j]-pos[j-1],key=leg+':'+j;
+      if(ahead<=PRE_AT+40&&ahead>=PRE_AT-60&&gap>=PRE_AT+100&&st[j].pre&&!preDone.has(key)){preDone.add(key);speakItem(st[j].pre,'pre');spoke=true;}
+      break;}}
+  const now=Date.now();
+  if(!spoke&&offRoute&&now-lastOff>60000){say(OFFROUTE);lastOff=now;spoke=true;}
+  // riding away from the route: tell them to turn around
+  if(!spoke&&offRoute&&heading!=null&&now-lastTurnaround>45000&&now-lastOff>8000&&DATA.turnaround){
+    const r=snap(me,ridePos),off=Math.abs(((bearing(me,r.pt)-heading)%360+540)%360-180);
+    if(off>120){speakItem(DATA.turnaround,'turnaround');lastTurnaround=now;}}
 }
 function renderNav(){
   const st=NAV[leg]; const box=$('navText');
@@ -429,8 +479,10 @@ function renderNav(){
 }
 
 /* ---------- position handling ---------- */
-function onPosition(lat,lng,acc,sim,hdg){
-  const prev=me; me=[lat,lng]; meAcc=acc;
+function onPosition(lat,lng,acc,sim,hdg,spd){
+  const prev=me,now=Date.now(); me=[lat,lng]; meAcc=acc;
+  const v=spd!=null&&isFinite(spd)?spd:(prev&&lastFixAt?dist(prev,me)/Math.max(0.5,(now-lastFixAt)/1000):null);
+  lastFixAt=now; if(v!=null)slowSince=v<SLOW?(slowSince||now):null;
   if(hdg!=null&&isFinite(hdg))heading=hdg; else if(prev&&dist(prev,me)>=4)heading=bearing(prev,me);
   snapNow=snap(me,ridePos);
   if(snapNow.d<=Math.max(40,acc||0))ridePos=snapNow.pos;
@@ -444,7 +496,7 @@ function onPosition(lat,lng,acc,sim,hdg){
       if(storyBusy())queue.push(s);else arrive(s);
     }
   });
-  checkNav(sim,acc);
+  checkNav(sim,acc); autoStart();
   if(!sim)$('gps').textContent=offRoute?'Off route':`GPS ±${Math.round(acc)} m`;
   follow(); render(); renderNav(); updateNav();
 }
@@ -453,7 +505,7 @@ function startGPS(){
   if(!('geolocation' in navigator)){$('gps').textContent='No GPS on this device';return;}
   if(watchId!==null)return;
   $('gps').textContent='Finding you…';
-  watchId=navigator.geolocation.watchPosition(p=>{if(!simOn)onPosition(p.coords.latitude,p.coords.longitude,p.coords.accuracy,false,(p.coords.speed||0)>1?p.coords.heading:null)},
+  watchId=navigator.geolocation.watchPosition(p=>{if(!simOn)onPosition(p.coords.latitude,p.coords.longitude,p.coords.accuracy,false,(p.coords.speed||0)>1?p.coords.heading:null,p.coords.speed)},
     e=>{$('gps').textContent=e.code===1?'Location blocked. Allow it in browser settings':'Location unavailable';},
     {enableHighAccuracy:true,maximumAge:3000,timeout:20000});
 }
@@ -497,8 +549,8 @@ function navTarget(){ // the next unheard stop ahead of you on the route
   if(ridePos!=null)for(let i=startAt;i<STOPS.length;i++)if(!played.has(STOPS[i].id)&&stopCum[i]>=ridePos-RADIUS)return i;
   return nextIndex();
 }
-function banner(icon,d,instr,then,off){
-  $('navArrow').innerHTML=`<svg viewBox="0 0 24 24">${ICONS[icon]}</svg>`;$('navDist').textContent=d;$('navInstr').textContent=instr;
+function banner(icon,d,instr,then,off,turn){
+  $('navArrow').innerHTML=`<svg viewBox="0 0 24 24"${turn!=null?` style="transform:rotate(${Math.round(turn)}deg)"`:''}>${ICONS[icon]}</svg>`;$('navDist').textContent=d;$('navInstr').textContent=instr;
   $('navThen').textContent=then||'';$('navThen').hidden=!then;$('navBanner').classList.toggle('off',!!off);
 }
 function updateNav(){
@@ -508,11 +560,13 @@ function updateNav(){
   const ti=navTarget();
   if(!me){banner('wait','…','Finding you…','Allow location access to navigate');}
   else if(ti<0){banner('arrive','Done','Tour complete','All stops heard');}
-  else if(pending){banner('arrive','Arrived',pending.title,'Tap play to hear the story');}
+  else if(pending){banner('arrive','Arrived',pending.title,storyMode==='stopped'?'The story starts once you have stopped':'Tap play to hear the story');}
   else{
     const s=STOPS[ti],l=ti-1,onRoute=snapNow.d<=Math.max(40,meAcc||0);
     if(offRoute||(!onRoute&&ridePos!=null&&played.size)){
-      const r=snap(me,ridePos);guideTo=r.pt;banner('back',fmtDist(r.d),'Head back to the route',`Then continue to ${ti+1}. ${s.title}`,true);
+      // arrow points at the nearest point on the route: relative to your direction when known, else to north (map is north-up)
+      const r=snap(me,ridePos),b=bearing(me,r.pt),rel=heading!=null?b-heading:b,away=heading!=null&&Math.abs(((rel%360)+540)%360-180)>120;
+      guideTo=r.pt;banner('straight',fmtDist(r.d),away?'Turn around, then head back to the route':'Head back to the route',`Then continue to ${ti+1}. ${s.title}`,true,rel);
     }else if(!onRoute||ridePos==null||stopCum[ti]<ridePos){
       guideTo=[s.lat,s.lng];banner('straight',fmtDist(dist(me,guideTo)),`Head to ${ti+1}. ${s.title}`,'Follow the dotted line to your first stop');
     }else{
@@ -581,13 +635,14 @@ $('simSpeed').onclick=()=>{simSpeed=SPEEDS[(SPEEDS.indexOf(simSpeed)+1)%SPEEDS.l
 function begin(test){
   $('start').hidden=true; keepAwake();
   playTrack(INTRO);                    // user gesture unlocks audio for later automatic stops
-  ridePos=null;heading=null;enterNav();
+  ridePos=null;heading=null;preDone.clear();enterNav();
+  try{speechSynthesis.speak(new SpeechSynthesisUtterance(''));}catch(e){} // iPhone only speaks after a tap has used it once
   if(test){played=new Set();pending=null;queue=[];current=INTRO;leg=-1;navIdx=0;store.set('bd_played',[]);simPos=simStart();render();toggleSim(true);}
   else startGPS();
 }
 $('startBtn').onclick=()=>begin(false);
 $('testBtn').onclick=()=>begin(true);
-$('reset').onclick=()=>{if(confirm('Reset tour progress?')){played=new Set();queue=[];pending=null;current=null;resume=null;ridePos=null;leg=-1;navIdx=0;store.set('bd_played',[]);simPos=simStart();audio.pause();render();renderNav();}};
+$('reset').onclick=()=>{if(confirm('Reset tour progress?')){played=new Set();queue=[];pending=null;current=null;resume=null;ridePos=null;preDone.clear();leg=-1;navIdx=0;store.set('bd_played',[]);simPos=simStart();audio.pause();render();renderNav();}};
 /* ---------- starting point ---------- */
 const TOTAL_KM=15.4, TOTAL_MIN=120;
 function renderStart(){
@@ -598,10 +653,14 @@ function renderStart(){
   $('factTime').textContent=m>=60?`~${+(m/60).toFixed(1)} h`:`~${m} min`;
   $('ledeFrom').textContent=startAt===0?'the Reichstag':STOPS[startAt].title.replace(/^The /,'the ');
   $('startBtn').textContent=activeStops().some(s=>played.has(s.id))?'Continue the tour':'Start the tour';
+  $('ledeMode').textContent={tap:'When you reach a spot, its story is ready. Tap play whenever you want to listen.',
+    stopped:'When you reach a spot and stop, its story plays by itself.',auto:'Each story plays by itself when you reach the spot.'}[storyMode];
 }
 const sel=$('startSel');
 STOPS.forEach((s,i)=>{const o=document.createElement('option');o.value=i;o.textContent=`${i+1}. ${s.title}`;sel.appendChild(o);});
 sel.value=startAt;
+$('modeSel').value=storyMode;
+$('modeSel').onchange=e=>{storyMode=e.target.value;store.set('bd_storymode',storyMode);renderStart();};
 sel.onchange=()=>{
   startAt=+sel.value; store.set('bd_start',startAt);
   queue=queue.filter(s=>active(STOPS.indexOf(s))); if(pending&&!active(STOPS.indexOf(pending)))pending=null;
@@ -633,7 +692,7 @@ if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(
 downloadTour();
 
 // read-only hook for the automated ride test
-window.__tour={get current(){return current&&current.id},get pending(){return pending&&pending.id},get played(){return [...played]},get navPlaying(){return navPlaying},stops:STOPS.map(s=>s.id)};
+window.__tour={log,get mode(){return storyMode},get offRoute(){return offRoute},get current(){return current&&current.id},get pending(){return pending&&pending.id},get played(){return [...played]},get navPlaying(){return navPlaying},stops:STOPS.map(s=>s.id)};
 initMap(); render();
 window.addEventListener('resize',setView);
 </script>
