@@ -202,6 +202,33 @@ test('bonus stop: detour after its stop, story, back to the route; can be skippe
   await second.ctx.close();
 });
 
+test('then and now: the stop photo shows with its credit and licence, and opens full size', async () => {
+  const { ctx, page, errors } = await openTour({ mode: 'tap' });
+  // no photos are downloaded yet, so give the first stop one (the app icon) through the tour JSON
+  const photo = { src: 'icons/icon-512.png', caption: 'A test photo', year: '1961', author: 'Test Author',
+    licence: 'CC BY-SA 3.0 de', licenceUrl: 'https://creativecommons.org/licenses/by-sa/3.0/de/deed.en', source: 'https://commons.wikimedia.org/wiki/File:Test.jpg' };
+  await page.route('**/data/berlin-divided.json', async r => {
+    const j = await (await r.fetch()).json(); j.stops[0].photo = photo; r.fulfill({ json: j });
+  });
+  await page.reload(); await page.waitForFunction(() => !document.getElementById('startBtn').disabled);
+  await page.click('#startBtn');
+  assert.equal(await page.isHidden('#photo'), true, 'no photo with the intro');
+  await finishAudio(page);
+  await ctx.setGeolocation(geo(pointAt(5)));
+  await page.waitForFunction(() => __tour.pending === 'reichstag');
+  assert.equal(await page.isVisible('#photo'), true, 'photo shows on arrival');
+  assert.equal(await page.textContent('#photoCap'), 'A test photo, 1961.');
+  assert.match(await page.textContent('#photoCredit'), /Test Author, CC BY-SA 3\.0 de/);
+  await page.click('#photoOpen');
+  assert.equal(await page.isVisible('#lightbox'), true);
+  assert.equal(await page.getAttribute('#lightCredit a[href*="creativecommons"]', 'href'), photo.licenceUrl);
+  assert.equal(await page.getAttribute('#lightCredit a[href*="commons.wikimedia"]', 'href'), photo.source);
+  await page.keyboard.press('Escape');
+  assert.equal(await page.isHidden('#lightbox'), true);
+  assert.deepEqual(errors, []);
+  await ctx.close();
+});
+
 test('stop-safe mode: waits until the rider has stopped for 5 seconds', { timeout: 60000 }, async () => {
   const { ctx, page, errors } = await openTour({ mode: 'stopped', at: pointAt(0) });
   await page.click('#startBtn');
