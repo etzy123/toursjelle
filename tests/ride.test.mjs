@@ -46,12 +46,12 @@ before(async () => {
 });
 after(async () => { await browser?.close(); server?.close(); });
 
-async function openTour({ mode = 'tap', at = ROUTE[0], serviceWorkers = 'block' } = {}) {
+async function openTour({ mode = 'tap', travel = 'bike', at = ROUTE[0], serviceWorkers = 'block' } = {}) {
   const ctx = await browser.newContext({
     viewport: { width: 390, height: 800 }, geolocation: geo(at), permissions: ['geolocation'], serviceWorkers,
   });
   await ctx.route(/tile\.openstreetmap\.org|fonts\.googleapis\.com|fonts\.gstatic\.com/, r => r.abort());
-  await ctx.addInitScript(m => { if (!sessionStorage.seeded) { localStorage.clear(); localStorage.setItem('bd_storymode', JSON.stringify(m)); sessionStorage.seeded = 1; } }, mode);
+  await ctx.addInitScript(([m, t]) => { if (!sessionStorage.seeded) { localStorage.clear(); localStorage.setItem('bd_storymode', JSON.stringify(m)); localStorage.setItem('bd_travel', JSON.stringify(t)); sessionStorage.seeded = 1; } }, [mode, travel]);
   const page = await ctx.newPage();
   const errors = [];
   page.on('pageerror', e => errors.push(e.message));
@@ -172,6 +172,29 @@ test('off route: arrow and distance back to the route, warning and "turn around"
   assert.ok(spoken.some(x => x.kind === 'turnaround'), '"turn around" spoken');
   assert.deepEqual(errors, []);
   await ctx.close();
+});
+
+test('walking vs cycling: smaller stop radius and longer time estimate on foot', async () => {
+  const facts = {};
+  for (const travel of ['bike', 'walk']) {
+    const stop = [TOUR.stops[0].lat, TOUR.stops[0].lng], along = m => { let d = 0; while (dist(pointAt(d), stop) < m) d += 1; return pointAt(d); };
+    const { ctx, page, errors } = await openTour({ mode: 'auto', travel, at: along(70) });
+    facts[travel] = [await page.textContent('#factHow'), await page.textContent('#factTime')];
+    await page.click('#startBtn');
+    await finishAudio(page);
+    await page.waitForTimeout(800);
+    assert.equal(await page.evaluate(() => __tour.pending), null, '70 m away is outside both radii');
+    await ctx.setGeolocation(geo(along(38))); // 38 m from the first stop
+    await page.waitForTimeout(1200);
+    facts[travel].push(await page.evaluate(() => __tour.pending || __tour.current));
+    assert.deepEqual(errors, []);
+    await ctx.close();
+  }
+  assert.deepEqual(facts.bike, ['by bike', '~2 h', 'reichstag']);
+  assert.equal(facts.walk[0], 'on foot');
+  assert.equal(facts.walk[2], 'intro', 'on foot, 38 m is not yet at the stop');
+  const hours = t => parseFloat(/~([\d.]+) h/.exec(t)[1]);
+  assert.ok(hours(facts.walk[1]) >= 4, `walking estimate ${facts.walk[1]}`);
 });
 
 test('offline: after the first visit the tour loads and plays without a connection', { timeout: 120000 }, async () => {
