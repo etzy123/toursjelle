@@ -219,39 +219,40 @@ body.navmode{overflow:hidden}
     <div class="divider" aria-hidden="true"></div>
     <div class="facts">
       <div><b id="factKm">15.4 km</b><span id="factHow">by bike</span></div>
-      <div><b id="factStops">11</b><span>stops</span></div>
-      <div><b id="factTime">~2 h</b><span>with stories</span></div>
+      <div><b id="factStops">11</b><span data-t="stops">stops</span></div>
+      <div><b id="factTime">~2 h</b><span data-t="withStories">with stories</span></div>
     </div>
-    <p class="lede">A self-guided Cold War ride from <span id="ledeFrom">the Reichstag</span> to Bernauer Strasse. <span id="ledeMode"></span></p>
-    <label class="startpick"><span>Starting point</span><select id="startSel"></select></label>
-    <label class="startpick"><span>Getting around</span><select id="travelSel">
-      <option value="bike">By bike</option>
-      <option value="walk">On foot</option>
+    <p class="lede"><span id="ledeMain">A self-guided Cold War ride from the Reichstag to Bernauer Strasse.</span> <span id="ledeMode"></span></p>
+    <label class="startpick"><span data-t="language">Language</span><select id="langSel"></select></label>
+    <label class="startpick"><span data-t="startingPoint">Starting point</span><select id="startSel"></select></label>
+    <label class="startpick"><span data-t="gettingAround">Getting around</span><select id="travelSel">
+      <option value="bike" data-t="bike">By bike</option>
+      <option value="walk" data-t="walk">On foot</option>
     </select></label>
-    <fieldset class="bonuspick" id="bonusPick"><legend>Bonus stops</legend></fieldset>
-    <label class="startpick"><span>Stories start</span><select id="modeSel">
-      <option value="tap">When I tap play</option>
-      <option value="stopped">Once I've stopped at the spot</option>
-      <option value="auto">As soon as I arrive</option>
+    <fieldset class="bonuspick" id="bonusPick"><legend data-t="bonusStops">Bonus stops</legend></fieldset>
+    <label class="startpick"><span data-t="storiesStart">Stories start</span><select id="modeSel">
+      <option value="tap" data-t="modeTap">When I tap play</option>
+      <option value="stopped" data-t="modeStopped">Once I've stopped at the spot</option>
+      <option value="auto" data-t="modeAuto">As soon as I arrive</option>
     </select></label>
     <fieldset class="grouppick" id="groupPick">
-      <legend>Ride together</legend>
+      <legend data-t="rideTogether">Ride together</legend>
       <div id="groupOff">
-        <p>One person leads. Everyone hears the same story at the same moment, and you see each other on the map.</p>
-        <div class="row"><input id="groupName" autocomplete="nickname" maxlength="24" placeholder="Your name" aria-label="Your name"></div>
-        <div class="row"><button id="groupCreate">Start a group</button></div>
-        <div class="row"><input id="groupCode" class="code" maxlength="4" placeholder="CODE" aria-label="Group code" autocapitalize="characters" autocomplete="off"><button class="ghost" id="groupJoin">Join</button></div>
+        <p data-t="groupIntro">One person leads. Everyone hears the same story at the same moment, and you see each other on the map.</p>
+        <div class="row"><input id="groupName" autocomplete="nickname" maxlength="24" placeholder="Your name" aria-label="Your name" data-t-ph="yourName" data-t-aria="yourName"></div>
+        <div class="row"><button id="groupCreate" data-t="startGroup">Start a group</button></div>
+        <div class="row"><input id="groupCode" class="code" maxlength="4" placeholder="CODE" aria-label="Group code" data-t-ph="codePh" data-t-aria="groupCode" autocapitalize="characters" autocomplete="off"><button class="ghost" id="groupJoin" data-t="join">Join</button></div>
         <p class="err" id="groupErr" hidden></p>
       </div>
       <div class="groupon" id="groupOn" hidden>
         <p><b class="code" id="groupCodeShow"></b><span id="groupWho"></span></p>
-        <div class="row"><button class="ghost" id="groupShare">Share code</button><button class="ghost" id="groupLeave">Leave group</button></div>
+        <div class="row"><button class="ghost" id="groupShare" data-t="shareCode">Share code</button><button class="ghost" id="groupLeave" data-t="leaveGroup">Leave group</button></div>
       </div>
     </fieldset>
-    <button class="cta" id="startBtn" disabled>Loading tour…</button>
-    <button class="cta2" id="testBtn" disabled>Try a test ride from here</button>
+    <button class="cta" id="startBtn" disabled data-t="loading">Loading tour…</button>
+    <button class="cta2" id="testBtn" disabled data-t="testRide">Try a test ride from here</button>
     <p class="offline" id="offlineStart" hidden></p>
-    <p class="note">Keep this page open with the screen on, and allow location access. Your phone's silent switch can mute the audio. <span id="safety">Wear one earbud at most while riding.</span></p>
+    <p class="note"><span data-t="note">Keep this page open with the screen on, and allow location access. Your phone's silent switch can mute the audio.</span> <span id="safety">Wear one earbud at most while riding.</span></p>
   </div>
 </section>
 
@@ -262,61 +263,61 @@ body.navmode{overflow:hidden}
   </header>
 
   <div class="map">
-    <div id="mapCanvas" role="region" aria-label="Route map with stops"></div>
+    <div id="mapCanvas" role="region" aria-label="Route map with stops" data-t-aria="mapLabel"></div>
     <div class="maptools">
-      <button class="chip" id="zoomRoute" aria-pressed="true">Whole route</button>
-      <button class="chip" id="zoomMe" aria-pressed="false">Around me</button>
+      <button class="chip" id="zoomRoute" aria-pressed="true" data-t="wholeRoute">Whole route</button>
+      <button class="chip" id="zoomMe" aria-pressed="false" data-t="aroundMe">Around me</button>
     </div>
-    <div class="gps" id="gps">Location off</div>
+    <div class="gps" id="gps" data-t="locationOff">Location off</div>
   </div>
 
   <section class="player" aria-live="polite">
     <figure class="photo" id="photo" hidden>
-      <button id="photoOpen" aria-label="Show the photo larger"><img id="photoImg" alt=""></button>
-      <figcaption><b>Then</b><span id="photoCap"></span> <small id="photoCredit"></small></figcaption>
+      <button id="photoOpen" aria-label="Show the photo larger" data-t-aria="showPhoto"><img id="photoImg" alt=""></button>
+      <figcaption><b data-t="then">Then</b><span id="photoCap"></span> <small id="photoCredit"></small></figcaption>
     </figure>
-    <p class="kicker" id="kicker">Ready</p>
-    <h2 id="nowTitle">Before you ride</h2>
+    <p class="kicker" id="kicker" data-t="ready">Ready</p>
+    <h2 id="nowTitle" data-t="beforeRide">Before you ride</h2>
     <div class="controls">
-      <button class="play" id="playBtn" aria-label="Play"><svg viewBox="0 0 24 24" id="playIcon"><path d="M7 4v16l13-8z"/></svg></button>
+      <button class="play" id="playBtn" aria-label="Play" data-t-aria="play"><svg viewBox="0 0 24 24" id="playIcon"><path d="M7 4v16l13-8z"/></svg></button>
       <div class="bar">
-        <input type="range" id="seek" min="0" max="100" value="0" step="0.1" aria-label="Position in story">
+        <input type="range" id="seek" min="0" max="100" value="0" step="0.1" aria-label="Position in story" data-t-aria="seek">
         <div class="time"><span id="tCur">0:00</span><span id="tDur">0:00</span></div>
       </div>
-      <button class="skip" id="back15" aria-label="Back 15 seconds">−15s</button>
+      <button class="skip" id="back15" aria-label="Back 15 seconds" data-t-aria="back15">−15s</button>
     </div>
     <button class="more" id="moreBtn" hidden><b>Tell me more</b><span id="moreLen"></span></button>
     <details>
-      <summary>Read along</summary>
+      <summary data-t="readAlong">Read along</summary>
       <div class="transcript" id="transcript"></div>
     </details>
   </section>
 
   <section class="next" id="nextBox">
     <div class="dist" id="nextDist">…</div>
-    <div class="name" id="nextName">Next stop</div>
+    <div class="name" id="nextName" data-t="nextStop">Next stop</div>
     <p class="turn" id="navText" hidden><b></b><span></span></p>
-    <button class="navgo" id="navGo">Start navigation</button>
-    <a id="nextLink" href="#" target="_blank" rel="noopener">Open in Google Maps instead</a>
+    <button class="navgo" id="navGo" data-t="startNav">Start navigation</button>
+    <a id="nextLink" href="#" target="_blank" rel="noopener" data-t="gmapsInstead">Open in Google Maps instead</a>
   </section>
 
   <section class="list">
-    <h3>Stops</h3>
+    <h3 data-t="stopsHeading">Stops</h3>
     <ol class="stops" id="stopList"></ol>
   </section>
 
   <section class="test">
-    <p>Test ride moves you along the route on screen and waits at each stop until the story is over, just like the real thing.</p>
-    <button class="chip" id="simToggle" aria-pressed="false">Start test ride</button>
+    <p data-t="testText">Test ride moves you along the route on screen and waits at each stop until the story is over, just like the real thing.</p>
+    <button class="chip" id="simToggle" aria-pressed="false" data-t="startTest">Start test ride</button>
     <button class="chip" id="simSpeed">Speed 20×</button>
   </section>
 
   <p class="offline" id="offlineFoot" hidden></p>
-  <p class="foot">Narration voice is synthetic. Route distances are from OpenStreetMap bike routing. <button id="changeStart">Starting point and settings</button> · <button id="reset">Reset tour progress</button></p>
+  <p class="foot"><span data-t="foot">Narration voice is synthetic. Route distances are from OpenStreetMap bike routing.</span> <button id="changeStart" data-t="settings">Starting point and settings</button> · <button id="reset" data-t="reset">Reset tour progress</button></p>
 </div>
 
-<div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Photo">
-  <button class="close" id="lightClose">Close</button>
+<div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Photo" data-t-aria="photo">
+  <button class="close" id="lightClose" data-t="close">Close</button>
   <img id="lightImg" alt="">
   <p><span id="lightCap"></span><small id="lightCredit"></small></p>
 </div>
@@ -326,20 +327,20 @@ body.navmode{overflow:hidden}
     <div class="navarrow" id="navArrow" aria-hidden="true"></div>
     <div class="navtxt">
       <div class="navdist" id="navDist">…</div>
-      <div class="navinstr" id="navInstr">Finding you…</div>
+      <div class="navinstr" id="navInstr" data-t="findingYou">Finding you…</div>
       <div class="navthen" id="navThen"></div>
     </div>
   </div>
   <div class="navmapslot" id="navMapSlot">
-    <button class="recenter" id="recenter" hidden>Re-center</button>
+    <button class="recenter" id="recenter" hidden data-t="recenter">Re-center</button>
   </div>
   <div class="navsheet">
     <div class="navstop">
-      <div><b id="navStop">Next stop</b><span id="navEta"></span> <a id="navGmaps" class="gmaps" href="#" target="_blank" rel="noopener" hidden>Directions</a></div>
+      <div><b id="navStop" data-t="nextStop">Next stop</b><span id="navEta"></span> <a id="navGmaps" class="gmaps" href="#" target="_blank" rel="noopener" hidden data-t="directions">Directions</a></div>
       <div class="navbtns">
         <button class="chip" id="navSim" hidden>20×</button>
-        <button class="chip" id="navSkip" hidden>Skip bonus</button>
-        <button class="chip" id="navExit">Overview</button>
+        <button class="chip" id="navSkip" hidden data-t="skipBonus">Skip bonus</button>
+        <button class="chip" id="navExit" data-t="overview">Overview</button>
       </div>
     </div>
     <div class="groupbar" id="groupBar" hidden></div>
@@ -350,18 +351,49 @@ body.navmode{overflow:hidden}
 <audio id="audio" preload="auto" playsinline></audio>
 
 <script type="module">
+import { STRINGS, LANGS, SPEECH } from './strings.js';
+// language: saved choice, else the phone's language if we have it, else English
+let lang=(()=>{try{const v=JSON.parse(localStorage.getItem('bd_lang'));if(STRINGS[v])return v;}catch(e){}
+  for(const l of navigator.languages||[navigator.language]){const k=String(l||'').slice(0,2).toLowerCase();if(STRINGS[k])return k;}return 'en';})();
+const t=(k,v={})=>String(STRINGS[lang][k]??STRINGS.en[k]??k).replace(/\{(\w+)\}/g,(_,n)=>v[n]??'');
+function applyI18n(){
+  document.documentElement.lang=lang;
+  document.querySelectorAll('[data-t]').forEach(e=>{e.textContent=t(e.dataset.t);});
+  document.querySelectorAll('[data-t-ph]').forEach(e=>{e.placeholder=t(e.dataset.tPh);});
+  document.querySelectorAll('[data-t-aria]').forEach(e=>{e.setAttribute('aria-label',t(e.dataset.tAria));});
+}
+applyI18n();
+// a translation has the same shape as the English tour, without the geometry; recorded audio is optional
+function localise(D,O){
+  const take=(to,from)=>{if(!from)return;for(const k of ['title','short','hint','text'])if(from[k]!=null)to[k]=from[k];
+    to.audio=from.audio;to.dur=from.dur||(from.text?from.text.split(/\s+/).length/2.5:to.dur);};
+  take(D.intro,O.intro);take(D.outro,O.outro);
+  const byId=l=>new Map((l||[]).map(x=>[x.id,x]));
+  const os=byId(O.stops),ob=byId(O.bonus);
+  D.stops.forEach(s=>{const o=os.get(s.id);if(!o)return;take(s,o);if(s.more)s.more=o.more?{text:o.more.text,audio:o.more.audio,dur:o.more.dur}:undefined;});
+  (D.bonus||[]).forEach(b=>take(b,ob.get(b.id)));
+  D.nav.forEach((leg,l)=>leg.forEach((st,j)=>{const o=O.nav&&O.nav[l]&&O.nav[l][j];st.en=st.text;if(!o)return;
+    st.text=o.text;st.clip=o.clip;st.pre=o.pre;}));
+  D.turnaround=O.turnaround;D.offroute=O.offroute;D.clips=O.clips||{};D.voice=O.voice;
+}
 let DATA;
-try{const r=await fetch('data/berlin-divided.json');if(!r.ok)throw new Error(r.status);DATA=await r.json();}
-catch(e){document.getElementById('startBtn').textContent='Could not load the tour. Check your connection and reload.';throw e;}
+try{
+  const get=async u=>{const r=await fetch(u);if(!r.ok)throw new Error(r.status);return r.json();};
+  DATA=await get('data/berlin-divided.json');
+  if(lang!=='en')try{localise(DATA,await get(`data/berlin-divided.${lang}.json`));}catch(e){lang='en';applyI18n();}
+}
+catch(e){document.getElementById('startBtn').textContent=t('loadFail');throw e;}
 const ROUTE = DATA.route;            // [[lat,lng],...]
 const STOPS = DATA.stops;            // {id,title,lat,lng,text,audio}
 const INTRO = DATA.intro, OUTRO = DATA.outro;
 // walking and cycling differ in trigger radii, speeds and what counts as "stopped"
 const PROFILES={
-  bike:{how:'by bike',speed:4.2,radius:45,maxRadius:80,turn:35,offRoute:60,slow:4/3.6,safety:'Wear one earbud at most while riding.'},
-  walk:{how:'on foot',speed:1.3,radius:30,maxRadius:50,turn:20,offRoute:40,slow:1.5/3.6,safety:'Keep one ear free for traffic when crossing streets.'}
+  bike:{how:t('byBike'),speed:4.2,radius:45,maxRadius:80,turn:35,offRoute:60,slow:4/3.6,safety:t('safetyBike')},
+  walk:{how:t('onFoot'),speed:1.3,radius:30,maxRadius:50,turn:20,offRoute:40,slow:1.5/3.6,safety:t('safetyWalk')}
 };
-const NAV = DATA.nav, CLIPS = DATA.clips, OFFROUTE = DATA.offroute;
+const NAV = DATA.nav, CLIPS = DATA.clips;
+// the off-route warning as a spoken item: English has a recorded clip id, translations {text, clip}
+const OFFROUTE = typeof DATA.offroute==='string'?{clip:DATA.offroute,text:''}:(DATA.offroute||{text:''});
 
 /* ---------- geometry ---------- */
 const R=6371000, rad=x=>x*Math.PI/180;
@@ -414,7 +446,7 @@ const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim
 let map=null, stopMarkers=[], bonusMarkers=[], meDot=null, meHalo=null, ridden=null, guide=null;
 function stopIcon(i){return L.divIcon({className:'stopicon',html:String(i+1),iconSize:[26,26],iconAnchor:[13,13]});}
 function initMap(){
-  if(!window.L){$('mapCanvas').innerHTML='<p class="mapoff">The map needs an internet connection. Stories and directions still work.</p>';return;}
+  if(!window.L){$('mapCanvas').innerHTML=`<p class="mapoff">${t('mapOffline')}</p>`;return;}
   map=L.map('mapCanvas',{zoomControl:false});
   L.control.zoom({position:'bottomright'}).addTo(map);
   L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'}).addTo(map);
@@ -455,20 +487,20 @@ function render(){
   const ni=nextIndex();
   stopMarkers.forEach((m,i)=>{const e=m.getElement();if(!e)return;e.classList.toggle('played',played.has(STOPS[i].id));e.classList.toggle('is-next',i===ni);e.classList.toggle('skipped',!active(i));});
   const act=activeStops();
-  $('progress').textContent=`${act.filter(s=>played.has(s.id)).length} of ${act.length} stops`;
+  $('progress').textContent=t('progress',{n:act.filter(s=>played.has(s.id)).length,total:act.length});
   const ol=$('stopList');ol.innerHTML='';
   STOPS.forEach((s,i)=>{const li=document.createElement('li');if(played.has(s.id))li.className='played';else if(!active(i))li.className='skipped';const b=document.createElement('button');
-    b.innerHTML=`<span class="n">${i+1}</span><span class="t"></span><span class="s">${fmt(s.dur)}</span>`;b.querySelector('.t').textContent=s.title;b.setAttribute('aria-label',`Play stop ${i+1}, ${s.title}`);
+    b.innerHTML=`<span class="n">${i+1}</span><span class="t"></span><span class="s">${fmt(s.dur)}</span>`;b.querySelector('.t').textContent=s.title;b.setAttribute('aria-label',t('playStop',{n:i+1,title:s.title}));
     b.onclick=()=>playTrack(s,true);li.appendChild(b);ol.appendChild(li);
     BONUS.filter(x=>x.after===s.id&&bonusOn.has(x.id)).forEach(x=>{const li=document.createElement('li');li.className='bonus'+(played.has(x.id)?' played':'');
-      const b=document.createElement('button');b.innerHTML=`<span class="n">+</span><span class="t"></span><span class="s">bonus · ${fmt(x.dur)}</span>`;b.querySelector('.t').textContent=x.title;
-      b.setAttribute('aria-label',`Play bonus stop, ${x.title}`);b.onclick=()=>playTrack(x,true);li.appendChild(b);ol.appendChild(li);});});
+      const b=document.createElement('button');b.innerHTML=`<span class="n">+</span><span class="t"></span><span class="s">${t('bonus')} · ${fmt(x.dur)}</span>`;b.querySelector('.t').textContent=x.title;
+      b.setAttribute('aria-label',t('playBonus',{title:x.title}));b.onclick=()=>playTrack(x,true);li.appendChild(b);ol.appendChild(li);});});
   bonusMarkers.forEach((m,i)=>{const on=bonusOn.has(BONUS[i].id);if(on&&map&&!map.hasLayer(m))m.addTo(map);if(!on&&map&&map.hasLayer(m))m.remove();
     const e=m.getElement();if(e)e.classList.toggle('played',played.has(BONUS[i].id));});
-  if(ni<0){$('nextDist').textContent='Done';$('nextName').textContent='All stops heard. Bornholmer Strasse is 2 km north if you want an encore.';$('nextLink').hidden=true;}
-  else{const s=STOPS[ni];$('nextName').textContent=`Next: ${ni+1}. ${s.title}`;$('nextLink').hidden=false;
+  if(ni<0){$('nextDist').textContent=t('done');$('nextName').textContent=t('allHeard');$('nextLink').hidden=true;}
+  else{const s=STOPS[ni];$('nextName').textContent=t('next',{n:ni+1,title:s.title});$('nextLink').hidden=false;
     $('nextLink').href=`https://www.google.com/maps/dir/?api=1&destination=${s.lat},${s.lng}&travelmode=bicycling`;
-    $('nextDist').textContent=me?fmtDist(dist(me,[s.lat,s.lng])):'Waiting for location';}
+    $('nextDist').textContent=me?fmtDist(dist(me,[s.lat,s.lng])):t('waitingLocation');}
 }
 function fmt(t){if(!isFinite(t))return '0:00';t=Math.round(t);return Math.floor(t/60)+':'+String(t%60).padStart(2,'0');}
 function fmtDist(m){return m<1000?`${Math.round(m/10)*10} m`:`${(m/1000).toFixed(1)} km`;}
@@ -479,13 +511,13 @@ function storyBusy(){return (!navPlaying&&!audio.paused&&!audio.ended&&!!current
 // a stop was reached: get its story ready, but wait for the rider to tap play
 function arrive(s){
   pending=s;
-  $('kicker').textContent=`You have arrived · ${kickerFor(s)}`;
+  $('kicker').textContent=t('arrived',{what:kickerFor(s)});
   $('nowTitle').textContent=s.title;
   $('transcript').innerHTML=paras(s.text); showPhoto(s);
   $('tCur').textContent='0:00';$('tDur').textContent=fmt(s.dur);$('seek').value=0;
-  $('playIcon').innerHTML=PLAY;$('playBtn').setAttribute('aria-label',`Play ${s.title}`);$('playBtn').classList.add('nudge');
+  $('playIcon').innerHTML=PLAY;$('playBtn').setAttribute('aria-label',t('playTitle',{title:s.title}));$('playBtn').classList.add('nudge');
   try{navigator.vibrate&&navigator.vibrate([200,100,200]);}catch(e){}
-  if(storyMode==='stopped')$('kicker').textContent='Stop when it is safe. The story starts once you have stopped';
+  if(storyMode==='stopped')$('kicker').textContent=t('stopWhenSafe');
   autoStart();
 }
 const promptBusy=()=>navPlaying&&!audio.paused&&!audio.ended;
@@ -500,26 +532,26 @@ function autoStart(){
 }
 setInterval(()=>{autoStart();if(navOn)updateNav();},1000); // the banner also changes while standing still
 function paras(text){return text.split(/(?<=\.)\s+(?=[A-Z])/).reduce((acc,s,j)=>{const pi=Math.floor(j/4);(acc[pi]=acc[pi]||[]).push(s);return acc},[]).map(p=>`<p>${p.join(' ')}</p>`).join('');}
-function kickerFor(t){const i=STOPS.indexOf(t);return i>=0?`Stop ${i+1} of ${STOPS.length}`:t.more?'Tell me more':t.bonus?'Bonus stop':(t===INTRO?'Introduction':'Finish');}
-function playTrack(t,manual,at){
-  if(pending===t)pending=null;
-  queue=queue.filter(q=>q!==t); stopTTS();
-  current=t; navPlaying=false; resume=null; log.push({kind:'story',id:t.id});
-  $('nowTitle').textContent=t.title;
-  const i=STOPS.indexOf(t);
-  $('kicker').textContent=kickerFor(t);
-  if(i>=0&&t.more)moreFor=t;
-  $('transcript').innerHTML=paras(t.text); showPhoto(t);
-  if(i>=0||t.bonus){played.add(t.id);store.set('bd_played',[...played]);}
-  if(!t.audio){speakTrack(t);render();return;}
-  audio.src=t.audio; audio.currentTime=at||0; renderMore();
-  if('mediaSession' in navigator){try{navigator.mediaSession.metadata=new MediaMetadata({title:t.title,artist:'Berlin divided',album:'Cold War bike tour'});}catch(e){}}
+function kickerFor(x){const i=STOPS.indexOf(x);return i>=0?t('stopOf',{n:i+1,total:STOPS.length}):x.more?t('tellMore'):x.bonus?t('bonusStop'):(x===INTRO?t('intro'):t('finish'));}
+function playTrack(trk,manual,at){
+  if(pending===trk)pending=null;
+  queue=queue.filter(q=>q!==trk); stopTTS();
+  current=trk; navPlaying=false; resume=null; log.push({kind:'story',id:trk.id});
+  $('nowTitle').textContent=trk.title;
+  const i=STOPS.indexOf(trk);
+  $('kicker').textContent=kickerFor(trk);
+  if(i>=0&&trk.more)moreFor=trk;
+  $('transcript').innerHTML=paras(trk.text); showPhoto(trk);
+  if(i>=0||trk.bonus){played.add(trk.id);store.set('bd_played',[...played]);}
+  if(!trk.audio){speakTrack(trk);render();return;}
+  audio.src=trk.audio; audio.currentTime=at||0; renderMore();
+  if('mediaSession' in navigator){try{navigator.mediaSession.metadata=new MediaMetadata({title:trk.title,artist:'Berlin divided',album:t('mediaAlbum')});}catch(e){}}
   const pr=audio.play();
-  if(pr&&pr.catch)pr.catch(()=>{$('playBtn').classList.add('nudge');$('kicker').textContent='You have arrived. Tap play to listen';});
+  if(pr&&pr.catch)pr.catch(()=>{$('playBtn').classList.add('nudge');$('kicker').textContent=t('tapToListen');});
   render();
 }
-audio.onplay=()=>{renderMore();groupPush();if(navPlaying||pending)return;$('playIcon').innerHTML=PAUSE;$('playBtn').setAttribute('aria-label','Pause');$('playBtn').classList.remove('nudge');};
-audio.onpause=()=>{groupPush();if(navPlaying||pending)return;$('playIcon').innerHTML=PLAY;$('playBtn').setAttribute('aria-label','Play');};
+audio.onplay=()=>{renderMore();groupPush();if(navPlaying||pending)return;$('playIcon').innerHTML=PAUSE;$('playBtn').setAttribute('aria-label',t('pause'));$('playBtn').classList.remove('nudge');};
+audio.onpause=()=>{groupPush();if(navPlaying||pending)return;$('playIcon').innerHTML=PLAY;$('playBtn').setAttribute('aria-label',t('play'));};
 audio.onloadedmetadata=()=>{if(navPlaying||pending)return;$('tDur').textContent=fmt(audio.duration);};
 audio.ontimeupdate=()=>{if(navPlaying||pending)return;$('tCur').textContent=fmt(audio.currentTime);if(audio.duration)$('seek').value=audio.currentTime/audio.duration*100;};
 audio.onended=()=>{
@@ -534,15 +566,15 @@ $('back15').onclick=()=>{audio.currentTime=Math.max(0,audio.currentTime-15);};
 
 function storyEnded(){
   groupPush();
-  if(following()){const si=STOPS.indexOf(current);if(si>=0&&si<STOPS.length-1)startLeg(si);$('kicker').textContent='Following the group leader';return;}
+  if(following()){const si=STOPS.indexOf(current);if(si>=0&&si<STOPS.length-1)startLeg(si);$('kicker').textContent=t('followingLeader');return;}
   if(queue.length){arrive(queue.shift());return;}
   const si=STOPS.indexOf(current);
   if(current&&current.bonus){const a=bonusAfter(current.after);if(a<STOPS.length-1){leg=a;navIdx=1;} // back to the route, then the leg's turns
-    $('kicker').textContent=a<STOPS.length-1?'Head back to the route':'Thanks for riding';render();updateNav();return;}
+    $('kicker').textContent=a<STOPS.length-1?t('headBack'):t('thanks');render();updateNav();return;}
   if(si>=0&&si<STOPS.length-1){if(bonusTarget())leg=-1;else startLeg(si);}
   updateNav();
   if(si>=0&&allHeard()){playTrack(OUTRO);return;}
-  $('kicker').textContent=si>=0&&current.more?'Want the longer story? Tap Tell me more':'Ride on to the next stop';
+  $('kicker').textContent=si>=0&&current.more?t('wantMore'):t('rideOn');
   renderMore();
 }
 
@@ -550,8 +582,8 @@ function storyEnded(){
 const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 function credit(ph,links){
   const lic=links&&ph.licenceUrl?`<a href="${esc(ph.licenceUrl)}" target="_blank" rel="noopener">${esc(ph.licence)}</a>`:esc(ph.licence);
-  const src=links&&ph.source?` · <a href="${esc(ph.source)}" target="_blank" rel="noopener">source</a>`:'';
-  return `Photo: ${esc(ph.author||'unknown')}, ${lic}${src}`;
+  const src=links&&ph.source?` · <a href="${esc(ph.source)}" target="_blank" rel="noopener">${t('source')}</a>`:'';
+  return t('photoBy',{author:esc(ph.author||'?'),licence:lic})+src;
 }
 let shownPhoto=null;
 function showPhoto(t){
@@ -573,22 +605,22 @@ const moreTrack=s=>s._more||(s._more={id:s.id+'-more',title:s.title,more:true,st
 function renderMore(){
   const b=$('moreBtn'),on=!!(moreFor&&moreFor.more)&&!(current&&current.more&&current.stop===moreFor&&(storyBusy()||audio.paused&&audio.currentTime>0&&!audio.ended));
   b.hidden=!on; if(!on)return;
-  b.querySelector('b').textContent=`Tell me more about ${moreFor.title.replace(/^The /,'the ')}`;
-  $('moreLen').textContent=`${Math.round(moreTrack(moreFor).dur/60)} min`;
+  b.querySelector('b').textContent=t('tellMoreAbout',{title:lang==='en'?moreFor.title.replace(/^The /,'the '):lang==='nl'?moreFor.title.replace(/^(De|Het) /,m=>m.toLowerCase()):moreFor.title});
+  $('moreLen').textContent=`${Math.round(moreTrack(moreFor).dur/60)} ${t('min')}`;
   b.classList.toggle('offer',current===moreFor&&!storyBusy());
 }
 function playMore(s){log.push({kind:'more',id:s.id});playTrack(moreTrack(s),true);}
 // no recording yet: the phone reads it, sentence by sentence (long utterances get cut off in some browsers)
-function speakTrack(t){
+function speakTrack(trk){
   audio.pause(); pending=null;
-  const k=kickerFor(t);
-  $('kicker').textContent=`${k} · read by your phone`;
-  $('tCur').textContent='0:00'; $('tDur').textContent=fmt(t.dur||t.text.split(/\s+/).length/2.5); $('seek').value=0;
-  if(!('speechSynthesis' in window)){$('kicker').textContent=`${k} · open Read along`;return;}
-  const parts=t.text.match(/[^.!?]+[.!?]+/g)||[t.text],v=speechSynthesis.getVoices(),voice=v.find(x=>/^en-GB/i.test(x.lang))||v.find(x=>/^en/i.test(x.lang))||null;
-  const me_={t,paused:false,done:0,total:parts.length}; tts=me_;
-  parts.forEach((p,k)=>{const u=new SpeechSynthesisUtterance(p.trim());u.lang='en-GB';u.voice=voice;
-    u.onend=()=>{if(tts!==me_)return;me_.done=k+1;$('seek').value=me_.done/me_.total*100;$('tCur').textContent=fmt(t.dur*me_.done/me_.total);
+  const k=kickerFor(trk);
+  $('kicker').textContent=t('readByPhone',{what:k});
+  $('tCur').textContent='0:00'; $('tDur').textContent=fmt(trk.dur||trk.text.split(/\s+/).length/2.5); $('seek').value=0;
+  if(!('speechSynthesis' in window)){$('kicker').textContent=t('openReadAlong',{what:k});return;}
+  const parts=trk.text.match(/[^.!?]+[.!?]+/g)||[trk.text],voice=pickVoice(speechSynthesis.getVoices());
+  const me_={trk,paused:false,done:0,total:parts.length}; tts=me_;
+  parts.forEach((p,k)=>{const u=new SpeechSynthesisUtterance(p.trim());u.lang=SPEECH[lang];u.voice=voice;
+    u.onend=()=>{if(tts!==me_)return;me_.done=k+1;$('seek').value=me_.done/me_.total*100;$('tCur').textContent=fmt(trk.dur*me_.done/me_.total);
       if(k===parts.length-1){tts=null;$('playIcon').innerHTML=PLAY;storyEnded();}};
     speechSynthesis.speak(u);});
   $('playIcon').innerHTML=PAUSE; renderMore();
@@ -604,6 +636,7 @@ function say(clip){
   navPlaying=true; audio.src=CLIPS[clip]; audio.currentTime=0;
   const p=audio.play(); if(p&&p.catch)p.catch(()=>{});
 }
+const pickVoice=v=>v.find(x=>x.lang.replace('_','-').toLowerCase()===SPEECH[lang].toLowerCase())||v.find(x=>x.lang.slice(0,2).toLowerCase()===lang)||null;
 // a direction that may not have recorded audio yet: fall back to the phone's own voice
 function speakItem(item,kind){
   if(storyBusy()||promptBusy())return;
@@ -612,17 +645,18 @@ function speakItem(item,kind){
   try{
     if(!('speechSynthesis' in window))return;
     const u=new SpeechSynthesisUtterance(item.text),v=speechSynthesis.getVoices();
-    u.lang='en-GB';u.voice=v.find(x=>/^en-GB/i.test(x.lang))||v.find(x=>/^en/i.test(x.lang))||null;
+    u.lang=SPEECH[lang];u.voice=pickVoice(v);
     speechSynthesis.cancel();speechSynthesis.speak(u);
   }catch(e){}
 }
-function startLeg(i){leg=i;navIdx=0;const st=NAV[i]||[];if(st[0]){say(st[0].clip);navIdx=1;}renderNav();}
+function sayStep(st){if(st.clip&&CLIPS[st.clip])say(st.clip);else speakItem(st,'clip');}
+function startLeg(i){leg=i;navIdx=0;const st=NAV[i]||[];if(st[0]){sayStep(st[0]);navIdx=1;}renderNav();}
 function checkNav(sim,acc,detour){
   if(!sim&&played.size>0){const off=!detour&&snapNow.d>Math.max(P.offRoute,acc||0);offCount=off?offCount+1:0;offRoute=offCount>=3;}
   if(storyBusy())return;
   const st=NAV[leg];
   let spoke=false;
-  if(st){for(let j=navIdx;j<Math.min(st.length,navIdx+3);j++){if(dist(me,[st[j].lat,st[j].lng])<=P.turn){say(st[j].clip);navIdx=j+1;spoke=true;break;}}}
+  if(st){for(let j=navIdx;j<Math.min(st.length,navIdx+3);j++){if(dist(me,[st[j].lat,st[j].lng])<=P.turn){sayStep(st[j]);navIdx=j+1;spoke=true;break;}}}
   // pre-announce the next turn about 150 m ahead, if it is far enough from the previous one to need it
   if(st&&!spoke&&ridePos!=null&&snapNow.d<=40){const pos=STEP_POS[leg]||[];
     for(let j=Math.max(1,navIdx);j<st.length;j++){const ahead=pos[j]-ridePos;if(ahead<0)continue;
@@ -630,7 +664,7 @@ function checkNav(sim,acc,detour){
       if(ahead<=PRE_AT+40&&ahead>=PRE_AT-60&&gap>=PRE_AT+100&&st[j].pre&&!preDone.has(key)){preDone.add(key);speakItem(st[j].pre,'pre');spoke=true;}
       break;}}
   const now=Date.now();
-  if(!spoke&&offRoute&&now-lastOff>60000){say(OFFROUTE);lastOff=now;spoke=true;}
+  if(!spoke&&offRoute&&now-lastOff>60000){sayStep(OFFROUTE);lastOff=now;spoke=true;}
   // riding away from the route: tell them to turn around
   if(!spoke&&offRoute&&heading!=null&&now-lastTurnaround>45000&&now-lastOff>8000&&DATA.turnaround){
     const r=snap(me,ridePos),off=Math.abs(((bearing(me,r.pt)-heading)%360+540)%360-180);
@@ -641,7 +675,7 @@ function renderNav(){
   if(leg<0||!st||navIdx>=st.length||!me){box.hidden=true;return;}
   const s=st[navIdx]; box.hidden=false;
   box.querySelector('b').textContent=`In ${fmtDist(dist(me,[s.lat,s.lng]))}`;
-  box.querySelector('span').textContent=s.text.replace('Directions to the next stop. ','');
+  box.querySelector('span').textContent=clean(s.text);
 }
 
 /* ---------- position handling ---------- */
@@ -654,7 +688,7 @@ function onPosition(lat,lng,acc,sim,hdg,spd){
   if(snapNow.d<=Math.max(40,acc||0))ridePos=snapNow.pos;
   if(map){meDot.setLatLng(me).addTo(map);meHalo.setLatLng(me).setRadius(acc||0).addTo(map);
     const e=meDot.getElement()&&meDot.getElement().firstChild;if(e){e.classList.toggle('dir',heading!=null);if(heading!=null)e.querySelector('svg').style.transform=`rotate(${heading}deg)`;}}
-  $('gps').textContent=sim?'Test ride':`GPS ±${Math.round(acc)} m`;
+  $('gps').textContent=sim?t('testRideGps'):t('gpsAcc',{m:Math.round(acc)});
   const radius=Math.max(P.radius,Math.min(acc||0,P.maxRadius));
   if(!following())STOPS.forEach((s,i)=>{
     if(!active(i)||played.has(s.id)||queue.includes(s)||current===s||pending===s)return;
@@ -665,16 +699,16 @@ function onPosition(lat,lng,acc,sim,hdg,spd){
   const bt=bonusTarget();
   if(bt&&!following()&&!played.has(bt.id)&&pending!==bt&&!queue.includes(bt)&&current!==bt&&dist(me,[bt.lat,bt.lng])<=Math.max(bt.radius||0,radius)){if(storyBusy())queue.push(bt);else arrive(bt);}
   checkNav(sim,acc,!!bt); autoStart();
-  if(!sim)$('gps').textContent=offRoute?'Off route':`GPS ±${Math.round(acc)} m`;
+  if(!sim)$('gps').textContent=offRoute?t('offRoute'):t('gpsAcc',{m:Math.round(acc)});
   follow(); render(); renderNav(); updateNav(); groupPos();
 }
 let watchId=null;
 function startGPS(){
-  if(!('geolocation' in navigator)){$('gps').textContent='No GPS on this device';return;}
+  if(!('geolocation' in navigator)){$('gps').textContent=t('noGps');return;}
   if(watchId!==null)return;
-  $('gps').textContent='Finding you…';
+  $('gps').textContent=t('findingYou');
   watchId=navigator.geolocation.watchPosition(p=>{if(!simOn)onPosition(p.coords.latitude,p.coords.longitude,p.coords.accuracy,false,(p.coords.speed||0)>1?p.coords.heading:null,p.coords.speed)},
-    e=>{$('gps').textContent=e.code===1?'Location blocked. Allow it in browser settings':'Location unavailable';},
+    e=>{$('gps').textContent=e.code===1?t('locBlocked'):t('locUnavailable');},
     {enableHighAccuracy:true,maximumAge:3000,timeout:20000});
 }
 let wake=null;
@@ -710,9 +744,9 @@ const ICONS={
   back:'<path d="M9 14 4 9l5-5M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/>',
   wait:'<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2.5"/>'
 };
-const clean=t=>t.replace('Directions to the next stop. ','');
+const clean=x=>x.replace(t('navIntro'),'').replace('Directions to the next stop. ','');
 function turnKind(t){const m=/(turn|bear|keep) (left|right)|straight|head/i.exec(t);if(!m||!m[2])return 'straight';return (/turn/i.test(m[1])?'':'s')+m[2].toLowerCase();}
-const firstClause=t=>clean(t).split(/, (?:then |and )/)[0].replace(/\.$/,'');
+const firstClause=x=>clean(x).split(new RegExp(t('thenSplit')))[0].replace(/\.$/,'');
 function navTarget(){ // the next unheard stop ahead of you on the route
   if(ridePos!=null)for(let i=startAt;i<STOPS.length;i++)if(!played.has(STOPS[i].id)&&stopCum[i]>=ridePos-P.radius)return i;
   return nextIndex();
@@ -726,40 +760,40 @@ function updateNav(){
   if(!navOn)return;
   let guideTo=null;
   const ti=navTarget();
-  if(!me){banner('wait','…','Finding you…','Allow location access to navigate');}
-  else if(pending){banner('arrive','Arrived',pending.title,storyMode==='stopped'?'The story starts once you have stopped':'Tap play to hear the story');}
+  if(!me){banner('wait','…',t('findingYou'),t('allowLocation'));}
+  else if(pending){banner('arrive',t('arrivedBanner'),pending.title,storyMode==='stopped'?t('storyWhenStopped'):t('tapToHear'));}
   else if(bonusTarget()){const b=bonusTarget();guideTo=[b.lat,b.lng];const br=bearing(me,guideTo);
-    banner('straight',fmtDist(dist(me,guideTo)),`Bonus stop: ${b.title}`,b.hint,false,heading!=null?br-heading:br);}
-  else if(ti<0){banner('arrive','Done','Tour complete','All stops heard');}
+    banner('straight',fmtDist(dist(me,guideTo)),t('bonusBanner',{title:b.title}),b.hint,false,heading!=null?br-heading:br);}
+  else if(ti<0){banner('arrive',t('done'),t('tourComplete'),t('allStopsHeard'));}
   else{
     const s=STOPS[ti],l=ti-1,onRoute=snapNow.d<=Math.max(40,meAcc||0);
     if(offRoute||(!onRoute&&ridePos!=null&&played.size)){
       // arrow points at the nearest point on the route: relative to your direction when known, else to north (map is north-up)
       const r=snap(me,ridePos),b=bearing(me,r.pt),rel=heading!=null?b-heading:b,away=heading!=null&&Math.abs(((rel%360)+540)%360-180)>120;
-      guideTo=r.pt;banner('straight',fmtDist(r.d),away?'Turn around, then head back to the route':'Head back to the route',`Then continue to ${ti+1}. ${s.title}`,true,rel);
+      guideTo=r.pt;banner('straight',fmtDist(r.d),away?t('turnAroundBack'):t('headBack'),t('continueTo',{n:ti+1,title:s.title}),true,rel);
     }else if(!onRoute||ridePos==null||stopCum[ti]<ridePos){
-      guideTo=[s.lat,s.lng];banner('straight',fmtDist(dist(me,guideTo)),`Head to ${ti+1}. ${s.title}`,'Follow the dotted line to your first stop');
+      guideTo=[s.lat,s.lng];banner('straight',fmtDist(dist(me,guideTo)),t('headTo',{n:ti+1,title:s.title}),t('dottedLine'));
     }else{
       const st=NAV[l],pos=STEP_POS[l]||[];let j=-1;
       if(l>=startAt&&st&&ridePos>=stopCum[l]-60)j=pos.findIndex(x=>x>ridePos+5);
       if(j>=0){
-        const then=j+1<st.length?`Then ${firstClause(st[j+1].text).replace(/^./,c=>c.toLowerCase())}`:`Then arrive at ${ti+1}. ${s.title}`;
-        banner(turnKind(clean(st[j].text)),fmtDist(Math.max(0,pos[j]-ridePos)),clean(st[j].text),then);
-      }else banner('arrive',fmtDist(Math.max(0,stopCum[ti]-ridePos)),`Arrive at ${ti+1}. ${s.title}`,'');
+        const then=j+1<st.length?t('thenStep',{step:firstClause(st[j+1].text).replace(/^./,c=>c.toLowerCase())}):t('thenArrive',{n:ti+1,title:s.title});
+        banner(turnKind(clean(st[j].en||st[j].text)),fmtDist(Math.max(0,pos[j]-ridePos)),clean(st[j].text),then);
+      }else banner('arrive',fmtDist(Math.max(0,stopCum[ti]-ridePos)),t('arriveAt',{n:ti+1,title:s.title}),'');
     }
   }
   if(map){if(guideTo){guide.setLatLngs([me,guideTo]);guide.addTo(map);}else guide.remove();}
   // next stop, distance and arrival time
   const bt=bonusTarget(); $('navSkip').hidden=!bt; $('navGmaps').hidden=!bt;
   if(bt&&me){const m=dist(me,[bt.lat,bt.lng])*1.3,min=Math.max(1,Math.round(m/P.speed/60));
-    $('navStop').textContent=`Bonus: ${bt.short||bt.title}`;$('navEta').textContent=`${fmtDist(m)} · ${min} min`;
+    $('navStop').textContent=t('bonusShort',{title:bt.short||bt.title});$('navEta').textContent=t('etaShort',{dist:fmtDist(m),min});
     $('navGmaps').href=`https://www.google.com/maps/dir/?api=1&destination=${bt.lat},${bt.lng}&travelmode=${travel==='walk'?'walking':'bicycling'}`;return;}
-  if(ti<0){$('navStop').textContent='Tour complete';$('navEta').textContent='';return;}
+  if(ti<0){$('navStop').textContent=t('tourComplete');$('navEta').textContent='';return;}
   const s=STOPS[ti];$('navStop').textContent=`${ti+1}. ${s.title}`;
   if(!me){$('navEta').textContent='';return;}
   const m=(snapNow.d<=40&&ridePos!=null&&stopCum[ti]>=ridePos)?stopCum[ti]-ridePos:dist(me,[s.lat,s.lng])*1.3;
   const min=Math.max(1,Math.round(m/P.speed/60)),at=new Date(Date.now()+min*60000);
-  $('navEta').textContent=`${fmtDist(m)} · ${min} min · arrive ${at.getHours()}:${String(at.getMinutes()).padStart(2,'0')}`;
+  $('navEta').textContent=t('eta',{dist:fmtDist(m),min,time:`${at.getHours()}:${String(at.getMinutes()).padStart(2,'0')}`});
 }
 const mapWrap=document.querySelector('.map'), playerSec=document.querySelector('.player');
 const mapHome=document.createComment('map'), playerHome=document.createComment('player');
@@ -798,13 +832,13 @@ function simTick(ts){
   simT=requestAnimationFrame(simTick);
 }
 function toggleSim(on){
-  simOn=on; $('simToggle').setAttribute('aria-pressed',on);$('simToggle').textContent=on?'Stop test ride':'Start test ride';
+  simOn=on; $('simToggle').setAttribute('aria-pressed',on);$('simToggle').textContent=on?t('stopTest'):t('startTest');
   $('navSim').hidden=!(on&&navOn);$('navSim').textContent=`${simSpeed}×`;
   if(on){if(simPos>=cum[cum.length-1])simPos=simStart();lastTick=0;setMode(true);simT=requestAnimationFrame(simTick);}
   else cancelAnimationFrame(simT);
 }
 $('simToggle').onclick=()=>toggleSim(!simOn);
-$('simSpeed').onclick=()=>{simSpeed=SPEEDS[(SPEEDS.indexOf(simSpeed)+1)%SPEEDS.length];$('simSpeed').textContent=`Speed ${simSpeed}×`;};
+$('simSpeed').onclick=()=>{simSpeed=SPEEDS[(SPEEDS.indexOf(simSpeed)+1)%SPEEDS.length];$('simSpeed').textContent=t('speed',{n:simSpeed});};
 
 /* ---------- start ---------- */
 function begin(test){
@@ -817,8 +851,9 @@ function begin(test){
 }
 $('startBtn').onclick=()=>begin(false);
 $('testBtn').onclick=()=>begin(true);
-$('reset').onclick=()=>{if(confirm('Reset tour progress?')){played=new Set();queue=[];pending=null;current=null;resume=null;ridePos=null;preDone.clear();moreFor=null;bonusSkipped.clear();stopTTS();renderMore();leg=-1;navIdx=0;store.set('bd_played',[]);simPos=simStart();audio.pause();render();renderNav();}};
+$('reset').onclick=()=>{if(confirm(t('resetConfirm'))){played=new Set();queue=[];pending=null;current=null;resume=null;ridePos=null;preDone.clear();moreFor=null;bonusSkipped.clear();stopTTS();renderMore();leg=-1;navIdx=0;store.set('bd_played',[]);simPos=simStart();audio.pause();render();renderNav();}};
 /* ---------- starting point ---------- */
+const kmStr=m=>{const v=(m/1000).toFixed(1);return lang==='en'?v:v.replace('.',',');};
 const extras=()=>BONUS.filter(b=>bonusOn.has(b.id)&&bonusAfter(b.after)>=startAt);
 const tourMetres=()=>cum[cum.length-1]-stopCum[startAt]+extras().reduce((t,b)=>t+b.detour,0);
 function tourMinutes(){
@@ -826,25 +861,29 @@ function tourMinutes(){
   return tourMetres()/P.speed/60*1.2+stops.reduce((t,s)=>t+s.dur/60,0)+2*stops.length;
 }
 function renderStart(){
-  $('factKm').textContent=`${(tourMetres()/1000).toFixed(1)} km`;
+  $('factKm').textContent=`${kmStr(tourMetres())} km`;
   $('factHow').textContent=P.how; $('safety').textContent=P.safety;
   $('factStops').textContent=STOPS.length-startAt;
   const m=tourMinutes();
-  $('factTime').textContent=m>=150?`~${Math.round(m/30)/2} h`:m>=60?`~${+(Math.round(m/15)/4).toFixed(1)} h`:`~${Math.max(15,Math.round(m/15)*15)} min`;
-  $('ledeFrom').textContent=startAt===0?'the Reichstag':STOPS[startAt].title.replace(/^The /,'the ');
-  $('startBtn').textContent=activeStops().some(s=>played.has(s.id))?'Continue the tour':'Start the tour';
-  $('ledeMode').textContent={tap:'When you reach a spot, its story is ready. Tap play whenever you want to listen.',
-    stopped:'When you reach a spot and stop, its story plays by itself.',auto:'Each story plays by itself when you reach the spot.'}[storyMode];
+  const hrs=n=>t('hours',{n:lang==='en'?n:String(n).replace('.',',')});
+  $('factTime').textContent=m>=150?hrs(Math.round(m/30)/2):m>=60?hrs(+(Math.round(m/15)/4).toFixed(1)):t('minutes',{n:Math.max(15,Math.round(m/15)*15)});
+  const st0=STOPS[startAt].title;
+  $('ledeMain').textContent=t('lede',{start:lang==='en'?(startAt===0?'the Reichstag':st0.replace(/^The /,'the ')):lang==='nl'?st0.replace(/^(De|Het) /,m=>m.toLowerCase()):st0});
+  $('startBtn').textContent=activeStops().some(s=>played.has(s.id))?t('continueTour'):t('startTour');
+  $('ledeMode').textContent=t({tap:'ledeTap',stopped:'ledeStopped',auto:'ledeAuto'}[storyMode]);
 }
 const sel=$('startSel');
 STOPS.forEach((s,i)=>{const o=document.createElement('option');o.value=i;o.textContent=`${i+1}. ${s.title}`;sel.appendChild(o);});
 sel.value=startAt;
+Object.entries(LANGS).forEach(([k,name])=>{const o=document.createElement('option');o.value=k;o.textContent=name;$('langSel').appendChild(o);});
+$('langSel').value=lang;
+$('langSel').onchange=e=>{store.set('bd_lang',e.target.value);location.reload();}; // the tour's texts and audio change with it
 $('modeSel').value=storyMode;
 $('travelSel').value=travel;
 BONUS.forEach(b=>{const l=document.createElement('label'),a=bonusAfter(b.after);
   l.innerHTML=`<input type="checkbox" value="${b.id}"><div><b></b><span></span></div>`;
   l.querySelector('b').textContent=b.title;
-  l.querySelector('span').textContent=a===STOPS.length-1?`About ${(b.detour/1000).toFixed(1)} km on from the last stop`:`A detour of about ${(b.detour/1000).toFixed(1)} km after stop ${a+1}`;
+  l.querySelector('span').textContent=a===STOPS.length-1?t('afterLast',{km:kmStr(b.detour)}):t('detourAfter',{km:kmStr(b.detour),n:a+1});
   const c=l.querySelector('input');c.checked=bonusOn.has(b.id);
   c.onchange=()=>{c.checked?bonusOn.add(b.id):bonusOn.delete(b.id);store.set('bd_bonus',[...bonusOn]);renderStart();render();};
   $('bonusPick').appendChild(l);});
@@ -878,7 +917,7 @@ function groupConnect(create){
   ws.onopen=()=>{gRetry=0;ws.send(JSON.stringify(create?{t:'create',member:memberId,name:group.name}:{t:'join',member:memberId,name:group.name,code:group.code,leaderKey:group.leaderKey}));};
   ws.onmessage=e=>{let m;try{m=JSON.parse(e.data);}catch(x){return;}
     if(m.now)gOffset=m.now-Date.now();
-    if(m.t==='error'){if(m.error==='no-group'){groupLeave(true);groupErr('No group with that code. Check the letters with your group leader.');}else groupErr('Could not join the group. Try again.');return;}
+    if(m.t==='error'){if(m.error==='no-group'){groupLeave(true);groupErr(t('groupNoCode'));}else groupErr(t('groupFail'));return;}
     if(m.t==='joined'){gOnline=true;gLeader=!!m.leader;group={...group,code:m.code,...(m.leaderKey?{leaderKey:m.leaderKey}:{})};store.set('bd_group',group);
       gMembers=m.members;renderGroup();if(gLeader){lastPush='';groupPush();}else if(m.state)applyState(m.state);return;}
     if(m.t==='members'){gMembers=m.members;renderGroup();return;}
@@ -890,7 +929,7 @@ function groupErr(t){const e=$('groupErr');e.hidden=!t;e.textContent=t||'';}
 function groupStart(create){
   const name=$('groupName').value.trim()||'Rider',code=$('groupCode').value.trim().toUpperCase();
   store.set('bd_name',name);
-  if(!create&&!/^[A-Z]{4}$/.test(code)){groupErr('A group code is four letters.');return;}
+  if(!create&&!/^[A-Z]{4}$/.test(code)){groupErr(t('groupBadCode'));return;}
   groupErr('');group={name,code:create?null:code};groupConnect(create);renderGroup();
 }
 function groupLeave(silent){
@@ -901,28 +940,28 @@ function groupLeave(silent){
 // leader: report what the group should be hearing
 function groupPush(){
   if(!group||!gLeader||!gOnline)return;
-  const t=current&&TRACKS.get(current.id)===current?current:null;
-  const playing=!!t&&(tts?!tts.paused:(!navPlaying&&!audio.paused&&!audio.ended));
-  const time=t&&!tts&&!navPlaying?audio.currentTime:(resume&&resume.track===t?resume.time:0);
-  const key=`${t&&t.id}|${playing}|${Math.round(time)}`;
+  const tr=current&&TRACKS.get(current.id)===current?current:null;
+  const playing=!!tr&&(tts?!tts.paused:(!navPlaying&&!audio.paused&&!audio.ended));
+  const time=tr&&!tts&&!navPlaying?audio.currentTime:(resume&&resume.track===tr?resume.time:0);
+  const key=`${tr&&tr.id}|${playing}|${Math.round(time)}`;
   if(key===lastPush)return; lastPush=key;
-  gSend({t:'state',track:t?t.id:null,playing,time});
+  gSend({t:'state',track:tr?tr.id:null,playing,time});
 }
 setInterval(()=>{if(group&&gLeader&&gOnline&&storyBusy()){lastPush='';groupPush();}},5000); // heartbeat keeps late joiners in step
 // follower: hear what the leader hears
 function applyState(st){
   if(!st||!st.track)return;
-  const t=TRACKS.get(st.track);if(!t)return;
+  const tr=TRACKS.get(st.track);if(!tr)return;
   const changed=!gState||gState.track!==st.track; gState=st; if(changed)gHeld=false;
   if(gHeld)return; // this rider paused on purpose; the next story brings them back
   const at=st.time+(st.playing?(Date.now()+gOffset-st.at)/1000:0);
-  const mine=current===t&&!navPlaying;
+  const mine=current===tr&&!navPlaying;
   if(st.playing){
-    if(!mine||(t.audio&&audio.ended))playTrack(t,true,at);
-    else if(t.audio){if(audio.paused)audio.play().catch(()=>{});if(Math.abs(audio.currentTime-at)>2)audio.currentTime=at;}
+    if(!mine||(tr.audio&&audio.ended))playTrack(tr,true,at);
+    else if(tr.audio){if(audio.paused)audio.play().catch(()=>{});if(Math.abs(audio.currentTime-at)>2)audio.currentTime=at;}
     else if(tts&&tts.paused){tts.paused=false;speechSynthesis.resume();}
-  }else if(mine){if(t.audio){audio.pause();if(Math.abs(audio.currentTime-st.time)>1)audio.currentTime=st.time;}else if(tts&&!tts.paused){tts.paused=true;speechSynthesis.pause();}}
-  $('kicker').textContent=`${kickerFor(t)} · with the group`;
+  }else if(mine){if(tr.audio){audio.pause();if(Math.abs(audio.currentTime-st.time)>1)audio.currentTime=st.time;}else if(tts&&!tts.paused){tts.paused=true;speechSynthesis.pause();}}
+  $('kicker').textContent=t('withGroup',{what:kickerFor(tr)});
 }
 function groupPos(){
   if(!group||!gOnline||!me||Date.now()-lastPos<3000)return;
@@ -933,11 +972,11 @@ function renderGroup(){
   if(on&&group.code){
     const others=gMembers.filter(m=>m.id!==memberId),leader=gMembers.find(m=>m.leader);
     $('groupCodeShow').textContent=group.code;
-    $('groupWho').textContent=!gOnline?'Connecting…':gLeader?`You lead · ${others.length} ${others.length===1?'rider':'riders'} with you`:`Following ${leader?leader.name:'the leader'} · ${gMembers.length} riders`;
+    $('groupWho').textContent=!gOnline?t('connecting'):gLeader?t('youLead',{n:others.length,riders:t(others.length===1?'rider':'riders')}):t('following',{name:leader?leader.name:t('theLeader'),n:gMembers.length});
   }
   const bar=$('groupBar');bar.hidden=!(on&&group.code);
   if(on&&group.code){const n=gMembers.filter(m=>m.online).length;
-    bar.textContent=!gOnline?`Group ${group.code} · reconnecting…`:gLeader?`Group ${group.code} · you lead · ${n} online`:`Group ${group.code} · following ${(gMembers.find(m=>m.leader)||{}).name||'the leader'} · ${n} online`;
+    bar.textContent=!gOnline?t('groupReconnecting',{code:group.code}):gLeader?t('groupYouLead',{code:group.code,n}):t('groupFollowing',{code:group.code,name:(gMembers.find(m=>m.leader)||{}).name||t('theLeader'),n});
     bar.classList.toggle('off',!gOnline);}
   // the other riders on the map
   const seen=new Set();
@@ -945,7 +984,7 @@ function renderGroup(){
     let mk=memberMarkers.get(m.id);
     if(!mk){mk=L.marker([m.lat,m.lng],{interactive:false,keyboard:false,zIndexOffset:900,icon:L.divIcon({className:'',iconSize:[20,20],iconAnchor:[10,10],html:'<div class="memberdot"><i></i></div>'})})
       .bindTooltip('',{permanent:true,direction:'right',offset:[8,0],className:'membername'}).addTo(map);memberMarkers.set(m.id,mk);}
-    mk.setLatLng([m.lat,m.lng]);mk.setTooltipContent(m.leader?`${m.name} (leads)`:m.name);
+    mk.setLatLng([m.lat,m.lng]);mk.setTooltipContent(m.leader?t('leads',{name:m.name}):m.name);
     const e=mk.getElement()&&mk.getElement().firstChild;if(e){e.classList.toggle('leader',m.leader);e.classList.toggle('away',!m.online);}}
   memberMarkers.forEach((mk,id)=>{if(!seen.has(id)){mk.remove();memberMarkers.delete(id);}});
 }
@@ -954,8 +993,8 @@ $('groupCreate').onclick=()=>groupStart(true);
 $('groupJoin').onclick=()=>groupStart(false);
 $('groupCode').onkeydown=e=>{if(e.key==='Enter')groupStart(false);};
 $('groupLeave').onclick=()=>groupLeave(false);
-$('groupShare').onclick=async()=>{const url=`${location.origin}${location.pathname}?group=${group.code}`,text=`Ride Berlin divided with me. Group code ${group.code}`;
-  try{if(navigator.share)await navigator.share({title:'Berlin divided',text,url});else{await navigator.clipboard.writeText(`${text}: ${url}`);$('groupShare').textContent='Copied';}}catch(e){}};
+$('groupShare').onclick=async()=>{const url=`${location.origin}${location.pathname}?group=${group.code}`,text=t('shareText',{code:group.code});
+  try{if(navigator.share)await navigator.share({title:'Berlin divided',text,url});else{await navigator.clipboard.writeText(`${text}: ${url}`);$('groupShare').textContent=t('copied');}}catch(e){}};
 $('playBtn').addEventListener('click',()=>{if(following()&&current&&gState&&current.id===gState.track)gHeld=!audio.paused;},true);
 {const q=new URLSearchParams(location.search).get('group');if(q&&/^[a-z]{4}$/i.test(q)&&!(group&&group.code===q.toUpperCase()))$('groupCode').value=q.toUpperCase();}
 if(!('WebSocket' in window))$('groupPick').hidden=true;
@@ -973,18 +1012,18 @@ async function downloadTour(){
     for(const r of await cache.keys())if(!want.has(r.url))cache.delete(r); // files from an older version of the tour
     const missing=[];for(const u of want)if(!await cache.match(u))missing.push(u);
     let done=want.size-missing.length;
-    const show=()=>offlineMsg(done<want.size?`Downloading tour for offline use: ${Math.round(done/want.size*100)}%`:'Tour downloaded, ready offline',done<want.size?'busy':'ready');
+    const show=()=>offlineMsg(done<want.size?t('downloading',{p:Math.round(done/want.size*100)}):t('downloaded'),done<want.size?'busy':'ready');
     show();
     const next=async()=>{while(missing.length){const u=missing.shift();const r=await fetch(u);if(!r.ok)throw new Error(u);await cache.put(u,r);done++;show();}};
     await Promise.all([next(),next(),next()]);
     if(navigator.storage&&navigator.storage.persist)navigator.storage.persist().catch(()=>{});
-  }catch(e){offlineMsg('Tour not fully downloaded yet. It will finish next time you are online.','');}
+  }catch(e){offlineMsg(t('downloadLater'),'');}
 }
 if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
 downloadTour();
 
 // read-only hook for the automated ride test
-window.__tour={log,get group(){return group&&{code:group.code,leader:gLeader,online:gOnline,members:gMembers.length}},get bonus(){return bonusTarget()&&bonusTarget().id},get tts(){return !!tts},get travel(){return travel},get mode(){return storyMode},get offRoute(){return offRoute},get current(){return current&&current.id},get pending(){return pending&&pending.id},get played(){return [...played]},get navPlaying(){return navPlaying},stops:STOPS.map(s=>s.id)};
+window.__tour={log,lang,get group(){return group&&{code:group.code,leader:gLeader,online:gOnline,members:gMembers.length}},get bonus(){return bonusTarget()&&bonusTarget().id},get tts(){return !!tts},get travel(){return travel},get mode(){return storyMode},get offRoute(){return offRoute},get current(){return current&&current.id},get pending(){return pending&&pending.id},get played(){return [...played]},get navPlaying(){return navPlaying},stops:STOPS.map(s=>s.id)};
 initMap(); render();
 window.addEventListener('resize',setView);
 </script>
