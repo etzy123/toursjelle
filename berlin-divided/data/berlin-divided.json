@@ -1,1 +1,3147 @@
-{"id":"berlin-divided","title":"Berlin divided","voice":"en-GB-RyanNeural","nav":[[{"lat":52.5186,"lng":13.376932,"text":"Directions to the next stop. Head south on Friedrich-Ebert-Platz.","clip":"a945b17eb0"},{"lat":52.517888,"lng":13.376915,"text":"Go straight on, then turn left onto Dorotheenstraße, then turn right.","clip":"9a61db9fec"},{"lat":52.516369,"lng":13.377474,"text":"Turn left.","clip":"214975c935"}],[{"lat":52.516382,"lng":13.377686,"text":"Directions to the next stop. Head west.","clip":"38faab1417"},{"lat":52.516346,"lng":13.377094,"text":"Turn left onto Ebertstraße.","clip":"00e03341f1"},{"lat":52.51546,"lng":13.37746,"text":"Bear right, and stay on it for about 700 metres.","clip":"3c7ec8b0a7"},{"lat":52.509644,"lng":13.376471,"text":"Turn right.","clip":"e881cc5b22"}],[{"lat":52.509614,"lng":13.375997,"text":"Directions to the next stop. Head east.","clip":"cf614126b2"},{"lat":52.509644,"lng":13.376471,"text":"Turn right, then turn left onto Potsdamer Platz, and stay on it for about 500 metres.","clip":"6fafbaf058"},{"lat":52.509992,"lng":13.383965,"text":"Turn right, then turn right.","clip":"1ae25650d9"}],[{"lat":52.509858,"lng":13.383407,"text":"Directions to the next stop. Head east.","clip":"cf614126b2"},{"lat":52.509898,"lng":13.384239,"text":"Turn right onto Wilhelmstraße.","clip":"791446a928"},{"lat":52.507328,"lng":13.385589,"text":"Turn right, then turn left, then turn right.","clip":"727db7f4dc"},{"lat":52.507029,"lng":13.383424,"text":"Turn left, then turn right.","clip":"2d6e64b0d6"}],[{"lat":52.506949,"lng":13.382992,"text":"Directions to the next stop. Head east.","clip":"cf614126b2"},{"lat":52.506977,"lng":13.383431,"text":"At the end of the road, turn left, then turn right.","clip":"5b3d746177"},{"lat":52.507176,"lng":13.38552,"text":"At the end of the road, turn left, then turn right onto Zimmerstraße.","clip":"f9b6f3a16f"},{"lat":52.507689,"lng":13.390335,"text":"Bear right onto Friedrichstraße.","clip":"0a3ff5fae7"}],[{"lat":52.507502,"lng":13.390429,"text":"Directions to the next stop. Head north on Friedrichstraße, then turn right onto Zimmerstraße, and stay on it for about 600 metres.","clip":"972229ad9b"},{"lat":52.508174,"lng":13.399081,"text":"At the end of the road, turn left onto Axel-Springer-Straße.","clip":"49ec5c2602"},{"lat":52.511012,"lng":13.401339,"text":"Turn right, and stay on it for about 700 metres.","clip":"d2cf38d78e"},{"lat":52.512759,"lng":13.411587,"text":"Turn left onto Inselstraße, then turn right onto Wallstraße, and stay on it for about 500 metres.","clip":"a14bb3df2c"},{"lat":52.513813,"lng":13.417769,"text":"Turn left onto Jannowitzbrücke.","clip":"0263771f25"},{"lat":52.515428,"lng":13.418174,"text":"Turn right onto Holzmarktstraße, and stay on it for about 1.7 kilometres.","clip":"8d23b8b2eb"},{"lat":52.506007,"lng":13.438021,"text":"Turn right, then turn left.","clip":"4631f8a1f5"}],[{"lat":52.505074,"lng":13.439573,"text":"Directions to the next stop. Head south-east.","clip":"73d8f9de69"},{"lat":52.50473,"lng":13.440447,"text":"Turn left, then turn right onto Mühlenstraße.","clip":"cfb33129e8"},{"lat":52.503039,"lng":13.445461,"text":"Bear right.","clip":"1d86cca335"},{"lat":52.502639,"lng":13.446375,"text":"Turn right.","clip":"e881cc5b22"}],[{"lat":52.502044,"lng":13.445818,"text":"Directions to the next stop. Head north-east.","clip":"f000aaef3e"},{"lat":52.502639,"lng":13.446375,"text":"At the end of the road, turn right, then turn left onto Warschauer Straße, then bear right, then bear left.","clip":"83e615cffe"},{"lat":52.505757,"lng":13.449093,"text":"Go straight onto Warschauer Brücke, and stay on it for about 1.2 kilometres.","clip":"b38e2e14eb"},{"lat":52.515673,"lng":13.454191,"text":"Turn left.","clip":"214975c935"}],[{"lat":52.515693,"lng":13.453998,"text":"Directions to the next stop. Head east, then turn left onto Petersburger Straße, then turn left onto the Karl-Marx-Allee cycle path, and stay on it for about 1.8 kilometres.","clip":"8a4b2ac6e9"},{"lat":52.518923,"lng":13.428885,"text":"Turn left.","clip":"214975c935"},{"lat":52.518969,"lng":13.426934,"text":"Turn right onto Karl-Marx-Allee, and stay on it for about 900 metres.","clip":"969e726ef3"},{"lat":52.522661,"lng":13.415475,"text":"Turn left.","clip":"214975c935"}],[{"lat":52.521213,"lng":13.413297,"text":"Directions to the next stop. Head west.","clip":"38faab1417"},{"lat":52.520942,"lng":13.412777,"text":"Turn right onto Dircksenstraße.","clip":"e20a23f5ba"},{"lat":52.522539,"lng":13.410232,"text":"Turn left, then turn right, then turn left onto Karl-Liebknecht-Straße, then turn right onto Dircksenstraße.","clip":"f32af44cf4"},{"lat":52.523111,"lng":13.403647,"text":"At the end of the road, turn right onto An der Spandauer Brücke.","clip":"0d335cd5f3"},{"lat":52.523675,"lng":13.399628,"text":"Turn right onto Große Hamburger Straße, and stay on it for about 600 metres.","clip":"22721917de"},{"lat":52.528669,"lng":13.397277,"text":"At the end of the road, turn left onto Linienstraße.","clip":"5a71c1ec4b"},{"lat":52.528027,"lng":13.394911,"text":"Turn right onto Kleine Hamburger Straße, and stay on it for about 800 metres.","clip":"f8105db75b"},{"lat":52.533353,"lng":13.387618,"text":"Turn right.","clip":"e881cc5b22"}]],"clips":{"8d23b8b2eb":"audio/nav/8d23b8b2eb.mp3","0d335cd5f3":"audio/nav/0d335cd5f3.mp3","214975c935":"audio/nav/214975c935.mp3","b38e2e14eb":"audio/nav/b38e2e14eb.mp3","969e726ef3":"audio/nav/969e726ef3.mp3","1d86cca335":"audio/nav/1d86cca335.mp3","d2cf38d78e":"audio/nav/d2cf38d78e.mp3","73d8f9de69":"audio/nav/73d8f9de69.mp3","5b3d746177":"audio/nav/5b3d746177.mp3","f000aaef3e":"audio/nav/f000aaef3e.mp3","0a3ff5fae7":"audio/nav/0a3ff5fae7.mp3","49ec5c2602":"audio/nav/49ec5c2602.mp3","4631f8a1f5":"audio/nav/4631f8a1f5.mp3","791446a928":"audio/nav/791446a928.mp3","2d6e64b0d6":"audio/nav/2d6e64b0d6.mp3","727db7f4dc":"audio/nav/727db7f4dc.mp3","8a4b2ac6e9":"audio/nav/8a4b2ac6e9.mp3","f32af44cf4":"audio/nav/f32af44cf4.mp3","83e615cffe":"audio/nav/83e615cffe.mp3","38faab1417":"audio/nav/38faab1417.mp3","5a71c1ec4b":"audio/nav/5a71c1ec4b.mp3","166443de9a":"audio/nav/166443de9a.mp3","f9b6f3a16f":"audio/nav/f9b6f3a16f.mp3","a945b17eb0":"audio/nav/a945b17eb0.mp3","0263771f25":"audio/nav/0263771f25.mp3","1ae25650d9":"audio/nav/1ae25650d9.mp3","a14bb3df2c":"audio/nav/a14bb3df2c.mp3","9a61db9fec":"audio/nav/9a61db9fec.mp3","e20a23f5ba":"audio/nav/e20a23f5ba.mp3","22721917de":"audio/nav/22721917de.mp3","cf614126b2":"audio/nav/cf614126b2.mp3","3c7ec8b0a7":"audio/nav/3c7ec8b0a7.mp3","00e03341f1":"audio/nav/00e03341f1.mp3","6fafbaf058":"audio/nav/6fafbaf058.mp3","cfb33129e8":"audio/nav/cfb33129e8.mp3","e881cc5b22":"audio/nav/e881cc5b22.mp3","972229ad9b":"audio/nav/972229ad9b.mp3","f8105db75b":"audio/nav/f8105db75b.mp3"},"offroute":"166443de9a","route":[[52.51859,13.37693],[52.51797,13.37692],[52.51789,13.37692],[52.51778,13.37697],[52.51781,13.37711],[52.51773,13.37717],[52.51705,13.37747],[52.51683,13.37751],[52.51656,13.37744],[52.51637,13.37747],[52.51638,13.37769],[52.51637,13.37747],[52.51635,13.37709],[52.5164,13.37701],[52.5164,13.37686],[52.51639,13.37673],[52.51626,13.37671],[52.51616,13.37673],[52.51608,13.37676],[52.51599,13.37684],[52.51592,13.37697],[52.51583,13.37723],[52.51578,13.37732],[52.51571,13.37741],[52.51564,13.37745],[52.51553,13.37747],[52.51546,13.37746],[52.51539,13.37737],[52.5148,13.37729],[52.51472,13.37726],[52.51453,13.37724],[52.51435,13.37722],[52.51322,13.37698],[52.51315,13.37696],[52.51295,13.37692],[52.51287,13.3769],[52.51275,13.37693],[52.51261,13.37694],[52.51246,13.37695],[52.51236,13.37696],[52.51227,13.37697],[52.51214,13.3769],[52.51094,13.37664],[52.51086,13.37666],[52.51076,13.37664],[52.51067,13.37662],[52.51038,13.37656],[52.51023,13.37649],[52.51013,13.37647],[52.51,13.3764],[52.50973,13.37646],[52.50964,13.37647],[52.50964,13.37633],[52.50961,13.376],[52.50964,13.37633],[52.50964,13.37647],[52.50941,13.37651],[52.50945,13.37679],[52.50947,13.37695],[52.50949,13.37717],[52.50951,13.37744],[52.50961,13.37796],[52.50962,13.37813],[52.50964,13.37852],[52.50967,13.37892],[52.50968,13.37918],[52.50972,13.37948],[52.50978,13.38054],[52.50981,13.38089],[52.50984,13.38152],[52.50991,13.38271],[52.50992,13.38287],[52.50997,13.38356],[52.50998,13.38384],[52.50999,13.38396],[52.50992,13.38401],[52.50986,13.38345],[52.5099,13.38402],[52.5099,13.38424],[52.50975,13.38432],[52.50899,13.38473],[52.50879,13.38483],[52.5087,13.38488],[52.50858,13.38491],[52.50838,13.38501],[52.50822,13.3851],[52.508,13.38521],[52.50789,13.38527],[52.50776,13.38536],[52.50757,13.38546],[52.50743,13.38554],[52.50733,13.38559],[52.50732,13.38545],[52.50718,13.38552],[52.50716,13.38539],[52.50714,13.38526],[52.50707,13.38411],[52.50705,13.3839],[52.50703,13.38342],[52.50696,13.38318],[52.50695,13.38299],[52.50696,13.38318],[52.50698,13.38343],[52.50705,13.3839],[52.50707,13.38411],[52.50714,13.38526],[52.50716,13.38539],[52.50718,13.38552],[52.50732,13.38545],[52.50742,13.38539],[52.50743,13.38554],[52.50744,13.38571],[52.50746,13.38608],[52.50747,13.38628],[52.50751,13.38703],[52.50754,13.38761],[52.50756,13.38794],[52.50759,13.3885],[52.50761,13.38881],[52.50764,13.38934],[52.50766,13.38971],[52.50768,13.39018],[52.50769,13.39034],[52.50762,13.3904],[52.5075,13.39043],[52.50759,13.39041],[52.50769,13.39034],[52.5077,13.39046],[52.5078,13.39211],[52.50781,13.39226],[52.50782,13.39244],[52.50783,13.39265],[52.50784,13.39282],[52.50785,13.39303],[52.50789,13.39366],[52.50791,13.39404],[52.50792,13.3942],[52.50793,13.39434],[52.50797,13.39491],[52.50798,13.39508],[52.508,13.39553],[52.50802,13.3958],[52.50806,13.39637],[52.50807,13.39655],[52.5081,13.39705],[52.50811,13.3972],[52.50813,13.39765],[52.50818,13.39854],[52.5082,13.39885],[52.50817,13.39908],[52.50825,13.39914],[52.50844,13.39926],[52.50865,13.39941],[52.50884,13.39955],[52.50898,13.39972],[52.50909,13.3998],[52.50916,13.39986],[52.50942,13.40004],[52.50949,13.4001],[52.50956,13.40016],[52.50987,13.40052],[52.50995,13.40061],[52.51002,13.40069],[52.51033,13.40107],[52.51041,13.40117],[52.51047,13.40124],[52.51054,13.40129],[52.51062,13.40135],[52.5107,13.40138],[52.51101,13.40134],[52.51102,13.40148],[52.51103,13.4016],[52.51111,13.40182],[52.51116,13.40194],[52.51122,13.40207],[52.51129,13.40224],[52.51132,13.4024],[52.51131,13.40255],[52.51129,13.4031],[52.51129,13.40324],[52.5113,13.40337],[52.51131,13.40355],[52.5113,13.40367],[52.51129,13.40395],[52.51128,13.40448],[52.51128,13.40471],[52.51125,13.40497],[52.51124,13.40518],[52.51122,13.40549],[52.51122,13.40567],[52.51122,13.40584],[52.51124,13.40606],[52.51132,13.40657],[52.51134,13.4067],[52.51147,13.40714],[52.51178,13.40811],[52.51184,13.40828],[52.51188,13.40839],[52.51195,13.40864],[52.51199,13.40878],[52.51197,13.40889],[52.51204,13.4092],[52.51211,13.40933],[52.51221,13.40979],[52.51229,13.41003],[52.5124,13.41035],[52.51245,13.41051],[52.51246,13.41068],[52.51252,13.41084],[52.5127,13.41139],[52.51276,13.41159],[52.51286,13.41177],[52.51315,13.41267],[52.51341,13.41348],[52.51346,13.41364],[52.51352,13.41383],[52.51373,13.4145],[52.51383,13.41462],[52.51393,13.41472],[52.51403,13.41484],[52.51414,13.41496],[52.51419,13.41511],[52.51421,13.41527],[52.51424,13.41545],[52.51419,13.4162],[52.51417,13.41648],[52.51414,13.41667],[52.51412,13.41679],[52.51409,13.4169],[52.51405,13.41701],[52.51398,13.41715],[52.51392,13.4173],[52.51387,13.41742],[52.51384,13.41754],[52.51381,13.41777],[52.51393,13.4178],[52.51452,13.41793],[52.51463,13.41796],[52.51486,13.41802],[52.51495,13.41804],[52.51503,13.41806],[52.51531,13.41813],[52.51543,13.41817],[52.51539,13.41834],[52.51523,13.41886],[52.51517,13.41904],[52.51506,13.41935],[52.51498,13.41958],[52.51486,13.41995],[52.5143,13.42158],[52.51421,13.42185],[52.51407,13.42224],[52.51403,13.42235],[52.51399,13.42246],[52.51394,13.42261],[52.51378,13.42308],[52.51371,13.42328],[52.5136,13.42362],[52.51351,13.42385],[52.51343,13.42403],[52.51337,13.42414],[52.51331,13.42425],[52.51324,13.42437],[52.5131,13.42463],[52.51296,13.42483],[52.51264,13.42528],[52.51238,13.42567],[52.51226,13.42584],[52.51218,13.42597],[52.51197,13.42636],[52.5117,13.42689],[52.51139,13.42748],[52.51132,13.42762],[52.51116,13.42792],[52.51085,13.42857],[52.51071,13.42885],[52.5105,13.42933],[52.51046,13.42943],[52.51027,13.42988],[52.51019,13.43008],[52.51012,13.43027],[52.50996,13.4307],[52.50951,13.43191],[52.50941,13.43219],[52.50933,13.43239],[52.509,13.43329],[52.50877,13.43389],[52.50873,13.434],[52.50857,13.43436],[52.50848,13.43455],[52.50838,13.43478],[52.50833,13.43488],[52.50826,13.43501],[52.50811,13.43526],[52.50801,13.4354],[52.50789,13.43556],[52.50748,13.43608],[52.50704,13.43662],[52.50695,13.43674],[52.50686,13.43684],[52.50672,13.43703],[52.50654,13.4373],[52.50607,13.43793],[52.50601,13.43802],[52.50594,13.43791],[52.50576,13.43819],[52.50564,13.43841],[52.50551,13.43864],[52.50544,13.43879],[52.50535,13.43895],[52.50511,13.43947],[52.50473,13.44045],[52.5048,13.44053],[52.50475,13.44067],[52.50469,13.44082],[52.50449,13.44135],[52.5044,13.44158],[52.50434,13.44174],[52.50421,13.4421],[52.50402,13.44265],[52.50395,13.44286],[52.5039,13.44301],[52.50361,13.44381],[52.50352,13.44407],[52.50346,13.44422],[52.50335,13.44452],[52.50325,13.44481],[52.50309,13.44529],[52.50304,13.44546],[52.50292,13.4456],[52.50273,13.44614],[52.50265,13.44632],[52.5025,13.44629],[52.50242,13.44625],[52.50234,13.44619],[52.50204,13.44582],[52.50234,13.44619],[52.50242,13.44625],[52.5025,13.44629],[52.50264,13.44637],[52.50261,13.4465],[52.50256,13.44671],[52.50264,13.4468],[52.50274,13.44693],[52.5028,13.44709],[52.50296,13.44724],[52.50407,13.4481],[52.50436,13.44833],[52.50466,13.44855],[52.50477,13.44864],[52.50492,13.44877],[52.50499,13.44881],[52.50506,13.44886],[52.50519,13.44892],[52.50536,13.44896],[52.50544,13.44899],[52.50555,13.44903],[52.50565,13.44909],[52.50576,13.44909],[52.50729,13.45006],[52.50735,13.45011],[52.50742,13.45017],[52.50753,13.45032],[52.50765,13.45045],[52.50774,13.45052],[52.50809,13.45075],[52.50844,13.45096],[52.50856,13.45101],[52.50863,13.45105],[52.50896,13.45123],[52.50949,13.45148],[52.50963,13.45154],[52.50973,13.45158],[52.50991,13.45163],[52.51007,13.45171],[52.51033,13.45182],[52.51046,13.45188],[52.51057,13.45192],[52.51069,13.45198],[52.51078,13.45203],[52.51153,13.45236],[52.51179,13.45248],[52.51196,13.45256],[52.51227,13.45269],[52.51243,13.45276],[52.51255,13.45281],[52.51338,13.45318],[52.51346,13.45322],[52.51401,13.45347],[52.51408,13.4535],[52.51416,13.45354],[52.51439,13.45364],[52.51515,13.45398],[52.51526,13.45402],[52.51557,13.45417],[52.51567,13.45419],[52.51569,13.454],[52.51568,13.45412],[52.51584,13.4542],[52.5159,13.45411],[52.51592,13.45385],[52.51595,13.45361],[52.51596,13.45346],[52.51602,13.45295],[52.51608,13.45274],[52.51613,13.45227],[52.51622,13.45139],[52.5163,13.45062],[52.5163,13.4505],[52.51631,13.45037],[52.51634,13.45025],[52.51638,13.44979],[52.51643,13.44931],[52.51643,13.44918],[52.51644,13.44905],[52.51654,13.44822],[52.51662,13.44745],[52.5167,13.44658],[52.51673,13.44645],[52.51676,13.44626],[52.51675,13.44614],[52.51686,13.44498],[52.51699,13.4437],[52.51701,13.4435],[52.51706,13.4432],[52.51706,13.44304],[52.5172,13.44162],[52.51721,13.44149],[52.51721,13.44098],[52.51723,13.44078],[52.51725,13.4406],[52.51727,13.44044],[52.51728,13.44032],[52.51734,13.44012],[52.51752,13.43853],[52.51771,13.43668],[52.51772,13.43656],[52.51774,13.43644],[52.51803,13.43364],[52.51804,13.43349],[52.51806,13.43331],[52.51808,13.43312],[52.5181,13.43295],[52.51811,13.43284],[52.51814,13.43254],[52.51815,13.43238],[52.51827,13.43125],[52.5184,13.42998],[52.51843,13.42978],[52.51847,13.42964],[52.51852,13.42948],[52.51859,13.42936],[52.51873,13.42908],[52.51883,13.42894],[52.51892,13.42888],[52.51896,13.4287],[52.51898,13.42858],[52.519,13.42846],[52.51903,13.4283],[52.51906,13.42812],[52.51901,13.42791],[52.51899,13.4277],[52.519,13.4275],[52.51902,13.42729],[52.51902,13.4271],[52.51897,13.42693],[52.51901,13.42674],[52.51904,13.42655],[52.51908,13.4264],[52.51914,13.42619],[52.51918,13.42605],[52.51932,13.4256],[52.51939,13.42535],[52.51947,13.4251],[52.51992,13.42359],[52.52002,13.42325],[52.52017,13.42278],[52.52024,13.42255],[52.52031,13.4223],[52.52047,13.42178],[52.52055,13.42153],[52.52064,13.42123],[52.52076,13.42084],[52.52108,13.41977],[52.52116,13.41952],[52.52123,13.41928],[52.52141,13.41869],[52.5216,13.41807],[52.52164,13.41795],[52.52169,13.4178],[52.52178,13.41754],[52.52197,13.41694],[52.52203,13.41677],[52.52219,13.41644],[52.52226,13.4163],[52.52253,13.41575],[52.52261,13.41558],[52.52266,13.41548],[52.52253,13.41532],[52.52243,13.41519],[52.5223,13.41501],[52.52218,13.41485],[52.52204,13.41466],[52.52187,13.41444],[52.52171,13.41422],[52.52128,13.41349],[52.52122,13.41339],[52.52117,13.41321],[52.52094,13.41278],[52.52101,13.41274],[52.52112,13.41265],[52.5212,13.4125],[52.52127,13.4124],[52.52148,13.41212],[52.52165,13.41187],[52.52174,13.41172],[52.52183,13.41158],[52.52186,13.41145],[52.52188,13.41129],[52.52198,13.41113],[52.52212,13.41091],[52.5222,13.41077],[52.52239,13.41046],[52.52251,13.41025],[52.52248,13.4101],[52.52253,13.40998],[52.52261,13.40989],[52.52257,13.40966],[52.52263,13.40957],[52.52269,13.40943],[52.52287,13.40899],[52.52292,13.40886],[52.52298,13.40873],[52.52304,13.40859],[52.52311,13.40839],[52.52316,13.40828],[52.52322,13.40808],[52.52329,13.40783],[52.52335,13.40759],[52.5234,13.40733],[52.52342,13.4072],[52.52346,13.40692],[52.52349,13.40661],[52.52351,13.40628],[52.52351,13.40601],[52.52351,13.40576],[52.52349,13.40554],[52.52347,13.40526],[52.52344,13.40504],[52.52342,13.40492],[52.52336,13.40458],[52.52314,13.40373],[52.52313,13.40361],[52.52318,13.40348],[52.52321,13.40336],[52.52341,13.4029],[52.52346,13.40278],[52.52355,13.40259],[52.52364,13.40239],[52.52368,13.40229],[52.5237,13.40217],[52.52369,13.40203],[52.52366,13.4019],[52.52365,13.40172],[52.52364,13.40132],[52.52365,13.40102],[52.52365,13.40086],[52.52365,13.40066],[52.52366,13.40028],[52.52367,13.39978],[52.52367,13.39964],[52.52378,13.39959],[52.52389,13.39954],[52.5242,13.39941],[52.52437,13.39933],[52.52468,13.3992],[52.52478,13.39916],[52.52497,13.39908],[52.52535,13.39892],[52.52548,13.39886],[52.52565,13.39878],[52.52578,13.39873],[52.52598,13.39864],[52.52632,13.39849],[52.52643,13.39845],[52.52651,13.39841],[52.52663,13.39836],[52.5272,13.3981],[52.5273,13.39805],[52.52758,13.39791],[52.52765,13.39787],[52.52784,13.39776],[52.52805,13.39763],[52.52821,13.39754],[52.5286,13.39732],[52.52867,13.39728],[52.52858,13.39697],[52.52843,13.39643],[52.52839,13.39628],[52.52834,13.39608],[52.52822,13.39563],[52.52805,13.395],[52.52806,13.39482],[52.52835,13.39419],[52.5284,13.39409],[52.52845,13.39399],[52.52853,13.39381],[52.52861,13.39372],[52.52867,13.39365],[52.52881,13.39348],[52.52896,13.39328],[52.52905,13.39316],[52.52914,13.39304],[52.52963,13.39242],[52.52976,13.39226],[52.52984,13.39216],[52.52996,13.392],[52.53005,13.39189],[52.53022,13.39166],[52.53031,13.39156],[52.53056,13.39123],[52.53081,13.39092],[52.53118,13.39044],[52.53132,13.39027],[52.53147,13.39008],[52.5316,13.38991],[52.53166,13.38983],[52.53173,13.38975],[52.53182,13.38962],[52.53189,13.38953],[52.53208,13.38929],[52.53238,13.38891],[52.53276,13.38842],[52.53298,13.38812],[52.53309,13.38798],[52.53319,13.38784],[52.53329,13.38771],[52.53335,13.38762],[52.53341,13.38776],[52.53347,13.38788],[52.53353,13.38799],[52.53362,13.38814],[52.53371,13.38823],[52.53382,13.38836],[52.535,13.3897],[52.535,13.3897]],"stops":[{"id":"reichstag","title":"The Reichstag and the Airlift","text":"You're standing in front of the Reichstag, and in 1948 this lawn was the stage for the first battle of the Cold War. After the war, Berlin sat deep inside the Soviet zone, divided into four sectors. In June 1948 the Western Allies introduced a new currency, the Deutsche Mark, and Stalin answered by cutting every road, rail line and canal into West Berlin. Two million people were suddenly an island. The West chose not to fight its way in, but to fly. For almost a year, American and British planes landed in Berlin around the clock, at the peak one every few minutes, carrying food, medicine and above all coal. In total there were more than two hundred and seventy thousand flights. One American pilot, Gail Halvorsen, started dropping sweets tied to tiny handkerchief parachutes for children waiting at the airport fence, and Berliners called the planes Rosinenbomber, raisin bombers. On the ninth of September 1948, around three hundred thousand people gathered right here, in front of the burnt-out Reichstag. Mayor Ernst Reuter told them, and the world: Ihr Völker der Welt, schaut auf diese Stadt. You peoples of the world, look upon this city. In May 1949 Stalin lifted the blockade. He had lost. Now look behind the building, towards the river. When the Wall went up in 1961, it ran directly along the Spree, just behind the Reichstag, which stood in the West, silent and unused as a parliament. On the riverbank you'll find a row of white crosses. They remember people who died trying to cross this border, some of them in this very water. Next, ride south to the Brandenburg Gate. It's just a few hundred metres.","dur":112,"audio":"audio/stories/reichstag-271e0a2b.mp3","lat":52.5186,"lng":13.3769},{"id":"gate","title":"The Brandenburg Gate","text":"The Brandenburg Gate was built in the seventeen-eighties as a gate of peace. For twenty-eight years it was the most photographed symbol of division in the world. The sector border ran just to the west of where you are now. The gate itself stood in East Berlin, and after August 1961 it was sealed inside the death strip. Nobody could pass through it from either side. It became a stage for the West. In June 1963, John F. Kennedy came to look over the Wall here. East German authorities hung huge red banners between the columns so that he couldn't see into the East. He went on to Schöneberg town hall and said: Ich bin ein Berliner. Twenty-four years later, in June 1987, the rock star David Bowie played a concert on the lawn behind the Reichstag, with speakers pointing towards the East. Thousands of young East Berliners crowded near the Wall on the other side to listen, and when police moved in, they began to chant: the Wall must go. A few days later, Ronald Reagan stood right here, on the western side, and said: Mister Gorbachev, tear down this wall. Many of his own advisers had wanted that line cut from the speech. At the time, most people thought it was theatre. Two and a half years later, it happened. On the night of the ninth of November 1989, people climbed onto the Wall in front of this gate and danced on it. The gate officially reopened on the twenty-second of December 1989. Next, ride south along Ebertstrasse to Potsdamer Platz. Watch the ground as you ride: the double row of cobblestones marks exactly where the Wall used to stand.","dur":105,"audio":"audio/stories/gate-75b673a7.mp3","lat":52.5163,"lng":13.3777},{"id":"potsdamer","title":"Potsdamer Platz","text":"Look at the glass towers around you and try to imagine this: for almost thirty years, this was nothing. Sand, weeds, watchtowers and rabbits. Before the war, Potsdamer Platz was one of the busiest squares in Europe, with trams, department stores and hotels. The green tower with the clock is a replica of Europe's first traffic light tower, installed here in 1924 because the traffic was simply out of control. Bombing in 1945 destroyed most of it. Then the square became the meeting point of three sectors, American, British and Soviet. On the seventeenth of June 1953, during the East German uprising, this square was a battlefield. Protesters faced Soviet tanks here, and a building on the eastern side was set on fire. When the Wall came in 1961, it cut the square straight through. The remaining buildings were torn down to create a clear field of fire for the border guards. From observation platforms on the western side, tourists and visiting politicians would climb up and stare across the empty strip into the East. After the Wall fell, this huge empty space became the stage for something surreal. In July 1990, Roger Waters performed The Wall here, in front of around three hundred and fifty thousand people, on the former death strip itself. Then came the builders. In the nineties, Potsdamer Platz was the largest construction site in Europe. Nearly everything you see is younger than the fall of the Wall. Look for the original Wall segments near the station entrance. Next, ride east along Leipziger Strasse to the large grey government building on the corner of Wilhelmstrasse.","dur":108,"audio":"audio/stories/potsdamer-e1ec9a3b.mp3","lat":52.5096,"lng":13.376},{"id":"ministries","title":"The House of Ministries and the 1953 uprising","text":"This massive building has lived through almost every chapter of modern German history. It was built in 1936 as Hermann Göring's Air Ministry, and it's one of the few Nazi government buildings that survived the bombing. In October 1949, the German Democratic Republic, East Germany, was founded inside this building. It then became the GDR's House of Ministries. Walk to the colonnade on the Leipziger Strasse side. You'll find a long mural made of Meissen porcelain tiles, completed in the early fifties: happy workers, farmers, families, and young people marching towards a bright socialist future. That was the official picture. Now look down at the ground in front of it. There's a large photograph under glass showing the real people who came here. On the sixteenth of June 1953, construction workers from the Stalinallee building site put down their tools and marched to this building. The government had raised their work quotas, which effectively meant a pay cut. Thousands gathered here demanding to speak to the leadership. A minister climbed onto a table to calm them, and was shouted down. By the next morning, the seventeenth of June, strikes and protests had spread to hundreds of towns across East Germany, with around a million people taking part. Their demands had moved from work quotas to free elections. The Soviet army sent in tanks, and the uprising was crushed within days. At least fifty-five people were killed. After reunification, the building had one more dark chapter. It housed the Treuhand, the agency that privatised or closed East German companies. Its head, Detlev Rohwedder, was assassinated by the Red Army Faction in 1991. Today the building is named after him, and it's the Federal Ministry of Finance. Next, go around the corner to Niederkirchnerstrasse, where a long piece of the original Wall still stands.","dur":124,"audio":"audio/stories/ministries-307cf199.mp3","lat":52.5099,"lng":13.3834},{"id":"niederkirchner","title":"The Wall at Niederkirchnerstrasse","text":"This is one of the longest stretches of original Wall left in the city centre, around two hundred metres. Look closely at the damage. After November 1989, thousands of people came with hammers and chisels to break off souvenirs. Berliners called them Mauerspechte, wall woodpeckers. In some places they chipped so deep that you can see the steel reinforcing bars inside. That's why this piece is now protected behind a fence. What you're looking at is only one layer of the border. The Wall wasn't a single wall at all, but a strip. From the East, a person trying to escape would have to cross an inner wall, a fence with alarm wires, a sandy strip that was raked smooth to show footprints, a patrol road, floodlights, anti-vehicle trenches, dog runs, watchtowers with guards under orders to shoot, and only then this final wall, the one facing West. Its smooth, rounded top was designed so that nobody could get a grip on it. The location adds another layer of history. Before the war, this street was called Prinz-Albrecht-Strasse, and it held the headquarters of the Gestapo and the SS. The Wall was built across the ruins of the buildings where the Nazi terror was planned. The foundations and cellars were only dug up in the eighties. They're now part of the Topography of Terror documentation centre, right behind this segment. So in one glance you can see two dictatorships stacked on top of each other. Next, ride east along Zimmerstrasse to Checkpoint Charlie. You'll be riding right along the old border line.","dur":99,"audio":"audio/stories/niederkirchner-44af01ac.mp3","lat":52.5069,"lng":13.383},{"id":"charlie","title":"Checkpoint Charlie","text":"Checkpoint Charlie got its name from the military alphabet. Alpha was at Helmstedt, on the inner German border, Bravo at Dreilinden, on the edge of Berlin, and this was Charlie. It was the crossing point for Allied soldiers, diplomats and foreigners. The booth and the soldiers you see today are for tourists. But in October 1961, this spot came very close to starting a war. East German border guards began demanding to see the papers of American officials, something the Allies refused to accept, since in their view only the Soviets had authority here. On the twenty-seventh of October, American tanks rolled up to the line. Soviet tanks answered on the other side. For about sixteen hours, American and Soviet tanks faced each other here, around a hundred metres apart, engines running and loaded with live ammunition. It ended through a quiet back channel between Kennedy and Khrushchev. One Soviet tank reversed, then one American tank, then another, until they were all gone. Now walk a little way east along Zimmerstrasse. On the seventeenth of August 1962, an eighteen-year-old bricklayer named Peter Fechter and his friend tried to climb the Wall near here. His friend made it. Fechter was shot in the hip and fell back into the death strip. He lay there for about fifty minutes, calling for help, while crowds in the West shouted and photographers took pictures. Neither the East German guards nor the American soldiers went to him. He bled to death. The images went around the world, and caused fury in West Berlin, including at the Americans. There's a small memorial column where he fell. Next is the longest ride of the tour, about four kilometres east to the East Side Gallery. You'll follow the old border along Zimmerstrasse, then cross the Spree at Jannowitzbrücke and ride along Holzmarktstrasse. The directions will guide you, so take your time and enjoy the ride.","dur":125,"audio":"audio/stories/charlie-decf1ba9.mp3","lat":52.5075,"lng":13.3904},{"id":"gallery","title":"The East Side Gallery","text":"You're now at the longest surviving stretch of the Berlin Wall, over thirteen hundred metres. But notice something: this wasn't the wall that faced the West. Here the border was the river Spree itself, behind the Wall. This was the inner wall, the one that faced East Berlin. Because Mühlenstrasse, the road you're on, was the route that official state guests took from the airport into the city, this wall was kept clean and grey, and East Berliners couldn't come near the other side. In 1990, after the fall, more than a hundred artists from around twenty countries painted it. The most famous painting shows two old men kissing. That's Leonid Brezhnev, leader of the Soviet Union, and Erich Honecker, leader of East Germany. It's based on a real photograph from 1979, during the thirtieth anniversary of the GDR. The socialist fraternal kiss was a real ritual between communist leaders. The artist, Dmitri Vrubel, called it something like: My God, help me to survive this deadly love. Look also for the little Trabant, East Germany's plastic people's car, bursting through the Wall. For East Germans, the Trabant was a symbol of their lives. People waited more than ten years to get one, and in November 1989, it became the car of freedom, as thousands of them drove into the West. This Wall has had to fight to survive even after 1989. Parts were removed to make way for luxury apartments in 2013, and thousands of people protested to protect it. Next, ride to the eastern end of the gallery, to the red brick bridge over the river. That's the Oberbaumbrücke.","dur":105,"audio":"audio/stories/gallery-f0d6465a.mp3","lat":52.5051,"lng":13.4396},{"id":"oberbaum","title":"The Oberbaumbrücke","text":"This beautiful double-decker brick bridge, with its castle towers, was built in the eighteen-nineties. It connects Friedrichshain, in the East, with Kreuzberg, in the West. During the division, it was a border crossing, but only for pedestrians. From 1963, West Berliners could use crossings like this one to visit relatives in the East, at first only at Christmas, later on day passes. Imagine standing in a queue on this bridge, with your gifts, coffee and West chocolate, for a few hours with family you hadn't seen in years. Then going home before midnight. Now look at the water. The border here didn't run through the middle of the river. The entire width of the Spree belonged to East Berlin. The riverbank on the Kreuzberg side was West, but a single step into the water was East. Between 1966 and 1975, several young children from Kreuzberg fell into the river while playing on that bank. West Berlin police and firefighters were there within minutes, but they didn't dare go into the water, because that meant entering East German territory, where boats and guards were watching. The children drowned while adults stood helpless on the shore. The last was a five-year-old boy named Cengaver Katrancı, in 1975. After his death, East and West finally agreed on a rule allowing rescues in the border waters. Next, ride north up Warschauer Strasse to Frankfurter Tor, where two domed towers mark the start of Karl-Marx-Allee. Watch out for tram tracks on the way.","dur":97,"audio":"audio/stories/oberbaum-5678640e.mp3","lat":52.5021,"lng":13.4457},{"id":"kma","title":"Karl-Marx-Allee","text":"Welcome to the grandest street in East Germany. It was originally called Stalinallee, and it was built in the fifties as the first socialist street in Germany, a showcase for the whole world to see. The two domed towers here at Frankfurter Tor were designed by the architect Hermann Henselmann, and they deliberately echo the domes of the French and German churches at Gendarmenmarkt. Look at the buildings. The style is sometimes called wedding cake style, with its columns, balconies and decorative ceramic tiles. These were called workers' palaces, and compared to the ruins that most Berliners were living in, they really were. They had central heating, lifts, hot water and parquet floors, luxuries at the time. But the building of this street had a dark side. It was the construction workers here, working under higher quotas and lower pay, who put down their tools on the sixteenth of June 1953 and started the uprising you heard about at the House of Ministries. Stalin also had his place here: a bronze statue of him stood on this avenue. In November 1961, after Moscow's final break with Stalin's memory, it disappeared overnight. The street was renamed Karl-Marx-Allee the same night. The avenue is almost ninety metres wide, and that width had a purpose: it was a parade route. Every year, on May Day and on the anniversary of the GDR, soldiers, tanks and missiles rolled past the leaders' tribune. Now ride west along Karl-Marx-Allee towards the TV tower. After Strausberger Platz, notice how the architecture changes into sixties modernism, with the Kino International cinema and Café Moskau. Your next stop is Alexanderplatz.","dur":108,"audio":"audio/stories/kma-c936916a.mp3","lat":52.5157,"lng":13.454},{"id":"alex","title":"Alexanderplatz","text":"Look up at the TV tower. It's three hundred and sixty-eight metres high, and it was finished in 1969, to be seen from everywhere, including West Berlin. It was supposed to be a symbol of socialist modernity and technical progress. But when the sun hits the steel ball, the reflection forms a bright cross. Berliners immediately named it the Pope's revenge, a joke that the officially atheist state didn't enjoy. Nearby is the World Time Clock, also from 1969. It showed the time in cities all over the world, places most East Germans were never allowed to visit. Now picture this square on the fourth of November 1989. It's full of people, hundreds of thousands, maybe more. It's the largest demonstration in the history of East Germany, organised by actors and artists, and for the first time officially permitted. People carried handmade signs and jokes, and speakers called for freedom of speech, of the press, and of travel. One speaker was Günter Schabowski, a member of the Politburo, and the crowd booed him. Just five days later, on the evening of the ninth of November, the same Schabowski read out a new travel rule at a press conference, broadcast live. A journalist asked when it would take effect. Schabowski looked at his papers, confused, and said that as far as he knew, immediately. That night, thousands of East Berliners went to the border to test it, and the Wall opened. The whole system collapsed through a badly prepared press conference. Your last stop is at Bernauer Strasse, about three kilometres north-west. The directions will take you through the quiet side streets of Mitte.","dur":107,"audio":"audio/stories/alex-90ad7f2b.mp3","lat":52.5212,"lng":13.4133},{"id":"bernauer","title":"Bernauer Strasse","text":"You've reached the Berlin Wall Memorial, and this is the place where the Wall is easiest to understand. On Bernauer Strasse, the border ran along the front of the houses. The buildings on the south side were in the East, but the pavement in front of their doors was in the West. When the border was sealed in August 1961, people living here could step out of their front door into freedom, until the doors were bricked up. Then they jumped from the windows. West Berlin firefighters held out nets. Some made it, some didn't. On the twenty-second of August, fifty-eight-year-old Ida Siekmann threw her belongings out of her window at number forty-eight and jumped. She died of her injuries, one of the first people to die at the Wall. A little way down this street, on the fifteenth of August 1961, a young border guard named Conrad Schumann was standing at a coil of barbed wire. He looked around, threw his rifle away and jumped over the wire into the West. The photograph of that jump became one of the defining images of the Cold War. Later, the houses were emptied and torn down to widen the death strip. People dug tunnels under this street instead. In 1964, fifty-seven people escaped through a tunnel dug by students from a bakery on the western side. Look at the steel poles marking the line of the Wall, and at the Window of Remembrance, with the faces of people who died at the Berlin Wall. There are at least a hundred and forty of them. Climb the viewing tower at the documentation centre to see the preserved death strip from above. And one last detail: the chapel in the middle of the strip stands where the Church of Reconciliation once stood. It was trapped inside the death strip for over twenty years and blown up by East Germany in 1985. Four years later, the Wall itself was gone.","dur":116,"audio":"audio/stories/bernauer-c854e6e7.mp3","lat":52.535,"lng":13.3897}],"intro":{"id":"intro","title":"Before you ride","text":"Welcome to Berlin, the city where the Cold War stopped being an idea and became a line of concrete through people's streets. Over the next two hours you'll ride about fifteen kilometres, from the Reichstag to the Berlin Wall Memorial at Bernauer Strasse, through eleven places where the division of Berlin was decided, enforced, resisted and finally broken. Each story plays by itself when you arrive, so you can keep your eyes on the road. A quick note on safety: Berlin's bike lanes are busy and fast. Keep one ear free, stop before you listen to the longer stories, and watch out for tram tracks, especially in the east. When you're ready, ride to the lawn in front of the Reichstag. Your first story starts there.","dur":46,"audio":"audio/stories/intro-589d2cda.mp3"},"outro":{"id":"outro","title":"End of the tour","text":"That's the end of the tour. In just fifteen kilometres, you've crossed the old border several times, something that for twenty-eight years could cost people their lives. If you still have energy, ride two kilometres north to the Bösebrücke on Bornholmer Strasse. That's where, on the night of the ninth of November 1989, the first gate was opened, when an overwhelmed officer named Harald Jäger decided to let the crowd through. Or head to the Mauerpark, on the former death strip, for a drink. Thanks for riding.","dur":33,"audio":"audio/stories/outro-b87b07db.mp3"}}
+{
+ "id": "berlin-divided",
+ "title": "Berlin divided",
+ "voice": "en-GB-RyanNeural",
+ "nav": [
+  [
+   {
+    "lat": 52.5186,
+    "lng": 13.376932,
+    "text": "Directions to the next stop. Head south on Friedrich-Ebert-Platz.",
+    "clip": "a945b17eb0"
+   },
+   {
+    "lat": 52.517888,
+    "lng": 13.376915,
+    "text": "Go straight on, then turn left onto Dorotheenstraße, then turn right.",
+    "clip": "9a61db9fec",
+    "pre": {
+     "text": "In 150 metres, go straight on, then turn left onto Dorotheenstraße, then turn right."
+    }
+   },
+   {
+    "lat": 52.516369,
+    "lng": 13.377474,
+    "text": "Turn left.",
+    "clip": "214975c935",
+    "pre": {
+     "text": "In 150 metres, turn left."
+    }
+   }
+  ],
+  [
+   {
+    "lat": 52.516382,
+    "lng": 13.377686,
+    "text": "Directions to the next stop. Head west.",
+    "clip": "38faab1417"
+   },
+   {
+    "lat": 52.516346,
+    "lng": 13.377094,
+    "text": "Turn left onto Ebertstraße.",
+    "clip": "00e03341f1",
+    "pre": {
+     "text": "In 150 metres, turn left onto Ebertstraße."
+    }
+   },
+   {
+    "lat": 52.51546,
+    "lng": 13.37746,
+    "text": "Bear right, and stay on it for about 700 metres.",
+    "clip": "3c7ec8b0a7",
+    "pre": {
+     "text": "In 150 metres, bear right, and stay on it for about 700 metres."
+    }
+   },
+   {
+    "lat": 52.509644,
+    "lng": 13.376471,
+    "text": "Turn right.",
+    "clip": "e881cc5b22",
+    "pre": {
+     "text": "In 150 metres, turn right."
+    }
+   }
+  ],
+  [
+   {
+    "lat": 52.509614,
+    "lng": 13.375997,
+    "text": "Directions to the next stop. Head east.",
+    "clip": "cf614126b2"
+   },
+   {
+    "lat": 52.509644,
+    "lng": 13.376471,
+    "text": "Turn right, then turn left onto Potsdamer Platz, and stay on it for about 500 metres.",
+    "clip": "6fafbaf058",
+    "pre": {
+     "text": "In 150 metres, turn right, then turn left onto Potsdamer Platz, and stay on it for about 500 metres."
+    }
+   },
+   {
+    "lat": 52.509992,
+    "lng": 13.383965,
+    "text": "Turn right, then turn right.",
+    "clip": "1ae25650d9",
+    "pre": {
+     "text": "In 150 metres, turn right, then turn right."
+    }
+   }
+  ],
+  [
+   {
+    "lat": 52.509858,
+    "lng": 13.383407,
+    "text": "Directions to the next stop. Head east.",
+    "clip": "cf614126b2"
+   },
+   {
+    "lat": 52.509898,
+    "lng": 13.384239,
+    "text": "Turn right onto Wilhelmstraße.",
+    "clip": "791446a928",
+    "pre": {
+     "text": "In 150 metres, turn right onto Wilhelmstraße."
+    }
+   },
+   {
+    "lat": 52.507328,
+    "lng": 13.385589,
+    "text": "Turn right, then turn left, then turn right.",
+    "clip": "727db7f4dc",
+    "pre": {
+     "text": "In 150 metres, turn right, then turn left, then turn right."
+    }
+   },
+   {
+    "lat": 52.507029,
+    "lng": 13.383424,
+    "text": "Turn left, then turn right.",
+    "clip": "2d6e64b0d6",
+    "pre": {
+     "text": "In 150 metres, turn left, then turn right."
+    }
+   }
+  ],
+  [
+   {
+    "lat": 52.506949,
+    "lng": 13.382992,
+    "text": "Directions to the next stop. Head east.",
+    "clip": "cf614126b2"
+   },
+   {
+    "lat": 52.506977,
+    "lng": 13.383431,
+    "text": "At the end of the road, turn left, then turn right.",
+    "clip": "5b3d746177",
+    "pre": {
+     "text": "In 150 metres, at the end of the road, turn left, then turn right."
+    }
+   },
+   {
+    "lat": 52.507176,
+    "lng": 13.38552,
+    "text": "At the end of the road, turn left, then turn right onto Zimmerstraße.",
+    "clip": "f9b6f3a16f",
+    "pre": {
+     "text": "In 150 metres, at the end of the road, turn left, then turn right onto Zimmerstraße."
+    }
+   },
+   {
+    "lat": 52.507689,
+    "lng": 13.390335,
+    "text": "Bear right onto Friedrichstraße.",
+    "clip": "0a3ff5fae7",
+    "pre": {
+     "text": "In 150 metres, bear right onto Friedrichstraße."
+    }
+   }
+  ],
+  [
+   {
+    "lat": 52.507502,
+    "lng": 13.390429,
+    "text": "Directions to the next stop. Head north on Friedrichstraße, then turn right onto Zimmerstraße, and stay on it for about 600 metres.",
+    "clip": "972229ad9b"
+   },
+   {
+    "lat": 52.508174,
+    "lng": 13.399081,
+    "text": "At the end of the road, turn left onto Axel-Springer-Straße.",
+    "clip": "49ec5c2602",
+    "pre": {
+     "text": "In 150 metres, at the end of the road, turn left onto Axel-Springer-Straße."
+    }
+   },
+   {
+    "lat": 52.511012,
+    "lng": 13.401339,
+    "text": "Turn right, and stay on it for about 700 metres.",
+    "clip": "d2cf38d78e",
+    "pre": {
+     "text": "In 150 metres, turn right, and stay on it for about 700 metres."
+    }
+   },
+   {
+    "lat": 52.512759,
+    "lng": 13.411587,
+    "text": "Turn left onto Inselstraße, then turn right onto Wallstraße, and stay on it for about 500 metres.",
+    "clip": "a14bb3df2c",
+    "pre": {
+     "text": "In 150 metres, turn left onto Inselstraße, then turn right onto Wallstraße, and stay on it for about 500 metres."
+    }
+   },
+   {
+    "lat": 52.513813,
+    "lng": 13.417769,
+    "text": "Turn left onto Jannowitzbrücke.",
+    "clip": "0263771f25",
+    "pre": {
+     "text": "In 150 metres, turn left onto Jannowitzbrücke."
+    }
+   },
+   {
+    "lat": 52.515428,
+    "lng": 13.418174,
+    "text": "Turn right onto Holzmarktstraße, and stay on it for about 1.7 kilometres.",
+    "clip": "8d23b8b2eb",
+    "pre": {
+     "text": "In 150 metres, turn right onto Holzmarktstraße, and stay on it for about 1.7 kilometres."
+    }
+   },
+   {
+    "lat": 52.506007,
+    "lng": 13.438021,
+    "text": "Turn right, then turn left.",
+    "clip": "4631f8a1f5",
+    "pre": {
+     "text": "In 150 metres, turn right, then turn left."
+    }
+   }
+  ],
+  [
+   {
+    "lat": 52.505074,
+    "lng": 13.439573,
+    "text": "Directions to the next stop. Head south-east.",
+    "clip": "73d8f9de69"
+   },
+   {
+    "lat": 52.50473,
+    "lng": 13.440447,
+    "text": "Turn left, then turn right onto Mühlenstraße.",
+    "clip": "cfb33129e8",
+    "pre": {
+     "text": "In 150 metres, turn left, then turn right onto Mühlenstraße."
+    }
+   },
+   {
+    "lat": 52.503039,
+    "lng": 13.445461,
+    "text": "Bear right.",
+    "clip": "1d86cca335",
+    "pre": {
+     "text": "In 150 metres, bear right."
+    }
+   },
+   {
+    "lat": 52.502639,
+    "lng": 13.446375,
+    "text": "Turn right.",
+    "clip": "e881cc5b22",
+    "pre": {
+     "text": "In 150 metres, turn right."
+    }
+   }
+  ],
+  [
+   {
+    "lat": 52.502044,
+    "lng": 13.445818,
+    "text": "Directions to the next stop. Head north-east.",
+    "clip": "f000aaef3e"
+   },
+   {
+    "lat": 52.502639,
+    "lng": 13.446375,
+    "text": "At the end of the road, turn right, then turn left onto Warschauer Straße, then bear right, then bear left.",
+    "clip": "83e615cffe",
+    "pre": {
+     "text": "In 150 metres, at the end of the road, turn right, then turn left onto Warschauer Straße, then bear right, then bear left."
+    }
+   },
+   {
+    "lat": 52.505757,
+    "lng": 13.449093,
+    "text": "Go straight onto Warschauer Brücke, and stay on it for about 1.2 kilometres.",
+    "clip": "b38e2e14eb",
+    "pre": {
+     "text": "In 150 metres, go straight onto Warschauer Brücke, and stay on it for about 1.2 kilometres."
+    }
+   },
+   {
+    "lat": 52.515673,
+    "lng": 13.454191,
+    "text": "Turn left.",
+    "clip": "214975c935",
+    "pre": {
+     "text": "In 150 metres, turn left."
+    }
+   }
+  ],
+  [
+   {
+    "lat": 52.515693,
+    "lng": 13.453998,
+    "text": "Directions to the next stop. Head east, then turn left onto Petersburger Straße, then turn left onto the Karl-Marx-Allee cycle path, and stay on it for about 1.8 kilometres.",
+    "clip": "8a4b2ac6e9"
+   },
+   {
+    "lat": 52.518923,
+    "lng": 13.428885,
+    "text": "Turn left.",
+    "clip": "214975c935",
+    "pre": {
+     "text": "In 150 metres, turn left."
+    }
+   },
+   {
+    "lat": 52.518969,
+    "lng": 13.426934,
+    "text": "Turn right onto Karl-Marx-Allee, and stay on it for about 900 metres.",
+    "clip": "969e726ef3",
+    "pre": {
+     "text": "In 150 metres, turn right onto Karl-Marx-Allee, and stay on it for about 900 metres."
+    }
+   },
+   {
+    "lat": 52.522661,
+    "lng": 13.415475,
+    "text": "Turn left.",
+    "clip": "214975c935",
+    "pre": {
+     "text": "In 150 metres, turn left."
+    }
+   }
+  ],
+  [
+   {
+    "lat": 52.521213,
+    "lng": 13.413297,
+    "text": "Directions to the next stop. Head west.",
+    "clip": "38faab1417"
+   },
+   {
+    "lat": 52.520942,
+    "lng": 13.412777,
+    "text": "Turn right onto Dircksenstraße.",
+    "clip": "e20a23f5ba",
+    "pre": {
+     "text": "In 150 metres, turn right onto Dircksenstraße."
+    }
+   },
+   {
+    "lat": 52.522539,
+    "lng": 13.410232,
+    "text": "Turn left, then turn right, then turn left onto Karl-Liebknecht-Straße, then turn right onto Dircksenstraße.",
+    "clip": "f32af44cf4",
+    "pre": {
+     "text": "In 150 metres, turn left, then turn right, then turn left onto Karl-Liebknecht-Straße, then turn right onto Dircksenstraße."
+    }
+   },
+   {
+    "lat": 52.523111,
+    "lng": 13.403647,
+    "text": "At the end of the road, turn right onto An der Spandauer Brücke.",
+    "clip": "0d335cd5f3",
+    "pre": {
+     "text": "In 150 metres, at the end of the road, turn right onto An der Spandauer Brücke."
+    }
+   },
+   {
+    "lat": 52.523675,
+    "lng": 13.399628,
+    "text": "Turn right onto Große Hamburger Straße, and stay on it for about 600 metres.",
+    "clip": "22721917de",
+    "pre": {
+     "text": "In 150 metres, turn right onto Große Hamburger Straße, and stay on it for about 600 metres."
+    }
+   },
+   {
+    "lat": 52.528669,
+    "lng": 13.397277,
+    "text": "At the end of the road, turn left onto Linienstraße.",
+    "clip": "5a71c1ec4b",
+    "pre": {
+     "text": "In 150 metres, at the end of the road, turn left onto Linienstraße."
+    }
+   },
+   {
+    "lat": 52.528027,
+    "lng": 13.394911,
+    "text": "Turn right onto Kleine Hamburger Straße, and stay on it for about 800 metres.",
+    "clip": "f8105db75b",
+    "pre": {
+     "text": "In 150 metres, turn right onto Kleine Hamburger Straße, and stay on it for about 800 metres."
+    }
+   },
+   {
+    "lat": 52.533353,
+    "lng": 13.387618,
+    "text": "Turn right.",
+    "clip": "e881cc5b22",
+    "pre": {
+     "text": "In 150 metres, turn right."
+    }
+   }
+  ]
+ ],
+ "clips": {
+  "8d23b8b2eb": "audio/nav/8d23b8b2eb.mp3",
+  "0d335cd5f3": "audio/nav/0d335cd5f3.mp3",
+  "214975c935": "audio/nav/214975c935.mp3",
+  "b38e2e14eb": "audio/nav/b38e2e14eb.mp3",
+  "969e726ef3": "audio/nav/969e726ef3.mp3",
+  "1d86cca335": "audio/nav/1d86cca335.mp3",
+  "d2cf38d78e": "audio/nav/d2cf38d78e.mp3",
+  "73d8f9de69": "audio/nav/73d8f9de69.mp3",
+  "5b3d746177": "audio/nav/5b3d746177.mp3",
+  "f000aaef3e": "audio/nav/f000aaef3e.mp3",
+  "0a3ff5fae7": "audio/nav/0a3ff5fae7.mp3",
+  "49ec5c2602": "audio/nav/49ec5c2602.mp3",
+  "4631f8a1f5": "audio/nav/4631f8a1f5.mp3",
+  "791446a928": "audio/nav/791446a928.mp3",
+  "2d6e64b0d6": "audio/nav/2d6e64b0d6.mp3",
+  "727db7f4dc": "audio/nav/727db7f4dc.mp3",
+  "8a4b2ac6e9": "audio/nav/8a4b2ac6e9.mp3",
+  "f32af44cf4": "audio/nav/f32af44cf4.mp3",
+  "83e615cffe": "audio/nav/83e615cffe.mp3",
+  "38faab1417": "audio/nav/38faab1417.mp3",
+  "5a71c1ec4b": "audio/nav/5a71c1ec4b.mp3",
+  "166443de9a": "audio/nav/166443de9a.mp3",
+  "f9b6f3a16f": "audio/nav/f9b6f3a16f.mp3",
+  "a945b17eb0": "audio/nav/a945b17eb0.mp3",
+  "0263771f25": "audio/nav/0263771f25.mp3",
+  "1ae25650d9": "audio/nav/1ae25650d9.mp3",
+  "a14bb3df2c": "audio/nav/a14bb3df2c.mp3",
+  "9a61db9fec": "audio/nav/9a61db9fec.mp3",
+  "e20a23f5ba": "audio/nav/e20a23f5ba.mp3",
+  "22721917de": "audio/nav/22721917de.mp3",
+  "cf614126b2": "audio/nav/cf614126b2.mp3",
+  "3c7ec8b0a7": "audio/nav/3c7ec8b0a7.mp3",
+  "00e03341f1": "audio/nav/00e03341f1.mp3",
+  "6fafbaf058": "audio/nav/6fafbaf058.mp3",
+  "cfb33129e8": "audio/nav/cfb33129e8.mp3",
+  "e881cc5b22": "audio/nav/e881cc5b22.mp3",
+  "972229ad9b": "audio/nav/972229ad9b.mp3",
+  "f8105db75b": "audio/nav/f8105db75b.mp3"
+ },
+ "offroute": "166443de9a",
+ "route": [
+  [
+   52.51859,
+   13.37693
+  ],
+  [
+   52.51797,
+   13.37692
+  ],
+  [
+   52.51789,
+   13.37692
+  ],
+  [
+   52.51778,
+   13.37697
+  ],
+  [
+   52.51781,
+   13.37711
+  ],
+  [
+   52.51773,
+   13.37717
+  ],
+  [
+   52.51705,
+   13.37747
+  ],
+  [
+   52.51683,
+   13.37751
+  ],
+  [
+   52.51656,
+   13.37744
+  ],
+  [
+   52.51637,
+   13.37747
+  ],
+  [
+   52.51638,
+   13.37769
+  ],
+  [
+   52.51637,
+   13.37747
+  ],
+  [
+   52.51635,
+   13.37709
+  ],
+  [
+   52.5164,
+   13.37701
+  ],
+  [
+   52.5164,
+   13.37686
+  ],
+  [
+   52.51639,
+   13.37673
+  ],
+  [
+   52.51626,
+   13.37671
+  ],
+  [
+   52.51616,
+   13.37673
+  ],
+  [
+   52.51608,
+   13.37676
+  ],
+  [
+   52.51599,
+   13.37684
+  ],
+  [
+   52.51592,
+   13.37697
+  ],
+  [
+   52.51583,
+   13.37723
+  ],
+  [
+   52.51578,
+   13.37732
+  ],
+  [
+   52.51571,
+   13.37741
+  ],
+  [
+   52.51564,
+   13.37745
+  ],
+  [
+   52.51553,
+   13.37747
+  ],
+  [
+   52.51546,
+   13.37746
+  ],
+  [
+   52.51539,
+   13.37737
+  ],
+  [
+   52.5148,
+   13.37729
+  ],
+  [
+   52.51472,
+   13.37726
+  ],
+  [
+   52.51453,
+   13.37724
+  ],
+  [
+   52.51435,
+   13.37722
+  ],
+  [
+   52.51322,
+   13.37698
+  ],
+  [
+   52.51315,
+   13.37696
+  ],
+  [
+   52.51295,
+   13.37692
+  ],
+  [
+   52.51287,
+   13.3769
+  ],
+  [
+   52.51275,
+   13.37693
+  ],
+  [
+   52.51261,
+   13.37694
+  ],
+  [
+   52.51246,
+   13.37695
+  ],
+  [
+   52.51236,
+   13.37696
+  ],
+  [
+   52.51227,
+   13.37697
+  ],
+  [
+   52.51214,
+   13.3769
+  ],
+  [
+   52.51094,
+   13.37664
+  ],
+  [
+   52.51086,
+   13.37666
+  ],
+  [
+   52.51076,
+   13.37664
+  ],
+  [
+   52.51067,
+   13.37662
+  ],
+  [
+   52.51038,
+   13.37656
+  ],
+  [
+   52.51023,
+   13.37649
+  ],
+  [
+   52.51013,
+   13.37647
+  ],
+  [
+   52.51,
+   13.3764
+  ],
+  [
+   52.50973,
+   13.37646
+  ],
+  [
+   52.50964,
+   13.37647
+  ],
+  [
+   52.50964,
+   13.37633
+  ],
+  [
+   52.50961,
+   13.376
+  ],
+  [
+   52.50964,
+   13.37633
+  ],
+  [
+   52.50964,
+   13.37647
+  ],
+  [
+   52.50941,
+   13.37651
+  ],
+  [
+   52.50945,
+   13.37679
+  ],
+  [
+   52.50947,
+   13.37695
+  ],
+  [
+   52.50949,
+   13.37717
+  ],
+  [
+   52.50951,
+   13.37744
+  ],
+  [
+   52.50961,
+   13.37796
+  ],
+  [
+   52.50962,
+   13.37813
+  ],
+  [
+   52.50964,
+   13.37852
+  ],
+  [
+   52.50967,
+   13.37892
+  ],
+  [
+   52.50968,
+   13.37918
+  ],
+  [
+   52.50972,
+   13.37948
+  ],
+  [
+   52.50978,
+   13.38054
+  ],
+  [
+   52.50981,
+   13.38089
+  ],
+  [
+   52.50984,
+   13.38152
+  ],
+  [
+   52.50991,
+   13.38271
+  ],
+  [
+   52.50992,
+   13.38287
+  ],
+  [
+   52.50997,
+   13.38356
+  ],
+  [
+   52.50998,
+   13.38384
+  ],
+  [
+   52.50999,
+   13.38396
+  ],
+  [
+   52.50992,
+   13.38401
+  ],
+  [
+   52.50986,
+   13.38345
+  ],
+  [
+   52.5099,
+   13.38402
+  ],
+  [
+   52.5099,
+   13.38424
+  ],
+  [
+   52.50975,
+   13.38432
+  ],
+  [
+   52.50899,
+   13.38473
+  ],
+  [
+   52.50879,
+   13.38483
+  ],
+  [
+   52.5087,
+   13.38488
+  ],
+  [
+   52.50858,
+   13.38491
+  ],
+  [
+   52.50838,
+   13.38501
+  ],
+  [
+   52.50822,
+   13.3851
+  ],
+  [
+   52.508,
+   13.38521
+  ],
+  [
+   52.50789,
+   13.38527
+  ],
+  [
+   52.50776,
+   13.38536
+  ],
+  [
+   52.50757,
+   13.38546
+  ],
+  [
+   52.50743,
+   13.38554
+  ],
+  [
+   52.50733,
+   13.38559
+  ],
+  [
+   52.50732,
+   13.38545
+  ],
+  [
+   52.50718,
+   13.38552
+  ],
+  [
+   52.50716,
+   13.38539
+  ],
+  [
+   52.50714,
+   13.38526
+  ],
+  [
+   52.50707,
+   13.38411
+  ],
+  [
+   52.50705,
+   13.3839
+  ],
+  [
+   52.50703,
+   13.38342
+  ],
+  [
+   52.50696,
+   13.38318
+  ],
+  [
+   52.50695,
+   13.38299
+  ],
+  [
+   52.50696,
+   13.38318
+  ],
+  [
+   52.50698,
+   13.38343
+  ],
+  [
+   52.50705,
+   13.3839
+  ],
+  [
+   52.50707,
+   13.38411
+  ],
+  [
+   52.50714,
+   13.38526
+  ],
+  [
+   52.50716,
+   13.38539
+  ],
+  [
+   52.50718,
+   13.38552
+  ],
+  [
+   52.50732,
+   13.38545
+  ],
+  [
+   52.50742,
+   13.38539
+  ],
+  [
+   52.50743,
+   13.38554
+  ],
+  [
+   52.50744,
+   13.38571
+  ],
+  [
+   52.50746,
+   13.38608
+  ],
+  [
+   52.50747,
+   13.38628
+  ],
+  [
+   52.50751,
+   13.38703
+  ],
+  [
+   52.50754,
+   13.38761
+  ],
+  [
+   52.50756,
+   13.38794
+  ],
+  [
+   52.50759,
+   13.3885
+  ],
+  [
+   52.50761,
+   13.38881
+  ],
+  [
+   52.50764,
+   13.38934
+  ],
+  [
+   52.50766,
+   13.38971
+  ],
+  [
+   52.50768,
+   13.39018
+  ],
+  [
+   52.50769,
+   13.39034
+  ],
+  [
+   52.50762,
+   13.3904
+  ],
+  [
+   52.5075,
+   13.39043
+  ],
+  [
+   52.50759,
+   13.39041
+  ],
+  [
+   52.50769,
+   13.39034
+  ],
+  [
+   52.5077,
+   13.39046
+  ],
+  [
+   52.5078,
+   13.39211
+  ],
+  [
+   52.50781,
+   13.39226
+  ],
+  [
+   52.50782,
+   13.39244
+  ],
+  [
+   52.50783,
+   13.39265
+  ],
+  [
+   52.50784,
+   13.39282
+  ],
+  [
+   52.50785,
+   13.39303
+  ],
+  [
+   52.50789,
+   13.39366
+  ],
+  [
+   52.50791,
+   13.39404
+  ],
+  [
+   52.50792,
+   13.3942
+  ],
+  [
+   52.50793,
+   13.39434
+  ],
+  [
+   52.50797,
+   13.39491
+  ],
+  [
+   52.50798,
+   13.39508
+  ],
+  [
+   52.508,
+   13.39553
+  ],
+  [
+   52.50802,
+   13.3958
+  ],
+  [
+   52.50806,
+   13.39637
+  ],
+  [
+   52.50807,
+   13.39655
+  ],
+  [
+   52.5081,
+   13.39705
+  ],
+  [
+   52.50811,
+   13.3972
+  ],
+  [
+   52.50813,
+   13.39765
+  ],
+  [
+   52.50818,
+   13.39854
+  ],
+  [
+   52.5082,
+   13.39885
+  ],
+  [
+   52.50817,
+   13.39908
+  ],
+  [
+   52.50825,
+   13.39914
+  ],
+  [
+   52.50844,
+   13.39926
+  ],
+  [
+   52.50865,
+   13.39941
+  ],
+  [
+   52.50884,
+   13.39955
+  ],
+  [
+   52.50898,
+   13.39972
+  ],
+  [
+   52.50909,
+   13.3998
+  ],
+  [
+   52.50916,
+   13.39986
+  ],
+  [
+   52.50942,
+   13.40004
+  ],
+  [
+   52.50949,
+   13.4001
+  ],
+  [
+   52.50956,
+   13.40016
+  ],
+  [
+   52.50987,
+   13.40052
+  ],
+  [
+   52.50995,
+   13.40061
+  ],
+  [
+   52.51002,
+   13.40069
+  ],
+  [
+   52.51033,
+   13.40107
+  ],
+  [
+   52.51041,
+   13.40117
+  ],
+  [
+   52.51047,
+   13.40124
+  ],
+  [
+   52.51054,
+   13.40129
+  ],
+  [
+   52.51062,
+   13.40135
+  ],
+  [
+   52.5107,
+   13.40138
+  ],
+  [
+   52.51101,
+   13.40134
+  ],
+  [
+   52.51102,
+   13.40148
+  ],
+  [
+   52.51103,
+   13.4016
+  ],
+  [
+   52.51111,
+   13.40182
+  ],
+  [
+   52.51116,
+   13.40194
+  ],
+  [
+   52.51122,
+   13.40207
+  ],
+  [
+   52.51129,
+   13.40224
+  ],
+  [
+   52.51132,
+   13.4024
+  ],
+  [
+   52.51131,
+   13.40255
+  ],
+  [
+   52.51129,
+   13.4031
+  ],
+  [
+   52.51129,
+   13.40324
+  ],
+  [
+   52.5113,
+   13.40337
+  ],
+  [
+   52.51131,
+   13.40355
+  ],
+  [
+   52.5113,
+   13.40367
+  ],
+  [
+   52.51129,
+   13.40395
+  ],
+  [
+   52.51128,
+   13.40448
+  ],
+  [
+   52.51128,
+   13.40471
+  ],
+  [
+   52.51125,
+   13.40497
+  ],
+  [
+   52.51124,
+   13.40518
+  ],
+  [
+   52.51122,
+   13.40549
+  ],
+  [
+   52.51122,
+   13.40567
+  ],
+  [
+   52.51122,
+   13.40584
+  ],
+  [
+   52.51124,
+   13.40606
+  ],
+  [
+   52.51132,
+   13.40657
+  ],
+  [
+   52.51134,
+   13.4067
+  ],
+  [
+   52.51147,
+   13.40714
+  ],
+  [
+   52.51178,
+   13.40811
+  ],
+  [
+   52.51184,
+   13.40828
+  ],
+  [
+   52.51188,
+   13.40839
+  ],
+  [
+   52.51195,
+   13.40864
+  ],
+  [
+   52.51199,
+   13.40878
+  ],
+  [
+   52.51197,
+   13.40889
+  ],
+  [
+   52.51204,
+   13.4092
+  ],
+  [
+   52.51211,
+   13.40933
+  ],
+  [
+   52.51221,
+   13.40979
+  ],
+  [
+   52.51229,
+   13.41003
+  ],
+  [
+   52.5124,
+   13.41035
+  ],
+  [
+   52.51245,
+   13.41051
+  ],
+  [
+   52.51246,
+   13.41068
+  ],
+  [
+   52.51252,
+   13.41084
+  ],
+  [
+   52.5127,
+   13.41139
+  ],
+  [
+   52.51276,
+   13.41159
+  ],
+  [
+   52.51286,
+   13.41177
+  ],
+  [
+   52.51315,
+   13.41267
+  ],
+  [
+   52.51341,
+   13.41348
+  ],
+  [
+   52.51346,
+   13.41364
+  ],
+  [
+   52.51352,
+   13.41383
+  ],
+  [
+   52.51373,
+   13.4145
+  ],
+  [
+   52.51383,
+   13.41462
+  ],
+  [
+   52.51393,
+   13.41472
+  ],
+  [
+   52.51403,
+   13.41484
+  ],
+  [
+   52.51414,
+   13.41496
+  ],
+  [
+   52.51419,
+   13.41511
+  ],
+  [
+   52.51421,
+   13.41527
+  ],
+  [
+   52.51424,
+   13.41545
+  ],
+  [
+   52.51419,
+   13.4162
+  ],
+  [
+   52.51417,
+   13.41648
+  ],
+  [
+   52.51414,
+   13.41667
+  ],
+  [
+   52.51412,
+   13.41679
+  ],
+  [
+   52.51409,
+   13.4169
+  ],
+  [
+   52.51405,
+   13.41701
+  ],
+  [
+   52.51398,
+   13.41715
+  ],
+  [
+   52.51392,
+   13.4173
+  ],
+  [
+   52.51387,
+   13.41742
+  ],
+  [
+   52.51384,
+   13.41754
+  ],
+  [
+   52.51381,
+   13.41777
+  ],
+  [
+   52.51393,
+   13.4178
+  ],
+  [
+   52.51452,
+   13.41793
+  ],
+  [
+   52.51463,
+   13.41796
+  ],
+  [
+   52.51486,
+   13.41802
+  ],
+  [
+   52.51495,
+   13.41804
+  ],
+  [
+   52.51503,
+   13.41806
+  ],
+  [
+   52.51531,
+   13.41813
+  ],
+  [
+   52.51543,
+   13.41817
+  ],
+  [
+   52.51539,
+   13.41834
+  ],
+  [
+   52.51523,
+   13.41886
+  ],
+  [
+   52.51517,
+   13.41904
+  ],
+  [
+   52.51506,
+   13.41935
+  ],
+  [
+   52.51498,
+   13.41958
+  ],
+  [
+   52.51486,
+   13.41995
+  ],
+  [
+   52.5143,
+   13.42158
+  ],
+  [
+   52.51421,
+   13.42185
+  ],
+  [
+   52.51407,
+   13.42224
+  ],
+  [
+   52.51403,
+   13.42235
+  ],
+  [
+   52.51399,
+   13.42246
+  ],
+  [
+   52.51394,
+   13.42261
+  ],
+  [
+   52.51378,
+   13.42308
+  ],
+  [
+   52.51371,
+   13.42328
+  ],
+  [
+   52.5136,
+   13.42362
+  ],
+  [
+   52.51351,
+   13.42385
+  ],
+  [
+   52.51343,
+   13.42403
+  ],
+  [
+   52.51337,
+   13.42414
+  ],
+  [
+   52.51331,
+   13.42425
+  ],
+  [
+   52.51324,
+   13.42437
+  ],
+  [
+   52.5131,
+   13.42463
+  ],
+  [
+   52.51296,
+   13.42483
+  ],
+  [
+   52.51264,
+   13.42528
+  ],
+  [
+   52.51238,
+   13.42567
+  ],
+  [
+   52.51226,
+   13.42584
+  ],
+  [
+   52.51218,
+   13.42597
+  ],
+  [
+   52.51197,
+   13.42636
+  ],
+  [
+   52.5117,
+   13.42689
+  ],
+  [
+   52.51139,
+   13.42748
+  ],
+  [
+   52.51132,
+   13.42762
+  ],
+  [
+   52.51116,
+   13.42792
+  ],
+  [
+   52.51085,
+   13.42857
+  ],
+  [
+   52.51071,
+   13.42885
+  ],
+  [
+   52.5105,
+   13.42933
+  ],
+  [
+   52.51046,
+   13.42943
+  ],
+  [
+   52.51027,
+   13.42988
+  ],
+  [
+   52.51019,
+   13.43008
+  ],
+  [
+   52.51012,
+   13.43027
+  ],
+  [
+   52.50996,
+   13.4307
+  ],
+  [
+   52.50951,
+   13.43191
+  ],
+  [
+   52.50941,
+   13.43219
+  ],
+  [
+   52.50933,
+   13.43239
+  ],
+  [
+   52.509,
+   13.43329
+  ],
+  [
+   52.50877,
+   13.43389
+  ],
+  [
+   52.50873,
+   13.434
+  ],
+  [
+   52.50857,
+   13.43436
+  ],
+  [
+   52.50848,
+   13.43455
+  ],
+  [
+   52.50838,
+   13.43478
+  ],
+  [
+   52.50833,
+   13.43488
+  ],
+  [
+   52.50826,
+   13.43501
+  ],
+  [
+   52.50811,
+   13.43526
+  ],
+  [
+   52.50801,
+   13.4354
+  ],
+  [
+   52.50789,
+   13.43556
+  ],
+  [
+   52.50748,
+   13.43608
+  ],
+  [
+   52.50704,
+   13.43662
+  ],
+  [
+   52.50695,
+   13.43674
+  ],
+  [
+   52.50686,
+   13.43684
+  ],
+  [
+   52.50672,
+   13.43703
+  ],
+  [
+   52.50654,
+   13.4373
+  ],
+  [
+   52.50607,
+   13.43793
+  ],
+  [
+   52.50601,
+   13.43802
+  ],
+  [
+   52.50594,
+   13.43791
+  ],
+  [
+   52.50576,
+   13.43819
+  ],
+  [
+   52.50564,
+   13.43841
+  ],
+  [
+   52.50551,
+   13.43864
+  ],
+  [
+   52.50544,
+   13.43879
+  ],
+  [
+   52.50535,
+   13.43895
+  ],
+  [
+   52.50511,
+   13.43947
+  ],
+  [
+   52.50473,
+   13.44045
+  ],
+  [
+   52.5048,
+   13.44053
+  ],
+  [
+   52.50475,
+   13.44067
+  ],
+  [
+   52.50469,
+   13.44082
+  ],
+  [
+   52.50449,
+   13.44135
+  ],
+  [
+   52.5044,
+   13.44158
+  ],
+  [
+   52.50434,
+   13.44174
+  ],
+  [
+   52.50421,
+   13.4421
+  ],
+  [
+   52.50402,
+   13.44265
+  ],
+  [
+   52.50395,
+   13.44286
+  ],
+  [
+   52.5039,
+   13.44301
+  ],
+  [
+   52.50361,
+   13.44381
+  ],
+  [
+   52.50352,
+   13.44407
+  ],
+  [
+   52.50346,
+   13.44422
+  ],
+  [
+   52.50335,
+   13.44452
+  ],
+  [
+   52.50325,
+   13.44481
+  ],
+  [
+   52.50309,
+   13.44529
+  ],
+  [
+   52.50304,
+   13.44546
+  ],
+  [
+   52.50292,
+   13.4456
+  ],
+  [
+   52.50273,
+   13.44614
+  ],
+  [
+   52.50265,
+   13.44632
+  ],
+  [
+   52.5025,
+   13.44629
+  ],
+  [
+   52.50242,
+   13.44625
+  ],
+  [
+   52.50234,
+   13.44619
+  ],
+  [
+   52.50204,
+   13.44582
+  ],
+  [
+   52.50234,
+   13.44619
+  ],
+  [
+   52.50242,
+   13.44625
+  ],
+  [
+   52.5025,
+   13.44629
+  ],
+  [
+   52.50264,
+   13.44637
+  ],
+  [
+   52.50261,
+   13.4465
+  ],
+  [
+   52.50256,
+   13.44671
+  ],
+  [
+   52.50264,
+   13.4468
+  ],
+  [
+   52.50274,
+   13.44693
+  ],
+  [
+   52.5028,
+   13.44709
+  ],
+  [
+   52.50296,
+   13.44724
+  ],
+  [
+   52.50407,
+   13.4481
+  ],
+  [
+   52.50436,
+   13.44833
+  ],
+  [
+   52.50466,
+   13.44855
+  ],
+  [
+   52.50477,
+   13.44864
+  ],
+  [
+   52.50492,
+   13.44877
+  ],
+  [
+   52.50499,
+   13.44881
+  ],
+  [
+   52.50506,
+   13.44886
+  ],
+  [
+   52.50519,
+   13.44892
+  ],
+  [
+   52.50536,
+   13.44896
+  ],
+  [
+   52.50544,
+   13.44899
+  ],
+  [
+   52.50555,
+   13.44903
+  ],
+  [
+   52.50565,
+   13.44909
+  ],
+  [
+   52.50576,
+   13.44909
+  ],
+  [
+   52.50729,
+   13.45006
+  ],
+  [
+   52.50735,
+   13.45011
+  ],
+  [
+   52.50742,
+   13.45017
+  ],
+  [
+   52.50753,
+   13.45032
+  ],
+  [
+   52.50765,
+   13.45045
+  ],
+  [
+   52.50774,
+   13.45052
+  ],
+  [
+   52.50809,
+   13.45075
+  ],
+  [
+   52.50844,
+   13.45096
+  ],
+  [
+   52.50856,
+   13.45101
+  ],
+  [
+   52.50863,
+   13.45105
+  ],
+  [
+   52.50896,
+   13.45123
+  ],
+  [
+   52.50949,
+   13.45148
+  ],
+  [
+   52.50963,
+   13.45154
+  ],
+  [
+   52.50973,
+   13.45158
+  ],
+  [
+   52.50991,
+   13.45163
+  ],
+  [
+   52.51007,
+   13.45171
+  ],
+  [
+   52.51033,
+   13.45182
+  ],
+  [
+   52.51046,
+   13.45188
+  ],
+  [
+   52.51057,
+   13.45192
+  ],
+  [
+   52.51069,
+   13.45198
+  ],
+  [
+   52.51078,
+   13.45203
+  ],
+  [
+   52.51153,
+   13.45236
+  ],
+  [
+   52.51179,
+   13.45248
+  ],
+  [
+   52.51196,
+   13.45256
+  ],
+  [
+   52.51227,
+   13.45269
+  ],
+  [
+   52.51243,
+   13.45276
+  ],
+  [
+   52.51255,
+   13.45281
+  ],
+  [
+   52.51338,
+   13.45318
+  ],
+  [
+   52.51346,
+   13.45322
+  ],
+  [
+   52.51401,
+   13.45347
+  ],
+  [
+   52.51408,
+   13.4535
+  ],
+  [
+   52.51416,
+   13.45354
+  ],
+  [
+   52.51439,
+   13.45364
+  ],
+  [
+   52.51515,
+   13.45398
+  ],
+  [
+   52.51526,
+   13.45402
+  ],
+  [
+   52.51557,
+   13.45417
+  ],
+  [
+   52.51567,
+   13.45419
+  ],
+  [
+   52.51569,
+   13.454
+  ],
+  [
+   52.51568,
+   13.45412
+  ],
+  [
+   52.51584,
+   13.4542
+  ],
+  [
+   52.5159,
+   13.45411
+  ],
+  [
+   52.51592,
+   13.45385
+  ],
+  [
+   52.51595,
+   13.45361
+  ],
+  [
+   52.51596,
+   13.45346
+  ],
+  [
+   52.51602,
+   13.45295
+  ],
+  [
+   52.51608,
+   13.45274
+  ],
+  [
+   52.51613,
+   13.45227
+  ],
+  [
+   52.51622,
+   13.45139
+  ],
+  [
+   52.5163,
+   13.45062
+  ],
+  [
+   52.5163,
+   13.4505
+  ],
+  [
+   52.51631,
+   13.45037
+  ],
+  [
+   52.51634,
+   13.45025
+  ],
+  [
+   52.51638,
+   13.44979
+  ],
+  [
+   52.51643,
+   13.44931
+  ],
+  [
+   52.51643,
+   13.44918
+  ],
+  [
+   52.51644,
+   13.44905
+  ],
+  [
+   52.51654,
+   13.44822
+  ],
+  [
+   52.51662,
+   13.44745
+  ],
+  [
+   52.5167,
+   13.44658
+  ],
+  [
+   52.51673,
+   13.44645
+  ],
+  [
+   52.51676,
+   13.44626
+  ],
+  [
+   52.51675,
+   13.44614
+  ],
+  [
+   52.51686,
+   13.44498
+  ],
+  [
+   52.51699,
+   13.4437
+  ],
+  [
+   52.51701,
+   13.4435
+  ],
+  [
+   52.51706,
+   13.4432
+  ],
+  [
+   52.51706,
+   13.44304
+  ],
+  [
+   52.5172,
+   13.44162
+  ],
+  [
+   52.51721,
+   13.44149
+  ],
+  [
+   52.51721,
+   13.44098
+  ],
+  [
+   52.51723,
+   13.44078
+  ],
+  [
+   52.51725,
+   13.4406
+  ],
+  [
+   52.51727,
+   13.44044
+  ],
+  [
+   52.51728,
+   13.44032
+  ],
+  [
+   52.51734,
+   13.44012
+  ],
+  [
+   52.51752,
+   13.43853
+  ],
+  [
+   52.51771,
+   13.43668
+  ],
+  [
+   52.51772,
+   13.43656
+  ],
+  [
+   52.51774,
+   13.43644
+  ],
+  [
+   52.51803,
+   13.43364
+  ],
+  [
+   52.51804,
+   13.43349
+  ],
+  [
+   52.51806,
+   13.43331
+  ],
+  [
+   52.51808,
+   13.43312
+  ],
+  [
+   52.5181,
+   13.43295
+  ],
+  [
+   52.51811,
+   13.43284
+  ],
+  [
+   52.51814,
+   13.43254
+  ],
+  [
+   52.51815,
+   13.43238
+  ],
+  [
+   52.51827,
+   13.43125
+  ],
+  [
+   52.5184,
+   13.42998
+  ],
+  [
+   52.51843,
+   13.42978
+  ],
+  [
+   52.51847,
+   13.42964
+  ],
+  [
+   52.51852,
+   13.42948
+  ],
+  [
+   52.51859,
+   13.42936
+  ],
+  [
+   52.51873,
+   13.42908
+  ],
+  [
+   52.51883,
+   13.42894
+  ],
+  [
+   52.51892,
+   13.42888
+  ],
+  [
+   52.51896,
+   13.4287
+  ],
+  [
+   52.51898,
+   13.42858
+  ],
+  [
+   52.519,
+   13.42846
+  ],
+  [
+   52.51903,
+   13.4283
+  ],
+  [
+   52.51906,
+   13.42812
+  ],
+  [
+   52.51901,
+   13.42791
+  ],
+  [
+   52.51899,
+   13.4277
+  ],
+  [
+   52.519,
+   13.4275
+  ],
+  [
+   52.51902,
+   13.42729
+  ],
+  [
+   52.51902,
+   13.4271
+  ],
+  [
+   52.51897,
+   13.42693
+  ],
+  [
+   52.51901,
+   13.42674
+  ],
+  [
+   52.51904,
+   13.42655
+  ],
+  [
+   52.51908,
+   13.4264
+  ],
+  [
+   52.51914,
+   13.42619
+  ],
+  [
+   52.51918,
+   13.42605
+  ],
+  [
+   52.51932,
+   13.4256
+  ],
+  [
+   52.51939,
+   13.42535
+  ],
+  [
+   52.51947,
+   13.4251
+  ],
+  [
+   52.51992,
+   13.42359
+  ],
+  [
+   52.52002,
+   13.42325
+  ],
+  [
+   52.52017,
+   13.42278
+  ],
+  [
+   52.52024,
+   13.42255
+  ],
+  [
+   52.52031,
+   13.4223
+  ],
+  [
+   52.52047,
+   13.42178
+  ],
+  [
+   52.52055,
+   13.42153
+  ],
+  [
+   52.52064,
+   13.42123
+  ],
+  [
+   52.52076,
+   13.42084
+  ],
+  [
+   52.52108,
+   13.41977
+  ],
+  [
+   52.52116,
+   13.41952
+  ],
+  [
+   52.52123,
+   13.41928
+  ],
+  [
+   52.52141,
+   13.41869
+  ],
+  [
+   52.5216,
+   13.41807
+  ],
+  [
+   52.52164,
+   13.41795
+  ],
+  [
+   52.52169,
+   13.4178
+  ],
+  [
+   52.52178,
+   13.41754
+  ],
+  [
+   52.52197,
+   13.41694
+  ],
+  [
+   52.52203,
+   13.41677
+  ],
+  [
+   52.52219,
+   13.41644
+  ],
+  [
+   52.52226,
+   13.4163
+  ],
+  [
+   52.52253,
+   13.41575
+  ],
+  [
+   52.52261,
+   13.41558
+  ],
+  [
+   52.52266,
+   13.41548
+  ],
+  [
+   52.52253,
+   13.41532
+  ],
+  [
+   52.52243,
+   13.41519
+  ],
+  [
+   52.5223,
+   13.41501
+  ],
+  [
+   52.52218,
+   13.41485
+  ],
+  [
+   52.52204,
+   13.41466
+  ],
+  [
+   52.52187,
+   13.41444
+  ],
+  [
+   52.52171,
+   13.41422
+  ],
+  [
+   52.52128,
+   13.41349
+  ],
+  [
+   52.52122,
+   13.41339
+  ],
+  [
+   52.52117,
+   13.41321
+  ],
+  [
+   52.52094,
+   13.41278
+  ],
+  [
+   52.52101,
+   13.41274
+  ],
+  [
+   52.52112,
+   13.41265
+  ],
+  [
+   52.5212,
+   13.4125
+  ],
+  [
+   52.52127,
+   13.4124
+  ],
+  [
+   52.52148,
+   13.41212
+  ],
+  [
+   52.52165,
+   13.41187
+  ],
+  [
+   52.52174,
+   13.41172
+  ],
+  [
+   52.52183,
+   13.41158
+  ],
+  [
+   52.52186,
+   13.41145
+  ],
+  [
+   52.52188,
+   13.41129
+  ],
+  [
+   52.52198,
+   13.41113
+  ],
+  [
+   52.52212,
+   13.41091
+  ],
+  [
+   52.5222,
+   13.41077
+  ],
+  [
+   52.52239,
+   13.41046
+  ],
+  [
+   52.52251,
+   13.41025
+  ],
+  [
+   52.52248,
+   13.4101
+  ],
+  [
+   52.52253,
+   13.40998
+  ],
+  [
+   52.52261,
+   13.40989
+  ],
+  [
+   52.52257,
+   13.40966
+  ],
+  [
+   52.52263,
+   13.40957
+  ],
+  [
+   52.52269,
+   13.40943
+  ],
+  [
+   52.52287,
+   13.40899
+  ],
+  [
+   52.52292,
+   13.40886
+  ],
+  [
+   52.52298,
+   13.40873
+  ],
+  [
+   52.52304,
+   13.40859
+  ],
+  [
+   52.52311,
+   13.40839
+  ],
+  [
+   52.52316,
+   13.40828
+  ],
+  [
+   52.52322,
+   13.40808
+  ],
+  [
+   52.52329,
+   13.40783
+  ],
+  [
+   52.52335,
+   13.40759
+  ],
+  [
+   52.5234,
+   13.40733
+  ],
+  [
+   52.52342,
+   13.4072
+  ],
+  [
+   52.52346,
+   13.40692
+  ],
+  [
+   52.52349,
+   13.40661
+  ],
+  [
+   52.52351,
+   13.40628
+  ],
+  [
+   52.52351,
+   13.40601
+  ],
+  [
+   52.52351,
+   13.40576
+  ],
+  [
+   52.52349,
+   13.40554
+  ],
+  [
+   52.52347,
+   13.40526
+  ],
+  [
+   52.52344,
+   13.40504
+  ],
+  [
+   52.52342,
+   13.40492
+  ],
+  [
+   52.52336,
+   13.40458
+  ],
+  [
+   52.52314,
+   13.40373
+  ],
+  [
+   52.52313,
+   13.40361
+  ],
+  [
+   52.52318,
+   13.40348
+  ],
+  [
+   52.52321,
+   13.40336
+  ],
+  [
+   52.52341,
+   13.4029
+  ],
+  [
+   52.52346,
+   13.40278
+  ],
+  [
+   52.52355,
+   13.40259
+  ],
+  [
+   52.52364,
+   13.40239
+  ],
+  [
+   52.52368,
+   13.40229
+  ],
+  [
+   52.5237,
+   13.40217
+  ],
+  [
+   52.52369,
+   13.40203
+  ],
+  [
+   52.52366,
+   13.4019
+  ],
+  [
+   52.52365,
+   13.40172
+  ],
+  [
+   52.52364,
+   13.40132
+  ],
+  [
+   52.52365,
+   13.40102
+  ],
+  [
+   52.52365,
+   13.40086
+  ],
+  [
+   52.52365,
+   13.40066
+  ],
+  [
+   52.52366,
+   13.40028
+  ],
+  [
+   52.52367,
+   13.39978
+  ],
+  [
+   52.52367,
+   13.39964
+  ],
+  [
+   52.52378,
+   13.39959
+  ],
+  [
+   52.52389,
+   13.39954
+  ],
+  [
+   52.5242,
+   13.39941
+  ],
+  [
+   52.52437,
+   13.39933
+  ],
+  [
+   52.52468,
+   13.3992
+  ],
+  [
+   52.52478,
+   13.39916
+  ],
+  [
+   52.52497,
+   13.39908
+  ],
+  [
+   52.52535,
+   13.39892
+  ],
+  [
+   52.52548,
+   13.39886
+  ],
+  [
+   52.52565,
+   13.39878
+  ],
+  [
+   52.52578,
+   13.39873
+  ],
+  [
+   52.52598,
+   13.39864
+  ],
+  [
+   52.52632,
+   13.39849
+  ],
+  [
+   52.52643,
+   13.39845
+  ],
+  [
+   52.52651,
+   13.39841
+  ],
+  [
+   52.52663,
+   13.39836
+  ],
+  [
+   52.5272,
+   13.3981
+  ],
+  [
+   52.5273,
+   13.39805
+  ],
+  [
+   52.52758,
+   13.39791
+  ],
+  [
+   52.52765,
+   13.39787
+  ],
+  [
+   52.52784,
+   13.39776
+  ],
+  [
+   52.52805,
+   13.39763
+  ],
+  [
+   52.52821,
+   13.39754
+  ],
+  [
+   52.5286,
+   13.39732
+  ],
+  [
+   52.52867,
+   13.39728
+  ],
+  [
+   52.52858,
+   13.39697
+  ],
+  [
+   52.52843,
+   13.39643
+  ],
+  [
+   52.52839,
+   13.39628
+  ],
+  [
+   52.52834,
+   13.39608
+  ],
+  [
+   52.52822,
+   13.39563
+  ],
+  [
+   52.52805,
+   13.395
+  ],
+  [
+   52.52806,
+   13.39482
+  ],
+  [
+   52.52835,
+   13.39419
+  ],
+  [
+   52.5284,
+   13.39409
+  ],
+  [
+   52.52845,
+   13.39399
+  ],
+  [
+   52.52853,
+   13.39381
+  ],
+  [
+   52.52861,
+   13.39372
+  ],
+  [
+   52.52867,
+   13.39365
+  ],
+  [
+   52.52881,
+   13.39348
+  ],
+  [
+   52.52896,
+   13.39328
+  ],
+  [
+   52.52905,
+   13.39316
+  ],
+  [
+   52.52914,
+   13.39304
+  ],
+  [
+   52.52963,
+   13.39242
+  ],
+  [
+   52.52976,
+   13.39226
+  ],
+  [
+   52.52984,
+   13.39216
+  ],
+  [
+   52.52996,
+   13.392
+  ],
+  [
+   52.53005,
+   13.39189
+  ],
+  [
+   52.53022,
+   13.39166
+  ],
+  [
+   52.53031,
+   13.39156
+  ],
+  [
+   52.53056,
+   13.39123
+  ],
+  [
+   52.53081,
+   13.39092
+  ],
+  [
+   52.53118,
+   13.39044
+  ],
+  [
+   52.53132,
+   13.39027
+  ],
+  [
+   52.53147,
+   13.39008
+  ],
+  [
+   52.5316,
+   13.38991
+  ],
+  [
+   52.53166,
+   13.38983
+  ],
+  [
+   52.53173,
+   13.38975
+  ],
+  [
+   52.53182,
+   13.38962
+  ],
+  [
+   52.53189,
+   13.38953
+  ],
+  [
+   52.53208,
+   13.38929
+  ],
+  [
+   52.53238,
+   13.38891
+  ],
+  [
+   52.53276,
+   13.38842
+  ],
+  [
+   52.53298,
+   13.38812
+  ],
+  [
+   52.53309,
+   13.38798
+  ],
+  [
+   52.53319,
+   13.38784
+  ],
+  [
+   52.53329,
+   13.38771
+  ],
+  [
+   52.53335,
+   13.38762
+  ],
+  [
+   52.53341,
+   13.38776
+  ],
+  [
+   52.53347,
+   13.38788
+  ],
+  [
+   52.53353,
+   13.38799
+  ],
+  [
+   52.53362,
+   13.38814
+  ],
+  [
+   52.53371,
+   13.38823
+  ],
+  [
+   52.53382,
+   13.38836
+  ],
+  [
+   52.535,
+   13.3897
+  ],
+  [
+   52.535,
+   13.3897
+  ]
+ ],
+ "stops": [
+  {
+   "id": "reichstag",
+   "title": "The Reichstag and the Airlift",
+   "text": "You're standing in front of the Reichstag, and in 1948 this lawn was the stage for the first battle of the Cold War. After the war, Berlin sat deep inside the Soviet zone, divided into four sectors. In June 1948 the Western Allies introduced a new currency, the Deutsche Mark, and Stalin answered by cutting every road, rail line and canal into West Berlin. Two million people were suddenly an island. The West chose not to fight its way in, but to fly. For almost a year, American and British planes landed in Berlin around the clock, at the peak one every few minutes, carrying food, medicine and above all coal. In total there were more than two hundred and seventy thousand flights. One American pilot, Gail Halvorsen, started dropping sweets tied to tiny handkerchief parachutes for children waiting at the airport fence, and Berliners called the planes Rosinenbomber, raisin bombers. On the ninth of September 1948, around three hundred thousand people gathered right here, in front of the burnt-out Reichstag. Mayor Ernst Reuter told them, and the world: Ihr Völker der Welt, schaut auf diese Stadt. You peoples of the world, look upon this city. In May 1949 Stalin lifted the blockade. He had lost. Now look behind the building, towards the river. When the Wall went up in 1961, it ran directly along the Spree, just behind the Reichstag, which stood in the West, silent and unused as a parliament. On the riverbank you'll find a row of white crosses. They remember people who died trying to cross this border, some of them in this very water. Next, ride south to the Brandenburg Gate. It's just a few hundred metres.",
+   "dur": 112,
+   "audio": "audio/stories/reichstag-271e0a2b.mp3",
+   "lat": 52.5186,
+   "lng": 13.3769
+  },
+  {
+   "id": "gate",
+   "title": "The Brandenburg Gate",
+   "text": "The Brandenburg Gate was built in the seventeen-eighties as a gate of peace. For twenty-eight years it was the most photographed symbol of division in the world. The sector border ran just to the west of where you are now. The gate itself stood in East Berlin, and after August 1961 it was sealed inside the death strip. Nobody could pass through it from either side. It became a stage for the West. In June 1963, John F. Kennedy came to look over the Wall here. East German authorities hung huge red banners between the columns so that he couldn't see into the East. He went on to Schöneberg town hall and said: Ich bin ein Berliner. Twenty-four years later, in June 1987, the rock star David Bowie played a concert on the lawn behind the Reichstag, with speakers pointing towards the East. Thousands of young East Berliners crowded near the Wall on the other side to listen, and when police moved in, they began to chant: the Wall must go. A few days later, Ronald Reagan stood right here, on the western side, and said: Mister Gorbachev, tear down this wall. Many of his own advisers had wanted that line cut from the speech. At the time, most people thought it was theatre. Two and a half years later, it happened. On the night of the ninth of November 1989, people climbed onto the Wall in front of this gate and danced on it. The gate officially reopened on the twenty-second of December 1989. Next, ride south along Ebertstrasse to Potsdamer Platz. Watch the ground as you ride: the double row of cobblestones marks exactly where the Wall used to stand.",
+   "dur": 105,
+   "audio": "audio/stories/gate-75b673a7.mp3",
+   "lat": 52.5163,
+   "lng": 13.3777
+  },
+  {
+   "id": "potsdamer",
+   "title": "Potsdamer Platz",
+   "text": "Look at the glass towers around you and try to imagine this: for almost thirty years, this was nothing. Sand, weeds, watchtowers and rabbits. Before the war, Potsdamer Platz was one of the busiest squares in Europe, with trams, department stores and hotels. The green tower with the clock is a replica of Europe's first traffic light tower, installed here in 1924 because the traffic was simply out of control. Bombing in 1945 destroyed most of it. Then the square became the meeting point of three sectors, American, British and Soviet. On the seventeenth of June 1953, during the East German uprising, this square was a battlefield. Protesters faced Soviet tanks here, and a building on the eastern side was set on fire. When the Wall came in 1961, it cut the square straight through. The remaining buildings were torn down to create a clear field of fire for the border guards. From observation platforms on the western side, tourists and visiting politicians would climb up and stare across the empty strip into the East. After the Wall fell, this huge empty space became the stage for something surreal. In July 1990, Roger Waters performed The Wall here, in front of around three hundred and fifty thousand people, on the former death strip itself. Then came the builders. In the nineties, Potsdamer Platz was the largest construction site in Europe. Nearly everything you see is younger than the fall of the Wall. Look for the original Wall segments near the station entrance. Next, ride east along Leipziger Strasse to the large grey government building on the corner of Wilhelmstrasse.",
+   "dur": 108,
+   "audio": "audio/stories/potsdamer-e1ec9a3b.mp3",
+   "lat": 52.5096,
+   "lng": 13.376
+  },
+  {
+   "id": "ministries",
+   "title": "The House of Ministries and the 1953 uprising",
+   "text": "This massive building has lived through almost every chapter of modern German history. It was built in 1936 as Hermann Göring's Air Ministry, and it's one of the few Nazi government buildings that survived the bombing. In October 1949, the German Democratic Republic, East Germany, was founded inside this building. It then became the GDR's House of Ministries. Walk to the colonnade on the Leipziger Strasse side. You'll find a long mural made of Meissen porcelain tiles, completed in the early fifties: happy workers, farmers, families, and young people marching towards a bright socialist future. That was the official picture. Now look down at the ground in front of it. There's a large photograph under glass showing the real people who came here. On the sixteenth of June 1953, construction workers from the Stalinallee building site put down their tools and marched to this building. The government had raised their work quotas, which effectively meant a pay cut. Thousands gathered here demanding to speak to the leadership. A minister climbed onto a table to calm them, and was shouted down. By the next morning, the seventeenth of June, strikes and protests had spread to hundreds of towns across East Germany, with around a million people taking part. Their demands had moved from work quotas to free elections. The Soviet army sent in tanks, and the uprising was crushed within days. At least fifty-five people were killed. After reunification, the building had one more dark chapter. It housed the Treuhand, the agency that privatised or closed East German companies. Its head, Detlev Rohwedder, was assassinated by the Red Army Faction in 1991. Today the building is named after him, and it's the Federal Ministry of Finance. Next, go around the corner to Niederkirchnerstrasse, where a long piece of the original Wall still stands.",
+   "dur": 124,
+   "audio": "audio/stories/ministries-307cf199.mp3",
+   "lat": 52.5099,
+   "lng": 13.3834
+  },
+  {
+   "id": "niederkirchner",
+   "title": "The Wall at Niederkirchnerstrasse",
+   "text": "This is one of the longest stretches of original Wall left in the city centre, around two hundred metres. Look closely at the damage. After November 1989, thousands of people came with hammers and chisels to break off souvenirs. Berliners called them Mauerspechte, wall woodpeckers. In some places they chipped so deep that you can see the steel reinforcing bars inside. That's why this piece is now protected behind a fence. What you're looking at is only one layer of the border. The Wall wasn't a single wall at all, but a strip. From the East, a person trying to escape would have to cross an inner wall, a fence with alarm wires, a sandy strip that was raked smooth to show footprints, a patrol road, floodlights, anti-vehicle trenches, dog runs, watchtowers with guards under orders to shoot, and only then this final wall, the one facing West. Its smooth, rounded top was designed so that nobody could get a grip on it. The location adds another layer of history. Before the war, this street was called Prinz-Albrecht-Strasse, and it held the headquarters of the Gestapo and the SS. The Wall was built across the ruins of the buildings where the Nazi terror was planned. The foundations and cellars were only dug up in the eighties. They're now part of the Topography of Terror documentation centre, right behind this segment. So in one glance you can see two dictatorships stacked on top of each other. Next, ride east along Zimmerstrasse to Checkpoint Charlie. You'll be riding right along the old border line.",
+   "dur": 99,
+   "audio": "audio/stories/niederkirchner-44af01ac.mp3",
+   "lat": 52.5069,
+   "lng": 13.383
+  },
+  {
+   "id": "charlie",
+   "title": "Checkpoint Charlie",
+   "text": "Checkpoint Charlie got its name from the military alphabet. Alpha was at Helmstedt, on the inner German border, Bravo at Dreilinden, on the edge of Berlin, and this was Charlie. It was the crossing point for Allied soldiers, diplomats and foreigners. The booth and the soldiers you see today are for tourists. But in October 1961, this spot came very close to starting a war. East German border guards began demanding to see the papers of American officials, something the Allies refused to accept, since in their view only the Soviets had authority here. On the twenty-seventh of October, American tanks rolled up to the line. Soviet tanks answered on the other side. For about sixteen hours, American and Soviet tanks faced each other here, around a hundred metres apart, engines running and loaded with live ammunition. It ended through a quiet back channel between Kennedy and Khrushchev. One Soviet tank reversed, then one American tank, then another, until they were all gone. Now walk a little way east along Zimmerstrasse. On the seventeenth of August 1962, an eighteen-year-old bricklayer named Peter Fechter and his friend tried to climb the Wall near here. His friend made it. Fechter was shot in the hip and fell back into the death strip. He lay there for about fifty minutes, calling for help, while crowds in the West shouted and photographers took pictures. Neither the East German guards nor the American soldiers went to him. He bled to death. The images went around the world, and caused fury in West Berlin, including at the Americans. There's a small memorial column where he fell. Next is the longest ride of the tour, about four kilometres east to the East Side Gallery. You'll follow the old border along Zimmerstrasse, then cross the Spree at Jannowitzbrücke and ride along Holzmarktstrasse. The directions will guide you, so take your time and enjoy the ride.",
+   "dur": 125,
+   "audio": "audio/stories/charlie-decf1ba9.mp3",
+   "lat": 52.5075,
+   "lng": 13.3904
+  },
+  {
+   "id": "gallery",
+   "title": "The East Side Gallery",
+   "text": "You're now at the longest surviving stretch of the Berlin Wall, over thirteen hundred metres. But notice something: this wasn't the wall that faced the West. Here the border was the river Spree itself, behind the Wall. This was the inner wall, the one that faced East Berlin. Because Mühlenstrasse, the road you're on, was the route that official state guests took from the airport into the city, this wall was kept clean and grey, and East Berliners couldn't come near the other side. In 1990, after the fall, more than a hundred artists from around twenty countries painted it. The most famous painting shows two old men kissing. That's Leonid Brezhnev, leader of the Soviet Union, and Erich Honecker, leader of East Germany. It's based on a real photograph from 1979, during the thirtieth anniversary of the GDR. The socialist fraternal kiss was a real ritual between communist leaders. The artist, Dmitri Vrubel, called it something like: My God, help me to survive this deadly love. Look also for the little Trabant, East Germany's plastic people's car, bursting through the Wall. For East Germans, the Trabant was a symbol of their lives. People waited more than ten years to get one, and in November 1989, it became the car of freedom, as thousands of them drove into the West. This Wall has had to fight to survive even after 1989. Parts were removed to make way for luxury apartments in 2013, and thousands of people protested to protect it. Next, ride to the eastern end of the gallery, to the red brick bridge over the river. That's the Oberbaumbrücke.",
+   "dur": 105,
+   "audio": "audio/stories/gallery-f0d6465a.mp3",
+   "lat": 52.5051,
+   "lng": 13.4396
+  },
+  {
+   "id": "oberbaum",
+   "title": "The Oberbaumbrücke",
+   "text": "This beautiful double-decker brick bridge, with its castle towers, was built in the eighteen-nineties. It connects Friedrichshain, in the East, with Kreuzberg, in the West. During the division, it was a border crossing, but only for pedestrians. From 1963, West Berliners could use crossings like this one to visit relatives in the East, at first only at Christmas, later on day passes. Imagine standing in a queue on this bridge, with your gifts, coffee and West chocolate, for a few hours with family you hadn't seen in years. Then going home before midnight. Now look at the water. The border here didn't run through the middle of the river. The entire width of the Spree belonged to East Berlin. The riverbank on the Kreuzberg side was West, but a single step into the water was East. Between 1966 and 1975, several young children from Kreuzberg fell into the river while playing on that bank. West Berlin police and firefighters were there within minutes, but they didn't dare go into the water, because that meant entering East German territory, where boats and guards were watching. The children drowned while adults stood helpless on the shore. The last was a five-year-old boy named Cengaver Katrancı, in 1975. After his death, East and West finally agreed on a rule allowing rescues in the border waters. Next, ride north up Warschauer Strasse to Frankfurter Tor, where two domed towers mark the start of Karl-Marx-Allee. Watch out for tram tracks on the way.",
+   "dur": 97,
+   "audio": "audio/stories/oberbaum-5678640e.mp3",
+   "lat": 52.5021,
+   "lng": 13.4457
+  },
+  {
+   "id": "kma",
+   "title": "Karl-Marx-Allee",
+   "text": "Welcome to the grandest street in East Germany. It was originally called Stalinallee, and it was built in the fifties as the first socialist street in Germany, a showcase for the whole world to see. The two domed towers here at Frankfurter Tor were designed by the architect Hermann Henselmann, and they deliberately echo the domes of the French and German churches at Gendarmenmarkt. Look at the buildings. The style is sometimes called wedding cake style, with its columns, balconies and decorative ceramic tiles. These were called workers' palaces, and compared to the ruins that most Berliners were living in, they really were. They had central heating, lifts, hot water and parquet floors, luxuries at the time. But the building of this street had a dark side. It was the construction workers here, working under higher quotas and lower pay, who put down their tools on the sixteenth of June 1953 and started the uprising you heard about at the House of Ministries. Stalin also had his place here: a bronze statue of him stood on this avenue. In November 1961, after Moscow's final break with Stalin's memory, it disappeared overnight. The street was renamed Karl-Marx-Allee the same night. The avenue is almost ninety metres wide, and that width had a purpose: it was a parade route. Every year, on May Day and on the anniversary of the GDR, soldiers, tanks and missiles rolled past the leaders' tribune. Now ride west along Karl-Marx-Allee towards the TV tower. After Strausberger Platz, notice how the architecture changes into sixties modernism, with the Kino International cinema and Café Moskau. Your next stop is Alexanderplatz.",
+   "dur": 108,
+   "audio": "audio/stories/kma-c936916a.mp3",
+   "lat": 52.5157,
+   "lng": 13.454
+  },
+  {
+   "id": "alex",
+   "title": "Alexanderplatz",
+   "text": "Look up at the TV tower. It's three hundred and sixty-eight metres high, and it was finished in 1969, to be seen from everywhere, including West Berlin. It was supposed to be a symbol of socialist modernity and technical progress. But when the sun hits the steel ball, the reflection forms a bright cross. Berliners immediately named it the Pope's revenge, a joke that the officially atheist state didn't enjoy. Nearby is the World Time Clock, also from 1969. It showed the time in cities all over the world, places most East Germans were never allowed to visit. Now picture this square on the fourth of November 1989. It's full of people, hundreds of thousands, maybe more. It's the largest demonstration in the history of East Germany, organised by actors and artists, and for the first time officially permitted. People carried handmade signs and jokes, and speakers called for freedom of speech, of the press, and of travel. One speaker was Günter Schabowski, a member of the Politburo, and the crowd booed him. Just five days later, on the evening of the ninth of November, the same Schabowski read out a new travel rule at a press conference, broadcast live. A journalist asked when it would take effect. Schabowski looked at his papers, confused, and said that as far as he knew, immediately. That night, thousands of East Berliners went to the border to test it, and the Wall opened. The whole system collapsed through a badly prepared press conference. Your last stop is at Bernauer Strasse, about three kilometres north-west. The directions will take you through the quiet side streets of Mitte.",
+   "dur": 107,
+   "audio": "audio/stories/alex-90ad7f2b.mp3",
+   "lat": 52.5212,
+   "lng": 13.4133
+  },
+  {
+   "id": "bernauer",
+   "title": "Bernauer Strasse",
+   "text": "You've reached the Berlin Wall Memorial, and this is the place where the Wall is easiest to understand. On Bernauer Strasse, the border ran along the front of the houses. The buildings on the south side were in the East, but the pavement in front of their doors was in the West. When the border was sealed in August 1961, people living here could step out of their front door into freedom, until the doors were bricked up. Then they jumped from the windows. West Berlin firefighters held out nets. Some made it, some didn't. On the twenty-second of August, fifty-eight-year-old Ida Siekmann threw her belongings out of her window at number forty-eight and jumped. She died of her injuries, one of the first people to die at the Wall. A little way down this street, on the fifteenth of August 1961, a young border guard named Conrad Schumann was standing at a coil of barbed wire. He looked around, threw his rifle away and jumped over the wire into the West. The photograph of that jump became one of the defining images of the Cold War. Later, the houses were emptied and torn down to widen the death strip. People dug tunnels under this street instead. In 1964, fifty-seven people escaped through a tunnel dug by students from a bakery on the western side. Look at the steel poles marking the line of the Wall, and at the Window of Remembrance, with the faces of people who died at the Berlin Wall. There are at least a hundred and forty of them. Climb the viewing tower at the documentation centre to see the preserved death strip from above. And one last detail: the chapel in the middle of the strip stands where the Church of Reconciliation once stood. It was trapped inside the death strip for over twenty years and blown up by East Germany in 1985. Four years later, the Wall itself was gone.",
+   "dur": 116,
+   "audio": "audio/stories/bernauer-c854e6e7.mp3",
+   "lat": 52.535,
+   "lng": 13.3897
+  }
+ ],
+ "intro": {
+  "id": "intro",
+  "title": "Before you ride",
+  "text": "Welcome to Berlin, the city where the Cold War stopped being an idea and became a line of concrete through people's streets. Over the next two hours you'll ride about fifteen kilometres, from the Reichstag to the Berlin Wall Memorial at Bernauer Strasse, through eleven places where the division of Berlin was decided, enforced, resisted and finally broken. Each story plays by itself when you arrive, so you can keep your eyes on the road. A quick note on safety: Berlin's bike lanes are busy and fast. Keep one ear free, stop before you listen to the longer stories, and watch out for tram tracks, especially in the east. When you're ready, ride to the lawn in front of the Reichstag. Your first story starts there.",
+  "dur": 46,
+  "audio": "audio/stories/intro-589d2cda.mp3"
+ },
+ "outro": {
+  "id": "outro",
+  "title": "End of the tour",
+  "text": "That's the end of the tour. In just fifteen kilometres, you've crossed the old border several times, something that for twenty-eight years could cost people their lives. If you still have energy, ride two kilometres north to the Bösebrücke on Bornholmer Strasse. That's where, on the night of the ninth of November 1989, the first gate was opened, when an overwhelmed officer named Harald Jäger decided to let the crowd through. Or head to the Mauerpark, on the former death strip, for a drink. Thanks for riding.",
+  "dur": 33,
+  "audio": "audio/stories/outro-b87b07db.mp3"
+ },
+ "turnaround": {
+  "text": "Turn around when it is safe, then ride back to the route."
+ }
+}
