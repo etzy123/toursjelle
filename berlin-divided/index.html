@@ -146,6 +146,22 @@ ol.stops li.played .t{color:var(--muted);text-decoration:line-through;text-decor
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .leaflet-tile-pane{filter:invert(1) hue-rotate(180deg) brightness(.9) contrast(.9)}}
 :root[data-theme="dark"] .leaflet-tile-pane{filter:invert(1) hue-rotate(180deg) brightness(.9) contrast(.9)}
 .startpick{display:block;margin:0 0 22px}
+.grouppick{border:1px solid var(--line);border-radius:4px;margin:0 0 22px;padding:12px}
+.grouppick legend{font-family:var(--display);font-weight:600;font-size:16px;color:var(--muted);padding:0 4px}
+.grouppick p{margin:0 0 10px;font-size:15px;color:var(--muted)}
+.grouppick .row{display:flex;gap:8px;margin-top:8px}
+.grouppick input{flex:1;min-width:0;padding:10px 12px;border:1px solid var(--ink);border-radius:4px;background:var(--surface);color:var(--ink);font-family:var(--display);font-weight:600;font-size:18px}
+.grouppick input.code{text-transform:uppercase;letter-spacing:.2em;max-width:9ch}
+.grouppick button{padding:10px 14px;border:1px solid var(--ink);border-radius:4px;background:var(--ink);color:var(--surface);font-family:var(--display);font-weight:700;font-size:17px;cursor:pointer;white-space:nowrap}
+.grouppick button.ghost{background:none;color:var(--ink)}
+.grouppick .err{color:var(--signal);font-weight:600}
+.groupon b.code{font-family:var(--display);font-size:34px;letter-spacing:.12em;display:block;line-height:1.1;color:var(--ink)}
+.groupbar{font-family:var(--display);font-weight:600;font-size:15px;color:var(--muted);margin-top:4px}
+.groupbar.off{color:var(--signal)}
+.memberdot{display:grid;place-items:center}
+.memberdot i{display:block;width:14px;height:14px;border-radius:50%;background:#1C2332;border:2.5px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,.4)}
+.memberdot.leader i{background:#A8322A}
+.memberdot.away i{opacity:.4}
 .bonuspick{border:0;margin:0 0 22px;padding:0}
 .bonuspick legend{font-family:var(--display);font-weight:600;font-size:16px;color:var(--muted);margin-bottom:4px;padding:0}
 .bonuspick label{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--line);cursor:pointer}
@@ -218,6 +234,20 @@ body.navmode{overflow:hidden}
       <option value="stopped">Once I've stopped at the spot</option>
       <option value="auto">As soon as I arrive</option>
     </select></label>
+    <fieldset class="grouppick" id="groupPick">
+      <legend>Ride together</legend>
+      <div id="groupOff">
+        <p>One person leads. Everyone hears the same story at the same moment, and you see each other on the map.</p>
+        <div class="row"><input id="groupName" autocomplete="nickname" maxlength="24" placeholder="Your name" aria-label="Your name"></div>
+        <div class="row"><button id="groupCreate">Start a group</button></div>
+        <div class="row"><input id="groupCode" class="code" maxlength="4" placeholder="CODE" aria-label="Group code" autocapitalize="characters" autocomplete="off"><button class="ghost" id="groupJoin">Join</button></div>
+        <p class="err" id="groupErr" hidden></p>
+      </div>
+      <div class="groupon" id="groupOn" hidden>
+        <p><b class="code" id="groupCodeShow"></b><span id="groupWho"></span></p>
+        <div class="row"><button class="ghost" id="groupShare">Share code</button><button class="ghost" id="groupLeave">Leave group</button></div>
+      </div>
+    </fieldset>
     <button class="cta" id="startBtn" disabled>Loading tour…</button>
     <button class="cta2" id="testBtn" disabled>Try a test ride from here</button>
     <p class="offline" id="offlineStart" hidden></p>
@@ -312,6 +342,7 @@ body.navmode{overflow:hidden}
         <button class="chip" id="navExit">Overview</button>
       </div>
     </div>
+    <div class="groupbar" id="groupBar" hidden></div>
     <div id="navPlayerSlot"></div>
   </div>
 </div>
@@ -487,8 +518,8 @@ function playTrack(t,manual,at){
   if(pr&&pr.catch)pr.catch(()=>{$('playBtn').classList.add('nudge');$('kicker').textContent='You have arrived. Tap play to listen';});
   render();
 }
-audio.onplay=()=>{renderMore();if(navPlaying||pending)return;$('playIcon').innerHTML=PAUSE;$('playBtn').setAttribute('aria-label','Pause');$('playBtn').classList.remove('nudge');};
-audio.onpause=()=>{if(navPlaying||pending)return;$('playIcon').innerHTML=PLAY;$('playBtn').setAttribute('aria-label','Play');};
+audio.onplay=()=>{renderMore();groupPush();if(navPlaying||pending)return;$('playIcon').innerHTML=PAUSE;$('playBtn').setAttribute('aria-label','Pause');$('playBtn').classList.remove('nudge');};
+audio.onpause=()=>{groupPush();if(navPlaying||pending)return;$('playIcon').innerHTML=PLAY;$('playBtn').setAttribute('aria-label','Play');};
 audio.onloadedmetadata=()=>{if(navPlaying||pending)return;$('tDur').textContent=fmt(audio.duration);};
 audio.ontimeupdate=()=>{if(navPlaying||pending)return;$('tCur').textContent=fmt(audio.currentTime);if(audio.duration)$('seek').value=audio.currentTime/audio.duration*100;};
 audio.onended=()=>{
@@ -498,9 +529,12 @@ audio.onended=()=>{
 $('playBtn').onclick=()=>{if(pending){playTrack(pending,true);return;}
   if(tts){tts.paused=!tts.paused;tts.paused?speechSynthesis.pause():speechSynthesis.resume();$('playIcon').innerHTML=tts.paused?PLAY:PAUSE;return;}if(!audio.src){playTrack(INTRO);return;}if(navPlaying||(resume&&audio.paused)){const r=resume;if(r)playTrack(r.track,true,r.time);else{audio.pause();navPlaying=false;}return;}audio.paused?audio.play():audio.pause();};
 $('seek').oninput=e=>{if(audio.duration)audio.currentTime=e.target.value/100*audio.duration;};
+audio.onseeked=()=>groupPush();
 $('back15').onclick=()=>{audio.currentTime=Math.max(0,audio.currentTime-15);};
 
 function storyEnded(){
+  groupPush();
+  if(following()){const si=STOPS.indexOf(current);if(si>=0&&si<STOPS.length-1)startLeg(si);$('kicker').textContent='Following the group leader';return;}
   if(queue.length){arrive(queue.shift());return;}
   const si=STOPS.indexOf(current);
   if(current&&current.bonus){const a=bonusAfter(current.after);if(a<STOPS.length-1){leg=a;navIdx=1;} // back to the route, then the leg's turns
@@ -622,17 +656,17 @@ function onPosition(lat,lng,acc,sim,hdg,spd){
     const e=meDot.getElement()&&meDot.getElement().firstChild;if(e){e.classList.toggle('dir',heading!=null);if(heading!=null)e.querySelector('svg').style.transform=`rotate(${heading}deg)`;}}
   $('gps').textContent=sim?'Test ride':`GPS ±${Math.round(acc)} m`;
   const radius=Math.max(P.radius,Math.min(acc||0,P.maxRadius));
-  STOPS.forEach((s,i)=>{
+  if(!following())STOPS.forEach((s,i)=>{
     if(!active(i)||played.has(s.id)||queue.includes(s)||current===s||pending===s)return;
     if(dist(me,[s.lat,s.lng])<=radius){
       if(storyBusy())queue.push(s);else arrive(s);
     }
   });
   const bt=bonusTarget();
-  if(bt&&!played.has(bt.id)&&pending!==bt&&!queue.includes(bt)&&current!==bt&&dist(me,[bt.lat,bt.lng])<=Math.max(bt.radius||0,radius)){if(storyBusy())queue.push(bt);else arrive(bt);}
+  if(bt&&!following()&&!played.has(bt.id)&&pending!==bt&&!queue.includes(bt)&&current!==bt&&dist(me,[bt.lat,bt.lng])<=Math.max(bt.radius||0,radius)){if(storyBusy())queue.push(bt);else arrive(bt);}
   checkNav(sim,acc,!!bt); autoStart();
   if(!sim)$('gps').textContent=offRoute?'Off route':`GPS ±${Math.round(acc)} m`;
-  follow(); render(); renderNav(); updateNav();
+  follow(); render(); renderNav(); updateNav(); groupPos();
 }
 let watchId=null;
 function startGPS(){
@@ -827,6 +861,107 @@ $('changeStart').onclick=()=>{if(simOn)toggleSim(false);exitNav();sel.value=star
 simPos=simStart();
 renderStart();
 $('startBtn').disabled=$('testBtn').disabled=false;
+/* ---------- ride together ---------- */
+// The leader's story playback (track, playing, position) goes through the server; followers copy it.
+// Everyone shares their position. Turn-by-turn directions stay on each phone.
+const memberId=store.get('bd_member')||(()=>{const id=Math.random().toString(36).slice(2,12)+Date.now().toString(36);store.set('bd_member',id);return id;})();
+let group=store.get('bd_group',null); // {code, leaderKey?, name}
+let gws=null, gOnline=false, gLeader=false, gMembers=[], gOffset=0, gRetry=0, gState=null, gHeld=false, lastPos=0, lastPush='';
+const memberMarkers=new Map();
+const following=()=>!!(group&&!gLeader);
+const TRACKS=new Map([INTRO,OUTRO,...STOPS,...BONUS].map(t=>[t.id,t]));
+STOPS.forEach(s=>{if(s.more)TRACKS.set(s.id+'-more',moreTrack(s));});
+function gSend(m){if(gws&&gws.readyState===1)gws.send(JSON.stringify({...m,member:memberId}));}
+function groupConnect(create){
+  if(gws)try{gws.onclose=null;gws.close();}catch(e){}
+  const ws=new WebSocket(`${location.protocol==='https:'?'wss':'ws'}://${location.host}/group`);gws=ws;
+  ws.onopen=()=>{gRetry=0;ws.send(JSON.stringify(create?{t:'create',member:memberId,name:group.name}:{t:'join',member:memberId,name:group.name,code:group.code,leaderKey:group.leaderKey}));};
+  ws.onmessage=e=>{let m;try{m=JSON.parse(e.data);}catch(x){return;}
+    if(m.now)gOffset=m.now-Date.now();
+    if(m.t==='error'){if(m.error==='no-group'){groupLeave(true);groupErr('No group with that code. Check the letters with your group leader.');}else groupErr('Could not join the group. Try again.');return;}
+    if(m.t==='joined'){gOnline=true;gLeader=!!m.leader;group={...group,code:m.code,...(m.leaderKey?{leaderKey:m.leaderKey}:{})};store.set('bd_group',group);
+      gMembers=m.members;renderGroup();if(gLeader){lastPush='';groupPush();}else if(m.state)applyState(m.state);return;}
+    if(m.t==='members'){gMembers=m.members;renderGroup();return;}
+    if(m.t==='state'&&!gLeader)applyState(m.state);};
+  ws.onclose=()=>{gOnline=false;renderGroup();if(gws!==ws||!group)return;
+    setTimeout(()=>{if(group&&gws===ws)groupConnect(false);},Math.min(30000,2000*2**gRetry++));};
+}
+function groupErr(t){const e=$('groupErr');e.hidden=!t;e.textContent=t||'';}
+function groupStart(create){
+  const name=$('groupName').value.trim()||'Rider',code=$('groupCode').value.trim().toUpperCase();
+  store.set('bd_name',name);
+  if(!create&&!/^[A-Z]{4}$/.test(code)){groupErr('A group code is four letters.');return;}
+  groupErr('');group={name,code:create?null:code};groupConnect(create);renderGroup();
+}
+function groupLeave(silent){
+  if(!silent)gSend({t:'leave'});group=null;store.set('bd_group',null);gOnline=false;gLeader=false;gMembers=[];gState=null;
+  if(gws){const w=gws;gws=null;w.onclose=null;try{w.close();}catch(e){}}
+  memberMarkers.forEach(m=>m.remove());memberMarkers.clear();renderGroup();
+}
+// leader: report what the group should be hearing
+function groupPush(){
+  if(!group||!gLeader||!gOnline)return;
+  const t=current&&TRACKS.get(current.id)===current?current:null;
+  const playing=!!t&&(tts?!tts.paused:(!navPlaying&&!audio.paused&&!audio.ended));
+  const time=t&&!tts&&!navPlaying?audio.currentTime:(resume&&resume.track===t?resume.time:0);
+  const key=`${t&&t.id}|${playing}|${Math.round(time)}`;
+  if(key===lastPush)return; lastPush=key;
+  gSend({t:'state',track:t?t.id:null,playing,time});
+}
+setInterval(()=>{if(group&&gLeader&&gOnline&&storyBusy()){lastPush='';groupPush();}},5000); // heartbeat keeps late joiners in step
+// follower: hear what the leader hears
+function applyState(st){
+  if(!st||!st.track)return;
+  const t=TRACKS.get(st.track);if(!t)return;
+  const changed=!gState||gState.track!==st.track; gState=st; if(changed)gHeld=false;
+  if(gHeld)return; // this rider paused on purpose; the next story brings them back
+  const at=st.time+(st.playing?(Date.now()+gOffset-st.at)/1000:0);
+  const mine=current===t&&!navPlaying;
+  if(st.playing){
+    if(!mine||(t.audio&&audio.ended))playTrack(t,true,at);
+    else if(t.audio){if(audio.paused)audio.play().catch(()=>{});if(Math.abs(audio.currentTime-at)>2)audio.currentTime=at;}
+    else if(tts&&tts.paused){tts.paused=false;speechSynthesis.resume();}
+  }else if(mine){if(t.audio){audio.pause();if(Math.abs(audio.currentTime-st.time)>1)audio.currentTime=st.time;}else if(tts&&!tts.paused){tts.paused=true;speechSynthesis.pause();}}
+  $('kicker').textContent=`${kickerFor(t)} · with the group`;
+}
+function groupPos(){
+  if(!group||!gOnline||!me||Date.now()-lastPos<3000)return;
+  lastPos=Date.now();gSend({t:'pos',lat:+me[0].toFixed(6),lng:+me[1].toFixed(6)});
+}
+function renderGroup(){
+  const on=!!group;$('groupOff').hidden=on&&!!group.code;$('groupOn').hidden=!(on&&group.code);
+  if(on&&group.code){
+    const others=gMembers.filter(m=>m.id!==memberId),leader=gMembers.find(m=>m.leader);
+    $('groupCodeShow').textContent=group.code;
+    $('groupWho').textContent=!gOnline?'Connecting…':gLeader?`You lead · ${others.length} ${others.length===1?'rider':'riders'} with you`:`Following ${leader?leader.name:'the leader'} · ${gMembers.length} riders`;
+  }
+  const bar=$('groupBar');bar.hidden=!(on&&group.code);
+  if(on&&group.code){const n=gMembers.filter(m=>m.online).length;
+    bar.textContent=!gOnline?`Group ${group.code} · reconnecting…`:gLeader?`Group ${group.code} · you lead · ${n} online`:`Group ${group.code} · following ${(gMembers.find(m=>m.leader)||{}).name||'the leader'} · ${n} online`;
+    bar.classList.toggle('off',!gOnline);}
+  // the other riders on the map
+  const seen=new Set();
+  if(map)for(const m of gMembers){if(m.id===memberId||m.lat==null)continue;seen.add(m.id);
+    let mk=memberMarkers.get(m.id);
+    if(!mk){mk=L.marker([m.lat,m.lng],{interactive:false,keyboard:false,zIndexOffset:900,icon:L.divIcon({className:'',iconSize:[20,20],iconAnchor:[10,10],html:'<div class="memberdot"><i></i></div>'})})
+      .bindTooltip('',{permanent:true,direction:'right',offset:[8,0],className:'membername'}).addTo(map);memberMarkers.set(m.id,mk);}
+    mk.setLatLng([m.lat,m.lng]);mk.setTooltipContent(m.leader?`${m.name} (leads)`:m.name);
+    const e=mk.getElement()&&mk.getElement().firstChild;if(e){e.classList.toggle('leader',m.leader);e.classList.toggle('away',!m.online);}}
+  memberMarkers.forEach((mk,id)=>{if(!seen.has(id)){mk.remove();memberMarkers.delete(id);}});
+}
+$('groupName').value=store.get('bd_name','');
+$('groupCreate').onclick=()=>groupStart(true);
+$('groupJoin').onclick=()=>groupStart(false);
+$('groupCode').onkeydown=e=>{if(e.key==='Enter')groupStart(false);};
+$('groupLeave').onclick=()=>groupLeave(false);
+$('groupShare').onclick=async()=>{const url=`${location.origin}${location.pathname}?group=${group.code}`,text=`Ride Berlin divided with me. Group code ${group.code}`;
+  try{if(navigator.share)await navigator.share({title:'Berlin divided',text,url});else{await navigator.clipboard.writeText(`${text}: ${url}`);$('groupShare').textContent='Copied';}}catch(e){}};
+$('playBtn').addEventListener('click',()=>{if(following()&&current&&gState&&current.id===gState.track)gHeld=!audio.paused;},true);
+{const q=new URLSearchParams(location.search).get('group');if(q&&/^[a-z]{4}$/i.test(q)&&!(group&&group.code===q.toUpperCase()))$('groupCode').value=q.toUpperCase();}
+if(!('WebSocket' in window))$('groupPick').hidden=true;
+else if(group&&group.code)groupConnect(false);
+renderGroup();
+
 /* ---------- offline ---------- */
 const AUDIO_FILES=[...new Set([INTRO,OUTRO,...STOPS,...BONUS,...STOPS.map(s=>s.more||{})].map(t=>t.audio)
   .concat([...STOPS,...BONUS].map(s=>s.photo&&s.photo.src)).filter(Boolean).concat(Object.values(CLIPS)))]; // audio and photos
@@ -849,7 +984,7 @@ if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(
 downloadTour();
 
 // read-only hook for the automated ride test
-window.__tour={log,get bonus(){return bonusTarget()&&bonusTarget().id},get tts(){return !!tts},get travel(){return travel},get mode(){return storyMode},get offRoute(){return offRoute},get current(){return current&&current.id},get pending(){return pending&&pending.id},get played(){return [...played]},get navPlaying(){return navPlaying},stops:STOPS.map(s=>s.id)};
+window.__tour={log,get group(){return group&&{code:group.code,leader:gLeader,online:gOnline,members:gMembers.length}},get bonus(){return bonusTarget()&&bonusTarget().id},get tts(){return !!tts},get travel(){return travel},get mode(){return storyMode},get offRoute(){return offRoute},get current(){return current&&current.id},get pending(){return pending&&pending.id},get played(){return [...played]},get navPlaying(){return navPlaying},stops:STOPS.map(s=>s.id)};
 initMap(); render();
 window.addEventListener('resize',setView);
 </script>
