@@ -1,18 +1,19 @@
 // Berlin divided service worker.
-// App shell and tour data: network first, cache as fallback, so updates arrive when online.
+// App shell, scripts and tour data: network first, cache as fallback, so updates arrive when online.
 // Photos: cache first, pre-cached by the page with the audio.
 // Audio: cache first (the page pre-caches every file after first load), with Range support,
 // because iPhone Safari only plays audio served as byte ranges.
 // OpenStreetMap tiles are left to the browser: the tile usage policy forbids bulk offline caching.
-const SHELL = 'bd-shell-v4', AUDIO = 'bd-audio', FONTS = 'bd-fonts';
+const SHELL = 'bd-shell-v5', AUDIO = 'bd-audio', FONTS = 'bd-fonts';
 const SHELL_FILES = [
-  './', 'manifest.webmanifest', 'strings.js', 'data/berlin-divided.json',
+  './', 'manifest.webmanifest', 'strings.js?v=5', 'data/berlin-divided.json',
   'vendor/leaflet/leaflet.js', 'vendor/leaflet/leaflet.css',
   'icons/icon-192.png', 'icons/apple-touch-icon.png'
 ];
 
 self.addEventListener('install', e => {
-  e.waitUntil(caches.open(SHELL).then(c => c.addAll(SHELL_FILES)).then(() => self.skipWaiting()));
+  // cache: 'reload' skips the browser's HTTP cache, so a new version never stores an old file
+  e.waitUntil(caches.open(SHELL).then(c => c.addAll(SHELL_FILES.map(u => new Request(u, { cache: 'reload' })))).then(() => self.skipWaiting()));
 });
 self.addEventListener('activate', e => {
   e.waitUntil(caches.keys()
@@ -62,8 +63,8 @@ self.addEventListener('fetch', e => {
   const url = new URL(req.url);
   if (url.origin === location.origin) {
     if (url.pathname.includes('/audio/')) e.respondWith(audio(req));
-    else if (req.mode === 'navigate' || url.pathname.endsWith('.json') || url.pathname.endsWith('/')) e.respondWith(networkFirst(req));
-    else e.respondWith(cacheFirst(req, SHELL));
+    else if (/\/(vendor|icons|photos)\//.test(url.pathname)) e.respondWith(cacheFirst(req, SHELL));
+    else e.respondWith(networkFirst(req)); // pages, scripts, text and tour data: always the newest when online
   } else if (url.hostname.endsWith('fonts.googleapis.com') || url.hostname.endsWith('fonts.gstatic.com')) {
     e.respondWith(cacheFirst(req, FONTS));
   }

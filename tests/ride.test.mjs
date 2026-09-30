@@ -366,6 +366,41 @@ test('settings: story start, voice speed and tour mode; continuing skips the int
   await ctx.close();
 });
 
+test('no untranslated text names on any screen, in any language', { timeout: 120000 }, async () => {
+  const { STRINGS } = await import('../berlin-divided/strings.js');
+  const keys = Object.keys(STRINGS.en).filter(k => /[A-Z]/.test(k)); // camelCase names never appear in real text
+  const find = new RegExp(`\\b(${keys.join('|')})\\b`);
+  for (const locale of ['en-GB', 'nl-NL', 'de-DE']) {
+    const { ctx, page, errors } = await openTour({ locale, at: [52.5203, 13.3738] });
+    const check = async where => {
+      const text = await page.evaluate(() => document.body.innerText);
+      const hit = find.exec(text);
+      assert.equal(hit && hit[0], null, `${locale} ${where}: "${hit && hit[0]}" shown as text`);
+    };
+    await check('home');
+    await page.click('#tabbar [data-go="tours"]'); await check('tours');
+    await page.click('#tabbar [data-go="settings"]'); await check('settings');
+    await page.click('#tabbar [data-go="home"]'); await page.click('#tileGroup'); await check('lobby');
+    await page.click('#lobbyBack'); await openTourPage(page); await check('tour page');
+    await page.click('#startBtn'); await page.waitForTimeout(400); await check('riding');
+    await page.click('#openStory'); await check('story');
+    assert.deepEqual(errors, []);
+    await ctx.close();
+  }
+});
+
+test('far from Berlin: says so instead of a long dotted line; app code is never kept stale', async () => {
+  const { ctx, page, errors } = await openTour({ at: [52.3702, 4.8952] }); // Amsterdam
+  await startTour(page);
+  await page.waitForFunction(() => document.getElementById('navInstr').textContent === 'You are not in Berlin yet');
+  assert.equal(await page.textContent('#navEta'), '');
+  for (const f of ['', 'strings.js', 'strings.js?v=5', 'data/berlin-divided.json', 'sw.js'])
+    assert.equal((await fetch(server.url + f)).headers.get('cache-control'), 'no-cache', `${f || 'index'} is revalidated`);
+  assert.match((await fetch(server.url + 'vendor/leaflet/leaflet.js')).headers.get('cache-control'), /max-age/);
+  assert.deepEqual(errors, []);
+  await ctx.close();
+});
+
 test('stop-safe mode: waits until the rider has stopped for 5 seconds', { timeout: 60000 }, async () => {
   const { ctx, page, errors } = await openTour({ mode: 'stopped', at: pointAt(0) });
   await startTour(page);
