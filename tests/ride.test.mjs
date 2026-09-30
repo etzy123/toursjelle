@@ -528,7 +528,7 @@ test('far from Berlin: says so instead of a long dotted line; app code is never 
   await startTour(page);
   await page.waitForFunction(() => document.getElementById('navInstr').textContent === 'You are not in Berlin yet');
   assert.equal(await page.textContent('#navEta'), '');
-  for (const f of ['', 'strings.js', 'strings.js?v=8', 'tours/index.json', BASE + 'tour.json', 'sw.js'])
+  for (const f of ['', 'strings.js', 'strings.js?v=9', 'tours/index.json', BASE + 'tour.json', 'sw.js'])
     assert.equal((await fetch(server.url + f)).headers.get('cache-control'), 'no-cache', `${f || 'index'} is revalidated`);
   assert.match((await fetch(server.url + 'vendor/leaflet/leaflet.js')).headers.get('cache-control'), /max-age/);
   assert.deepEqual(errors, []);

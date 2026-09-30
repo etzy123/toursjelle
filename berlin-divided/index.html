@@ -477,13 +477,14 @@ summary{cursor:pointer;font-weight:600;font-size:14px;color:var(--muted)}
       <p class="label" data-t="qMode">How are you getting around?</p>
       <div class="card modes" id="makeModes"><button id="makeWalk" aria-pressed="true"></button><button id="makeBike" aria-pressed="false"></button></div>
       <button class="btn primary" id="makeGo" data-t="makeGo">Make my tour</button>
-      <p class="note" data-t="makeNoteAi">Stories are written by AI from Wikipedia and OpenStreetMap, and read by your phone's voice. Details can be wrong.</p>
+      <p class="note" data-t="makeNoteAi">Stories are written by AI from Wikipedia and OpenStreetMap, and read aloud. Details can be wrong.</p>
     </div>
     <div id="makeBusy" hidden>
       <div class="card makesteps" aria-live="polite">
         <div data-step="places"><i></i><span data-t="stepPlaces">Finding places near you</span></div>
         <div data-step="writing"><i></i><span data-t="stepWriting">Writing your stories</span></div>
         <div data-step="route"><i></i><span data-t="stepRoute">Planning the route</span></div>
+        <div data-step="voice"><i></i><span data-t="stepVoice">Recording the voices</span></div>
       </div>
       <p class="note" data-t="makeWait">This takes about a minute. Keep this screen open.</p>
       <p class="err" id="makeErr" hidden></p>
@@ -526,7 +527,7 @@ summary{cursor:pointer;font-weight:600;font-size:14px;color:var(--muted)}
       <button class="btn primary" id="startBtn" disabled data-t="loading">Loading tour…</button>
     </div>
     <button class="linkbtn" id="testBtn" disabled data-t="testRide">Try a test ride from here</button>
-    <p class="note ainote" id="aiNote" hidden data-t="aiNote">Written by AI from Wikipedia and OpenStreetMap, and read by your phone's voice. Details can be wrong.</p>
+    <p class="note ainote" id="aiNote" hidden data-t="aiNote">Written by AI from Wikipedia and OpenStreetMap, and read aloud. Details can be wrong.</p>
     <div class="sectionhead"><p class="label" data-t="tourStops">Tour stops</p><span class="muted" style="font-size:12px" id="progress"></span></div>
     <ol class="tl" id="stopList"></ol>
     <p class="note"><span data-t="note">Keep this page open with the screen on, and allow location access. Your phone's silent switch can mute the audio.</span> <span id="safety"></span></p>
@@ -729,7 +730,7 @@ summary{cursor:pointer;font-weight:600;font-size:14px;color:var(--muted)}
 <audio id="audio" preload="auto" playsinline></audio>
 
 <script type="module">
-import { STRINGS, LANGS, SPEECH } from './strings.js?v=8'; // the version query gets past copies cached by older app versions
+import { STRINGS, LANGS, SPEECH } from './strings.js?v=9'; // the version query gets past copies cached by older app versions
 // language: saved choice, else the phone's language if we have it, else English
 let lang=(()=>{try{const v=JSON.parse(localStorage.getItem('bd_lang'));if(STRINGS[v])return v;}catch(e){}
   for(const l of navigator.languages||[navigator.language]){const k=String(l||'').slice(0,2).toLowerCase();if(STRINGS[k])return k;}return 'en';})();
@@ -1604,7 +1605,7 @@ $('makeWalk').onclick=()=>{make.mode='walk';renderMake();};$('makeBike').onclick
 $('makeCta').onclick=()=>go('make');$('makeBack').onclick=()=>back('home');
 $('makeRetry').onclick=()=>{$('makeBusy').hidden=true;$('makeForm').hidden=false;renderMake();};
 function makeStep(step){
-  const order=['places','writing','route'],i=order.indexOf(step);if(i<0)return;
+  const order=['places','writing','route','voice'],i=order.indexOf(step);if(i<0)return;
   $('makeBusy').querySelectorAll('[data-step]').forEach(e=>{const j=order.indexOf(e.dataset.step);e.className=j<i?'done':j===i?'now':'';});
 }
 function makeFail(code,detail){

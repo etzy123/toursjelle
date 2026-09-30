@@ -86,6 +86,21 @@ test('the directions match the Python build for the same route', () => {
   assert.equal(about(960), 'about 1 kilometre');
 });
 
+test('the voices are recorded; a clip that fails is left to the phone', async () => {
+  const saved = [];
+  const speak = async (text, { voice }) => { if (text.startsWith('Story 2')) throw new Error('speech: 403'); return Buffer.alloc(6000 * 12, 1); }; // 12 s at 48 kbps
+  const saveAudio = async (id, name, buf) => { saved.push(name); return `/gen/audio/${id}/${name}`; };
+  const steps = [];
+  const tour = await generateTour({ lat: 52.3752, lng: 4.884, minutes: 90, mode: 'walk', lang: 'nl' }, { ...fakes(), speak, saveAudio, onStep: s => steps.push(s) });
+  assert.deepEqual(steps.slice(-1), ['voice']);
+  assert.equal(tour.intro.audio, `/gen/audio/${tour.id}/intro.mp3`);
+  assert.equal(tour.stops[0].dur, 12);
+  assert.equal(tour.stops[1].audio, undefined, 'the failed clip has no audio');
+  assert.ok(tour.stops[1].dur > 0, 'but still a duration for the list');
+  assert.ok(tour.legs.every(l => l.steps.every(st => st.clip && (!st.pre || st.pre.clip))), 'every direction is recorded');
+  assert.ok(saved.includes('nav-0-0.mp3') && saved.includes('outro.mp3'));
+});
+
 test('a refusal is reported, not turned into a tour', async () => {
   await assert.rejects(generateTour({ lat: 52.3752, lng: 4.884, minutes: 60, mode: 'walk', lang: 'en' }, fakes({ refuse: true })), /refused/);
 });

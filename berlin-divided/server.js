@@ -18,12 +18,12 @@ const PRIVATE = /^\/(server\.js|package(-lock)?\.json|serve\.json|node_modules(\
 const COMPRESS = /^(text\/|application\/(json|manifest\+json)|image\/svg)/;
 
 /* ---------- static files ---------- */
-function serveFile(req, res) {
+function serveFile(req, res, root = ROOT, prefix = '') {
   let pathname;
   try { pathname = decodeURIComponent(new URL(req.url, 'http://x').pathname); } catch { res.writeHead(400).end(); return; }
   if (PRIVATE.test(pathname)) { res.writeHead(404).end(); return; }
-  let file = path.join(ROOT, pathname);
-  if (!file.startsWith(ROOT)) { res.writeHead(403).end(); return; }
+  let file = path.join(root, pathname.slice(prefix.length));
+  if (!file.startsWith(root)) { res.writeHead(403).end(); return; }
   if (pathname.endsWith('/')) file = path.join(file, 'index.html');
   fs.stat(file, (err, st) => {
     if (err || !st.isFile()) { res.writeHead(404, { 'Content-Type': 'text/plain' }).end('Not found'); return; }
@@ -56,13 +56,27 @@ function serveFile(req, res) {
 // whether it is available. Each phone may make MAKE_PER_HOUR tours an hour, the server
 // TOUR_DAILY_LIMIT a day (default 200), and the same request within 6 hours is answered from memory.
 const MAKE_PER_HOUR = 6, CACHE_MS = 6 * 3600e3;
+// recorded voices of made tours: kept on disk for a week (phones keep their own copy offline)
+const GEN_AUDIO = path.join(require('node:os').tmpdir(), 'tour-audio'), AUDIO_DAYS = 7;
+async function saveAudio(tourId, name, buf) {
+  const dir = path.join(GEN_AUDIO, tourId.replace(/[^\w-]/g, ''));
+  await fs.promises.mkdir(dir, { recursive: true });
+  await fs.promises.writeFile(path.join(dir, name.replace(/[^\w.-]/g, '')), buf);
+  return `/gen/audio/${path.basename(dir)}/${name}`;
+}
+function sweepAudio() {
+  fs.readdir(GEN_AUDIO, (err, dirs) => { if (err) return;
+    for (const d of dirs) fs.stat(path.join(GEN_AUDIO, d), (e, st) => { if (!e && Date.now() - st.mtimeMs > AUDIO_DAYS * 864e5) fs.rm(path.join(GEN_AUDIO, d), { recursive: true, force: true }, () => {}); });
+  });
+}
+setInterval(sweepAudio, 6 * 3600e3).unref();
 const made = new Map(), cache = new Map(); let today = { day: '', count: 0 };
 function makerFromEnv() {
   if (!process.env.ANTHROPIC_API_KEY) return null;
   const Anthropic = require('@anthropic-ai/sdk');
   const anthropic = new Anthropic({ timeout: 180e3, maxRetries: 1 });
   const { generateTour } = require('./lib/generate');
-  return (req, onStep) => generateTour(req, { anthropic, onStep });
+  return (req, onStep) => generateTour(req, { anthropic, onStep, saveAudio });
 }
 function readBody(req, max) {
   return new Promise((ok, fail) => {
@@ -192,6 +206,7 @@ function createServer({ maker = makerFromEnv() } = {}) {
   const server = http.createServer((req, res) => {
     const pathname = req.url.split('?')[0];
     if (pathname === '/api/tour' && req.method === 'POST') { makeTour(req, res, maker); return; }
+    if (pathname.startsWith('/gen/audio/') && (req.method === 'GET' || req.method === 'HEAD')) { serveFile(req, res, GEN_AUDIO, '/gen/audio'); return; }
     if (pathname === '/api/status') { res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' }).end(JSON.stringify({ make: !!maker })); return; }
     if (req.method !== 'GET' && req.method !== 'HEAD') { res.writeHead(405).end(); return; }
     serveFile(req, res);
