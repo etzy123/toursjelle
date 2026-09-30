@@ -1,0 +1,21 @@
+{
+ "tours": [
+  {
+   "path": "berlin/divided",
+   "id": "divided",
+   "city": "berlin",
+   "title": "Berlin divided",
+   "subtitle": "Cold War, the full tour",
+   "mode": "bike",
+   "distance_km": 15.3,
+   "duration_min": 123,
+   "stops": 11,
+   "ready": true,
+   "langs": [
+    "de",
+    "nl"
+   ],
+   "order": 1
+  }
+ ]
+}

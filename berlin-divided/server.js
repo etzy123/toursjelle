@@ -1,4 +1,4 @@
-// Berlin divided server: serves the app and runs group rides over a WebSocket at /group.
+// Audio tours server: serves the app and runs group rides over a WebSocket at /group.
 // One process, so Railway needs a single service: `npm start` (PORT from the environment).
 'use strict';
 const http = require('node:http');
@@ -89,7 +89,7 @@ function onSocket(ws) {
         sweep();
         if (groups.size >= MAX_GROUPS) return send(ws, { t: 'error', error: 'full' });
         const code = newCode();
-        g = { code, leaderId: id, leaderKey: crypto.randomBytes(16).toString('hex'), members: new Map(), state: null, touched: Date.now() };
+        g = { code, tour: clean(msg.tour, 80) || null, leaderId: id, leaderKey: crypto.randomBytes(16).toString('hex'), members: new Map(), state: null, touched: Date.now() };
         groups.set(code, g);
       } else {
         g = groups.get(clean(msg.code, 8).toUpperCase());
@@ -102,7 +102,7 @@ function onSocket(ws) {
       me = { id, name: clean(msg.name, 24) || 'Rider', lat: old ? old.lat : null, lng: old ? old.lng : null, ws };
       g.members.set(id, me); g.touched = Date.now();
       const leader = g.leaderId === id;
-      send(ws, { t: 'joined', code: g.code, leader, leaderKey: leader ? g.leaderKey : undefined, state: g.state, members: roster(g) });
+      send(ws, { t: 'joined', code: g.code, tour: g.tour, leader, leaderKey: leader ? g.leaderKey : undefined, state: g.state, members: roster(g) });
       broadcast(g, { t: 'members', members: roster(g) }, ws);
       return;
     }
@@ -147,5 +147,5 @@ module.exports = { createServer, groups };
 
 if (require.main === module) {
   const port = +process.env.PORT || 3000;
-  createServer().listen(port, '0.0.0.0', () => console.log(`Berlin divided on http://localhost:${port}`));
+  createServer().listen(port, '0.0.0.0', () => console.log(`Audio tours on http://localhost:${port}`));
 }

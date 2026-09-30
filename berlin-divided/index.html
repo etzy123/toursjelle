@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Berlin Divided: Cold War bike tour</title>
+<title>Audio tours</title>
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#F6F7FB" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0F1020" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Berlin divided">
+<meta name="apple-mobile-web-app-title" content="Audio tours">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="vendor/leaflet/leaflet.css">
@@ -153,6 +153,11 @@ select.field{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w
 .tourcard .tile{width:64px;height:64px;background:var(--accent-soft);color:var(--accent-text)}
 .tourcard b{display:block;font-size:15px;font-weight:700}
 .tourcard small{display:block;font-size:12px;color:var(--muted)}
+.cityrow{flex-wrap:nowrap;overflow-x:auto;margin:0 -16px 16px;padding:0 16px 2px;scrollbar-width:none}
+.cityrow::-webkit-scrollbar{display:none}
+.tourlist{display:flex;flex-direction:column;gap:12px}
+.tourcard:disabled{opacity:.55;box-shadow:none}
+.tourcard .tag{display:inline-block;margin-left:6px;padding:1px 8px;border-radius:999px;background:var(--accent-soft);color:var(--accent-text);font-size:10px;font-weight:700;vertical-align:2px}
 .meta{display:flex;gap:12px;margin-top:8px;font-size:11px;color:var(--muted)}
 .meta span{display:flex;align-items:center;gap:4px}
 .meta b{display:inline;font-size:11px;color:var(--text)}
@@ -398,7 +403,7 @@ summary{cursor:pointer;font-weight:600;font-size:14px;color:var(--muted)}
     <div class="head">
       <div class="brand">
         <div class="logo"><svg viewBox="0 0 24 24"><path d="M12 22s-7-6-7-11a7 7 0 0 1 14 0c0 5-7 11-7 11z" fill="#fff"/><circle cx="12" cy="11" r="2.6" fill="#584DD3"/></svg></div>
-        <div><small data-t="homeKicker">Self-guided audio tour</small><b>Berlin divided</b></div>
+        <div><small data-t="homeKicker">Self-guided audio tour</small><b id="brandCity"></b></div>
       </div>
       <button class="iconbtn" id="homeSettings" style="margin-left:auto" aria-label="Settings" data-t-aria="settingsTitle"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></button>
     </div>
@@ -406,7 +411,7 @@ summary{cursor:pointer;font-weight:600;font-size:14px;color:var(--muted)}
     <button class="feature" id="homeCard">
       <div class="top">
         <div class="tile black" id="homeTile"></div>
-        <div style="min-width:0"><div class="name">Berlin divided</div><div class="sub" id="homeSub"></div></div>
+        <div style="min-width:0"><div class="name" data-tour-name></div><div class="sub" id="homeSub"></div></div>
         <div class="side"><b id="homeSide"></b><small id="homeSideUnit"></small></div>
       </div>
       <div class="minimap" id="homeMap" aria-hidden="true"></div>
@@ -427,12 +432,9 @@ summary{cursor:pointer;font-weight:600;font-size:14px;color:var(--muted)}
 <section class="screen" id="scr-tours" data-screen="tours" hidden>
   <div class="col">
     <h1 class="pagetitle" data-t="chooseTour">Choose your tour</h1>
-    <button class="tourcard" id="tourCard">
-      <div class="tile" id="tourTile"></div>
-      <div style="flex:1;min-width:0"><b>Berlin divided</b><small data-t="tourTheme">Cold War · Full tour</small>
-        <div class="meta"><span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" fill="currentColor"/><circle cx="12" cy="12" r="8"/></svg><b id="tourStops"></b> <span data-t="stops">stops</span></span><span id="tourTime"></span></div></div>
-    </button>
-    <p class="note" data-t="moreTours">More Berlin tours are on the way.</p>
+    <div class="chips cityrow" id="cityChips" role="tablist" aria-label="City" data-t-aria="cityLbl"></div>
+    <div class="tourlist" id="tourList"></div>
+    <p class="note" data-t="moreTours">More tours are on the way.</p>
   </div>
 </section>
 
@@ -497,7 +499,7 @@ summary{cursor:pointer;font-weight:600;font-size:14px;color:var(--muted)}
     </div>
     <div class="card routeinfo">
       <div class="tile"><svg viewBox="0 0 24 24"><circle cx="5.5" cy="16.5" r="3.5"/><circle cx="18.5" cy="16.5" r="3.5"/><path d="M5.5 16.5 9 10h6l3.5 6.5M12 16.5 15 10"/></svg></div>
-      <div><b style="font-size:14px">Berlin divided</b><small class="muted" style="display:block;font-size:12px" id="lobbyRoute"></small></div>
+      <div><b style="font-size:14px" data-tour-name></b><small class="muted" style="display:block;font-size:12px" id="lobbyRoute"></small></div>
     </div>
     <button class="btn primary" id="groupGo" hidden data-t="rideTogether">Ride together</button>
     <button class="linkbtn" id="groupLeave" hidden data-t="leaveGroup">Leave group</button>
@@ -617,7 +619,7 @@ summary{cursor:pointer;font-weight:600;font-size:14px;color:var(--muted)}
   <div class="col">
     <div class="head">
       <button class="iconbtn" id="settingsBack" aria-label="Back" data-t-aria="back"><svg viewBox="0 0 24 24"><path d="M19 12H5m7 7-7-7 7-7"/></svg></button>
-      <div><h1 data-t="settingsTitle">Settings</h1><p>Berlin divided</p></div>
+      <div><h1 data-t="settingsTitle">Settings</h1><p data-tour-name></p></div>
     </div>
     <p class="label" data-t="tourMode">Tour mode</p>
     <div class="card modes"><button id="modeBike" aria-pressed="true"></button><button id="modeWalk" aria-pressed="false"></button></div>
@@ -666,7 +668,7 @@ summary{cursor:pointer;font-weight:600;font-size:14px;color:var(--muted)}
 <audio id="audio" preload="auto" playsinline></audio>
 
 <script type="module">
-import { STRINGS, LANGS, SPEECH } from './strings.js?v=5'; // the version query gets past copies cached by older app versions
+import { STRINGS, LANGS, SPEECH } from './strings.js?v=6'; // the version query gets past copies cached by older app versions
 // language: saved choice, else the phone's language if we have it, else English
 let lang=(()=>{try{const v=JSON.parse(localStorage.getItem('bd_lang'));if(STRINGS[v])return v;}catch(e){}
   for(const l of navigator.languages||[navigator.language]){const k=String(l||'').slice(0,2).toLowerCase();if(STRINGS[k])return k;}return 'en';})();
@@ -690,14 +692,38 @@ function localise(D,O){
   D.nav.forEach((leg,l)=>leg.forEach((st,j)=>{const o=O.nav&&O.nav[l]&&O.nav[l][j];st.en=st.text;if(!o)return;
     st.text=o.text;st.clip=o.clip;st.pre=o.pre;}));
   D.turnaround=O.turnaround;D.offroute=O.offroute;D.clips=O.clips||{};D.voice=O.voice;
+  for(const k of ['title','subtitle'])if(O[k])D[k]=O[k];
 }
-let DATA;
+// a tour in the tours/<city>/<id>/tour.json schema (see tours/SCHEMA.md), in the shape the engine uses,
+// with audio and photo paths resolved against the tour's folder
+function adapt(T,base){
+  const u=p=>p&&!/^(https?:|\/)/.test(p)?base+p:p, clips={};
+  const clip=c=>{c=u(c);if(c)clips[c]=c;return c||undefined;};
+  const story=x=>x&&{...x,text:x.script??x.text,audio:u(x.audio),more:x.more?story(x.more):undefined,photo:x.photo?{...x.photo,src:u(x.photo.src)}:undefined};
+  const prompt=p=>p&&{text:p.text||'',clip:clip(p.clip)};
+  return {...T,intro:story(T.intro),outro:story(T.outro),stops:(T.stops||[]).map(story),bonus:(T.bonus||[]).map(story),
+    nav:(T.legs||[]).map(l=>l.steps.map(st=>({...st,clip:clip(st.clip),pre:prompt(st.pre)}))),clips,turnaround:prompt(T.turnaround),offroute:prompt(T.offroute)};
+}
+const store={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+let DATA, CATALOGUE, TOUR, clang='en'; // clang: the language the tour content is in (English when there is no translation)
 try{
   const get=async u=>{const r=await fetch(u);if(!r.ok)throw new Error(r.status);return r.json();};
-  DATA=await get('data/berlin-divided.json');
-  if(lang!=='en')try{localise(DATA,await get(`data/berlin-divided.${lang}.json`));}catch(e){lang='en';applyI18n();}
+  CATALOGUE=(await get('tours/index.json')).tours;
+  const want=new URLSearchParams(location.search).get('tour')||store.get('bd_tour','berlin/divided');
+  TOUR=CATALOGUE.find(x=>x.path===want&&x.ready)||CATALOGUE.find(x=>x.ready);
+  const base=`tours/${TOUR.path}/`;
+  DATA=adapt(await get(base+'tour.json'),base);
+  if(lang!=='en'&&(TOUR.langs||[]).includes(lang))try{localise(DATA,adapt(await get(`${base}tour.${lang}.json`),base));clang=lang;}catch(e){}
 }
 catch(e){document.getElementById('startBtn').textContent=t('loadFail');throw e;}
+// progress and choices are kept per tour; Berlin's from before there were several tours carry over
+const K=k=>`${k}:${TOUR.path}`;
+for(const k of ['bd_played','bd_start','bd_bonus','bd_travel','bd_rating'])
+  try{if(TOUR.path==='berlin/divided'&&localStorage.getItem(k)!=null&&localStorage.getItem(K(k))==null)localStorage.setItem(K(k),localStorage.getItem(k));}catch(e){}
+const cityName=c=>STRINGS[lang]['city_'+c]||STRINGS.en['city_'+c]||c.charAt(0).toUpperCase()+c.slice(1);
+const TITLE=DATA.title||TOUR.title;
+document.querySelectorAll('[data-tour-name]').forEach(e=>{e.textContent=TITLE;});
+document.getElementById('brandCity').textContent=cityName(TOUR.city);
 const ROUTE = DATA.route;            // [[lat,lng],...]
 const STOPS = DATA.stops;            // {id,title,lat,lng,text,audio}
 const INTRO = DATA.intro, OUTRO = DATA.outro;
@@ -722,9 +748,8 @@ const W=(bb.maxLng-bb.minLng)*k*111320, H=(bb.maxLat-bb.minLat)*110540;
 const cum=[0];for(let i=1;i<ROUTE.length;i++)cum.push(cum[i-1]+dist(ROUTE[i-1],ROUTE[i]));
 
 /* ---------- state ---------- */
-const store={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
-let played=new Set(store.get('bd_played',[]));
-let startAt=Math.min(Math.max(0,store.get('bd_start',0)|0),STOPS.length-1); // index of the first stop on this ride
+let played=new Set(store.get(K('bd_played'),[]));
+let startAt=Math.min(Math.max(0,store.get(K('bd_start'),0)|0),STOPS.length-1); // index of the first stop on this ride
 const active=i=>i>=startAt;                                   // stops before the starting point are skipped
 const activeStops=()=>STOPS.filter((s,i)=>active(i));
 const allHeard=()=>activeStops().every(s=>played.has(s.id));
@@ -733,15 +758,15 @@ const stopCum=STOPS.map(s=>{let b=0,m=Infinity;ROUTE.forEach((p,i)=>{const d=dis
 const simStart=()=>Math.max(0,stopCum[startAt]-60);
 const MODES=['tap','stopped','auto'];
 let storyMode=MODES.includes(store.get('bd_storymode'))?store.get('bd_storymode'):'tap';
-let travel=PROFILES[store.get('bd_travel')]?store.get('bd_travel'):'bike', P=PROFILES[travel];
+let travel=PROFILES[store.get(K('bd_travel'))]?store.get(K('bd_travel')):(PROFILES[DATA.mode]?DATA.mode:'bike'), P=PROFILES[travel];
 const STOP_WAIT=5000;                        // "stopped" = below P.slow for 5 seconds
 let slowSince=null, lastFixAt=0;
-const PRE_AT=150;                            // metres; must match PRE_DISTANCE in scripts/build_audio.py
+const PRE_AT=150;                            // metres; must match PRE_DISTANCE in scripts/build_tour.py
 const preDone=new Set(), log=[];             // log: what was spoken, for the ride test
 let lastTurnaround=0;
 let moreFor=null, tts=null;
 const BONUS=(DATA.bonus||[]).map(b=>({...b,bonus:true,dur:b.dur||b.text.split(/\s+/).length/2.5}));
-let bonusOn=new Set(store.get('bd_bonus',[]).filter(id=>BONUS.some(b=>b.id===id))), bonusSkipped=new Set();
+let bonusOn=new Set(store.get(K('bd_bonus'),[]).filter(id=>BONUS.some(b=>b.id===id))), bonusSkipped=new Set();
 const bonusAfter=id=>STOPS.findIndex(s=>s.id===id);
 // the bonus stop to head for now: switched on, not yet heard or skipped, its stop heard and the next one not yet
 function bonusTarget(){
@@ -859,10 +884,10 @@ function playTrack(trk,manual,at){
   $('kicker').textContent=kickerFor(trk);
   if(i>=0&&trk.more)moreFor=trk;
   $('transcript').innerHTML=paras(trk.text); showPhoto(trk);
-  if(i>=0||trk.bonus){played.add(trk.id);store.set('bd_played',[...played]);}
+  if(i>=0||trk.bonus){played.add(trk.id);store.set(K('bd_played'),[...played]);}
   if(!trk.audio){speakTrack(trk);render();return;}
   audio.src=trk.audio; audio.currentTime=at||0; renderMore();
-  if('mediaSession' in navigator){try{navigator.mediaSession.metadata=new MediaMetadata({title:trk.title,artist:'Berlin divided',album:t('mediaAlbum')});}catch(e){}}
+  if('mediaSession' in navigator){try{navigator.mediaSession.metadata=new MediaMetadata({title:trk.title,artist:TITLE,album:t('mediaAlbum')});}catch(e){}}
   const pr=audio.play();
   if(pr&&pr.catch)pr.catch(()=>{$('playBtn').classList.add('nudge');$('kicker').textContent=t('tapToListen');});
   render();
@@ -926,7 +951,7 @@ const moreTrack=s=>s._more||(s._more={id:s.id+'-more',title:s.title,more:true,st
 function renderMore(){
   const b=$('moreBtn'),on=!!(moreFor&&moreFor.more)&&!(current&&current.more&&current.stop===moreFor&&(storyBusy()||audio.paused&&audio.currentTime>0&&!audio.ended));
   b.hidden=!on; if(!on)return;
-  b.querySelector('b').textContent=t('tellMoreAbout',{title:lang==='en'?moreFor.title.replace(/^The /,'the '):lang==='nl'?moreFor.title.replace(/^(De|Het) /,m=>m.toLowerCase()):moreFor.title});
+  b.querySelector('b').textContent=t('tellMoreAbout',{title:clang==='en'?moreFor.title.replace(/^The /,'the '):clang==='nl'?moreFor.title.replace(/^(De|Het) /,m=>m.toLowerCase()):moreFor.title});
   $('moreLen').textContent=`${Math.round(moreTrack(moreFor).dur/60)} ${t('min')}`;
   b.classList.toggle('offer',current===moreFor&&!storyBusy());
 }
@@ -940,7 +965,7 @@ function speakTrack(trk){
   if(!('speechSynthesis' in window)){$('kicker').textContent=t('openReadAlong',{what:k});return;}
   const parts=trk.text.match(/[^.!?]+[.!?]+/g)||[trk.text],voice=pickVoice(speechSynthesis.getVoices());
   const me_={trk,paused:false,done:0,total:parts.length}; tts=me_;
-  parts.forEach((p,k)=>{const u=new SpeechSynthesisUtterance(p.trim());u.lang=SPEECH[lang];u.voice=voice;u.rate=rate;
+  parts.forEach((p,k)=>{const u=new SpeechSynthesisUtterance(p.trim());u.lang=SPEECH[clang];u.voice=voice;u.rate=rate;
     u.onend=()=>{if(tts!==me_)return;me_.done=k+1;$('seek').value=me_.done/me_.total*100;$('tCur').textContent=fmt(trk.dur*me_.done/me_.total);
       if(k===parts.length-1){tts=null;setPlay(PLAY);storyEnded();}};
     speechSynthesis.speak(u);});
@@ -957,7 +982,7 @@ function say(clip){
   navPlaying=true; audio.src=CLIPS[clip]; audio.currentTime=0;
   const p=audio.play(); if(p&&p.catch)p.catch(()=>{});
 }
-const pickVoice=v=>v.find(x=>x.lang.replace('_','-').toLowerCase()===SPEECH[lang].toLowerCase())||v.find(x=>x.lang.slice(0,2).toLowerCase()===lang)||null;
+const pickVoice=v=>v.find(x=>x.lang.replace('_','-').toLowerCase()===SPEECH[clang].toLowerCase())||v.find(x=>x.lang.slice(0,2).toLowerCase()===clang)||null;
 // a direction that may not have recorded audio yet: fall back to the phone's own voice
 function speakItem(item,kind){
   if(storyBusy()||promptBusy())return;
@@ -966,7 +991,7 @@ function speakItem(item,kind){
   try{
     if(!('speechSynthesis' in window))return;
     const u=new SpeechSynthesisUtterance(item.text),v=speechSynthesis.getVoices();
-    u.lang=SPEECH[lang];u.voice=pickVoice(v);u.rate=rate;
+    u.lang=SPEECH[clang];u.voice=pickVoice(v);u.rate=rate;
     speechSynthesis.cancel();speechSynthesis.speak(u);
   }catch(e){}
 }
@@ -1062,7 +1087,7 @@ const ICONS={
 const clean=x=>x.replace(t('navIntro'),'').replace('Directions to the next stop. ','');
 function turnKind(t){const m=/(turn|bear|keep) (left|right)|straight|head/i.exec(t);if(!m||!m[2])return 'straight';return (/turn/i.test(m[1])?'':'s')+m[2].toLowerCase();}
 const firstClause=x=>clean(x).split(new RegExp(t('thenSplit')))[0].replace(/\.$/,'');
-const FAR=20000; // metres from the route: not in Berlin yet
+const FAR=20000; // metres from the route: not in the tour's city yet
 const far=(p=me)=>!!p&&snap(p,null).d>FAR;
 function navTarget(){ // the next unheard stop ahead of you on the route
   if(ridePos!=null)for(let i=startAt;i<STOPS.length;i++)if(!played.has(STOPS[i].id)&&stopCum[i]>=ridePos-P.radius)return i;
@@ -1090,7 +1115,7 @@ function updateNav0(){
       const r=snap(me,ridePos),b=bearing(me,r.pt),rel=heading!=null?b-heading:b,away=heading!=null&&Math.abs(((rel%360)+540)%360-180)>120;
       guideTo=r.pt;banner('straight',fmtDist(r.d),away?t('turnAroundBack'):t('headBack'),t('continueTo',{n:ti+1,title:s.title}),true,rel);
     }else if(far()){
-      banner('wait',fmtDist(dist(me,[s.lat,s.lng])),t('farTitle'),t('farSub'));
+      banner('wait',fmtDist(dist(me,[s.lat,s.lng])),t('farTitle',{city:cityName(TOUR.city)}),t('farSub'));
     }else if(!onRoute||ridePos==null||stopCum[ti]<ridePos){
       guideTo=[s.lat,s.lng];banner('straight',fmtDist(dist(me,guideTo)),t('headTo',{n:ti+1,title:s.title}),t('dottedLine'));
     }else{
@@ -1151,12 +1176,12 @@ function begin(test){
   else{navPlaying=true;audio.src=SILENT;const p=audio.play();if(p&&p.catch)p.catch(()=>{navPlaying=false;});}
   ridePos=null;heading=null;preDone.clear();enterNav();
   try{speechSynthesis.speak(new SpeechSynthesisUtterance(''));}catch(e){} // iPhone only speaks after a tap has used it once
-  if(test){played=new Set();pending=null;queue=[];moreFor=null;current=INTRO;startedAt=Date.now();leg=-1;navIdx=0;store.set('bd_played',[]);simPos=simStart();render();toggleSim(true);}
+  if(test){played=new Set();pending=null;queue=[];moreFor=null;current=INTRO;startedAt=Date.now();leg=-1;navIdx=0;store.set(K('bd_played'),[]);simPos=simStart();render();toggleSim(true);}
   else startGPS();
 }
 $('startBtn').onclick=()=>begin(false);
 $('testBtn').onclick=()=>begin(true);
-$('reset').onclick=()=>{if(confirm(t('resetConfirm'))){played=new Set();queue=[];pending=null;current=null;resume=null;ridePos=null;preDone.clear();moreFor=null;bonusSkipped.clear();stopTTS();renderMore();leg=-1;navIdx=0;store.set('bd_played',[]);simPos=simStart();startedAt=null;audio.pause();setPlay(PLAY);render(true);renderNav();}};
+$('reset').onclick=()=>{if(confirm(t('resetConfirm'))){played=new Set();queue=[];pending=null;current=null;resume=null;ridePos=null;preDone.clear();moreFor=null;bonusSkipped.clear();stopTTS();renderMore();leg=-1;navIdx=0;store.set(K('bd_played'),[]);simPos=simStart();startedAt=null;audio.pause();setPlay(PLAY);render(true);renderNav();}};
 /* ---------- starting point ---------- */
 const kmStr=m=>{const v=(m/1000).toFixed(1);return lang==='en'?v:v.replace('.',',');};
 const extras=()=>BONUS.filter(b=>bonusOn.has(b.id)&&bonusAfter(b.after)>=startAt);
@@ -1172,8 +1197,7 @@ function renderStart(){
   const m=tourMinutes();
   const hrs=n=>t('hours',{n:lang==='en'?n:String(n).replace('.',',')});
   $('factTime').textContent=m>=150?hrs(Math.round(m/30)/2):m>=60?hrs(+(Math.round(m/15)/4).toFixed(1)):t('minutes',{n:Math.max(15,Math.round(m/15)*15)});
-  const st0=STOPS[startAt].title;
-  $('ledeMain').textContent=t('lede',{start:lang==='en'?(startAt===0?'the Reichstag':st0.replace(/^The /,'the ')):lang==='nl'?st0.replace(/^(De|Het) /,m=>m.toLowerCase()):st0});
+  $('ledeMain').textContent=t('lede',{start:shortOf(STOPS[startAt]),end:shortOf(STOPS[STOPS.length-1])});
   $('startBtn').textContent=activeStops().some(s=>played.has(s.id))?t('continueTour'):t('startTour');
   $('ledeMode').textContent=t({tap:'ledeTap',stopped:'ledeStopped',auto:'ledeAuto'}[storyMode]);
   if(uiReady)renderMeta();
@@ -1182,7 +1206,7 @@ const sel=$('startSel');
 STOPS.forEach((s,i)=>{const o=document.createElement('option');o.value=i;o.textContent=`${i+1}. ${s.title}`;sel.appendChild(o);});
 sel.value=startAt;
 sel.onchange=()=>{
-  startAt=+sel.value; store.set('bd_start',startAt);
+  startAt=+sel.value; store.set(K('bd_start'),startAt);
   queue=queue.filter(s=>active(STOPS.indexOf(s))); if(pending&&!active(STOPS.indexOf(pending)))pending=null;
   leg=-1; navIdx=0; if(!simOn)simPos=simStart();
   renderStart(); render(true); renderNav();
@@ -1203,10 +1227,12 @@ function gSend(m){if(gws&&gws.readyState===1)gws.send(JSON.stringify({...m,membe
 function groupConnect(create){
   if(gws)try{gws.onclose=null;gws.close();}catch(e){}
   const ws=new WebSocket(`${location.protocol==='https:'?'wss':'ws'}://${location.host}/group`);gws=ws;
-  ws.onopen=()=>{gRetry=0;ws.send(JSON.stringify(create?{t:'create',member:memberId,name:group.name}:{t:'join',member:memberId,name:group.name,code:group.code,leaderKey:group.leaderKey}));};
+  ws.onopen=()=>{gRetry=0;ws.send(JSON.stringify(create?{t:'create',member:memberId,name:group.name,tour:TOUR.path}:{t:'join',member:memberId,name:group.name,code:group.code,leaderKey:group.leaderKey}));};
   ws.onmessage=e=>{let m;try{m=JSON.parse(e.data);}catch(x){return;}
     if(m.now)gOffset=m.now-Date.now();
     if(m.t==='error'){if(m.error==='no-group'){groupLeave(true);groupErr(t('groupNoCode'));}else groupErr(t('groupFail'));return;}
+    if(m.t==='joined'&&m.tour&&m.tour!==TOUR.path&&CATALOGUE.some(x=>x.path===m.tour&&x.ready)){ // follow the leader onto their tour
+      store.set('bd_group',group);store.set('bd_tour',m.tour);location.replace(location.pathname+'?group='+encodeURIComponent(m.code));return;}
     if(m.t==='joined'){gOnline=true;gLeader=!!m.leader;group={...group,code:m.code,...(m.leaderKey?{leaderKey:m.leaderKey}:{})};store.set('bd_group',group);
       gMembers=m.members;renderGroup();if(gLeader){lastPush='';groupPush();}else if(m.state)applyState(m.state);return;}
     if(m.t==='members'){gMembers=m.members;renderGroup();return;}
@@ -1283,8 +1309,8 @@ $('groupCreate').onclick=()=>groupStart(true);
 $('groupJoin').onclick=()=>groupStart(false);
 $('groupCode').onkeydown=e=>{if(e.key==='Enter')groupStart(false);};
 $('groupLeave').onclick=()=>groupLeave(false);
-$('groupShare').onclick=async()=>{const url=`${location.origin}${location.pathname}?group=${group.code}`,text=t('shareText',{code:group.code});
-  try{if(navigator.share)await navigator.share({title:'Berlin divided',text,url});else{await navigator.clipboard.writeText(`${text}: ${url}`);$('groupShare').querySelector('span').textContent=t('copied');}}catch(e){}};
+$('groupShare').onclick=async()=>{const url=`${location.origin}${location.pathname}?group=${group.code}`,text=t('shareText',{code:group.code,tour:TITLE});
+  try{if(navigator.share)await navigator.share({title:TITLE,text,url});else{await navigator.clipboard.writeText(`${text}: ${url}`);$('groupShare').querySelector('span').textContent=t('copied');}}catch(e){}};
 $('playBtn').addEventListener('click',()=>{if(following()&&current&&gState&&current.id===gState.track)gHeld=!audio.paused;},true);
 {const q=new URLSearchParams(location.search).get('group');if(q&&/^[a-z]{4}$/i.test(q)&&!(group&&group.code===q.toUpperCase()))$('groupCode').value=q.toUpperCase();}
 if(!('WebSocket' in window)){$('groupPick').hidden=true;$('toLobby').hidden=true;$('tileGroup').hidden=true;}
@@ -1298,8 +1324,9 @@ function offlineMsg(text,cls){for(const id of ['offlineStart','offlineFoot']){co
 async function downloadTour(){
   if(!('caches' in window))return;
   try{
-    const cache=await caches.open('bd-audio'),want=new Set(AUDIO_FILES.map(f=>new URL(f,location.href).href));
-    for(const r of await cache.keys())if(!want.has(r.url))cache.delete(r); // files from an older version of the tour
+    const cache=await caches.open(`bd-tour:${TOUR.path}`),want=new Set(AUDIO_FILES.map(f=>new URL(f,location.href).href));
+    for(const r of await cache.keys())if(!want.has(r.url))cache.delete(r); // files from an older version of this tour
+    caches.delete('bd-audio').catch(()=>{}); // the single cache from before there were several tours
     const missing=[];for(const u of want)if(!await cache.match(u))missing.push(u);
     let done=want.size-missing.length;
     const show=()=>offlineMsg(done<want.size?t('downloading',{p:Math.round(done/want.size*100)}):t('downloaded'),done<want.size?'busy':'ready');
@@ -1422,21 +1449,33 @@ function renderOfflineChip(text,cls){$('chipOffline').innerHTML=`${SVG.wifi}${cl
 // a rough distance on the home card, only if location access was already granted
 try{navigator.permissions&&navigator.permissions.query({name:'geolocation'}).then(p=>{if(p.state==='granted')navigator.geolocation.getCurrentPosition(q=>{homePos=[q.coords.latitude,q.coords.longitude];renderHome();},()=>{},{maximumAge:600000,timeout:15000});}).catch(()=>{});}catch(e){}
 $('homeCard').onclick=()=>go('detail');
-$('tourCard').onclick=()=>go('detail');
 $('homeSettings').onclick=()=>go('settings');
 $('tileStart').onclick=()=>go('detail');
 $('tileGroup').onclick=()=>go('lobby');
 document.querySelectorAll('#tabbar [data-go]').forEach(b=>{b.onclick=()=>go(b.dataset.go);});
+// the catalogue: city chips, then that city's tours; picking another tour reloads the app with it
+const fmtMins=m=>m>=60?t('hours',{n:(Math.round(m/15)/4).toFixed(m%60?1:0).replace(/\.0$/,'').replace('.',lang==='en'?'.':',')}):t('minutes',{n:Math.max(15,Math.round(m/15)*15)});
+let cityPick=TOUR.city;
 function renderTours(){
-  $('tourTile').innerHTML=travel==='walk'?SVG.walk:SVG.bike;
-  $('tourStops').textContent=STOPS.length-startAt;
-  $('tourTime').innerHTML=`${SVG.clock.replace('<svg','<svg style="stroke:var(--muted)"')}${$('factTime').textContent}`;
+  const cities=[...new Set(CATALOGUE.map(x=>x.city))].sort((a,b)=>cityName(a).localeCompare(cityName(b),lang));
+  $('cityChips').innerHTML=cities.map(c=>`<button class="chip${c===cityPick?' on':''}" role="tab" aria-selected="${c===cityPick}" data-city="${esc(c)}">${esc(cityName(c))}</button>`).join('');
+  $('cityChips').querySelectorAll('button').forEach(b=>{b.onclick=()=>{cityPick=b.dataset.city;renderTours();};});
+  $('tourList').innerHTML=CATALOGUE.filter(x=>x.city===cityPick).map(x=>{
+    const cur=x.path===TOUR.path;
+    const meta=x.ready?`<span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" fill="currentColor"/><circle cx="12" cy="12" r="8"/></svg><b>${x.stops}</b> ${t('stops')}</span><span><b>${x.distance_km!=null?kmStr(x.distance_km*1000):'?'}</b> ${t('km')}</span><span>${x.duration_min?fmtMins(x.duration_min):''}</span>`
+      :`<span>${x.stops} ${t('stops')} · ${t('comingSoon')}</span>`;
+    return `<button class="tourcard" data-path="${esc(x.path)}"${x.ready?'':' disabled'}><div class="tile">${x.mode==='walk'?SVG.walk:SVG.bike}</div>
+      <div style="flex:1;min-width:0"><b>${esc(cur?TITLE:x.title)}${cur?`<span class="tag">${t('current')}</span>`:''}</b><small>${esc(cur&&DATA.subtitle||x.subtitle)}</small><div class="meta">${meta}</div></div></button>`;}).join('');
+  $('tourList').querySelectorAll('button').forEach(b=>{b.onclick=()=>{
+    if(b.dataset.path===TOUR.path){go('detail');return;}
+    if(group)groupLeave(false);
+    store.set('bd_tour',b.dataset.path);location.replace(location.pathname);};});
 }
 
 /* ---------- detail ---------- */
 function renderMeta(){
   $('routePill').textContent=routeName();$('routeTitle').textContent=routeName();
-  $('lobbySub').textContent=`Berlin divided · ${STOPS.length-startAt} ${t('stops')}`;
+  $('lobbySub').textContent=`${TITLE} · ${STOPS.length-startAt} ${t('stops')}`;
   $('lobbyRoute').textContent=`${$('factKm').textContent} · ${STOPS.length-startAt} ${t('stops')} · ${$('factTime').textContent}`;
   renderHome();
 }
@@ -1486,7 +1525,7 @@ function updateRide(){
 }
 $('offBack').onclick=()=>{offDismissed=true;setMode(true);updateRide();};
 $('offPill').onclick=()=>{offDismissed=false;updateRide();};
-function setTravel(v){travel=v;P=PROFILES[travel];store.set('bd_travel',travel);renderStart();renderMePin();renderSettings();updateRide();}
+function setTravel(v){travel=v;P=PROFILES[travel];store.set(K('bd_travel'),travel);renderStart();renderMePin();renderSettings();updateRide();}
 $('segBike').onclick=()=>setTravel('bike');$('segWalk').onclick=()=>setTravel('walk');
 function renderMePin(){const e=meDot&&meDot.getElement();if(e)e.querySelector('i').innerHTML=travel==='walk'?SVG.walk:SVG.bike;}
 
@@ -1496,7 +1535,7 @@ function renderStory(){
   const x=current&&current!==INTRO&&current!==OUTRO?current:(pending||current);
   const s=x&&(x.stop||x),i=s?STOPS.indexOf(s):-1;
   $('storyPill').textContent=x?kickerFor(x):t('intro');
-  $('storyPlace').textContent=s&&(i>=0||s.bonus)?shortOf(s):'Berlin divided';
+  $('storyPlace').textContent=s&&(i>=0||s.bonus)?shortOf(s):TITLE;
   $('storyArtNum').textContent=i>=0?i+1:s&&s.bonus?'+':'';
   $('storyArtName').textContent=s&&(i>=0||s.bonus)?s.title:'';
   setNow(false);
@@ -1520,20 +1559,20 @@ function showComplete(){
   if(mins>=60){$('cTime').textContent=`${Math.floor(mins/60)}:${String(mins%60).padStart(2,'0')}`;$('cTimeUnit').textContent=lang==='de'?'Std.':lang==='nl'?'u':'h';}
   else{$('cTime').textContent=mins;$('cTimeUnit').textContent=t('min');}
   $('cStories').textContent=`${heard()}/${activeStops().length}`;
-  $('completeSub').textContent=t(travel==='walk'?'completeWalk':'completeRide');
+  $('completeSub').textContent=t(travel==='walk'?'completeWalk':'completeRide',{tour:TITLE});
   renderStars();go('complete');
 }
 function renderStars(){
-  const r=store.get('bd_rating',0);$('stars').innerHTML='';
+  const r=store.get(K('bd_rating'),0);$('stars').innerHTML='';
   for(let n=1;n<=5;n++){const b=document.createElement('button');b.textContent='★';b.className=n<=r?'on':'';b.setAttribute('aria-label',`${n}/5`);
-    b.onclick=()=>{store.set('bd_rating',n);renderStars();};$('stars').appendChild(b);}
+    b.onclick=()=>{store.set(K('bd_rating'),n);renderStars();};$('stars').appendChild(b);}
   $('rateThanks').hidden=!r;
 }
 ['#F5A623','#FF6B6B','#4ECDC4','#FFE66D','#fff','#FF6B6B','#fff','#4ECDC4','#F5A623','#FFE66D'].forEach((c,i)=>{const d=document.createElement('i');d.style.background=c;
   d.style.top=`${15+(i%5)*13}%`;d.style[i<5?'left':'right']=`${8+(i%5)*17}%`;$('hero').appendChild(d);});
 $('completeHome').onclick=()=>go('home');
-$('shareRide').onclick=async()=>{const text=t('shareRideText',{km:$('cDist').textContent,n:$('cStories').textContent.split('/')[0]}),url=location.origin+location.pathname;
-  try{if(navigator.share)await navigator.share({title:'Berlin divided',text,url});else{await navigator.clipboard.writeText(`${text} ${url}`);$('shareRide').querySelector('span').textContent=t('copied');}}catch(e){}};
+$('shareRide').onclick=async()=>{const text=t('shareRideText',{tour:TITLE,km:$('cDist').textContent,n:$('cStories').textContent.split('/')[0]}),url=location.origin+location.pathname;
+  try{if(navigator.share)await navigator.share({title:TITLE,text,url});else{await navigator.clipboard.writeText(`${text} ${url}`);$('shareRide').querySelector('span').textContent=t('copied');}}catch(e){}};
 
 /* ---------- settings ---------- */
 function renderSettings(){
@@ -1563,7 +1602,7 @@ function buildBonusRows(){
     r.querySelector('b').textContent=b.title;
     r.querySelector('small').textContent=a===STOPS.length-1?t('afterLast',{km:kmStr(b.detour)}):t('detourAfter',{km:kmStr(b.detour),n:a+1});
     const tg=r.querySelector('button');tg.value=b.id;tg.setAttribute('aria-label',b.title);tg.setAttribute('aria-checked',bonusOn.has(b.id));
-    tg.onclick=()=>{bonusOn.has(b.id)?bonusOn.delete(b.id):bonusOn.add(b.id);store.set('bd_bonus',[...bonusOn]);tg.setAttribute('aria-checked',bonusOn.has(b.id));renderStart();render(true);};
+    tg.onclick=()=>{bonusOn.has(b.id)?bonusOn.delete(b.id):bonusOn.add(b.id);store.set(K('bd_bonus'),[...bonusOn]);tg.setAttribute('aria-checked',bonusOn.has(b.id));renderStart();render(true);};
     $('bonusPick').appendChild(r);});
   $('bonusPick').hidden=!BONUS.length;$('bonusPick').previousElementSibling.hidden=!BONUS.length;
 }

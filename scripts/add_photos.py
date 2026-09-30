@@ -2,8 +2,8 @@
 """Add "then and now" photos from Wikimedia Commons to a tour, with licence checks.
 
 Usage (from the repo root, needs internet access to commons.wikimedia.org):
-    python scripts/add_photos.py                    # process scripts/photos.json
-    python scripts/add_photos.py --dry-run          # only check licences, change nothing
+    python scripts/add_photos.py                                       # Berlin, scripts/photos.json
+    python scripts/add_photos.py --tour berlin-divided/tours/berlin/divided --dry-run  # only check licences
 
 scripts/photos.json lists one candidate per stop:
     [{"stop": "charlie", "file": "File:....jpg", "caption": "American tanks at Checkpoint Charlie"}]
@@ -11,7 +11,7 @@ scripts/photos.json lists one candidate per stop:
 For each candidate the script asks the Commons API for the file's licence, author, date and
 source, and only accepts public domain, CC0, CC BY and CC BY-SA. Anything else (NC, ND, GFDL,
 fair use, unknown) is rejected and reported. Accepted images are downloaded at 1024 px wide into
-<tour>/photos/ (served by the app, cached for offline use) and written to the stop's "photo" field
+<tour folder>/photos/ (served by the app, cached for offline use) and written to the stop's "photo" field
 together with everything needed for attribution. Nothing is hotlinked.
 """
 import argparse
@@ -26,7 +26,7 @@ import urllib.request
 
 API = "https://commons.wikimedia.org/w/api.php"
 # Wikimedia asks for a descriptive user agent with a way to reach the maintainer
-UA = "berlin-divided-tour/1.0 (https://github.com/etzy123/toursjelle) python-urllib"
+UA = "audio-tours/1.0 (https://github.com/etzy123/toursjelle) python-urllib"
 ALLOWED = re.compile(r"^(public domain|pd(-[\w.-]+)?|cc0( 1\.0)?|cc[ -]by(-sa)?[ -]\d\.\d( [a-z]{2,})?)$", re.I)
 
 
@@ -66,13 +66,13 @@ def lookup(file_title):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--tour", default="berlin-divided")
+    ap.add_argument("--tour", default="berlin-divided/tours/berlin/divided", help="the tour folder")
     ap.add_argument("--list", default="scripts/photos.json")
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
 
     root = args.tour
-    json_path = os.path.join(root, "data", os.path.basename(os.path.normpath(root)) + ".json")
+    json_path = os.path.join(root, "tour.json")
     tour = json.load(open(json_path, encoding="utf-8"))
     places = {s["id"]: s for s in tour["stops"] + tour.get("bonus", [])}
     wanted = json.load(open(args.list, encoding="utf-8"))

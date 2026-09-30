@@ -1,4 +1,4 @@
-// End-to-end ride tests for Berlin divided.
+// End-to-end ride tests for the audio tours app, on the Berlin divided tour.
 // Fakes the phone's GPS along the real route in Chromium and checks what the app says and plays.
 //
 //   (cd berlin-divided && npm install) && cd tests && npm install && npm test
@@ -14,7 +14,16 @@ import { chromium } from 'playwright';
 import { start } from './server.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../berlin-divided');
-const TOUR = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/berlin-divided.json'), 'utf8'));
+const BASE = 'tours/berlin/divided/', KEY = k => `${k}:berlin/divided`;
+// the tour in the shape the app works with (same as adapt() in index.html): clips as paths from the app root
+function adapt(T) {
+  const u = p => p && BASE + p;
+  const story = x => x && { ...x, text: x.script, more: x.more && story(x.more) };
+  return { ...T, stops: T.stops.map(story), bonus: (T.bonus || []).map(story),
+    nav: T.legs.map(l => l.steps.map(st => ({ ...st, clip: u(st.clip) }))), offroute: T.offroute && u(T.offroute.clip) };
+}
+const readTour = f => adapt(JSON.parse(fs.readFileSync(path.join(ROOT, BASE, f), 'utf8')));
+const TOUR = readTour('tour.json');
 const ROUTE = TOUR.route;
 
 // ---------- geometry, same maths as the app ----------
@@ -52,7 +61,7 @@ async function openTour({ mode = 'tap', travel = 'bike', bonus = [], at = ROUTE[
     viewport: { width: 390, height: 800 }, geolocation: geo(at), permissions: ['geolocation'], serviceWorkers, locale,
   });
   await ctx.route(/tile\.openstreetmap\.org|basemaps\.cartocdn\.com|fonts\.googleapis\.com|fonts\.gstatic\.com/, r => r.abort());
-  await ctx.addInitScript(([m, t, b]) => { if (!sessionStorage.seeded) { localStorage.clear(); localStorage.setItem('bd_storymode', JSON.stringify(m)); localStorage.setItem('bd_travel', JSON.stringify(t)); localStorage.setItem('bd_bonus', JSON.stringify(b)); sessionStorage.seeded = 1; } }, [mode, travel, bonus]);
+  await ctx.addInitScript(([m, t, b]) => { if (!sessionStorage.seeded) { localStorage.clear(); localStorage.setItem('bd_storymode', JSON.stringify(m)); localStorage.setItem('bd_travel:berlin/divided', JSON.stringify(t)); localStorage.setItem('bd_bonus:berlin/divided', JSON.stringify(b)); sessionStorage.seeded = 1; } }, [mode, travel, bonus]);
   // headless Chromium has no voices; a stand-in that "speaks" each sentence in 20 ms keeps runs deterministic
   await ctx.addInitScript(() => {
     const q = []; let busy = false;
@@ -212,9 +221,9 @@ test('bonus stop: detour after its stop, story, back to the route; can be skippe
 test('then and now: the stop photo shows with its credit and licence, and opens full size', async () => {
   const { ctx, page, errors } = await openTour({ mode: 'tap' });
   // no photos are downloaded yet, so give the first stop one (the app icon) through the tour JSON
-  const photo = { src: 'icons/icon-512.png', caption: 'A test photo', year: '1961', author: 'Test Author',
+  const photo = { src: '/icons/icon-512.png', caption: 'A test photo', year: '1961', author: 'Test Author',
     licence: 'CC BY-SA 3.0 de', licenceUrl: 'https://creativecommons.org/licenses/by-sa/3.0/de/deed.en', source: 'https://commons.wikimedia.org/wiki/File:Test.jpg' };
-  await page.route('**/data/berlin-divided.json', async r => {
+  await page.route('**/tours/berlin/divided/tour.json', async r => {
     const j = await (await r.fetch()).json(); j.stops[0].photo = photo; r.fulfill({ json: j });
   });
   await page.reload(); await page.waitForFunction(() => !document.getElementById('startBtn').disabled);
@@ -281,7 +290,7 @@ test('group ride: followers hear the leader\'s story in step and see each other 
   assert.ok(!(await log(fol.page)).some(x => x.kind === 'story' && x.id === 'potsdamer'), 'follower\'s own position does not start stories');
 
   // the leader reloads the page and is still the leader
-  await lead.page.reload(); await lead.page.waitForFunction(() => __tour.group && __tour.group.online);
+  await lead.page.reload(); await lead.page.waitForFunction(() => window.__tour && __tour.group && __tour.group.online);
   assert.equal(await lead.page.evaluate(() => __tour.group.leader), true);
   assert.deepEqual([...lead.errors, ...fol.errors], []);
   await lead.ctx.close(); await fol.ctx.close();
@@ -299,12 +308,12 @@ test('group ride: a wrong code says so', async () => {
 });
 
 test('languages: Dutch from the phone setting, spoken and shown in Dutch; switch to German', { timeout: 180000 }, async () => {
-  const NL = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/berlin-divided.nl.json'), 'utf8'));
+  const NL = readTour('tour.nl.json');
   const { ctx, page, errors } = await openTour({ mode: 'auto', locale: 'nl-NL', at: [52.5203, 13.3738] });
   assert.equal(await page.evaluate(() => __tour.lang), 'nl');
   assert.equal(await page.textContent('#startBtn'), 'Start de tour');
   assert.equal(await page.textContent('#factHow'), 'op de fiets');
-  assert.match(await page.textContent('#ledeMain'), /van de Rijksdag en de luchtbrug naar de Bernauer Straße/);
+  assert.match(await page.textContent('#ledeMain'), /van Rijksdag naar Bernauer Straße/);
   assert.equal(await page.getAttribute('[data-lang="nl"]', 'aria-checked'), 'true');
   await startTour(page);
   const spoken = () => page.evaluate(() => window.__spoken.join(' | '));
@@ -332,7 +341,7 @@ test('languages: Dutch from the phone setting, spoken and shown in Dutch; switch
   await page.waitForFunction(() => window.__tour && __tour.lang === 'de');
   await page.waitForFunction(() => !document.getElementById('startBtn').disabled);
   assert.equal(await page.textContent('#startBtn'), 'Tour fortsetzen');
-  assert.match(await page.textContent('#ledeMain'), /Start: Der Reichstag und die Luftbrücke, Ziel: Bernauer Straße/);
+  assert.match(await page.textContent('#ledeMain'), /Start: Reichstag, Ziel: Bernauer Straße/);
   assert.equal(await page.textContent('#factHow'), 'mit dem Rad');
   assert.deepEqual(errors, []);
   await ctx.close();
@@ -354,7 +363,7 @@ test('settings: story start, voice speed and tour mode; continuing skips the int
   assert.equal(await page.evaluate(() => __tour.travel), 'walk');
   assert.equal(await page.textContent('#factHow'), 'on foot');
   // a tour already under way: starting again goes straight on, without the introduction
-  await page.evaluate(() => localStorage.setItem('bd_played', JSON.stringify(['reichstag'])));
+  await page.evaluate(() => localStorage.setItem('bd_played:berlin/divided', JSON.stringify(['reichstag'])));
   await page.reload(); await page.waitForFunction(() => !document.getElementById('startBtn').disabled);
   assert.equal(await page.evaluate(() => document.getElementById('audio').defaultPlaybackRate), 1.25, 'speed is remembered');
   assert.equal(await page.textContent('#startBtn'), 'Continue the tour');
@@ -389,12 +398,89 @@ test('no untranslated text names on any screen, in any language', { timeout: 120
   }
 });
 
+// a second, made-up city in the catalogue: its ready tour reuses Berlin's data under another name
+async function withTestCity(ctx) {
+  await ctx.route('**/tours/index.json', async r => {
+    const j = await (await r.fetch()).json();
+    j.tours.push({ path: 'amsterdam/test', id: 'test', city: 'amsterdam', title: 'Test tour', subtitle: 'For the tests', mode: 'walk', distance_km: 4.2, duration_min: 95, stops: 11, ready: true, langs: [], order: 1 },
+      { path: 'amsterdam/later', id: 'later', city: 'amsterdam', title: 'Later tour', subtitle: '', mode: 'bike', stops: 7, ready: false, langs: [], order: 2 });
+    r.fulfill({ json: j });
+  });
+  await ctx.route('**/tours/amsterdam/test/tour.json', async r => {
+    const j = JSON.parse(fs.readFileSync(path.join(ROOT, BASE, 'tour.json'), 'utf8'));
+    j.id = 'test'; j.city = 'amsterdam'; j.title = 'Test tour'; j.mode = 'walk';
+    const up = x => x && x.replace(/^audio\//, '../../berlin/divided/audio/');
+    for (const x of [j.intro, j.outro, ...j.stops, ...j.bonus]) { x.audio = up(x.audio); if (x.more) x.more.audio = up(x.more.audio); }
+    for (const l of j.legs) for (const st of l.steps) st.clip = up(st.clip);
+    j.offroute.clip = up(j.offroute.clip);
+    r.fulfill({ json: j });
+  });
+}
+
+test('catalogue: city chips, tours per city, coming soon, switching tours keeps progress apart', async () => {
+  const { ctx, page, errors } = await openTour();
+  await withTestCity(ctx);
+  await page.evaluate(() => localStorage.setItem('bd_played:berlin/divided', JSON.stringify(['reichstag'])));
+  await page.reload(); await page.waitForFunction(() => !document.getElementById('startBtn').disabled);
+  assert.equal(await page.textContent('#brandCity'), 'Berlin');
+  await page.click('#tabbar [data-go="tours"]');
+  assert.deepEqual(await page.$$eval('#cityChips button', b => b.map(x => x.textContent)), ['Amsterdam', 'Berlin']);
+  assert.match(await page.textContent('#tourList'), /Berlin divided\s*Current/);
+  await page.click('#cityChips [data-city="amsterdam"]');
+  assert.equal(await page.$$eval('#tourList button', b => b.length), 2);
+  assert.equal(await page.isDisabled('#tourList [data-path="amsterdam/later"]'), true, 'a tour without a route is not ready');
+  assert.match(await page.textContent('#tourList [data-path="amsterdam/later"]'), /Coming soon/);
+  assert.match(await page.textContent('#tourList [data-path="amsterdam/test"]'), /4\.2 km/);
+  await page.click('#tourList [data-path="amsterdam/test"]');
+  await page.waitForFunction(() => document.getElementById('brandCity')?.textContent === 'Amsterdam');
+  await page.waitForFunction(() => !document.getElementById('startBtn').disabled);
+  assert.equal(await page.textContent('#homeCard .name'), 'Test tour');
+  assert.equal(await page.evaluate(() => __tour.travel), 'walk', 'a walking tour starts on foot');
+  assert.deepEqual(await page.evaluate(() => __tour.played), [], 'progress is kept per tour');
+  await startTour(page);
+  await page.waitForFunction(() => __tour.current === 'intro');
+  // back to Berlin: its progress is still there
+  await page.evaluate(() => { localStorage.setItem('bd_tour', JSON.stringify('berlin/divided')); location.replace(location.pathname); });
+  await page.waitForFunction(() => window.__tour && document.getElementById('brandCity')?.textContent === 'Berlin');
+  assert.deepEqual(await page.evaluate(() => __tour.played), ['reichstag']);
+  assert.deepEqual(errors, []);
+  await ctx.close();
+});
+
+test('catalogue: progress from before there were several tours carries over to Berlin', async () => {
+  const { ctx, page, errors } = await openTour();
+  await page.evaluate(() => { for (const k of Object.keys(localStorage)) if (k.includes(':')) localStorage.removeItem(k); localStorage.setItem('bd_played', JSON.stringify(['reichstag', 'gate'])); localStorage.setItem('bd_start', '1'); });
+  await page.reload(); await page.waitForFunction(() => !document.getElementById('startBtn').disabled);
+  assert.deepEqual(await page.evaluate(() => __tour.played), ['reichstag', 'gate']);
+  assert.equal(await page.evaluate(() => JSON.parse(localStorage.getItem('bd_start:berlin/divided'))), 1);
+  assert.deepEqual(errors, []);
+  await ctx.close();
+});
+
+test('group ride: a follower on another tour switches to the leader\'s tour', { timeout: 60000 }, async () => {
+  const lead = await openTour();
+  await withTestCity(lead.ctx);
+  await lead.page.evaluate(() => localStorage.setItem('bd_tour', JSON.stringify('amsterdam/test')));
+  await lead.page.reload(); await lead.page.waitForFunction(() => document.getElementById('brandCity')?.textContent === 'Amsterdam');
+  await lead.page.click('#tileGroup'); await lead.page.fill('#groupName', 'Anna'); await lead.page.click('#groupCreate');
+  await lead.page.waitForFunction(() => __tour.group && __tour.group.online && __tour.group.code);
+  const code = await lead.page.textContent('#groupCodeShow');
+  const fol = await openTour();
+  await withTestCity(fol.ctx);
+  await fol.page.reload(); await fol.page.waitForFunction(() => !document.getElementById('startBtn').disabled);
+  await fol.page.click('#tileGroup'); await fol.page.fill('#groupName', 'Ben'); await fol.page.fill('#groupCode', code); await fol.page.click('#groupJoin');
+  await fol.page.waitForFunction(() => window.__tour && document.getElementById('brandCity')?.textContent === 'Amsterdam' && __tour.group && __tour.group.online, null, { timeout: 15000 });
+  assert.equal(await fol.page.evaluate(() => __tour.group.members), 2);
+  assert.deepEqual([...lead.errors, ...fol.errors], []);
+  await lead.ctx.close(); await fol.ctx.close();
+});
+
 test('far from Berlin: says so instead of a long dotted line; app code is never kept stale', async () => {
   const { ctx, page, errors } = await openTour({ at: [52.3702, 4.8952] }); // Amsterdam
   await startTour(page);
   await page.waitForFunction(() => document.getElementById('navInstr').textContent === 'You are not in Berlin yet');
   assert.equal(await page.textContent('#navEta'), '');
-  for (const f of ['', 'strings.js', 'strings.js?v=5', 'data/berlin-divided.json', 'sw.js'])
+  for (const f of ['', 'strings.js', 'strings.js?v=6', 'tours/index.json', BASE + 'tour.json', 'sw.js'])
     assert.equal((await fetch(server.url + f)).headers.get('cache-control'), 'no-cache', `${f || 'index'} is revalidated`);
   assert.match((await fetch(server.url + 'vendor/leaflet/leaflet.js')).headers.get('cache-control'), /max-age/);
   assert.deepEqual(errors, []);
