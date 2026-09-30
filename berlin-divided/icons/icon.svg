@@ -1,4 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512"><rect width="512" height="512" fill="#584DD3"/>
-<g transform="translate(256 262) scale(1) translate(-256 -256)" fill="none" stroke="#fff" stroke-width="26" stroke-linecap="round" stroke-linejoin="round">
-<circle cx="150" cy="320" r="72"/><circle cx="362" cy="320" r="72"/><path d="M150 320 214 196h116l32 124M214 196 196 146h-40M256 320l74-124M330 196l-14-50h40"/>
-</g><path d="M96 430h320" stroke="#fff" stroke-opacity=".35" stroke-width="14" stroke-dasharray="26 16" transform="translate(0 0)"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6C62E8"/><stop offset="1" stop-color="#4A3FC4"/></linearGradient></defs>
+<rect width="512" height="512" fill="url(#g)"/>
+<g transform="translate(256 256) scale(1) translate(-256 -256)">
+<path d="M78 420C142 376 186 440 236 414" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="18" stroke-linecap="round" stroke-dasharray="3 30"/>
+<path d="M256 450s-150-128-150-236a150 150 0 0 1 300 0c0 108-150 236-150 236z" fill="#fff"/>
+<circle cx="256" cy="214" r="56" fill="#584DD3"/>
+</g></svg>
