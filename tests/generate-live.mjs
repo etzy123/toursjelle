@@ -16,6 +16,7 @@ let places = 0, withSummary = 0;
 const anthropic = { beta: { messages: { stream(params) {
   const ctx = JSON.parse(params.messages[0].content);
   places = ctx.places.length; withSummary = ctx.places.filter(p => p.summary).length;
+  console.log('  top candidates: ' + ctx.places.slice(0, 10).map(p => `${p.name} (${p.monthly_readers}/month)`).join(', '));
   // the best-ranked places, visited nearest-first from the start
   const left = ctx.places.slice(0, ctx.stops_wanted), pick = [];
   let at = [ctx.start.lat, ctx.start.lng];

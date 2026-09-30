@@ -55,13 +55,14 @@ async function wikiNearby(fetchImpl, lang, lat, lng, radius) {
   for (let i = 0; i < hits.length; i += 20) batches.push(hits.slice(i, i + 20));
   const out = [];
   await Promise.all(batches.map(async batch => { // all at once: a few requests of 20 articles each
-    const ex = await getJSON(fetchImpl, `${api}&prop=extracts%7Cdescription&exintro=1&explaintext=1&exlimit=20&titles=${encodeURIComponent(batch.map(h => h.title).join('|'))}`, { timeout: 12000 }).catch(() => ({}));
+    const ex = await getJSON(fetchImpl, `${api}&prop=extracts%7Cdescription%7Cpageviews&pvipdays=30&exintro=1&explaintext=1&exlimit=20&titles=${encodeURIComponent(batch.map(h => h.title).join('|'))}`, { timeout: 12000 }).catch(() => ({}));
     const pages = new Map(((ex.query && ex.query.pages) || []).map(pg => [pg.title, pg]));
     for (const h of batch) {
       const pg = pages.get(h.title) || {};
       if (!pg.extract || pg.extract.length < 120) continue; // stubs make poor stories
       if (AREA.test(pg.description || '')) continue; // districts and towns are where you are, not something to look at
       out.push({ name: h.title.replace(/ \([^)]*\)$/, ''), lat: h.lat, lng: h.lon, kind: pg.description || '', summary: pg.extract.slice(0, 1400), size: pg.extract.length,
+        views: Object.values(pg.pageviews || {}).reduce((t, v) => t + (v || 0), 0), // readers in the last 30 days
         url: `https://${lang}.wikipedia.org/wiki/${encodeURIComponent(h.title.replace(/ /g, '_'))}`, wiki: true });
     }
   }));
@@ -89,11 +90,12 @@ function merge(lat, lng, radius, lists) {
   const all = [];
   for (const x of lists.flat()) {
     const dupe = all.find(y => y.name.toLowerCase() === x.name.toLowerCase() || (dist([x.lat, x.lng], [y.lat, y.lng]) < 40 && (y.summary || !x.summary)));
-    if (dupe) { if (x.summary && (!dupe.summary || (x.size || 0) > (dupe.size || 0))) Object.assign(dupe, x); continue; } // keep the fuller article
+    if (dupe) { const views = Math.max(dupe.views || 0, x.views || 0); if (x.summary && (!dupe.summary || (x.size || 0) > (dupe.size || 0))) Object.assign(dupe, x); dupe.views = views; continue; } // keep the fuller article and the higher count
     all.push({ ...x });
   }
-  // a longer article is a fair sign of a more notable place; distance counts, but less, so a long tour gets a spread
-  const score = x => (x.summary ? 2 + Math.min(4, (x.size || x.summary.length) / 600) : 0) + (/attraction|museum|monument|church|castle|palace|memorial/i.test(x.kind) ? 1 : 0) - 0.7 * dist([lat, lng], [x.lat, x.lng]) / radius;
+  // how many people read about a place is the best sign of how notable it is; a longer article helps a little;
+  // distance counts, but less, so a long tour gets a spread
+  const score = x => (x.summary ? 2 + Math.log10(1 + (x.views || 0)) / 1.2 + Math.min(1.5, (x.size || x.summary.length) / 1200) : 0) + (/attraction|museum|monument|church|castle|palace|memorial/i.test(x.kind) ? 1 : 0) - 0.7 * dist([lat, lng], [x.lat, x.lng]) / radius;
   return all.filter(x => dist([lat, lng], [x.lat, x.lng]) <= radius * 1.2).sort((x, y) => score(y) - score(x)).slice(0, 40);
 }
 
@@ -101,7 +103,7 @@ async function places(fetchImpl, lat, lng, radius, langs, want = 6, maxRadius = 
   for (;;) {
     const lists = await Promise.all([...langs.map(l => wikiNearby(fetchImpl, l, lat, lng, radius).catch(() => [])), osmPlaces(fetchImpl, lat, lng, radius)]);
     const found = merge(lat, lng, radius, lists);
-    const notable = found.filter(x => (x.size || 0) >= 700).length; // an intro of a few paragraphs: something to tell
+    const notable = found.filter(x => (x.views || 0) >= 300 || (x.size || 0) >= 1200).length; // read by a few hundred a month, or a long intro
     if (notable >= want * 2 || radius >= maxRadius) return found;
     radius = Math.min(maxRadius, radius * 2); // a quiet suburb: look further out
   }
@@ -121,7 +123,7 @@ You get the traveller's start point, how long they have, how they travel, what i
 
 Choosing stops:
 - Use only places from the list, by number. Never invent a place.
-- Only choose places a visitor would be glad to stand in front of: landmarks, notable buildings, monuments, memorials, museums, historic sites, art in public space, parks or water with a story. Skip ordinary streets, offices, schools, shops, hotels, stations, sports grounds, companies and anything whose summary gives you no real story to tell. article_length is a rough sign of how much there is to say.
+- Only choose places a visitor would be glad to stand in front of: landmarks, notable buildings, monuments, memorials, museums, historic sites, art in public space, parks or water with a story. Skip ordinary streets, offices, schools, shops, hotels, stations, sports grounds, companies and anything whose summary gives you no real story to tell. monthly_readers (Wikipedia readers in the last 30 days) shows how well known a place is; article_length how much there is to say.
 - Fit the interests where you can, but a strong story beats a weak match.
 - Fewer good stops are better than more weak ones: choose as few as two if that is all that is worth it. If nothing on the list is worth a stop, return an empty stops list.
 - Order them as a route: the first stop is one of the closest to the start, each next stop is near the previous one, and there is no doubling back.
@@ -152,7 +154,7 @@ async function write(anthropic, req, p, list, city) {
     start: { lat: req.lat, lng: req.lng, city }, minutes: req.minutes, travel: req.mode === 'bike' ? 'cycling' : 'walking',
     language: LANG_NAME[req.lang] || 'English', stops_wanted: p.stops, words_per_stop: p.words, intro_words: 60, outro_words: 40,
     route_length_km: p.km, interests: (req.interests || []).map(i => INTERESTS[i]).filter(Boolean), wish: req.note || null,
-    places: list.map((x, i) => ({ number: i, name: x.name, kind: x.kind, metres_from_start: Math.round(dist([req.lat, req.lng], [x.lat, x.lng])), article_length: x.size || (x.summary ? x.summary.length : 0), lat: +x.lat.toFixed(5), lng: +x.lng.toFixed(5), summary: x.summary || null })),
+    places: list.map((x, i) => ({ number: i, name: x.name, kind: x.kind, metres_from_start: Math.round(dist([req.lat, req.lng], [x.lat, x.lng])), article_length: x.size || (x.summary ? x.summary.length : 0), monthly_readers: x.views || 0, lat: +x.lat.toFixed(5), lng: +x.lng.toFixed(5), summary: x.summary || null })),
   };
   const params = {
     model: MODEL, max_tokens: 32000, system: SYSTEM,
