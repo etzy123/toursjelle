@@ -144,12 +144,13 @@ const words = s => (s.match(/\S+/g) || []).length;
 // the whole pipeline; onStep(name) reports progress: places, writing, route
 async function generateTour(req, { fetch: fetchImpl = fetch, anthropic, onStep = () => {} } = {}) {
   const p = plan(req.minutes, req.mode);
+  const step = async (name, fn) => { try { return await fn(); } catch (e) { e.message = `${name}: ${e.message}`; throw e; } };
   onStep('places');
-  const [found, city] = await Promise.all([places(fetchImpl, req.lat, req.lng, p.radius), cityName(fetchImpl, req.lat, req.lng, req.lang || 'en')]);
+  const [found, city] = await step('places', () => Promise.all([places(fetchImpl, req.lat, req.lng, p.radius), cityName(fetchImpl, req.lat, req.lng, req.lang || 'en')]));
   if (found.length < 2) throw Object.assign(new Error('too few places'), { code: 'no-places' });
   await summaries(fetchImpl, found);
   onStep('writing');
-  const out = await write(anthropic, req, p, found, city);
+  const out = await step('writing', () => write(anthropic, req, p, found, city));
   const used = new Set();
   const stops = (out.stops || []).filter(s => found[s.place] && !used.has(s.place) && used.add(s.place) && clean(s.script)).map((s, i) => {
     const pl = found[s.place];
@@ -160,7 +161,7 @@ async function generateTour(req, { fetch: fetchImpl = fetch, anthropic, onStep =
   onStep('route');
   const profile = req.mode === 'bike' ? 'bike' : 'foot';
   const coords = stops.map(s => `${s.lng.toFixed(6)},${s.lat.toFixed(6)}`).join(';');
-  const osrm = await getJSON(fetchImpl, OSRM.replace('{profile}', profile).replace('{coords}', coords), { timeout: 30000 });
+  const osrm = await step('route', () => getJSON(fetchImpl, OSRM.replace('{profile}', profile).replace('{coords}', coords), { timeout: 30000 }));
   if (osrm.code !== 'Ok') throw new Error(`routing: ${osrm.code}`);
   const lang = TEXT[req.lang] ? req.lang : 'en';
   const citySlug = (city || 'nearby').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'nearby';

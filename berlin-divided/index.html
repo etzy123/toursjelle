@@ -1620,9 +1620,9 @@ function makeStep(step){
   const order=['places','writing','route'],i=order.indexOf(step);if(i<0)return;
   $('makeBusy').querySelectorAll('[data-step]').forEach(e=>{const j=order.indexOf(e.dataset.step);e.className=j<i?'done':j===i?'now':'';});
 }
-function makeFail(code){
+function makeFail(code,detail){
   make.busy=false;$('makeErr').hidden=false;$('makeRetry').hidden=false;
-  $('makeErr').textContent=t({'rate-limit':'errRate',busy:'errBusy','no-places':'errPlaces','not-configured':'errOff',refused:'errFailed',offline:'errOffline',nopos:'errNoPos'}[code]||'errFailed');
+  $('makeErr').textContent=t({'rate-limit':'errRate',busy:'errBusy','no-places':'errPlaces','not-configured':'errOff',refused:'errFailed',offline:'errOffline',nopos:'errNoPos'}[code]||'errFailed')+(detail?` (${detail})`:'');
   $('makeBusy').querySelectorAll('[data-step]').forEach(e=>{e.className='';});
 }
 function position(){
@@ -1638,15 +1638,15 @@ $('makeGo').onclick=async()=>{
     const r=await fetch('api/tour',{method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({lat:p[0],lng:p[1],minutes:make.minutes,mode:make.mode,interests:[...make.interests],note:$('makeNote').value.trim()||null,lang})});
     if(!r.ok){let j={};try{j=await r.json();}catch(e){}makeFail(j.error);return;}
-    const reader=r.body.getReader(),dec=new TextDecoder();let buf='',tour=null,err=null;
+    const reader=r.body.getReader(),dec=new TextDecoder();let buf='',tour=null,err=null,errDetail='';
     for(;;){const {value,done}=await reader.read();if(done)break;buf+=dec.decode(value,{stream:true});
       let i;while((i=buf.indexOf('\n'))>=0){const line=buf.slice(0,i);buf=buf.slice(i+1);if(!line.trim())continue;
-        const m=JSON.parse(line);if(m.step)makeStep(m.step);if(m.tour)tour=m.tour;if(m.error)err=m.error;}}
-    if(!tour){makeFail(err);return;}
+        const m=JSON.parse(line);if(m.step)makeStep(m.step);if(m.tour)tour=m.tour;if(m.error){err=m.error;errDetail=m.detail;}}}
+    if(!tour){makeFail(err,errDetail);return;}
     saveGenerated(tour);
     try{sessionStorage.setItem('bd_open','detail');}catch(e){}
     location.replace(location.pathname);
-  }catch(e){makeFail(navigator.onLine?'failed':'offline');}
+  }catch(e){makeFail(navigator.onLine?'failed':'offline',navigator.onLine?String(e.message||e).slice(0,120):'');}
 };
 function saveGenerated(tour){
   const ids=[tour.id,...store.get('bd_gens',[]).filter(x=>x!==tour.id)];
