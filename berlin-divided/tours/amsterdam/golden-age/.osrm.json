@@ -1,0 +1,8898 @@
+{
+ "code": "Ok",
+ "routes": [
+  {
+   "legs": [
+    {
+     "steps": [
+      {
+       "intersections": [
+        {
+         "out": 0,
+         "entry": [
+          true
+         ],
+         "bearings": [
+          182
+         ],
+         "location": [
+          4.891741,
+          52.373032
+         ]
+        },
+        {
+         "out": 2,
+         "in": 1,
+         "entry": [
+          true,
+          false,
+          true
+         ],
+         "bearings": [
+          0,
+          90,
+          270
+         ],
+         "location": [
+          4.890897,
+          52.372788
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.891741,
+          52.373032
+         ],
+         [
+          4.891733,
+          52.372888
+         ],
+         [
+          4.891748,
+          52.372888
+         ],
+         [
+          4.891744,
+          52.372775
+         ],
+         [
+          4.89156,
+          52.372778
+         ],
+         [
+          4.891561,
+          52.372795
+         ],
+         [
+          4.891484,
+          52.372796
+         ],
+         [
+          4.891484,
+          52.372793
+         ],
+         [
+          4.89116,
+          52.372798
+         ],
+         [
+          4.891161,
+          52.372801
+         ],
+         [
+          4.891083,
+          52.372803
+         ],
+         [
+          4.891081,
+          52.372785
+         ],
+         [
+          4.890897,
+          52.372788
+         ],
+         [
+          4.890741,
+          52.372785
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 182,
+        "bearing_before": 0,
+        "location": [
+         4.891741,
+         52.373032
+        ],
+        "type": "depart"
+       },
+       "name": "",
+       "mode": "cycling",
+       "weight": 69.6,
+       "duration": 69.6,
+       "distance": 102.5
+      },
+      {
+       "intersections": [
+        {
+         "out": 2,
+         "in": 1,
+         "entry": [
+          true,
+          false,
+          true
+         ],
+         "bearings": [
+          0,
+          90,
+          180
+         ],
+         "location": [
+          4.890741,
+          52.372785
+         ]
+        },
+        {
+         "out": 2,
+         "in": 0,
+         "entry": [
+          false,
+          true,
+          true
+         ],
+         "bearings": [
+          0,
+          105,
+          165
+         ],
+         "location": [
+          4.890743,
+          52.372735
+         ]
+        },
+        {
+         "out": 0,
+         "in": 1,
+         "entry": [
+          true,
+          false,
+          true
+         ],
+         "bearings": [
+          75,
+          270,
+          285
+         ],
+         "location": [
+          4.890895,
+          52.37266
+         ]
+        },
+        {
+         "out": 0,
+         "in": 1,
+         "entry": [
+          true,
+          false,
+          true
+         ],
+         "bearings": [
+          90,
+          255,
+          345
+         ],
+         "location": [
+          4.891268,
+          52.372713
+         ]
+        },
+        {
+         "out": 0,
+         "in": 1,
+         "entry": [
+          true,
+          false,
+          true
+         ],
+         "bearings": [
+          90,
+          270,
+          285
+         ],
+         "location": [
+          4.892677,
+          52.372746
+         ]
+        },
+        {
+         "out": 0,
+         "in": 1,
+         "entry": [
+          true,
+          false,
+          true
+         ],
+         "bearings": [
+          90,
+          270,
+          330
+         ],
+         "location": [
+          4.892751,
+          52.372743
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.890741,
+          52.372785
+         ],
+         [
+          4.890743,
+          52.372735
+         ],
+         [
+          4.890746,
+          52.372682
+         ],
+         [
+          4.890747,
+          52.372671
+         ],
+         [
+          4.890753,
+          52.372666
+         ],
+         [
+          4.890761,
+          52.372661
+         ],
+         [
+          4.890769,
+          52.372657
+         ],
+         [
+          4.890778,
+          52.372654
+         ],
+         [
+          4.890786,
+          52.372652
+         ],
+         [
+          4.890788,
+          52.372652
+         ],
+         [
+          4.890798,
+          52.37265
+         ],
+         [
+          4.890808,
+          52.37265
+         ],
+         [
+          4.890819,
+          52.37265
+         ],
+         [
+          4.890829,
+          52.372651
+         ],
+         [
+          4.890895,
+          52.37266
+         ],
+         [
+          4.891073,
+          52.372687
+         ],
+         [
+          4.89117,
+          52.372701
+         ],
+         [
+          4.891268,
+          52.372713
+         ],
+         [
+          4.891394,
+          52.372724
+         ],
+         [
+          4.891466,
+          52.372727
+         ],
+         [
+          4.891552,
+          52.372729
+         ],
+         [
+          4.891745,
+          52.372735
+         ],
+         [
+          4.89188,
+          52.37274
+         ],
+         [
+          4.892024,
+          52.372742
+         ],
+         [
+          4.892179,
+          52.372747
+         ],
+         [
+          4.892372,
+          52.372752
+         ],
+         [
+          4.892518,
+          52.372752
+         ],
+         [
+          4.892624,
+          52.372749
+         ],
+         [
+          4.892677,
+          52.372746
+         ],
+         [
+          4.892751,
+          52.372743
+         ],
+         [
+          4.892781,
+          52.372741
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 178,
+        "bearing_before": 267,
+        "location": [
+         4.890741,
+         52.372785
+        ],
+        "modifier": "left",
+        "type": "end of road"
+       },
+       "name": "",
+       "mode": "cycling",
+       "weight": 103.7,
+       "duration": 103.7,
+       "distance": 153.1
+      },
+      {
+       "intersections": [
+        {
+         "out": 2,
+         "in": 3,
+         "entry": [
+          true,
+          true,
+          true,
+          false
+         ],
+         "bearings": [
+          0,
+          75,
+          180,
+          270
+         ],
+         "location": [
+          4.892781,
+          52.372741
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.892781,
+          52.372741
+         ],
+         [
+          4.892778,
+          52.372718
+         ],
+         [
+          4.892777,
+          52.372713
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 184,
+        "bearing_before": 95,
+        "location": [
+         4.892781,
+         52.372741
+        ],
+        "modifier": "right",
+        "type": "turn"
+       },
+       "name": "Dam",
+       "mode": "cycling",
+       "weight": 9.3,
+       "duration": 9.3,
+       "distance": 3.1
+      },
+      {
+       "intersections": [
+        {
+         "out": 1,
+         "in": 0,
+         "entry": [
+          false,
+          true,
+          true,
+          true
+         ],
+         "bearings": [
+          0,
+          105,
+          180,
+          270
+         ],
+         "location": [
+          4.892777,
+          52.372713
+         ]
+        },
+        {
+         "out": 1,
+         "in": 3,
+         "entry": [
+          true,
+          true,
+          true,
+          false
+         ],
+         "bearings": [
+          15,
+          105,
+          195,
+          285
+         ],
+         "location": [
+          4.892889,
+          52.372701
+         ]
+        },
+        {
+         "out": 1,
+         "in": 3,
+         "entry": [
+          true,
+          true,
+          true,
+          false
+         ],
+         "bearings": [
+          15,
+          105,
+          195,
+          285
+         ],
+         "location": [
+          4.893074,
+          52.372678
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.892777,
+          52.372713
+         ],
+         [
+          4.892782,
+          52.372713
+         ],
+         [
+          4.892889,
+          52.372701
+         ],
+         [
+          4.892936,
+          52.372694
+         ],
+         [
+          4.892963,
+          52.37269
+         ],
+         [
+          4.892986,
+          52.372686
+         ],
+         [
+          4.893074,
+          52.372678
+         ],
+         [
+          4.893162,
+          52.372667
+         ],
+         [
+          4.893203,
+          52.372663
+         ],
+         [
+          4.893269,
+          52.372651
+         ],
+         [
+          4.893971,
+          52.372509
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 99,
+        "bearing_before": 184,
+        "location": [
+         4.892777,
+         52.372713
+        ],
+        "modifier": "left",
+        "type": "continue"
+       },
+       "name": "Dam",
+       "mode": "cycling",
+       "weight": 34.8,
+       "duration": 34.8,
+       "distance": 84.6
+      },
+      {
+       "intersections": [
+        {
+         "out": 0,
+         "in": 3,
+         "entry": [
+          true,
+          true,
+          true,
+          false
+         ],
+         "bearings": [
+          30,
+          120,
+          195,
+          285
+         ],
+         "location": [
+          4.893971,
+          52.372509
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.893971,
+          52.372509
+         ],
+         [
+          4.894134,
+          52.372661
+         ],
+         [
+          4.894402,
+          52.372863
+         ],
+         [
+          4.894457,
+          52.3729
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 32,
+        "bearing_before": 108,
+        "location": [
+         4.893971,
+         52.372509
+        ],
+        "modifier": "left",
+        "type": "continue"
+       },
+       "name": "Dam",
+       "mode": "cycling",
+       "weight": 19.7,
+       "duration": 19.7,
+       "distance": 54.8
+      },
+      {
+       "intersections": [
+        {
+         "out": 0,
+         "in": 1,
+         "entry": [
+          true,
+          false
+         ],
+         "bearings": [
+          45,
+          225
+         ],
+         "location": [
+          4.894457,
+          52.3729
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.894457,
+          52.3729
+         ],
+         [
+          4.894548,
+          52.37296
+         ],
+         [
+          4.894766,
+          52.373103
+         ],
+         [
+          4.895032,
+          52.373265
+         ],
+         [
+          4.895409,
+          52.373489
+         ],
+         [
+          4.895771,
+          52.37372
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 42,
+        "bearing_before": 42,
+        "location": [
+         4.894457,
+         52.3729
+        ],
+        "modifier": "straight",
+        "type": "new name"
+       },
+       "name": "Warmoesstraat",
+       "mode": "cycling",
+       "weight": 35.4,
+       "duration": 35.4,
+       "distance": 127.8
+      },
+      {
+       "intersections": [
+        {
+         "out": 0,
+         "in": 1,
+         "entry": [
+          true,
+          false,
+          true
+         ],
+         "bearings": [
+          45,
+          225,
+          315
+         ],
+         "location": [
+          4.895771,
+          52.37372
+         ]
+        },
+        {
+         "out": 0,
+         "in": 2,
+         "entry": [
+          true,
+          true,
+          false
+         ],
+         "bearings": [
+          45,
+          120,
+          225
+         ],
+         "location": [
+          4.896103,
+          52.373936
+         ]
+        },
+        {
+         "out": 0,
+         "in": 1,
+         "entry": [
+          true,
+          false,
+          true
+         ],
+         "bearings": [
+          45,
+          225,
+          300
+         ],
+         "location": [
+          4.89681,
+          52.37441
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.895771,
+          52.37372
+         ],
+         [
+          4.896103,
+          52.373936
+         ],
+         [
+          4.896591,
+          52.374249
+         ],
+         [
+          4.89681,
+          52.37441
+         ],
+         [
+          4.89683,
+          52.374424
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 42,
+        "bearing_before": 43,
+        "location": [
+         4.895771,
+         52.37372
+        ],
+        "modifier": "straight",
+        "type": "turn"
+       },
+       "name": "Warmoesstraat",
+       "mode": "cycling",
+       "weight": 65.9,
+       "duration": 65.9,
+       "distance": 106.5
+      },
+      {
+       "intersections": [
+        {
+         "out": 1,
+         "in": 2,
+         "entry": [
+          true,
+          true,
+          false
+         ],
+         "bearings": [
+          45,
+          105,
+          225
+         ],
+         "location": [
+          4.89683,
+          52.374424
+         ]
+        },
+        {
+         "out": 1,
+         "in": 3,
+         "entry": [
+          true,
+          true,
+          true,
+          false
+         ],
+         "bearings": [
+          15,
+          90,
+          180,
+          285
+         ],
+         "location": [
+          4.8973,
+          52.374358
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.89683,
+          52.374424
+         ],
+         [
+          4.8973,
+          52.374358
+         ],
+         [
+          4.897426,
+          52.374355
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 102,
+        "bearing_before": 40,
+        "location": [
+         4.89683,
+         52.374424
+        ],
+        "modifier": "right",
+        "type": "turn"
+       },
+       "name": "Wijde Kerksteeg",
+       "mode": "cycling",
+       "weight": 32.6,
+       "duration": 32.6,
+       "distance": 41.4
+      },
+      {
+       "intersections": [
+        {
+         "out": 0,
+         "in": 2,
+         "entry": [
+          true,
+          true,
+          false
+         ],
+         "bearings": [
+          0,
+          180,
+          270
+         ],
+         "location": [
+          4.897426,
+          52.374355
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.897426,
+          52.374355
+         ],
+         [
+          4.897425,
+          52.374381
+         ],
+         [
+          4.89745,
+          52.374472
+         ],
+         [
+          4.897502,
+          52.374542
+         ],
+         [
+          4.897507,
+          52.374549
+         ],
+         [
+          4.897565,
+          52.374582
+         ],
+         [
+          4.89766,
+          52.374613
+         ],
+         [
+          4.897808,
+          52.374647
+         ],
+         [
+          4.897977,
+          52.374655
+         ],
+         [
+          4.898156,
+          52.374656
+         ],
+         [
+          4.898227,
+          52.374651
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 5,
+        "bearing_before": 91,
+        "location": [
+         4.897426,
+         52.374355
+        ],
+        "modifier": "left",
+        "type": "end of road"
+       },
+       "name": "",
+       "mode": "cycling",
+       "weight": 44.8,
+       "duration": 44.8,
+       "distance": 74.7
+      },
+      {
+       "intersections": [
+        {
+         "in": 0,
+         "entry": [
+          true
+         ],
+         "bearings": [
+          277
+         ],
+         "location": [
+          4.898227,
+          52.374651
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.898227,
+          52.374651
+         ],
+         [
+          4.898227,
+          52.374651
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 0,
+        "bearing_before": 97,
+        "location": [
+         4.898227,
+         52.374651
+        ],
+        "modifier": "right",
+        "type": "arrive"
+       },
+       "name": "",
+       "mode": "cycling",
+       "weight": 0,
+       "duration": 0,
+       "distance": 0
+      }
+     ],
+     "weight": 415.8,
+     "summary": "Dam, Warmoesstraat",
+     "duration": 415.8,
+     "distance": 748.5
+    },
+    {
+     "steps": [
+      {
+       "intersections": [
+        {
+         "out": 0,
+         "entry": [
+          true
+         ],
+         "bearings": [
+          96
+         ],
+         "location": [
+          4.898227,
+          52.374651
+         ]
+        },
+        {
+         "out": 0,
+         "in": 3,
+         "entry": [
+          true,
+          true,
+          true,
+          false
+         ],
+         "bearings": [
+          120,
+          135,
+          165,
+          315
+         ],
+         "location": [
+          4.898697,
+          52.37454
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.898227,
+          52.374651
+         ],
+         [
+          4.898384,
+          52.374641
+         ],
+         [
+          4.898564,
+          52.374606
+         ],
+         [
+          4.898638,
+          52.374576
+         ],
+         [
+          4.898697,
+          52.37454
+         ],
+         [
+          4.898752,
+          52.374515
+         ],
+         [
+          4.898827,
+          52.374484
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 96,
+        "bearing_before": 0,
+        "location": [
+         4.898227,
+         52.374651
+        ],
+        "modifier": "right",
+        "type": "depart"
+       },
+       "name": "",
+       "mode": "cycling",
+       "weight": 35.9,
+       "duration": 35.9,
+       "distance": 46.2
+      },
+      {
+       "intersections": [
+        {
+         "out": 0,
+         "in": 3,
+         "entry": [
+          true,
+          true,
+          true,
+          false
+         ],
+         "bearings": [
+          35,
+          193,
+          202,
+          305
+         ],
+         "location": [
+          4.898827,
+          52.374484
+         ]
+        },
+        {
+         "out": 0,
+         "in": 2,
+         "entry": [
+          true,
+          true,
+          false,
+          true
+         ],
+         "bearings": [
+          30,
+          120,
+          210,
+          315
+         ],
+         "location": [
+          4.898835,
+          52.374491
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.898827,
+          52.374484
+         ],
+         [
+          4.898835,
+          52.374491
+         ],
+         [
+          4.898894,
+          52.374537
+         ],
+         [
+          4.899032,
+          52.374676
+         ],
+         [
+          4.899164,
+          52.37481
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 33,
+        "bearing_before": 123,
+        "location": [
+         4.898827,
+         52.374484
+        ],
+        "modifier": "left",
+        "type": "turn"
+       },
+       "name": "",
+       "mode": "cycling",
+       "weight": 34.2,
+       "duration": 34.2,
+       "distance": 43
+      },
+      {
+       "intersections": [
+        {
+         "out": 3,
+         "in": 2,
+         "entry": [
+          true,
+          true,
+          false,
+          true
+         ],
+         "bearings": [
+          30,
+          120,
+          210,
+          300
+         ],
+         "location": [
+          4.899164,
+          52.37481
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.899164,
+          52.37481
+         ],
+         [
+          4.899155,
+          52.374814
+         ],
+         [
+          4.898357,
+          52.375102
+         ],
+         [
+          4.897999,
+          52.375234
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 299,
+        "bearing_before": 30,
+        "location": [
+         4.899164,
+         52.37481
+        ],
+        "modifier": "left",
+        "type": "turn"
+       },
+       "name": "Lange Niezel",
+       "mode": "cycling",
+       "weight": 30.9,
+       "duration": 30.9,
+       "distance": 92.3
+      },
+      {
+       "intersections": [
+        {
+         "out": 0,
+         "in": 1,
+         "entry": [
+          true,
+          false,
+          true
+         ],
+         "bearings": [
+          45,
+          120,
+          225
+         ],
+         "location": [
+          4.897999,
+          52.375234
+         ]
+        },
+        {
+         "out": 0,
+         "in": 2,
+         "entry": [
+          true,
+          true,
+          false,
+          true
+         ],
+         "bearings": [
+          60,
+          135,
+          240,
+          315
+         ],
+         "location": [
+          4.899624,
+          52.376227
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.897999,
+          52.375234
+         ],
+         [
+          4.898339,
+          52.375465
+         ],
+         [
+          4.89885,
+          52.375826
+         ],
+         [
+          4.899088,
+          52.376011
+         ],
+         [
+          4.89922,
+          52.376086
+         ],
+         [
+          4.899437,
+          52.376169
+         ],
+         [
+          4.899609,
+          52.376221
+         ],
+         [
+          4.899624,
+          52.376227
+         ],
+         [
+          4.899906,
+          52.376332
+         ],
+         [
+          4.899982,
+          52.376361
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 40,
+        "bearing_before": 300,
+        "location": [
+         4.897999,
+         52.375234
+        ],
+        "modifier": "right",
+        "type": "turn"
+       },
+       "name": "Warmoesstraat",
+       "mode": "cycling",
+       "weight": 60.6,
+       "duration": 60.6,
+       "distance": 186.5
+      },
+      {
+       "intersections": [
+        {
+         "out": 2,
+         "in": 1,
+         "entry": [
+          true,
+          false,
+          true
+         ],
+         "bearings": [
+          150,
+          240,
+          330
+         ],
+         "location": [
+          4.899982,
+          52.376361
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.899982,
+          52.376361
+         ],
+         [
+          4.899958,
+          52.376382
+         ],
+         [
+          4.899906,
+          52.376419
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 324,
+        "bearing_before": 57,
+        "location": [
+         4.899982,
+         52.376361
+        ],
+        "modifier": "left",
+        "type": "end of road"
+       },
+       "name": "Prins Hendrikkade",
+       "mode": "cycling",
+       "weight": 7.9,
+       "duration": 7.9,
+       "distance": 8.3
+      },
+      {
+       "intersections": [
+        {
+         "out": 0,
+         "in": 1,
+         "entry": [
+          true,
+          false,
+          true
+         ],
+         "bearings": [
+          60,
+          135,
+          315
+         ],
+         "location": [
+          4.899906,
+          52.376419
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.899906,
+          52.376419
+         ],
+         [
+          4.900613,
+          52.376644
+         ],
+         [
+          4.90068,
+          52.376744
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 61,
+        "bearing_before": 319,
+        "location": [
+         4.899906,
+         52.376419
+        ],
+        "modifier": "right",
+        "type": "continue"
+       },
+       "name": "Prins Hendrikkade",
+       "mode": "cycling",
+       "weight": 20.1,
+       "duration": 20.1,
+       "distance": 66.3
+      },
+      {
+       "intersections": [
+        {
+         "out": 1,
+         "in": 2,
+         "entry": [
+          true,
+          true,
+          false,
+          true
+         ],
+         "bearings": [
+          30,
+          75,
+          195,
+          255
+         ],
+         "location": [
+          4.90068,
+          52.376744
+         ]
+        },
+        {
+         "out": 0,
+         "in": 2,
+         "entry": [
+          true,
+          true,
+          false,
+          true
+         ],
+         "bearings": [
+          90,
+          165,
+          255,
+          345
+         ],
+         "location": [
+          4.901835,
+          52.376857
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.90068,
+          52.376744
+         ],
+         [
+          4.90171,
+          52.376844
+         ],
+         [
+          4.901835,
+          52.376857
+         ],
+         [
+          4.90186,
+          52.376859
+         ],
+         [
+          4.901875,
+          52.376859
+         ],
+         [
+          4.901886,
+          52.376858
+         ],
+         [
+          4.9019,
+          52.376856
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 80,
+        "bearing_before": 21,
+        "location": [
+         4.90068,
+         52.376744
+        ],
+        "modifier": "right",
+        "type": "turn"
+       },
+       "name": "Prins Hendrikkade",
+       "mode": "cycling",
+       "weight": 25.4,
+       "duration": 25.4,
+       "distance": 84.1
+      },
+      {
+       "intersections": [
+        {
+         "out": 0,
+         "in": 3,
+         "entry": [
+          true,
+          true,
+          true,
+          false
+         ],
+         "bearings": [
+          15,
+          120,
+          210,
+          270
+         ],
+         "location": [
+          4.9019,
+          52.376856
+         ]
+        },
+        {
+         "out": 0,
+         "in": 2,
+         "entry": [
+          true,
+          true,
+          false,
+          true
+         ],
+         "bearings": [
+          15,
+          120,
+          195,
+          285
+         ],
+         "location": [
+          4.901945,
+          52.376933
+         ]
+        },
+        {
+         "out": 0,
+         "in": 2,
+         "entry": [
+          true,
+          true,
+          false,
+          true
+         ],
+         "bearings": [
+          15,
+          120,
+          195,
+          300
+         ],
+         "location": [
+          4.902015,
+          52.377042
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.9019,
+          52.376856
+         ],
+         [
+          4.90191,
+          52.376872
+         ],
+         [
+          4.901928,
+          52.376905
+         ],
+         [
+          4.901932,
+          52.376912
+         ],
+         [
+          4.901945,
+          52.376933
+         ],
+         [
+          4.901961,
+          52.376956
+         ],
+         [
+          4.901974,
+          52.376976
+         ],
+         [
+          4.901987,
+          52.376996
+         ],
+         [
+          4.902005,
+          52.377026
+         ],
+         [
+          4.902007,
+          52.377029
+         ],
+         [
+          4.902015,
+          52.377042
+         ],
+         [
+          4.902036,
+          52.377081
+         ],
+         [
+          4.902043,
+          52.377093
+         ],
+         [
+          4.902072,
+          52.377147
+         ],
+         [
+          4.90214,
+          52.377276
+         ],
+         [
+          4.90216,
+          52.377309
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 18,
+        "bearing_before": 91,
+        "location": [
+         4.9019,
+         52.376856
+        ],
+        "modifier": "left",
+        "type": "turn"
+       },
+       "name": "",
+       "mode": "cycling",
+       "weight": 50.7,
+       "duration": 50.7,
+       "distance": 53.4
+      },
+      {
+       "intersections": [
+        {
+         "in": 0,
+         "entry": [
+          true
+         ],
+         "bearings": [
+          200
+         ],
+         "location": [
+          4.90216,
+          52.377309
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.90216,
+          52.377309
+         ],
+         [
+          4.90216,
+          52.377309
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 0,
+        "bearing_before": 20,
+        "location": [
+         4.90216,
+         52.377309
+        ],
+        "type": "arrive"
+       },
+       "name": "",
+       "mode": "cycling",
+       "weight": 0,
+       "duration": 0,
+       "distance": 0
+      }
+     ],
+     "weight": 265.7,
+     "summary": "Warmoesstraat, Prins Hendrikkade",
+     "duration": 265.7,
+     "distance": 580.1
+    },
+    {
+     "steps": [
+      {
+       "intersections": [
+        {
+         "out": 0,
+         "entry": [
+          true
+         ],
+         "bearings": [
+          200
+         ],
+         "location": [
+          4.90216,
+          52.377309
+         ]
+        },
+        {
+         "out": 2,
+         "in": 0,
+         "entry": [
+          false,
+          true,
+          true,
+          true
+         ],
+         "bearings": [
+          15,
+          120,
+          195,
+          300
+         ],
+         "location": [
+          4.902015,
+          52.377042
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.90216,
+          52.377309
+         ],
+         [
+          4.90214,
+          52.377276
+         ],
+         [
+          4.902072,
+          52.377147
+         ],
+         [
+          4.902043,
+          52.377093
+         ],
+         [
+          4.902036,
+          52.377081
+         ],
+         [
+          4.902015,
+          52.377042
+         ],
+         [
+          4.902007,
+          52.377029
+         ],
+         [
+          4.902005,
+          52.377026
+         ],
+         [
+          4.901987,
+          52.376996
+         ],
+         [
+          4.901974,
+          52.376976
+         ],
+         [
+          4.901961,
+          52.376956
+         ],
+         [
+          4.901945,
+          52.376933
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 200,
+        "bearing_before": 0,
+        "location": [
+         4.90216,
+         52.377309
+        ],
+        "type": "depart"
+       },
+       "name": "",
+       "mode": "cycling",
+       "weight": 37,
+       "duration": 37,
+       "distance": 44.3
+      },
+      {
+       "intersections": [
+        {
+         "out": 1,
+         "in": 0,
+         "entry": [
+          false,
+          true,
+          true,
+          true
+         ],
+         "bearings": [
+          15,
+          120,
+          195,
+          285
+         ],
+         "location": [
+          4.901945,
+          52.376933
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.901945,
+          52.376933
+         ],
+         [
+          4.901983,
+          52.376925
+         ],
+         [
+          4.902021,
+          52.376915
+         ],
+         [
+          4.902054,
+          52.376904
+         ],
+         [
+          4.902093,
+          52.376889
+         ],
+         [
+          4.902142,
+          52.376858
+         ],
+         [
+          4.902313,
+          52.376713
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 115,
+        "bearing_before": 201,
+        "location": [
+         4.901945,
+         52.376933
+        ],
+        "modifier": "left",
+        "type": "turn"
+       },
+       "name": "Prins Hendrikkade",
+       "mode": "cycling",
+       "weight": 10.5,
+       "duration": 10.5,
+       "distance": 35.9
+      },
+      {
+       "intersections": [
+        {
+         "out": 1,
+         "in": 2,
+         "entry": [
+          true,
+          true,
+          false
+         ],
+         "bearings": [
+          150,
+          195,
+          330
+         ],
+         "location": [
+          4.902313,
+          52.376713
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.902313,
+          52.376713
+         ],
+         [
+          4.902296,
+          52.376678
+         ],
+         [
+          4.902293,
+          52.376669
+         ],
+         [
+          4.90228,
+          52.376639
+         ],
+         [
+          4.902277,
+          52.376632
+         ],
+         [
+          4.902267,
+          52.376609
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 194,
+        "bearing_before": 143,
+        "location": [
+         4.902313,
+         52.376713
+        ],
+        "modifier": "right",
+        "type": "turn"
+       },
+       "name": "Geldersekade",
+       "mode": "cycling",
+       "weight": 5.6,
+       "duration": 5.6,
+       "distance": 12
+      },
+      {
+       "intersections": [
+        {
+         "out": 1,
+         "in": 0,
+         "entry": [
+          false,
+          true,
+          true,
+          true
+         ],
+         "bearings": [
+          15,
+          150,
+          195,
+          330
+         ],
+         "location": [
+          4.902267,
+          52.376609
+         ]
+        },
+        {
+         "out": 1,
+         "in": 3,
+         "entry": [
+          true,
+          true,
+          true,
+          false
+         ],
+         "bearings": [
+          75,
+          150,
+          240,
+          330
+         ],
+         "location": [
+          4.902724,
+          52.376202
+         ]
+        },
+        {
+         "out": 1,
+         "in": 3,
+         "entry": [
+          true,
+          true,
+          true,
+          false
+         ],
+         "bearings": [
+          60,
+          150,
+          255,
+          330
+         ],
+         "location": [
+          4.902789,
+          52.376145
+         ]
+        },
+        {
+         "out": 1,
+         "in": 3,
+         "entry": [
+          true,
+          true,
+          true,
+          false
+         ],
+         "bearings": [
+          90,
+          150,
+          255,
+          330
+         ],
+         "location": [
+          4.902847,
+          52.376096
+         ]
+        },
+        {
+         "out": 2,
+         "in": 0,
+         "entry": [
+          false,
+          true,
+          true,
+          true
+         ],
+         "bearings": [
+          0,
+          90,
+          180,
+          225
+         ],
+         "location": [
+          4.903164,
+          52.3757
+         ]
+        },
+        {
+         "out": 0,
+         "in": 1,
+         "entry": [
+          true,
+          false
+         ],
+         "bearings": [
+          135,
+          330
+         ],
+         "location": [
+          4.903331,
+          52.375118
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.902267,
+          52.376609
+         ],
+         [
+          4.902301,
+          52.376578
+         ],
+         [
+          4.90236,
+          52.376527
+         ],
+         [
+          4.902502,
+          52.376407
+         ],
+         [
+          4.902591,
+          52.376326
+         ],
+         [
+          4.902641,
+          52.376274
+         ],
+         [
+          4.902659,
+          52.376258
+         ],
+         [
+          4.902674,
+          52.376246
+         ],
+         [
+          4.902724,
+          52.376202
+         ],
+         [
+          4.902789,
+          52.376145
+         ],
+         [
+          4.902812,
+          52.376125
+         ],
+         [
+          4.902847,
+          52.376096
+         ],
+         [
+          4.902917,
+          52.376037
+         ],
+         [
+          4.902939,
+          52.376023
+         ],
+         [
+          4.902971,
+          52.376004
+         ],
+         [
+          4.903029,
+          52.375969
+         ],
+         [
+          4.90308,
+          52.375937
+         ],
+         [
+          4.903114,
+          52.375904
+         ],
+         [
+          4.903142,
+          52.37588
+         ],
+         [
+          4.903158,
+          52.375856
+         ],
+         [
+          4.903169,
+          52.37583
+         ],
+         [
+          4.903172,
+          52.375803
+         ],
+         [
+          4.90317,
+          52.375791
+         ],
+         [
+          4.903168,
+          52.375757
+         ],
+         [
+          4.903164,
+          52.3757
+         ],
+         [
+          4.903161,
+          52.375652
+         ],
+         [
+          4.903166,
+          52.375616
+         ],
+         [
+          4.903168,
+          52.37558
+         ],
+         [
+          4.903165,
+          52.375442
+         ],
+         [
+          4.90317,
+          52.375391
+         ],
+         [
+          4.903178,
+          52.375352
+         ],
+         [
+          4.903195,
+          52.375306
+         ],
+         [
+          4.903237,
+          52.375233
+         ],
+         [
+          4.903273,
+          52.375182
+         ],
+         [
+          4.903331,
+          52.375118
+         ],
+         [
+          4.903416,
+          52.375057
+         ],
+         [
+          4.903461,
+          52.37503
+         ],
+         [
+          4.903771,
+          52.374861
+         ],
+         [
+          4.903803,
+          52.374842
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 144,
+        "bearing_before": 194,
+        "location": [
+         4.902267,
+         52.376609
+        ],
+        "modifier": "left",
+        "type": "turn"
+       },
+       "name": "Prins Hendrikkade",
+       "mode": "cycling",
+       "weight": 86.5,
+       "duration": 86.5,
+       "distance": 232.8
+      },
+      {
+       "intersections": [
+        {
+         "out": 0,
+         "in": 3,
+         "entry": [
+          true,
+          true,
+          true,
+          false
+         ],
+         "bearings": [
+          30,
+          135,
+          210,
+          315
+         ],
+         "location": [
+          4.903803,
+          52.374842
+         ]
+        },
+        {
+         "out": 0,
+         "in": 2,
+         "entry": [
+          true,
+          true,
+          false,
+          true
+         ],
+         "bearings": [
+          30,
+          135,
+          210,
+          315
+         ],
+         "location": [
+          4.903881,
+          52.374907
+         ]
+        },
+        {
+         "out": 0,
+         "in": 2,
+         "entry": [
+          true,
+          true,
+          false,
+          true
+         ],
+         "bearings": [
+          45,
+          135,
+          210,
+          315
+         ],
+         "location": [
+          4.903975,
+          52.374982
+         ]
+        },
+        {
+         "out": 0,
+         "in": 2,
+         "entry": [
+          true,
+          true,
+          false,
+          true
+         ],
+         "bearings": [
+          90,
+          135,
+          225,
+          315
+         ],
+         "location": [
+          4.904053,
+          52.375033
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.903803,
+          52.374842
+         ],
+         [
+          4.903881,
+          52.374907
+         ],
+         [
+          4.903975,
+          52.374982
+         ],
+         [
+          4.904053,
+          52.375033
+         ],
+         [
+          4.904083,
+          52.37505
+         ],
+         [
+          4.904099,
+          52.375056
+         ],
+         [
+          4.904119,
+          52.375061
+         ],
+         [
+          4.90414,
+          52.375056
+         ],
+         [
+          4.90421,
+          52.375021
+         ],
+         [
+          4.904478,
+          52.374884
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 35,
+        "bearing_before": 130,
+        "location": [
+         4.903803,
+         52.374842
+        ],
+        "modifier": "left",
+        "type": "turn"
+       },
+       "name": "",
+       "mode": "cycling",
+       "weight": 44.5,
+       "duration": 44.5,
+       "distance": 64.3
+      },
+      {
+       "intersections": [
+        {
+         "in": 0,
+         "entry": [
+          true
+         ],
+         "bearings": [
+          310
+         ],
+         "location": [
+          4.904478,
+          52.374884
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.904478,
+          52.374884
+         ],
+         [
+          4.904478,
+          52.374884
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 0,
+        "bearing_before": 130,
+        "location": [
+         4.904478,
+         52.374884
+        ],
+        "type": "arrive"
+       },
+       "name": "",
+       "mode": "cycling",
+       "weight": 0,
+       "duration": 0,
+       "distance": 0
+      }
+     ],
+     "weight": 184.1,
+     "summary": "Prins Hendrikkade, Geldersekade",
+     "duration": 184.1,
+     "distance": 389.3
+    },
+    {
+     "steps": [
+      {
+       "intersections": [
+        {
+         "out": 0,
+         "entry": [
+          true
+         ],
+         "bearings": [
+          310
+         ],
+         "location": [
+          4.904478,
+          52.374884
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.904478,
+          52.374884
+         ],
+         [
+          4.90421,
+          52.375021
+         ],
+         [
+          4.90414,
+          52.375056
+         ],
+         [
+          4.904119,
+          52.375061
+         ],
+         [
+          4.904099,
+          52.375056
+         ],
+         [
+          4.904083,
+          52.37505
+         ],
+         [
+          4.904053,
+          52.375033
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 310,
+        "bearing_before": 0,
+        "location": [
+         4.904478,
+         52.374884
+        ],
+        "type": "depart"
+       },
+       "name": "",
+       "mode": "cycling",
+       "weight": 38.5,
+       "duration": 38.5,
+       "distance": 37
+      },
+      {
+       "intersections": [
+        {
+         "out": 2,
+         "in": 0,
+         "entry": [
+          false,
+          true,
+          true,
+          true
+         ],
+         "bearings": [
+          90,
+          135,
+          225,
+          315
+         ],
+         "location": [
+          4.904053,
+          52.375033
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.904053,
+          52.375033
+         ],
+         [
+          4.903975,
+          52.374982
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 222,
+        "bearing_before": 264,
+        "location": [
+         4.904053,
+         52.375033
+        ],
+        "modifier": "left",
+        "type": "turn"
+       },
+       "name": "",
+       "mode": "cycling",
+       "weight": 6.3,
+       "duration": 6.3,
+       "distance": 7.8
+      },
+      {
+       "intersections": [
+        {
+         "out": 3,
+         "in": 0,
+         "entry": [
+          false,
+          true,
+          true,
+          true
+         ],
+         "bearings": [
+          45,
+          135,
+          210,
+          315
+         ],
+         "location": [
+          4.903975,
+          52.374982
+         ]
+        },
+        {
+         "out": 1,
+         "in": 0,
+         "entry": [
+          false,
+          true,
+          true
+         ],
+         "bearings": [
+          135,
+          315,
+          345
+         ],
+         "location": [
+          4.903741,
+          52.375126
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.903975,
+          52.374982
+         ],
+         [
+          4.903829,
+          52.375073
+         ],
+         [
+          4.903741,
+          52.375126
+         ],
+         [
+          4.903668,
+          52.375159
+         ],
+         [
+          4.903603,
+          52.375212
+         ],
+         [
+          4.903572,
+          52.375238
+         ],
+         [
+          4.903548,
+          52.375265
+         ],
+         [
+          4.903511,
+          52.375325
+         ],
+         [
+          4.903486,
+          52.375375
+         ],
+         [
+          4.903473,
+          52.375405
+         ],
+         [
+          4.903464,
+          52.375436
+         ],
+         [
+          4.903454,
+          52.37548
+         ],
+         [
+          4.90345,
+          52.375624
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 315,
+        "bearing_before": 222,
+        "location": [
+         4.903975,
+         52.374982
+        ],
+        "modifier": "right",
+        "type": "turn"
+       },
+       "name": "Prins Hendrikkade",
+       "mode": "cycling",
+       "weight": 22.6,
+       "duration": 22.6,
+       "distance": 84
+      },
+      {
+       "intersections": [
+        {
+         "out": 2,
+         "in": 1,
+         "entry": [
+          true,
+          false,
+          true
+         ],
+         "bearings": [
+          15,
+          180,
+          315
+         ],
+         "location": [
+          4.90345,
+          52.375624
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.90345,
+          52.375624
+         ],
+         [
+          4.903423,
+          52.375658
+         ],
+         [
+          4.903395,
+          52.375682
+         ],
+         [
+          4.903376,
+          52.375691
+         ],
+         [
+          4.903357,
+          52.375697
+         ],
+         [
+          4.903306,
+          52.375698
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 309,
+        "bearing_before": 358,
+        "location": [
+         4.90345,
+         52.375624
+        ],
+        "modifier": "left",
+        "type": "turn"
+       },
+       "name": "Kromme Waal",
+       "mode": "cycling",
+       "weight": 4.8,
+       "duration": 4.8,
+       "distance": 14.1
+      },
+      {
+       "intersections": [
+        {
+         "out": 3,
+         "in": 1,
+         "entry": [
+          true,
+          false,
+          true,
+          true
+         ],
+         "bearings": [
+          0,
+          135,
+          180,
+          270
+         ],
+         "location": [
+          4.903306,
+          52.375698
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.903306,
+          52.375698
+         ],
+         [
+          4.90321,
+          52.3757
+         ],
+         [
+          4.903164,
+          52.3757
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 270,
+        "bearing_before": 309,
+        "location": [
+         4.903306,
+         52.375698
+        ],
+        "modifier": "slight left",
+        "type": "continue"
+       },
+       "name": "Kromme Waal",
+       "mode": "cycling",
+       "weight": 6.7,
+       "duration": 6.7,
+       "distance": 9.7
+      },
+      {
+       "intersections": [
+        {
+         "out": 0,
+         "in": 1,
+         "entry": [
+          true,
+          false,
+          true,
+          true
+         ],
+         "bearings": [
+          0,
+          90,
+          180,
+          225
+         ],
+         "location": [
+          4.903164,
+          52.3757
+         ]
+        },
+        {
+         "out": 3,
+         "in": 1,
+         "entry": [
+          true,
+          false,
+          true,
+          true
+         ],
+         "bearings": [
+          90,
+          150,
+          255,
+          330
+         ],
+         "location": [
+          4.902847,
+          52.376096
+         ]
+        },
+        {
+         "out": 3,
+         "in": 1,
+         "entry": [
+          true,
+          false,
+          true,
+          true
+         ],
+         "bearings": [
+          60,
+          150,
+          255,
+          330
+         ],
+         "location": [
+          4.902789,
+          52.376145
+         ]
+        },
+        {
+         "out": 3,
+         "in": 1,
+         "entry": [
+          true,
+          false,
+          true,
+          true
+         ],
+         "bearings": [
+          75,
+          150,
+          240,
+          330
+         ],
+         "location": [
+          4.902724,
+          52.376202
+         ]
+        },
+        {
+         "out": 3,
+         "in": 1,
+         "entry": [
+          true,
+          false,
+          true,
+          true
+         ],
+         "bearings": [
+          15,
+          150,
+          195,
+          330
+         ],
+         "location": [
+          4.902267,
+          52.376609
+         ]
+        },
+        {
+         "out": 3,
+         "in": 1,
+         "entry": [
+          true,
+          false,
+          true,
+          true
+         ],
+         "bearings": [
+          15,
+          120,
+          210,
+          270
+         ],
+         "location": [
+          4.9019,
+          52.376856
+         ]
+        },
+        {
+         "out": 2,
+         "in": 0,
+         "entry": [
+          false,
+          true,
+          true,
+          true
+         ],
+         "bearings": [
+          90,
+          165,
+          255,
+          345
+         ],
+         "location": [
+          4.901835,
+          52.376857
+         ]
+        },
+        {
+         "out": 3,
+         "in": 1,
+         "entry": [
+          true,
+          false,
+          true,
+          true
+         ],
+         "bearings": [
+          30,
+          75,
+          195,
+          255
+         ],
+         "location": [
+          4.90068,
+          52.376744
+         ]
+        },
+        {
+         "out": 2,
+         "in": 0,
+         "entry": [
+          false,
+          true,
+          true,
+          true
+         ],
+         "bearings": [
+          90,
+          135,
+          255,
+          315
+         ],
+         "location": [
+          4.899513,
+          52.376701
+         ]
+        },
+        {
+         "out": 3,
+         "in": 1,
+         "entry": [
+          true,
+          false,
+          true,
+          true
+         ],
+         "bearings": [
+          0,
+          90,
+          180,
+          285
+         ],
+         "location": [
+          4.899104,
+          52.376659
+         ]
+        },
+        {
+         "out": 3,
+         "in": 1,
+         "entry": [
+          true,
+          false,
+          true,
+          true
+         ],
+         "bearings": [
+          0,
+          105,
+          180,
+          285
+         ],
+         "location": [
+          4.899056,
+          52.376663
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.903164,
+          52.3757
+         ],
+         [
+          4.903168,
+          52.375757
+         ],
+         [
+          4.90317,
+          52.375791
+         ],
+         [
+          4.903172,
+          52.375803
+         ],
+         [
+          4.903169,
+          52.37583
+         ],
+         [
+          4.903158,
+          52.375856
+         ],
+         [
+          4.903142,
+          52.37588
+         ],
+         [
+          4.903114,
+          52.375904
+         ],
+         [
+          4.90308,
+          52.375937
+         ],
+         [
+          4.903029,
+          52.375969
+         ],
+         [
+          4.902971,
+          52.376004
+         ],
+         [
+          4.902939,
+          52.376023
+         ],
+         [
+          4.902917,
+          52.376037
+         ],
+         [
+          4.902847,
+          52.376096
+         ],
+         [
+          4.902812,
+          52.376125
+         ],
+         [
+          4.902789,
+          52.376145
+         ],
+         [
+          4.902724,
+          52.376202
+         ],
+         [
+          4.902674,
+          52.376246
+         ],
+         [
+          4.902659,
+          52.376258
+         ],
+         [
+          4.902641,
+          52.376274
+         ],
+         [
+          4.902591,
+          52.376326
+         ],
+         [
+          4.902502,
+          52.376407
+         ],
+         [
+          4.90236,
+          52.376527
+         ],
+         [
+          4.902301,
+          52.376578
+         ],
+         [
+          4.902267,
+          52.376609
+         ],
+         [
+          4.902248,
+          52.376625
+         ],
+         [
+          4.902205,
+          52.376659
+         ],
+         [
+          4.902162,
+          52.376697
+         ],
+         [
+          4.902107,
+          52.376744
+         ],
+         [
+          4.902083,
+          52.376765
+         ],
+         [
+          4.902058,
+          52.376788
+         ],
+         [
+          4.902033,
+          52.376808
+         ],
+         [
+          4.902013,
+          52.376821
+         ],
+         [
+          4.901995,
+          52.376831
+         ],
+         [
+          4.901979,
+          52.376838
+         ],
+         [
+          4.901963,
+          52.376844
+         ],
+         [
+          4.901943,
+          52.376849
+         ],
+         [
+          4.901923,
+          52.376853
+         ],
+         [
+          4.9019,
+          52.376856
+         ],
+         [
+          4.901886,
+          52.376858
+         ],
+         [
+          4.901875,
+          52.376859
+         ],
+         [
+          4.90186,
+          52.376859
+         ],
+         [
+          4.901835,
+          52.376857
+         ],
+         [
+          4.90171,
+          52.376844
+         ],
+         [
+          4.90068,
+          52.376744
+         ],
+         [
+          4.899882,
+          52.376665
+         ],
+         [
+          4.899841,
+          52.376662
+         ],
+         [
+          4.8998,
+          52.376669
+         ],
+         [
+          4.899644,
+          52.376707
+         ],
+         [
+          4.899612,
+          52.37671
+         ],
+         [
+          4.899573,
+          52.376708
+         ],
+         [
+          4.899513,
+          52.376701
+         ],
+         [
+          4.899214,
+          52.376665
+         ],
+         [
+          4.899165,
+          52.376661
+         ],
+         [
+          4.899104,
+          52.376659
+         ],
+         [
+          4.899056,
+          52.376663
+         ],
+         [
+          4.899008,
+          52.376671
+         ],
+         [
+          4.898952,
+          52.376684
+         ],
+         [
+          4.89892,
+          52.376695
+         ],
+         [
+          4.898892,
+          52.376706
+         ],
+         [
+          4.898855,
+          52.376726
+         ],
+         [
+          4.898827,
+          52.376743
+         ],
+         [
+          4.898786,
+          52.376765
+         ],
+         [
+          4.898715,
+          52.376808
+         ],
+         [
+          4.898641,
+          52.376844
+         ],
+         [
+          4.898576,
+          52.376868
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 1,
+        "bearing_before": 270,
+        "location": [
+         4.903164,
+         52.3757
+        ],
+        "modifier": "right",
+        "type": "turn"
+       },
+       "name": "Prins Hendrikkade",
+       "mode": "cycling",
+       "weight": 97.9,
+       "duration": 97.9,
+       "distance": 396.7
+      },
+      {
+       "intersections": [
+        {
+         "out": 2,
+         "in": 0,
+         "entry": [
+          false,
+          true,
+          true
+         ],
+         "bearings": [
+          120,
+          285,
+          330
+         ],
+         "location": [
+          4.898576,
+          52.376868
+         ]
+        },
+        {
+         "out": 3,
+         "in": 1,
+         "entry": [
+          true,
+          false,
+          true,
+          true
+         ],
+         "bearings": [
+          105,
+          150,
+          270,
+          330
+         ],
+         "location": [
+          4.898484,
+          52.376949
+         ]
+        },
+        {
+         "out": 2,
+         "in": 0,
+         "entry": [
+          false,
+          true,
+          true
+         ],
+         "bearings": [
+          150,
+          300,
+          330
+         ],
+         "location": [
+          4.898338,
+          52.377074
+         ]
+        },
+        {
+         "out": 3,
+         "in": 1,
+         "entry": [
+          true,
+          false,
+          true,
+          true
+         ],
+         "bearings": [
+          45,
+          150,
+          225,
+          315
+         ],
+         "location": [
+          4.898197,
+          52.377225
+         ]
+        },
+        {
+         "out": 2,
+         "in": 0,
+         "entry": [
+          false,
+          true,
+          true
+         ],
+         "bearings": [
+          135,
+          150,
+          315
+         ],
+         "location": [
+          4.897925,
+          52.377382
+         ]
+        },
+        {
+         "out": 3,
+         "in": 1,
+         "entry": [
+          true,
+          false,
+          true,
+          true
+         ],
+         "bearings": [
+          45,
+          135,
+          240,
+          330
+         ],
+         "location": [
+          4.897246,
+          52.377798
+         ]
+        },
+        {
+         "out": 2,
+         "in": 1,
+         "entry": [
+          true,
+          false,
+          true
+         ],
+         "bearings": [
+          45,
+          150,
+          330
+         ],
+         "location": [
+          4.897175,
+          52.377876
+         ]
+        },
+        {
+         "out": 2,
+         "in": 0,
+         "entry": [
+          false,
+          true,
+          true
+         ],
+         "bearings": [
+          150,
+          270,
+          330
+         ],
+         "location": [
+          4.897098,
+          52.377947
+         ]
+        },
+        {
+         "out": 3,
+         "in": 1,
+         "entry": [
+          true,
+          false,
+          true,
+          true
+         ],
+         "bearings": [
+          30,
+          150,
+          240,
+          345
+         ],
+         "location": [
+          4.896984,
+          52.378064
+         ]
+        },
+        {
+         "out": 2,
+         "in": 1,
+         "entry": [
+          true,
+          false,
+          true
+         ],
+         "bearings": [
+          60,
+          165,
+          330
+         ],
+         "location": [
+          4.896912,
+          52.378216
+         ]
+        },
+        {
+         "out": 3,
+         "in": 1,
+         "entry": [
+          true,
+          false,
+          true,
+          true
+         ],
+         "bearings": [
+          60,
+          150,
+          240,
+          330
+         ],
+         "location": [
+          4.896868,
+          52.378271
+         ]
+        },
+        {
+         "out": 3,
+         "in": 1,
+         "entry": [
+          true,
+          false,
+          true,
+          true
+         ],
+         "bearings": [
+          45,
+          135,
+          225,
+          315
+         ],
+         "location": [
+          4.895438,
+          52.37915
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.898576,
+          52.376868
+         ],
+         [
+          4.898555,
+          52.376892
+         ],
+         [
+          4.898484,
+          52.376949
+         ],
+         [
+          4.89844,
+          52.376984
+         ],
+         [
+          4.898438,
+          52.376986
+         ],
+         [
+          4.898338,
+          52.377074
+         ],
+         [
+          4.89832,
+          52.377105
+         ],
+         [
+          4.898318,
+          52.377109
+         ],
+         [
+          4.898317,
+          52.37711
+         ],
+         [
+          4.898304,
+          52.377128
+         ],
+         [
+          4.898277,
+          52.377163
+         ],
+         [
+          4.898267,
+          52.377171
+         ],
+         [
+          4.898197,
+          52.377225
+         ],
+         [
+          4.898093,
+          52.377302
+         ],
+         [
+          4.898043,
+          52.377327
+         ],
+         [
+          4.897925,
+          52.377382
+         ],
+         [
+          4.897741,
+          52.377486
+         ],
+         [
+          4.897668,
+          52.377531
+         ],
+         [
+          4.897483,
+          52.377637
+         ],
+         [
+          4.897417,
+          52.377677
+         ],
+         [
+          4.897355,
+          52.377717
+         ],
+         [
+          4.897297,
+          52.377757
+         ],
+         [
+          4.897246,
+          52.377798
+         ],
+         [
+          4.897175,
+          52.377876
+         ],
+         [
+          4.897098,
+          52.377947
+         ],
+         [
+          4.897054,
+          52.377987
+         ],
+         [
+          4.897044,
+          52.377996
+         ],
+         [
+          4.897022,
+          52.378017
+         ],
+         [
+          4.897015,
+          52.378022
+         ],
+         [
+          4.897007,
+          52.378031
+         ],
+         [
+          4.897005,
+          52.378033
+         ],
+         [
+          4.896998,
+          52.378042
+         ],
+         [
+          4.896984,
+          52.378064
+         ],
+         [
+          4.896958,
+          52.378118
+         ],
+         [
+          4.896938,
+          52.37817
+         ],
+         [
+          4.896912,
+          52.378216
+         ],
+         [
+          4.896868,
+          52.378271
+         ],
+         [
+          4.896791,
+          52.378357
+         ],
+         [
+          4.896724,
+          52.378421
+         ],
+         [
+          4.896656,
+          52.378474
+         ],
+         [
+          4.896568,
+          52.378531
+         ],
+         [
+          4.896223,
+          52.378724
+         ],
+         [
+          4.895784,
+          52.378962
+         ],
+         [
+          4.895438,
+          52.37915
+         ],
+         [
+          4.895343,
+          52.379203
+         ],
+         [
+          4.895312,
+          52.379224
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 324,
+        "bearing_before": 305,
+        "location": [
+         4.898576,
+         52.376868
+        ],
+        "modifier": "slight right",
+        "type": "fork"
+       },
+       "name": "Prins Hendrikkade",
+       "mode": "cycling",
+       "weight": 140,
+       "duration": 140,
+       "distance": 348.6
+      },
+      {
+       "intersections": [
+        {
+         "out": 2,
+         "in": 1,
+         "entry": [
+          true,
+          false,
+          true,
+          true
+         ],
+         "bearings": [
+          60,
+          135,
+          240,
+          315
+         ],
+         "location": [
+          4.895312,
+          52.379224
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.895312,
+          52.379224
+         ],
+         [
+          4.89518,
+          52.379178
+         ],
+         [
+          4.895129,
+          52.379156
+         ],
+         [
+          4.895035,
+          52.379114
+         ],
+         [
+          4.894675,
+          52.378958
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 239,
+        "bearing_before": 313,
+        "location": [
+         4.895312,
+         52.379224
+        ],
+        "modifier": "left",
+        "type": "continue"
+       },
+       "name": "Prins Hendrikkade",
+       "mode": "cycling",
+       "weight": 18,
+       "duration": 18,
+       "distance": 52.6
+      },
+      {
+       "intersections": [
+        {
+         "out": 2,
+         "in": 0,
+         "entry": [
+          false,
+          true,
+          true
+         ],
+         "bearings": [
+          60,
+          240,
+          315
+         ],
+         "location": [
+          4.894675,
+          52.378958
+         ]
+        },
+        {
+         "out": 2,
+         "in": 0,
+         "entry": [
+          false,
+          true,
+          true
+         ],
+         "bearings": [
+          135,
+          210,
+          315
+         ],
+         "location": [
+          4.894609,
+          52.378999
+         ]
+        },
+        {
+         "out": 2,
+         "in": 1,
+         "entry": [
+          true,
+          false,
+          true
+         ],
+         "bearings": [
+          45,
+          135,
+          315
+         ],
+         "location": [
+          4.894559,
+          52.37903
+         ]
+        },
+        {
+         "out": 1,
+         "in": 0,
+         "entry": [
+          false,
+          true
+         ],
+         "bearings": [
+          135,
+          315
+         ],
+         "location": [
+          4.894473,
+          52.379074
+         ]
+        },
+        {
+         "out": 2,
+         "in": 1,
+         "entry": [
+          true,
+          false,
+          true
+         ],
+         "bearings": [
+          30,
+          135,
+          315
+         ],
+         "location": [
+          4.894256,
+          52.379201
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.894675,
+          52.378958
+         ],
+         [
+          4.894656,
+          52.378969
+         ],
+         [
+          4.894609,
+          52.378999
+         ],
+         [
+          4.894559,
+          52.37903
+         ],
+         [
+          4.894473,
+          52.379074
+         ],
+         [
+          4.894399,
+          52.379116
+         ],
+         [
+          4.894256,
+          52.379201
+         ],
+         [
+          4.89422,
+          52.379222
+         ],
+         [
+          4.894192,
+          52.379239
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 315,
+        "bearing_before": 233,
+        "location": [
+         4.894675,
+         52.378958
+        ],
+        "modifier": "right",
+        "type": "turn"
+       },
+       "name": "",
+       "mode": "cycling",
+       "weight": 10.8,
+       "duration": 10.8,
+       "distance": 45.4
+      },
+      {
+       "intersections": [
+        {
+         "out": 3,
+         "in": 1,
+         "entry": [
+          true,
+          false,
+          true,
+          true
+         ],
+         "bearings": [
+          30,
+          135,
+          210,
+          315
+         ],
+         "location": [
+          4.894192,
+          52.379239
+         ]
+        },
+        {
+         "out": 3,
+         "in": 1,
+         "entry": [
+          true,
+          false,
+          true,
+          true
+         ],
+         "bearings": [
+          30,
+          135,
+          210,
+          315
+         ],
+         "location": [
+          4.893194,
+          52.379822
+         ]
+        },
+        {
+         "out": 3,
+         "in": 1,
+         "entry": [
+          true,
+          false,
+          true,
+          true
+         ],
+         "bearings": [
+          30,
+          135,
+          210,
+          300
+         ],
+         "location": [
+          4.892803,
+          52.380045
+         ]
+        },
+        {
+         "out": 2,
+         "in": 0,
+         "entry": [
+          false,
+          true,
+          true
+         ],
+         "bearings": [
+          120,
+          195,
+          300
+         ],
+         "location": [
+          4.892277,
+          52.380198
+         ]
+        },
+        {
+         "out": 3,
+         "in": 1,
+         "entry": [
+          true,
+          false,
+          true,
+          true
+         ],
+         "bearings": [
+          30,
+          120,
+          210,
+          315
+         ],
+         "location": [
+          4.891008,
+          52.380532
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.894192,
+          52.379239
+         ],
+         [
+          4.894034,
+          52.379326
+         ],
+         [
+          4.893744,
+          52.379493
+         ],
+         [
+          4.893194,
+          52.379822
+         ],
+         [
+          4.89312,
+          52.379862
+         ],
+         [
+          4.892803,
+          52.380045
+         ],
+         [
+          4.892729,
+          52.380075
+         ],
+         [
+          4.892716,
+          52.380079
+         ],
+         [
+          4.892633,
+          52.380106
+         ],
+         [
+          4.89242,
+          52.38016
+         ],
+         [
+          4.892277,
+          52.380198
+         ],
+         [
+          4.89185,
+          52.380307
+         ],
+         [
+          4.891728,
+          52.380339
+         ],
+         [
+          4.891008,
+          52.380532
+         ],
+         [
+          4.890923,
+          52.38058
+         ],
+         [
+          4.89028,
+          52.380938
+         ],
+         [
+          4.889516,
+          52.381369
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 310,
+        "bearing_before": 313,
+        "location": [
+         4.894192,
+         52.379239
+        ],
+        "modifier": "straight",
+        "type": "new name"
+       },
+       "name": "Haarlemmerstraat",
+       "mode": "cycling",
+       "weight": 122.7,
+       "duration": 122.7,
+       "distance": 402
+      },
+      {
+       "intersections": [
+        {
+         "out": 2,
+         "in": 1,
+         "entry": [
+          true,
+          false,
+          true,
+          true
+         ],
+         "bearings": [
+          30,
+          135,
+          210,
+          315
+         ],
+         "location": [
+          4.889516,
+          52.381369
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.889516,
+          52.381369
+         ],
+         [
+          4.88944,
+          52.381286
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 208,
+        "bearing_before": 312,
+        "location": [
+         4.889516,
+         52.381369
+        ],
+        "modifier": "left",
+        "type": "turn"
+       },
+       "name": "Korte Prinsengracht",
+       "mode": "cycling",
+       "weight": 2.9,
+       "duration": 2.9,
+       "distance": 10.6
+      },
+      {
+       "intersections": [
+        {
+         "in": 0,
+         "entry": [
+          true
+         ],
+         "bearings": [
+          29
+         ],
+         "location": [
+          4.88944,
+          52.381286
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.88944,
+          52.381286
+         ],
+         [
+          4.88944,
+          52.381286
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 0,
+        "bearing_before": 209,
+        "location": [
+         4.88944,
+         52.381286
+        ],
+        "type": "arrive"
+       },
+       "name": "Korte Prinsengracht",
+       "mode": "cycling",
+       "weight": 0,
+       "duration": 0,
+       "distance": 0
+      }
+     ],
+     "weight": 471.2,
+     "summary": "Prins Hendrikkade, Haarlemmerstraat",
+     "duration": 471.2,
+     "distance": 1408.4
+    },
+    {
+     "steps": [
+      {
+       "intersections": [
+        {
+         "out": 0,
+         "entry": [
+          true
+         ],
+         "bearings": [
+          210
+         ],
+         "location": [
+          4.88944,
+          52.381286
+         ]
+        },
+        {
+         "out": 2,
+         "in": 0,
+         "entry": [
+          false,
+          true,
+          true
+         ],
+         "bearings": [
+          15,
+          135,
+          210
+         ],
+         "location": [
+          4.888756,
+          52.38053
+         ]
+        },
+        {
+         "out": 1,
+         "in": 0,
+         "entry": [
+          false,
+          true
+         ],
+         "bearings": [
+          30,
+          210
+         ],
+         "location": [
+          4.888716,
+          52.380487
+         ]
+        },
+        {
+         "out": 1,
+         "in": 0,
+         "entry": [
+          false,
+          true
+         ],
+         "bearings": [
+          30,
+          210
+         ],
+         "location": [
+          4.888555,
+          52.380319
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.88944,
+          52.381286
+         ],
+         [
+          4.889405,
+          52.381249
+         ],
+         [
+          4.889317,
+          52.381179
+         ],
+         [
+          4.888898,
+          52.380725
+         ],
+         [
+          4.888778,
+          52.380589
+         ],
+         [
+          4.888756,
+          52.38053
+         ],
+         [
+          4.888716,
+          52.380487
+         ],
+         [
+          4.888555,
+          52.380319
+         ],
+         [
+          4.888506,
+          52.380267
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 210,
+        "bearing_before": 0,
+        "location": [
+         4.88944,
+         52.381286
+        ],
+        "type": "depart"
+       },
+       "name": "Korte Prinsengracht",
+       "mode": "cycling",
+       "weight": 42.8,
+       "duration": 42.8,
+       "distance": 130.4
+      },
+      {
+       "intersections": [
+        {
+         "out": 1,
+         "in": 0,
+         "entry": [
+          false,
+          true,
+          true,
+          true
+         ],
+         "bearings": [
+          30,
+          135,
+          210,
+          300
+         ],
+         "location": [
+          4.888506,
+          52.380267
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.888506,
+          52.380267
+         ],
+         [
+          4.889522,
+          52.37969
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 132,
+        "bearing_before": 209,
+        "location": [
+         4.888506,
+         52.380267
+        ],
+        "modifier": "left",
+        "type": "turn"
+       },
+       "name": "Brouwersgracht",
+       "mode": "cycling",
+       "weight": 37,
+       "duration": 37,
+       "distance": 94.4
+      },
+      {
+       "intersections": [
+        {
+         "out": 1,
+         "in": 2,
+         "entry": [
+          true,
+          true,
+          false
+         ],
+         "bearings": [
+          120,
+          210,
+          315
+         ],
+         "location": [
+          4.889522,
+          52.37969
+         ]
+        },
+        {
+         "out": 2,
+         "in": 0,
+         "entry": [
+          false,
+          true,
+          true,
+          true
+         ],
+         "bearings": [
+          30,
+          120,
+          210,
+          300
+         ],
+         "location": [
+          4.887652,
+          52.377594
+         ]
+        },
+        {
+         "out": 2,
+         "in": 0,
+         "entry": [
+          false,
+          true,
+          true,
+          true
+         ],
+         "bearings": [
+          30,
+          120,
+          210,
+          300
+         ],
+         "location": [
+          4.885785,
+          52.375557
+         ]
+        },
+        {
+         "out": 1,
+         "in": 0,
+         "entry": [
+          false,
+          true,
+          true
+         ],
+         "bearings": [
+          30,
+          210,
+          300
+         ],
+         "location": [
+          4.885636,
+          52.375384
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.889522,
+          52.37969
+         ],
+         [
+          4.888331,
+          52.378355
+         ],
+         [
+          4.887781,
+          52.377739
+         ],
+         [
+          4.887652,
+          52.377594
+         ],
+         [
+          4.887084,
+          52.376975
+         ],
+         [
+          4.886513,
+          52.376352
+         ],
+         [
+          4.885968,
+          52.375757
+         ],
+         [
+          4.885785,
+          52.375557
+         ],
+         [
+          4.885747,
+          52.375516
+         ],
+         [
+          4.885667,
+          52.37543
+         ],
+         [
+          4.885636,
+          52.375384
+         ],
+         [
+          4.885454,
+          52.375185
+         ],
+         [
+          4.884968,
+          52.374651
+         ],
+         [
+          4.88492,
+          52.374598
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 208,
+        "bearing_before": 132,
+        "location": [
+         4.889522,
+         52.37969
+        ],
+        "modifier": "right",
+        "type": "turn"
+       },
+       "name": "Keizersgracht",
+       "mode": "cycling",
+       "weight": 183.5,
+       "duration": 183.5,
+       "distance": 647.6
+      },
+      {
+       "intersections": [
+        {
+         "out": 2,
+         "in": 0,
+         "entry": [
+          false,
+          true,
+          true
+         ],
+         "bearings": [
+          30,
+          210,
+          300
+         ],
+         "location": [
+          4.88492,
+          52.374598
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.88492,
+          52.374598
+         ],
+         [
+          4.884219,
+          52.374835
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 298,
+        "bearing_before": 208,
+        "location": [
+         4.88492,
+         52.374598
+        ],
+        "modifier": "right",
+        "type": "turn"
+       },
+       "name": "Westermarkt",
+       "mode": "cycling",
+       "weight": 23.6,
+       "duration": 23.6,
+       "distance": 54.5
+      },
+      {
+       "intersections": [
+        {
+         "out": 1,
+         "in": 0,
+         "entry": [
+          false,
+          true,
+          true
+         ],
+         "bearings": [
+          120,
+          210,
+          300
+         ],
+         "location": [
+          4.884219,
+          52.374835
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.884219,
+          52.374835
+         ],
+         [
+          4.884183,
+          52.374794
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 208,
+        "bearing_before": 298,
+        "location": [
+         4.884219,
+         52.374835
+        ],
+        "modifier": "left",
+        "type": "turn"
+       },
+       "name": "Westermarkt",
+       "mode": "cycling",
+       "weight": 3.1,
+       "duration": 3.1,
+       "distance": 5.2
+      },
+      {
+       "intersections": [
+        {
+         "in": 0,
+         "entry": [
+          true
+         ],
+         "bearings": [
+          28
+         ],
+         "location": [
+          4.884183,
+          52.374794
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.884183,
+          52.374794
+         ],
+         [
+          4.884183,
+          52.374794
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 0,
+        "bearing_before": 208,
+        "location": [
+         4.884183,
+         52.374794
+        ],
+        "modifier": "straight",
+        "type": "arrive"
+       },
+       "name": "Westermarkt",
+       "mode": "cycling",
+       "weight": 0,
+       "duration": 0,
+       "distance": 0
+      }
+     ],
+     "weight": 290,
+     "summary": "Brouwersgracht, Keizersgracht",
+     "duration": 290,
+     "distance": 932.1
+    },
+    {
+     "steps": [
+      {
+       "intersections": [
+        {
+         "out": 0,
+         "entry": [
+          true
+         ],
+         "bearings": [
+          28
+         ],
+         "location": [
+          4.884183,
+          52.374794
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.884183,
+          52.374794
+         ],
+         [
+          4.884219,
+          52.374835
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 28,
+        "bearing_before": 0,
+        "location": [
+         4.884183,
+         52.374794
+        ],
+        "modifier": "straight",
+        "type": "depart"
+       },
+       "name": "Westermarkt",
+       "mode": "cycling",
+       "weight": 7.4,
+       "duration": 7.4,
+       "distance": 5.2
+      },
+      {
+       "intersections": [
+        {
+         "out": 0,
+         "in": 1,
+         "entry": [
+          true,
+          false,
+          true
+         ],
+         "bearings": [
+          120,
+          210,
+          300
+         ],
+         "location": [
+          4.884219,
+          52.374835
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.884219,
+          52.374835
+         ],
+         [
+          4.88492,
+          52.374598
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 118,
+        "bearing_before": 28,
+        "location": [
+         4.884219,
+         52.374835
+        ],
+        "modifier": "right",
+        "type": "continue"
+       },
+       "name": "Westermarkt",
+       "mode": "cycling",
+       "weight": 19,
+       "duration": 19,
+       "distance": 54.5
+      },
+      {
+       "intersections": [
+        {
+         "out": 1,
+         "in": 2,
+         "entry": [
+          true,
+          true,
+          false
+         ],
+         "bearings": [
+          30,
+          210,
+          300
+         ],
+         "location": [
+          4.88492,
+          52.374598
+         ]
+        },
+        {
+         "out": 2,
+         "in": 0,
+         "entry": [
+          false,
+          true,
+          true,
+          true,
+          true
+         ],
+         "bearings": [
+          0,
+          90,
+          180,
+          285,
+          315
+         ],
+         "location": [
+          4.884746,
+          52.374064
+         ]
+        },
+        {
+         "out": 2,
+         "in": 0,
+         "entry": [
+          false,
+          true,
+          true,
+          true
+         ],
+         "bearings": [
+          0,
+          90,
+          180,
+          270
+         ],
+         "location": [
+          4.884741,
+          52.373951
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.88492,
+          52.374598
+         ],
+         [
+          4.884848,
+          52.374501
+         ],
+         [
+          4.884764,
+          52.374356
+         ],
+         [
+          4.884757,
+          52.374252
+         ],
+         [
+          4.884754,
+          52.374199
+         ],
+         [
+          4.884751,
+          52.374156
+         ],
+         [
+          4.884747,
+          52.3741
+         ],
+         [
+          4.884746,
+          52.374064
+         ],
+         [
+          4.884744,
+          52.374023
+         ],
+         [
+          4.884743,
+          52.374012
+         ],
+         [
+          4.884742,
+          52.374
+         ],
+         [
+          4.884741,
+          52.373951
+         ],
+         [
+          4.884735,
+          52.373885
+         ],
+         [
+          4.884722,
+          52.373756
+         ],
+         [
+          4.884653,
+          52.373106
+         ],
+         [
+          4.884595,
+          52.372555
+         ],
+         [
+          4.884574,
+          52.372359
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 203,
+        "bearing_before": 118,
+        "location": [
+         4.88492,
+         52.374598
+        ],
+        "modifier": "right",
+        "type": "turn"
+       },
+       "name": "Keizersgracht",
+       "mode": "cycling",
+       "weight": 96.1,
+       "duration": 96.1,
+       "distance": 251.6
+      },
+      {
+       "intersections": [
+        {
+         "out": 1,
+         "in": 0,
+         "entry": [
+          false,
+          true,
+          true,
+          true
+         ],
+         "bearings": [
+          0,
+          90,
+          180,
+          270
+         ],
+         "location": [
+          4.884574,
+          52.372359
+         ]
+        },
+        {
+         "out": 0,
+         "in": 1,
+         "entry": [
+          true,
+          false
+         ],
+         "bearings": [
+          90,
+          270
+         ],
+         "location": [
+          4.884661,
+          52.372356
+         ]
+        },
+        {
+         "out": 0,
+         "in": 1,
+         "entry": [
+          true,
+          false
+         ],
+         "bearings": [
+          90,
+          270
+         ],
+         "location": [
+          4.885073,
+          52.372347
+         ]
+        },
+        {
+         "out": 1,
+         "in": 3,
+         "entry": [
+          true,
+          true,
+          true,
+          false
+         ],
+         "bearings": [
+          0,
+          90,
+          180,
+          270
+         ],
+         "location": [
+          4.885172,
+          52.372342
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.884574,
+          52.372359
+         ],
+         [
+          4.884661,
+          52.372356
+         ],
+         [
+          4.885073,
+          52.372347
+         ],
+         [
+          4.885172,
+          52.372342
+         ],
+         [
+          4.885289,
+          52.372338
+         ],
+         [
+          4.886785,
+          52.37228
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 92,
+        "bearing_before": 182,
+        "location": [
+         4.884574,
+         52.372359
+        ],
+        "modifier": "left",
+        "type": "turn"
+       },
+       "name": "Hartenstraat",
+       "mode": "cycling",
+       "weight": 45.9,
+       "duration": 45.9,
+       "distance": 150.8
+      },
+      {
+       "intersections": [
+        {
+         "out": 2,
+         "in": 3,
+         "entry": [
+          true,
+          true,
+          true,
+          false
+         ],
+         "bearings": [
+          0,
+          90,
+          180,
+          270
+         ],
+         "location": [
+          4.886785,
+          52.37228
+         ]
+        },
+        {
+         "out": 2,
+         "in": 0,
+         "entry": [
+          false,
+          true,
+          true,
+          true
+         ],
+         "bearings": [
+          0,
+          90,
+          180,
+          270
+         ],
+         "location": [
+          4.886634,
+          52.370283
+         ]
+        },
+        {
+         "out": 2,
+         "in": 0,
+         "entry": [
+          false,
+          true,
+          true,
+          true
+         ],
+         "bearings": [
+          0,
+          90,
+          180,
+          270
+         ],
+         "location": [
+          4.886492,
+          52.368788
+         ]
+        },
+        {
+         "out": 1,
+         "in": 0,
+         "entry": [
+          false,
+          true,
+          true
+         ],
+         "bearings": [
+          0,
+          135,
+          240
+         ],
+         "location": [
+          4.886429,
+          52.367592
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.886785,
+          52.37228
+         ],
+         [
+          4.886694,
+          52.37108
+         ],
+         [
+          4.886634,
+          52.370283
+         ],
+         [
+          4.886492,
+          52.368788
+         ],
+         [
+          4.886464,
+          52.368337
+         ],
+         [
+          4.886405,
+          52.367718
+         ],
+         [
+          4.886429,
+          52.367592
+         ],
+         [
+          4.886469,
+          52.367563
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 181,
+        "bearing_before": 92,
+        "location": [
+         4.886785,
+         52.37228
+        ],
+        "modifier": "right",
+        "type": "turn"
+       },
+       "name": "Herengracht",
+       "mode": "cycling",
+       "weight": 146.9,
+       "duration": 146.9,
+       "distance": 526.6
+      },
+      {
+       "intersections": [
+        {
+         "out": 0,
+         "in": 1,
+         "entry": [
+          true,
+          false
+         ],
+         "bearings": [
+          135,
+          315
+         ],
+         "location": [
+          4.886469,
+          52.367563
+         ]
+        },
+        {
+         "out": 0,
+         "in": 1,
+         "entry": [
+          true,
+          false
+         ],
+         "bearings": [
+          120,
+          315
+         ],
+         "location": [
+          4.886655,
+          52.367445
+         ]
+        },
+        {
+         "out": 1,
+         "in": 3,
+         "entry": [
+          true,
+          true,
+          true,
+          false
+         ],
+         "bearings": [
+          120,
+          135,
+          240,
+          300
+         ],
+         "location": [
+          4.886711,
+          52.36743
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.886469,
+          52.367563
+         ],
+         [
+          4.886655,
+          52.367445
+         ],
+         [
+          4.886711,
+          52.36743
+         ],
+         [
+          4.88795,
+          52.366728
+         ],
+         [
+          4.888,
+          52.366699
+         ],
+         [
+          4.88801,
+          52.366692
+         ],
+         [
+          4.888018,
+          52.366686
+         ],
+         [
+          4.888044,
+          52.366669
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 135,
+        "bearing_before": 139,
+        "location": [
+         4.886469,
+         52.367563
+        ],
+        "modifier": "straight",
+        "type": "continue"
+       },
+       "name": "Herengracht",
+       "mode": "cycling",
+       "weight": 41.5,
+       "duration": 41.5,
+       "distance": 146.6
+      },
+      {
+       "intersections": [
+        {
+         "out": 0,
+         "in": 2,
+         "entry": [
+          true,
+          true,
+          false,
+          true
+         ],
+         "bearings": [
+          120,
+          135,
+          315,
+          330
+         ],
+         "location": [
+          4.888044,
+          52.366669
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.888044,
+          52.366669
+         ],
+         [
+          4.888161,
+          52.36663
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 118,
+        "bearing_before": 135,
+        "location": [
+         4.888044,
+         52.366669
+        ],
+        "modifier": "slight left",
+        "type": "turn"
+       },
+       "name": "",
+       "mode": "pushing bike",
+       "weight": 15.4,
+       "duration": 15.4,
+       "distance": 9.1
+      },
+      {
+       "intersections": [
+        {
+         "out": 0,
+         "in": 3,
+         "entry": [
+          true,
+          true,
+          true,
+          false
+         ],
+         "bearings": [
+          30,
+          135,
+          210,
+          300
+         ],
+         "location": [
+          4.888161,
+          52.36663
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.888161,
+          52.36663
+         ],
+         [
+          4.888172,
+          52.366642
+         ],
+         [
+          4.888204,
+          52.366669
+         ],
+         [
+          4.888218,
+          52.36668
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 33,
+        "bearing_before": 118,
+        "location": [
+         4.888161,
+         52.36663
+        ],
+        "modifier": "left",
+        "type": "turn"
+       },
+       "name": "",
+       "mode": "pushing bike",
+       "weight": 6.4,
+       "duration": 6.4,
+       "distance": 6.8
+      },
+      {
+       "intersections": [
+        {
+         "out": 0,
+         "in": 2,
+         "entry": [
+          true,
+          false,
+          false
+         ],
+         "bearings": [
+          60,
+          180,
+          210
+         ],
+         "location": [
+          4.888218,
+          52.36668
+         ]
+        },
+        {
+         "out": 0,
+         "in": 1,
+         "entry": [
+          true,
+          false
+         ],
+         "bearings": [
+          60,
+          240
+         ],
+         "location": [
+          4.888476,
+          52.366775
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.888218,
+          52.36668
+         ],
+         [
+          4.888241,
+          52.366692
+         ],
+         [
+          4.888278,
+          52.366708
+         ],
+         [
+          4.888476,
+          52.366775
+         ],
+         [
+          4.888524,
+          52.366792
+         ],
+         [
+          4.888587,
+          52.366816
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 57,
+        "bearing_before": 33,
+        "location": [
+         4.888218,
+         52.36668
+        ],
+        "modifier": "slight right",
+        "type": "new name"
+       },
+       "name": "Koningsplein",
+       "mode": "cycling",
+       "weight": 11.1,
+       "duration": 11.1,
+       "distance": 29.4
+      },
+      {
+       "intersections": [
+        {
+         "out": 1,
+         "in": 2,
+         "entry": [
+          true,
+          true,
+          false,
+          true
+         ],
+         "bearings": [
+          60,
+          135,
+          240,
+          315
+         ],
+         "location": [
+          4.888587,
+          52.366816
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.888587,
+          52.366816
+         ],
+         [
+          4.888709,
+          52.36674
+         ],
+         [
+          4.890653,
+          52.365632
+         ],
+         [
+          4.892017,
+          52.365447
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 133,
+        "bearing_before": 57,
+        "location": [
+         4.888587,
+         52.366816
+        ],
+        "modifier": "right",
+        "type": "turn"
+       },
+       "name": "Herengracht",
+       "mode": "cycling",
+       "weight": 79.7,
+       "duration": 79.7,
+       "distance": 287.9
+      },
+      {
+       "intersections": [
+        {
+         "in": 0,
+         "entry": [
+          true
+         ],
+         "bearings": [
+          282
+         ],
+         "location": [
+          4.892017,
+          52.365447
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.892017,
+          52.365447
+         ],
+         [
+          4.892017,
+          52.365447
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 0,
+        "bearing_before": 102,
+        "location": [
+         4.892017,
+         52.365447
+        ],
+        "modifier": "right",
+        "type": "arrive"
+       },
+       "name": "Herengracht",
+       "mode": "cycling",
+       "weight": 0,
+       "duration": 0,
+       "distance": 0
+      }
+     ],
+     "weight": 469.4,
+     "summary": "Keizersgracht, Herengracht",
+     "duration": 469.4,
+     "distance": 1468.5
+    },
+    {
+     "steps": [
+      {
+       "intersections": [
+        {
+         "out": 0,
+         "entry": [
+          true
+         ],
+         "bearings": [
+          102
+         ],
+         "location": [
+          4.892017,
+          52.365447
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.892017,
+          52.365447
+         ],
+         [
+          4.89284,
+          52.365336
+         ],
+         [
+          4.892877,
+          52.365332
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 102,
+        "bearing_before": 0,
+        "location": [
+         4.892017,
+         52.365447
+        ],
+        "modifier": "right",
+        "type": "depart"
+       },
+       "name": "Herengracht",
+       "mode": "cycling",
+       "weight": 20.8,
+       "duration": 20.8,
+       "distance": 60
+      },
+      {
+       "intersections": [
+        {
+         "out": 4,
+         "in": 5,
+         "entry": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          false
+         ],
+         "bearings": [
+          15,
+          30,
+          45,
+          105,
+          195,
+          285
+         ],
+         "location": [
+          4.892877,
+          52.365332
+         ]
+        },
+        {
+         "out": 2,
+         "in": 0,
+         "entry": [
+          false,
+          true,
+          true,
+          true,
+          true
+         ],
+         "bearings": [
+          12,
+          103,
+          177,
+          180,
+          282
+         ],
+         "location": [
+          4.892774,
+          52.365028
+         ]
+        },
+        {
+         "out": 2,
+         "in": 0,
+         "entry": [
+          false,
+          true,
+          true
+         ],
+         "bearings": [
+          15,
+          30,
+          195
+         ],
+         "location": [
+          4.892731,
+          52.364903
+         ]
+        },
+        {
+         "out": 2,
+         "in": 0,
+         "entry": [
+          false,
+          true,
+          true
+         ],
+         "bearings": [
+          15,
+          180,
+          195
+         ],
+         "location": [
+          4.892478,
+          52.364185
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.892877,
+          52.365332
+         ],
+         [
+          4.892857,
+          52.365273
+         ],
+         [
+          4.892789,
+          52.365071
+         ],
+         [
+          4.892774,
+          52.365028
+         ],
+         [
+          4.892731,
+          52.364997
+         ],
+         [
+          4.892719,
+          52.364961
+         ],
+         [
+          4.892731,
+          52.364903
+         ],
+         [
+          4.892478,
+          52.364185
+         ],
+         [
+          4.892425,
+          52.364121
+         ],
+         [
+          4.892407,
+          52.36407
+         ],
+         [
+          4.892428,
+          52.364041
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 191,
+        "bearing_before": 101,
+        "location": [
+         4.892877,
+         52.365332
+        ],
+        "modifier": "right",
+        "type": "turn"
+       },
+       "name": "Vijzelstraat",
+       "mode": "cycling",
+       "weight": 40.3,
+       "duration": 40.3,
+       "distance": 148.7
+      },
+      {
+       "intersections": [
+        {
+         "out": 4,
+         "in": 0,
+         "entry": [
+          false,
+          true,
+          true,
+          true,
+          true
+         ],
+         "bearings": [
+          15,
+          45,
+          105,
+          195,
+          285
+         ],
+         "location": [
+          4.892428,
+          52.364041
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.892428,
+          52.364041
+         ],
+         [
+          4.892387,
+          52.364047
+         ],
+         [
+          4.892342,
+          52.364053
+         ],
+         [
+          4.889591,
+          52.364426
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 281,
+        "bearing_before": 188,
+        "location": [
+         4.892428,
+         52.364041
+        ],
+        "modifier": "right",
+        "type": "continue"
+       },
+       "name": "Keizersgracht",
+       "mode": "cycling",
+       "weight": 60.1,
+       "duration": 60.1,
+       "distance": 197.9
+      },
+      {
+       "intersections": [
+        {
+         "out": 2,
+         "in": 1,
+         "entry": [
+          true,
+          false,
+          true,
+          true
+         ],
+         "bearings": [
+          30,
+          105,
+          210,
+          315
+         ],
+         "location": [
+          4.889591,
+          52.364426
+         ]
+        },
+        {
+         "out": 2,
+         "in": 0,
+         "entry": [
+          false,
+          true,
+          true,
+          true
+         ],
+         "bearings": [
+          30,
+          105,
+          210,
+          315
+         ],
+         "location": [
+          4.889273,
+          52.364094
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.889591,
+          52.364426
+         ],
+         [
+          4.889533,
+          52.364371
+         ],
+         [
+          4.889339,
+          52.364166
+         ],
+         [
+          4.889273,
+          52.364094
+         ],
+         [
+          4.888663,
+          52.363412
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 209,
+        "bearing_before": 281,
+        "location": [
+         4.889591,
+         52.364426
+        ],
+        "modifier": "left",
+        "type": "turn"
+       },
+       "name": "Nieuwe Spiegelstraat",
+       "mode": "cycling",
+       "weight": 32.6,
+       "duration": 32.6,
+       "distance": 129.3
+      },
+      {
+       "intersections": [
+        {
+         "out": 2,
+         "in": 0,
+         "entry": [
+          false,
+          true,
+          true,
+          true
+         ],
+         "bearings": [
+          30,
+          105,
+          210,
+          315
+         ],
+         "location": [
+          4.888663,
+          52.363412
+         ]
+        },
+        {
+         "out": 2,
+         "in": 0,
+         "entry": [
+          false,
+          true,
+          true,
+          true
+         ],
+         "bearings": [
+          15,
+          105,
+          210,
+          300
+         ],
+         "location": [
+          4.888169,
+          52.362835
+         ]
+        },
+        {
+         "out": 1,
+         "in": 0,
+         "entry": [
+          false,
+          true
+         ],
+         "bearings": [
+          30,
+          210
+         ],
+         "location": [
+          4.888111,
+          52.362775
+         ]
+        },
+        {
+         "out": 1,
+         "in": 0,
+         "entry": [
+          false,
+          true
+         ],
+         "bearings": [
+          30,
+          210
+         ],
+         "location": [
+          4.887952,
+          52.362601
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.888663,
+          52.363412
+         ],
+         [
+          4.888192,
+          52.362882
+         ],
+         [
+          4.888169,
+          52.362835
+         ],
+         [
+          4.888134,
+          52.3628
+         ],
+         [
+          4.888111,
+          52.362775
+         ],
+         [
+          4.888108,
+          52.362771
+         ],
+         [
+          4.887952,
+          52.362601
+         ],
+         [
+          4.887945,
+          52.362595
+         ],
+         [
+          4.887901,
+          52.362551
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 208,
+        "bearing_before": 208,
+        "location": [
+         4.888663,
+         52.363412
+        ],
+        "modifier": "straight",
+        "type": "continue"
+       },
+       "name": "Nieuwe Spiegelstraat",
+       "mode": "cycling",
+       "weight": 27.5,
+       "duration": 27.5,
+       "distance": 109.1
+      },
+      {
+       "intersections": [
+        {
+         "out": 3,
+         "in": 0,
+         "entry": [
+          false,
+          true,
+          true,
+          true,
+          true
+         ],
+         "bearings": [
+          30,
+          120,
+          210,
+          225,
+          315
+         ],
+         "location": [
+          4.887901,
+          52.362551
+         ]
+        },
+        {
+         "out": 2,
+         "in": 0,
+         "entry": [
+          false,
+          true,
+          true
+         ],
+         "bearings": [
+          30,
+          120,
+          210
+         ],
+         "location": [
+          4.887455,
+          52.362102
+         ]
+        },
+        {
+         "out": 4,
+         "in": 0,
+         "entry": [
+          false,
+          true,
+          true,
+          true,
+          true,
+          true
+         ],
+         "bearings": [
+          15,
+          30,
+          90,
+          135,
+          210,
+          315
+         ],
+         "location": [
+          4.887113,
+          52.361673
+         ]
+        },
+        {
+         "out": 1,
+         "in": 0,
+         "entry": [
+          false,
+          true,
+          true
+         ],
+         "bearings": [
+          30,
+          210,
+          300
+         ],
+         "location": [
+          4.886898,
+          52.361444
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.887901,
+          52.362551
+         ],
+         [
+          4.887814,
+          52.362504
+         ],
+         [
+          4.887685,
+          52.362358
+         ],
+         [
+          4.887455,
+          52.362102
+         ],
+         [
+          4.887161,
+          52.361785
+         ],
+         [
+          4.887113,
+          52.361673
+         ],
+         [
+          4.887022,
+          52.36158
+         ],
+         [
+          4.88694,
+          52.361491
+         ],
+         [
+          4.886898,
+          52.361444
+         ],
+         [
+          4.886806,
+          52.361333
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 223,
+        "bearing_before": 210,
+        "location": [
+         4.887901,
+         52.362551
+        ],
+        "modifier": "straight",
+        "type": "turn"
+       },
+       "name": "",
+       "mode": "cycling",
+       "weight": 43.3,
+       "duration": 43.3,
+       "distance": 155.6
+      },
+      {
+       "intersections": [
+        {
+         "out": 2,
+         "in": 0,
+         "entry": [
+          false,
+          true,
+          true
+         ],
+         "bearings": [
+          30,
+          180,
+          225
+         ],
+         "location": [
+          4.886806,
+          52.361333
+         ]
+        },
+        {
+         "out": 2,
+         "in": 0,
+         "entry": [
+          false,
+          true,
+          true,
+          true
+         ],
+         "bearings": [
+          30,
+          120,
+          180,
+          315
+         ],
+         "location": [
+          4.886577,
+          52.361103
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.886806,
+          52.361333
+         ],
+         [
+          4.886738,
+          52.36131
+         ],
+         [
+          4.8867,
+          52.361276
+         ],
+         [
+          4.88668,
+          52.361239
+         ],
+         [
+          4.886667,
+          52.361235
+         ],
+         [
+          4.886655,
+          52.36123
+         ],
+         [
+          4.886644,
+          52.361225
+         ],
+         [
+          4.886633,
+          52.361219
+         ],
+         [
+          4.886624,
+          52.361213
+         ],
+         [
+          4.886614,
+          52.361206
+         ],
+         [
+          4.886603,
+          52.361196
+         ],
+         [
+          4.886593,
+          52.361185
+         ],
+         [
+          4.886586,
+          52.361175
+         ],
+         [
+          4.88658,
+          52.361165
+         ],
+         [
+          4.886576,
+          52.361155
+         ],
+         [
+          4.886574,
+          52.361145
+         ],
+         [
+          4.886572,
+          52.361134
+         ],
+         [
+          4.886573,
+          52.361124
+         ],
+         [
+          4.886574,
+          52.361114
+         ],
+         [
+          4.886577,
+          52.361103
+         ],
+         [
+          4.886566,
+          52.361044
+         ],
+         [
+          4.886559,
+          52.361018
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 227,
+        "bearing_before": 206,
+        "location": [
+         4.886806,
+         52.361333
+        ],
+        "modifier": "straight",
+        "type": "turn"
+       },
+       "name": "Weteringschans",
+       "mode": "cycling",
+       "weight": 12.3,
+       "duration": 12.3,
+       "distance": 41.7
+      },
+      {
+       "intersections": [
+        {
+         "out": 2,
+         "in": 0,
+         "entry": [
+          false,
+          true,
+          true
+         ],
+         "bearings": [
+          15,
+          210,
+          225
+         ],
+         "location": [
+          4.886559,
+          52.361018
+         ]
+        },
+        {
+         "out": 2,
+         "in": 0,
+         "entry": [
+          false,
+          true,
+          true,
+          true
+         ],
+         "bearings": [
+          45,
+          135,
+          225,
+          315
+         ],
+         "location": [
+          4.886082,
+          52.360675
+         ]
+        },
+        {
+         "out": 2,
+         "in": 0,
+         "entry": [
+          false,
+          true,
+          true,
+          true
+         ],
+         "bearings": [
+          45,
+          135,
+          210,
+          315
+         ],
+         "location": [
+          4.886038,
+          52.360642
+         ]
+        },
+        {
+         "out": 2,
+         "in": 0,
+         "entry": [
+          false,
+          true,
+          true,
+          true
+         ],
+         "bearings": [
+          30,
+          135,
+          210,
+          315
+         ],
+         "location": [
+          4.886008,
+          52.360614
+         ]
+        },
+        {
+         "out": 2,
+         "in": 0,
+         "entry": [
+          false,
+          true,
+          true,
+          true
+         ],
+         "bearings": [
+          30,
+          120,
+          195,
+          315
+         ],
+         "location": [
+          4.885949,
+          52.360559
+         ]
+        },
+        {
+         "out": 3,
+         "in": 0,
+         "entry": [
+          false,
+          true,
+          true,
+          true,
+          true
+         ],
+         "bearings": [
+          15,
+          60,
+          135,
+          225,
+          315
+         ],
+         "location": [
+          4.885898,
+          52.360483
+         ]
+        },
+        {
+         "out": 2,
+         "in": 0,
+         "entry": [
+          false,
+          true,
+          true,
+          true
+         ],
+         "bearings": [
+          45,
+          120,
+          225,
+          315
+         ],
+         "location": [
+          4.885868,
+          52.360461
+         ]
+        },
+        {
+         "out": 1,
+         "classes": [
+          "tunnel"
+         ],
+         "in": 0,
+         "entry": [
+          false,
+          true
+         ],
+         "bearings": [
+          45,
+          225
+         ],
+         "location": [
+          4.885619,
+          52.360277
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.886559,
+          52.361018
+         ],
+         [
+          4.886468,
+          52.360964
+         ],
+         [
+          4.886392,
+          52.360908
+         ],
+         [
+          4.886118,
+          52.360702
+         ],
+         [
+          4.886115,
+          52.360699
+         ],
+         [
+          4.886108,
+          52.360694
+         ],
+         [
+          4.886082,
+          52.360675
+         ],
+         [
+          4.886038,
+          52.360642
+         ],
+         [
+          4.886008,
+          52.360614
+         ],
+         [
+          4.885949,
+          52.360559
+         ],
+         [
+          4.885915,
+          52.360518
+         ],
+         [
+          4.885898,
+          52.360483
+         ],
+         [
+          4.885868,
+          52.360461
+         ],
+         [
+          4.885619,
+          52.360277
+         ],
+         [
+          4.885226,
+          52.359987
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 223,
+        "bearing_before": 188,
+        "location": [
+         4.886559,
+         52.361018
+        ],
+        "modifier": "slight right",
+        "type": "turn"
+       },
+       "name": "",
+       "mode": "cycling",
+       "weight": 59.4,
+       "duration": 59.4,
+       "distance": 146.8
+      },
+      {
+       "intersections": [
+        {
+         "in": 0,
+         "entry": [
+          true
+         ],
+         "bearings": [
+          40
+         ],
+         "location": [
+          4.885226,
+          52.359987
+         ]
+        }
+       ],
+       "driving_side": "right",
+       "geometry": {
+        "coordinates": [
+         [
+          4.885226,
+          52.359987
+         ],
+         [
+          4.885226,
+          52.359987
+         ]
+        ],
+        "type": "LineString"
+       },
+       "maneuver": {
+        "bearing_after": 0,
+        "bearing_before": 220,
+        "location": [
+         4.885226,
+         52.359987
+        ],
+        "type": "arrive"
+       },
+       "name": "Museumstraat",
+       "mode": "cycling",
+       "weight": 0,
+       "duration": 0,
+       "distance": 0
+      }
+     ],
+     "weight": 296.3,
+     "summary": "Keizersgracht, Nieuwe Spiegelstraat",
+     "duration": 296.3,
+     "distance": 989.1
+    }
+   ],
+   "weight_name": "duration",
+   "geometry": {
+    "coordinates": [
+     [
+      4.891741,
+      52.373032
+     ],
+     [
+      4.891733,
+      52.372888
+     ],
+     [
+      4.891748,
+      52.372888
+     ],
+     [
+      4.891744,
+      52.372775
+     ],
+     [
+      4.89156,
+      52.372778
+     ],
+     [
+      4.891561,
+      52.372795
+     ],
+     [
+      4.891484,
+      52.372796
+     ],
+     [
+      4.891484,
+      52.372793
+     ],
+     [
+      4.89116,
+      52.372798
+     ],
+     [
+      4.891161,
+      52.372801
+     ],
+     [
+      4.891083,
+      52.372803
+     ],
+     [
+      4.891081,
+      52.372785
+     ],
+     [
+      4.890897,
+      52.372788
+     ],
+     [
+      4.890741,
+      52.372785
+     ],
+     [
+      4.890743,
+      52.372735
+     ],
+     [
+      4.890746,
+      52.372682
+     ],
+     [
+      4.890747,
+      52.372671
+     ],
+     [
+      4.890753,
+      52.372666
+     ],
+     [
+      4.890761,
+      52.372661
+     ],
+     [
+      4.890769,
+      52.372657
+     ],
+     [
+      4.890778,
+      52.372654
+     ],
+     [
+      4.890786,
+      52.372652
+     ],
+     [
+      4.890788,
+      52.372652
+     ],
+     [
+      4.890798,
+      52.37265
+     ],
+     [
+      4.890808,
+      52.37265
+     ],
+     [
+      4.890819,
+      52.37265
+     ],
+     [
+      4.890829,
+      52.372651
+     ],
+     [
+      4.890895,
+      52.37266
+     ],
+     [
+      4.891073,
+      52.372687
+     ],
+     [
+      4.89117,
+      52.372701
+     ],
+     [
+      4.891268,
+      52.372713
+     ],
+     [
+      4.891394,
+      52.372724
+     ],
+     [
+      4.891466,
+      52.372727
+     ],
+     [
+      4.891552,
+      52.372729
+     ],
+     [
+      4.891745,
+      52.372735
+     ],
+     [
+      4.89188,
+      52.37274
+     ],
+     [
+      4.892024,
+      52.372742
+     ],
+     [
+      4.892179,
+      52.372747
+     ],
+     [
+      4.892372,
+      52.372752
+     ],
+     [
+      4.892518,
+      52.372752
+     ],
+     [
+      4.892624,
+      52.372749
+     ],
+     [
+      4.892677,
+      52.372746
+     ],
+     [
+      4.892751,
+      52.372743
+     ],
+     [
+      4.892781,
+      52.372741
+     ],
+     [
+      4.892778,
+      52.372718
+     ],
+     [
+      4.892777,
+      52.372713
+     ],
+     [
+      4.892782,
+      52.372713
+     ],
+     [
+      4.892889,
+      52.372701
+     ],
+     [
+      4.892936,
+      52.372694
+     ],
+     [
+      4.892963,
+      52.37269
+     ],
+     [
+      4.892986,
+      52.372686
+     ],
+     [
+      4.893074,
+      52.372678
+     ],
+     [
+      4.893162,
+      52.372667
+     ],
+     [
+      4.893203,
+      52.372663
+     ],
+     [
+      4.893269,
+      52.372651
+     ],
+     [
+      4.893971,
+      52.372509
+     ],
+     [
+      4.894134,
+      52.372661
+     ],
+     [
+      4.894402,
+      52.372863
+     ],
+     [
+      4.894457,
+      52.3729
+     ],
+     [
+      4.894548,
+      52.37296
+     ],
+     [
+      4.894766,
+      52.373103
+     ],
+     [
+      4.895032,
+      52.373265
+     ],
+     [
+      4.895409,
+      52.373489
+     ],
+     [
+      4.895771,
+      52.37372
+     ],
+     [
+      4.896103,
+      52.373936
+     ],
+     [
+      4.896591,
+      52.374249
+     ],
+     [
+      4.89681,
+      52.37441
+     ],
+     [
+      4.89683,
+      52.374424
+     ],
+     [
+      4.8973,
+      52.374358
+     ],
+     [
+      4.897426,
+      52.374355
+     ],
+     [
+      4.897425,
+      52.374381
+     ],
+     [
+      4.89745,
+      52.374472
+     ],
+     [
+      4.897502,
+      52.374542
+     ],
+     [
+      4.897507,
+      52.374549
+     ],
+     [
+      4.897565,
+      52.374582
+     ],
+     [
+      4.89766,
+      52.374613
+     ],
+     [
+      4.897808,
+      52.374647
+     ],
+     [
+      4.897977,
+      52.374655
+     ],
+     [
+      4.898156,
+      52.374656
+     ],
+     [
+      4.898227,
+      52.374651
+     ],
+     [
+      4.898384,
+      52.374641
+     ],
+     [
+      4.898564,
+      52.374606
+     ],
+     [
+      4.898638,
+      52.374576
+     ],
+     [
+      4.898697,
+      52.37454
+     ],
+     [
+      4.898752,
+      52.374515
+     ],
+     [
+      4.898827,
+      52.374484
+     ],
+     [
+      4.898835,
+      52.374491
+     ],
+     [
+      4.898894,
+      52.374537
+     ],
+     [
+      4.899032,
+      52.374676
+     ],
+     [
+      4.899164,
+      52.37481
+     ],
+     [
+      4.899155,
+      52.374814
+     ],
+     [
+      4.898357,
+      52.375102
+     ],
+     [
+      4.897999,
+      52.375234
+     ],
+     [
+      4.898339,
+      52.375465
+     ],
+     [
+      4.89885,
+      52.375826
+     ],
+     [
+      4.899088,
+      52.376011
+     ],
+     [
+      4.89922,
+      52.376086
+     ],
+     [
+      4.899437,
+      52.376169
+     ],
+     [
+      4.899609,
+      52.376221
+     ],
+     [
+      4.899624,
+      52.376227
+     ],
+     [
+      4.899906,
+      52.376332
+     ],
+     [
+      4.899982,
+      52.376361
+     ],
+     [
+      4.899958,
+      52.376382
+     ],
+     [
+      4.899906,
+      52.376419
+     ],
+     [
+      4.900613,
+      52.376644
+     ],
+     [
+      4.90068,
+      52.376744
+     ],
+     [
+      4.90171,
+      52.376844
+     ],
+     [
+      4.901835,
+      52.376857
+     ],
+     [
+      4.90186,
+      52.376859
+     ],
+     [
+      4.901875,
+      52.376859
+     ],
+     [
+      4.901886,
+      52.376858
+     ],
+     [
+      4.9019,
+      52.376856
+     ],
+     [
+      4.90191,
+      52.376872
+     ],
+     [
+      4.901928,
+      52.376905
+     ],
+     [
+      4.901932,
+      52.376912
+     ],
+     [
+      4.901945,
+      52.376933
+     ],
+     [
+      4.901961,
+      52.376956
+     ],
+     [
+      4.901974,
+      52.376976
+     ],
+     [
+      4.901987,
+      52.376996
+     ],
+     [
+      4.902005,
+      52.377026
+     ],
+     [
+      4.902007,
+      52.377029
+     ],
+     [
+      4.902015,
+      52.377042
+     ],
+     [
+      4.902036,
+      52.377081
+     ],
+     [
+      4.902043,
+      52.377093
+     ],
+     [
+      4.902072,
+      52.377147
+     ],
+     [
+      4.90214,
+      52.377276
+     ],
+     [
+      4.90216,
+      52.377309
+     ],
+     [
+      4.90214,
+      52.377276
+     ],
+     [
+      4.902072,
+      52.377147
+     ],
+     [
+      4.902043,
+      52.377093
+     ],
+     [
+      4.902036,
+      52.377081
+     ],
+     [
+      4.902015,
+      52.377042
+     ],
+     [
+      4.902007,
+      52.377029
+     ],
+     [
+      4.902005,
+      52.377026
+     ],
+     [
+      4.901987,
+      52.376996
+     ],
+     [
+      4.901974,
+      52.376976
+     ],
+     [
+      4.901961,
+      52.376956
+     ],
+     [
+      4.901945,
+      52.376933
+     ],
+     [
+      4.901983,
+      52.376925
+     ],
+     [
+      4.902021,
+      52.376915
+     ],
+     [
+      4.902054,
+      52.376904
+     ],
+     [
+      4.902093,
+      52.376889
+     ],
+     [
+      4.902142,
+      52.376858
+     ],
+     [
+      4.902313,
+      52.376713
+     ],
+     [
+      4.902296,
+      52.376678
+     ],
+     [
+      4.902293,
+      52.376669
+     ],
+     [
+      4.90228,
+      52.376639
+     ],
+     [
+      4.902277,
+      52.376632
+     ],
+     [
+      4.902267,
+      52.376609
+     ],
+     [
+      4.902301,
+      52.376578
+     ],
+     [
+      4.90236,
+      52.376527
+     ],
+     [
+      4.902502,
+      52.376407
+     ],
+     [
+      4.902591,
+      52.376326
+     ],
+     [
+      4.902641,
+      52.376274
+     ],
+     [
+      4.902659,
+      52.376258
+     ],
+     [
+      4.902674,
+      52.376246
+     ],
+     [
+      4.902724,
+      52.376202
+     ],
+     [
+      4.902789,
+      52.376145
+     ],
+     [
+      4.902812,
+      52.376125
+     ],
+     [
+      4.902847,
+      52.376096
+     ],
+     [
+      4.902917,
+      52.376037
+     ],
+     [
+      4.902939,
+      52.376023
+     ],
+     [
+      4.902971,
+      52.376004
+     ],
+     [
+      4.903029,
+      52.375969
+     ],
+     [
+      4.90308,
+      52.375937
+     ],
+     [
+      4.903114,
+      52.375904
+     ],
+     [
+      4.903142,
+      52.37588
+     ],
+     [
+      4.903158,
+      52.375856
+     ],
+     [
+      4.903169,
+      52.37583
+     ],
+     [
+      4.903172,
+      52.375803
+     ],
+     [
+      4.90317,
+      52.375791
+     ],
+     [
+      4.903168,
+      52.375757
+     ],
+     [
+      4.903164,
+      52.3757
+     ],
+     [
+      4.903161,
+      52.375652
+     ],
+     [
+      4.903166,
+      52.375616
+     ],
+     [
+      4.903168,
+      52.37558
+     ],
+     [
+      4.903165,
+      52.375442
+     ],
+     [
+      4.90317,
+      52.375391
+     ],
+     [
+      4.903178,
+      52.375352
+     ],
+     [
+      4.903195,
+      52.375306
+     ],
+     [
+      4.903237,
+      52.375233
+     ],
+     [
+      4.903273,
+      52.375182
+     ],
+     [
+      4.903331,
+      52.375118
+     ],
+     [
+      4.903416,
+      52.375057
+     ],
+     [
+      4.903461,
+      52.37503
+     ],
+     [
+      4.903771,
+      52.374861
+     ],
+     [
+      4.903803,
+      52.374842
+     ],
+     [
+      4.903881,
+      52.374907
+     ],
+     [
+      4.903975,
+      52.374982
+     ],
+     [
+      4.904053,
+      52.375033
+     ],
+     [
+      4.904083,
+      52.37505
+     ],
+     [
+      4.904099,
+      52.375056
+     ],
+     [
+      4.904119,
+      52.375061
+     ],
+     [
+      4.90414,
+      52.375056
+     ],
+     [
+      4.90421,
+      52.375021
+     ],
+     [
+      4.904478,
+      52.374884
+     ],
+     [
+      4.90421,
+      52.375021
+     ],
+     [
+      4.90414,
+      52.375056
+     ],
+     [
+      4.904119,
+      52.375061
+     ],
+     [
+      4.904099,
+      52.375056
+     ],
+     [
+      4.904083,
+      52.37505
+     ],
+     [
+      4.904053,
+      52.375033
+     ],
+     [
+      4.903975,
+      52.374982
+     ],
+     [
+      4.903829,
+      52.375073
+     ],
+     [
+      4.903741,
+      52.375126
+     ],
+     [
+      4.903668,
+      52.375159
+     ],
+     [
+      4.903603,
+      52.375212
+     ],
+     [
+      4.903572,
+      52.375238
+     ],
+     [
+      4.903548,
+      52.375265
+     ],
+     [
+      4.903511,
+      52.375325
+     ],
+     [
+      4.903486,
+      52.375375
+     ],
+     [
+      4.903473,
+      52.375405
+     ],
+     [
+      4.903464,
+      52.375436
+     ],
+     [
+      4.903454,
+      52.37548
+     ],
+     [
+      4.90345,
+      52.375624
+     ],
+     [
+      4.903423,
+      52.375658
+     ],
+     [
+      4.903395,
+      52.375682
+     ],
+     [
+      4.903376,
+      52.375691
+     ],
+     [
+      4.903357,
+      52.375697
+     ],
+     [
+      4.903306,
+      52.375698
+     ],
+     [
+      4.90321,
+      52.3757
+     ],
+     [
+      4.903164,
+      52.3757
+     ],
+     [
+      4.903168,
+      52.375757
+     ],
+     [
+      4.90317,
+      52.375791
+     ],
+     [
+      4.903172,
+      52.375803
+     ],
+     [
+      4.903169,
+      52.37583
+     ],
+     [
+      4.903158,
+      52.375856
+     ],
+     [
+      4.903142,
+      52.37588
+     ],
+     [
+      4.903114,
+      52.375904
+     ],
+     [
+      4.90308,
+      52.375937
+     ],
+     [
+      4.903029,
+      52.375969
+     ],
+     [
+      4.902971,
+      52.376004
+     ],
+     [
+      4.902939,
+      52.376023
+     ],
+     [
+      4.902917,
+      52.376037
+     ],
+     [
+      4.902847,
+      52.376096
+     ],
+     [
+      4.902812,
+      52.376125
+     ],
+     [
+      4.902789,
+      52.376145
+     ],
+     [
+      4.902724,
+      52.376202
+     ],
+     [
+      4.902674,
+      52.376246
+     ],
+     [
+      4.902659,
+      52.376258
+     ],
+     [
+      4.902641,
+      52.376274
+     ],
+     [
+      4.902591,
+      52.376326
+     ],
+     [
+      4.902502,
+      52.376407
+     ],
+     [
+      4.90236,
+      52.376527
+     ],
+     [
+      4.902301,
+      52.376578
+     ],
+     [
+      4.902267,
+      52.376609
+     ],
+     [
+      4.902248,
+      52.376625
+     ],
+     [
+      4.902205,
+      52.376659
+     ],
+     [
+      4.902162,
+      52.376697
+     ],
+     [
+      4.902107,
+      52.376744
+     ],
+     [
+      4.902083,
+      52.376765
+     ],
+     [
+      4.902058,
+      52.376788
+     ],
+     [
+      4.902033,
+      52.376808
+     ],
+     [
+      4.902013,
+      52.376821
+     ],
+     [
+      4.901995,
+      52.376831
+     ],
+     [
+      4.901979,
+      52.376838
+     ],
+     [
+      4.901963,
+      52.376844
+     ],
+     [
+      4.901943,
+      52.376849
+     ],
+     [
+      4.901923,
+      52.376853
+     ],
+     [
+      4.9019,
+      52.376856
+     ],
+     [
+      4.901886,
+      52.376858
+     ],
+     [
+      4.901875,
+      52.376859
+     ],
+     [
+      4.90186,
+      52.376859
+     ],
+     [
+      4.901835,
+      52.376857
+     ],
+     [
+      4.90171,
+      52.376844
+     ],
+     [
+      4.90068,
+      52.376744
+     ],
+     [
+      4.899882,
+      52.376665
+     ],
+     [
+      4.899841,
+      52.376662
+     ],
+     [
+      4.8998,
+      52.376669
+     ],
+     [
+      4.899644,
+      52.376707
+     ],
+     [
+      4.899612,
+      52.37671
+     ],
+     [
+      4.899573,
+      52.376708
+     ],
+     [
+      4.899513,
+      52.376701
+     ],
+     [
+      4.899214,
+      52.376665
+     ],
+     [
+      4.899165,
+      52.376661
+     ],
+     [
+      4.899104,
+      52.376659
+     ],
+     [
+      4.899056,
+      52.376663
+     ],
+     [
+      4.899008,
+      52.376671
+     ],
+     [
+      4.898952,
+      52.376684
+     ],
+     [
+      4.89892,
+      52.376695
+     ],
+     [
+      4.898892,
+      52.376706
+     ],
+     [
+      4.898855,
+      52.376726
+     ],
+     [
+      4.898827,
+      52.376743
+     ],
+     [
+      4.898786,
+      52.376765
+     ],
+     [
+      4.898715,
+      52.376808
+     ],
+     [
+      4.898641,
+      52.376844
+     ],
+     [
+      4.898576,
+      52.376868
+     ],
+     [
+      4.898555,
+      52.376892
+     ],
+     [
+      4.898484,
+      52.376949
+     ],
+     [
+      4.89844,
+      52.376984
+     ],
+     [
+      4.898438,
+      52.376986
+     ],
+     [
+      4.898338,
+      52.377074
+     ],
+     [
+      4.89832,
+      52.377105
+     ],
+     [
+      4.898318,
+      52.377109
+     ],
+     [
+      4.898317,
+      52.37711
+     ],
+     [
+      4.898304,
+      52.377128
+     ],
+     [
+      4.898277,
+      52.377163
+     ],
+     [
+      4.898267,
+      52.377171
+     ],
+     [
+      4.898197,
+      52.377225
+     ],
+     [
+      4.898093,
+      52.377302
+     ],
+     [
+      4.898043,
+      52.377327
+     ],
+     [
+      4.897925,
+      52.377382
+     ],
+     [
+      4.897741,
+      52.377486
+     ],
+     [
+      4.897668,
+      52.377531
+     ],
+     [
+      4.897483,
+      52.377637
+     ],
+     [
+      4.897417,
+      52.377677
+     ],
+     [
+      4.897355,
+      52.377717
+     ],
+     [
+      4.897297,
+      52.377757
+     ],
+     [
+      4.897246,
+      52.377798
+     ],
+     [
+      4.897175,
+      52.377876
+     ],
+     [
+      4.897098,
+      52.377947
+     ],
+     [
+      4.897054,
+      52.377987
+     ],
+     [
+      4.897044,
+      52.377996
+     ],
+     [
+      4.897022,
+      52.378017
+     ],
+     [
+      4.897015,
+      52.378022
+     ],
+     [
+      4.897007,
+      52.378031
+     ],
+     [
+      4.897005,
+      52.378033
+     ],
+     [
+      4.896998,
+      52.378042
+     ],
+     [
+      4.896984,
+      52.378064
+     ],
+     [
+      4.896958,
+      52.378118
+     ],
+     [
+      4.896938,
+      52.37817
+     ],
+     [
+      4.896912,
+      52.378216
+     ],
+     [
+      4.896868,
+      52.378271
+     ],
+     [
+      4.896791,
+      52.378357
+     ],
+     [
+      4.896724,
+      52.378421
+     ],
+     [
+      4.896656,
+      52.378474
+     ],
+     [
+      4.896568,
+      52.378531
+     ],
+     [
+      4.896223,
+      52.378724
+     ],
+     [
+      4.895784,
+      52.378962
+     ],
+     [
+      4.895438,
+      52.37915
+     ],
+     [
+      4.895343,
+      52.379203
+     ],
+     [
+      4.895312,
+      52.379224
+     ],
+     [
+      4.89518,
+      52.379178
+     ],
+     [
+      4.895129,
+      52.379156
+     ],
+     [
+      4.895035,
+      52.379114
+     ],
+     [
+      4.894675,
+      52.378958
+     ],
+     [
+      4.894656,
+      52.378969
+     ],
+     [
+      4.894609,
+      52.378999
+     ],
+     [
+      4.894559,
+      52.37903
+     ],
+     [
+      4.894473,
+      52.379074
+     ],
+     [
+      4.894399,
+      52.379116
+     ],
+     [
+      4.894256,
+      52.379201
+     ],
+     [
+      4.89422,
+      52.379222
+     ],
+     [
+      4.894192,
+      52.379239
+     ],
+     [
+      4.894034,
+      52.379326
+     ],
+     [
+      4.893744,
+      52.379493
+     ],
+     [
+      4.893194,
+      52.379822
+     ],
+     [
+      4.89312,
+      52.379862
+     ],
+     [
+      4.892803,
+      52.380045
+     ],
+     [
+      4.892729,
+      52.380075
+     ],
+     [
+      4.892716,
+      52.380079
+     ],
+     [
+      4.892633,
+      52.380106
+     ],
+     [
+      4.89242,
+      52.38016
+     ],
+     [
+      4.892277,
+      52.380198
+     ],
+     [
+      4.89185,
+      52.380307
+     ],
+     [
+      4.891728,
+      52.380339
+     ],
+     [
+      4.891008,
+      52.380532
+     ],
+     [
+      4.890923,
+      52.38058
+     ],
+     [
+      4.89028,
+      52.380938
+     ],
+     [
+      4.889516,
+      52.381369
+     ],
+     [
+      4.88944,
+      52.381286
+     ],
+     [
+      4.889405,
+      52.381249
+     ],
+     [
+      4.889317,
+      52.381179
+     ],
+     [
+      4.888898,
+      52.380725
+     ],
+     [
+      4.888778,
+      52.380589
+     ],
+     [
+      4.888756,
+      52.38053
+     ],
+     [
+      4.888716,
+      52.380487
+     ],
+     [
+      4.888555,
+      52.380319
+     ],
+     [
+      4.888506,
+      52.380267
+     ],
+     [
+      4.889522,
+      52.37969
+     ],
+     [
+      4.888331,
+      52.378355
+     ],
+     [
+      4.887781,
+      52.377739
+     ],
+     [
+      4.887652,
+      52.377594
+     ],
+     [
+      4.887084,
+      52.376975
+     ],
+     [
+      4.886513,
+      52.376352
+     ],
+     [
+      4.885968,
+      52.375757
+     ],
+     [
+      4.885785,
+      52.375557
+     ],
+     [
+      4.885747,
+      52.375516
+     ],
+     [
+      4.885667,
+      52.37543
+     ],
+     [
+      4.885636,
+      52.375384
+     ],
+     [
+      4.885454,
+      52.375185
+     ],
+     [
+      4.884968,
+      52.374651
+     ],
+     [
+      4.88492,
+      52.374598
+     ],
+     [
+      4.884219,
+      52.374835
+     ],
+     [
+      4.884183,
+      52.374794
+     ],
+     [
+      4.884219,
+      52.374835
+     ],
+     [
+      4.88492,
+      52.374598
+     ],
+     [
+      4.884848,
+      52.374501
+     ],
+     [
+      4.884764,
+      52.374356
+     ],
+     [
+      4.884757,
+      52.374252
+     ],
+     [
+      4.884754,
+      52.374199
+     ],
+     [
+      4.884751,
+      52.374156
+     ],
+     [
+      4.884747,
+      52.3741
+     ],
+     [
+      4.884746,
+      52.374064
+     ],
+     [
+      4.884744,
+      52.374023
+     ],
+     [
+      4.884743,
+      52.374012
+     ],
+     [
+      4.884742,
+      52.374
+     ],
+     [
+      4.884741,
+      52.373951
+     ],
+     [
+      4.884735,
+      52.373885
+     ],
+     [
+      4.884722,
+      52.373756
+     ],
+     [
+      4.884653,
+      52.373106
+     ],
+     [
+      4.884595,
+      52.372555
+     ],
+     [
+      4.884574,
+      52.372359
+     ],
+     [
+      4.884661,
+      52.372356
+     ],
+     [
+      4.885073,
+      52.372347
+     ],
+     [
+      4.885172,
+      52.372342
+     ],
+     [
+      4.885289,
+      52.372338
+     ],
+     [
+      4.886785,
+      52.37228
+     ],
+     [
+      4.886694,
+      52.37108
+     ],
+     [
+      4.886634,
+      52.370283
+     ],
+     [
+      4.886492,
+      52.368788
+     ],
+     [
+      4.886464,
+      52.368337
+     ],
+     [
+      4.886405,
+      52.367718
+     ],
+     [
+      4.886429,
+      52.367592
+     ],
+     [
+      4.886469,
+      52.367563
+     ],
+     [
+      4.886655,
+      52.367445
+     ],
+     [
+      4.886711,
+      52.36743
+     ],
+     [
+      4.88795,
+      52.366728
+     ],
+     [
+      4.888,
+      52.366699
+     ],
+     [
+      4.88801,
+      52.366692
+     ],
+     [
+      4.888018,
+      52.366686
+     ],
+     [
+      4.888044,
+      52.366669
+     ],
+     [
+      4.888161,
+      52.36663
+     ],
+     [
+      4.888172,
+      52.366642
+     ],
+     [
+      4.888204,
+      52.366669
+     ],
+     [
+      4.888218,
+      52.36668
+     ],
+     [
+      4.888241,
+      52.366692
+     ],
+     [
+      4.888278,
+      52.366708
+     ],
+     [
+      4.888476,
+      52.366775
+     ],
+     [
+      4.888524,
+      52.366792
+     ],
+     [
+      4.888587,
+      52.366816
+     ],
+     [
+      4.888709,
+      52.36674
+     ],
+     [
+      4.890653,
+      52.365632
+     ],
+     [
+      4.892017,
+      52.365447
+     ],
+     [
+      4.89284,
+      52.365336
+     ],
+     [
+      4.892877,
+      52.365332
+     ],
+     [
+      4.892857,
+      52.365273
+     ],
+     [
+      4.892789,
+      52.365071
+     ],
+     [
+      4.892774,
+      52.365028
+     ],
+     [
+      4.892731,
+      52.364997
+     ],
+     [
+      4.892719,
+      52.364961
+     ],
+     [
+      4.892731,
+      52.364903
+     ],
+     [
+      4.892478,
+      52.364185
+     ],
+     [
+      4.892425,
+      52.364121
+     ],
+     [
+      4.892407,
+      52.36407
+     ],
+     [
+      4.892428,
+      52.364041
+     ],
+     [
+      4.892387,
+      52.364047
+     ],
+     [
+      4.892342,
+      52.364053
+     ],
+     [
+      4.889591,
+      52.364426
+     ],
+     [
+      4.889533,
+      52.364371
+     ],
+     [
+      4.889339,
+      52.364166
+     ],
+     [
+      4.889273,
+      52.364094
+     ],
+     [
+      4.888663,
+      52.363412
+     ],
+     [
+      4.888192,
+      52.362882
+     ],
+     [
+      4.888169,
+      52.362835
+     ],
+     [
+      4.888134,
+      52.3628
+     ],
+     [
+      4.888111,
+      52.362775
+     ],
+     [
+      4.888108,
+      52.362771
+     ],
+     [
+      4.887952,
+      52.362601
+     ],
+     [
+      4.887945,
+      52.362595
+     ],
+     [
+      4.887901,
+      52.362551
+     ],
+     [
+      4.887814,
+      52.362504
+     ],
+     [
+      4.887685,
+      52.362358
+     ],
+     [
+      4.887455,
+      52.362102
+     ],
+     [
+      4.887161,
+      52.361785
+     ],
+     [
+      4.887113,
+      52.361673
+     ],
+     [
+      4.887022,
+      52.36158
+     ],
+     [
+      4.88694,
+      52.361491
+     ],
+     [
+      4.886898,
+      52.361444
+     ],
+     [
+      4.886806,
+      52.361333
+     ],
+     [
+      4.886738,
+      52.36131
+     ],
+     [
+      4.8867,
+      52.361276
+     ],
+     [
+      4.88668,
+      52.361239
+     ],
+     [
+      4.886667,
+      52.361235
+     ],
+     [
+      4.886655,
+      52.36123
+     ],
+     [
+      4.886644,
+      52.361225
+     ],
+     [
+      4.886633,
+      52.361219
+     ],
+     [
+      4.886624,
+      52.361213
+     ],
+     [
+      4.886614,
+      52.361206
+     ],
+     [
+      4.886603,
+      52.361196
+     ],
+     [
+      4.886593,
+      52.361185
+     ],
+     [
+      4.886586,
+      52.361175
+     ],
+     [
+      4.88658,
+      52.361165
+     ],
+     [
+      4.886576,
+      52.361155
+     ],
+     [
+      4.886574,
+      52.361145
+     ],
+     [
+      4.886572,
+      52.361134
+     ],
+     [
+      4.886573,
+      52.361124
+     ],
+     [
+      4.886574,
+      52.361114
+     ],
+     [
+      4.886577,
+      52.361103
+     ],
+     [
+      4.886566,
+      52.361044
+     ],
+     [
+      4.886559,
+      52.361018
+     ],
+     [
+      4.886468,
+      52.360964
+     ],
+     [
+      4.886392,
+      52.360908
+     ],
+     [
+      4.886118,
+      52.360702
+     ],
+     [
+      4.886115,
+      52.360699
+     ],
+     [
+      4.886108,
+      52.360694
+     ],
+     [
+      4.886082,
+      52.360675
+     ],
+     [
+      4.886038,
+      52.360642
+     ],
+     [
+      4.886008,
+      52.360614
+     ],
+     [
+      4.885949,
+      52.360559
+     ],
+     [
+      4.885915,
+      52.360518
+     ],
+     [
+      4.885898,
+      52.360483
+     ],
+     [
+      4.885868,
+      52.360461
+     ],
+     [
+      4.885619,
+      52.360277
+     ],
+     [
+      4.885226,
+      52.359987
+     ]
+    ],
+    "type": "LineString"
+   },
+   "weight": 2392.5,
+   "duration": 2392.5,
+   "distance": 6516
+  }
+ ],
+ "waypoints": [
+  {
+   "hint": "WZINj-KWDY9gAAAAAAAAAMUBAADjAgAAJEOAQQAAAACjwZdCUT_2QmAAAAAAAAAAxQEAAOMCAAAqEwAAXaRKACgmHwNdpEoAKCYfAxYAHwAAAAAA",
+   "location": [
+    4.891741,
+    52.373032
+   ],
+   "name": "",
+   "distance": 0
+  },
+  {
+   "hint": "KEpHm2aq9ptAAAAAHgAAAJMAAACiAQAAc_8rQQ3Am0DrpcRBmZaLQkAAAAAeAAAAkwAAAKIBAAAqEwAAs71KAHssHwOYvUoA5CsfAwYATxEAAAAA",
+   "location": [
+    4.898227,
+    52.374651
+   ],
+   "name": "",
+   "distance": 16.90275789
+  },
+  {
+   "hint": "bYCwlXGAsJUUAAAACQAAAAAAAAD9AAAAkjMMQWeoekAAAAAAOSnbQRQAAAAJAAAAAAAAAP0AAAAqEwAAEM1KAN02HwM4zUoA1DYfAwAAjwwAAAAA",
+   "location": [
+    4.90216,
+    52.377309
+   ],
+   "name": "",
+   "distance": 2.902361223
+  },
+  {
+   "hint": "Qtr6jrCmj5EdAAAAjwAAAMQAAADgAAAAQOibQJ4-vkG33gJCS5VTQR0AAACPAAAAxAAAAOAAAAAqEwAAHtZKAGQtHwM01koAdC0fAwIAXxMAAAAA",
+   "location": [
+    4.904478,
+    52.374884
+   ],
+   "name": "",
+   "distance": 2.32692353
+  },
+  {
+   "hint": "zKhGgCCuRoANAAAAHQAAAP8AAAAAAAAATjyYQCFlKUEQkLdCAAAAAA0AAAAdAAAA_wAAAAAAAAAqEwAAYJtKAGZGHwM4m0oAdEYfAwgA3wEAAAAA",
+   "location": [
+    4.88944,
+    52.381286
+   ],
+   "name": "Korte Prinsengracht",
+   "distance": 3.138093605
+  },
+  {
+   "hint": "FahBhxeoQYcAAAAAHwAAAAAAAAAAAAAAAAAAAK-8pUAAAAAAAAAAAAAAAAAfAAAAAAAAAAAAAAAqEwAA14ZKAAotHwMghkoArCwfAwAAzwEAAAAA",
+   "location": [
+    4.884183,
+    52.374794
+   ],
+   "name": "Westermarkt",
+   "distance": 16.27047998
+  },
+  {
+   "hint": "vixlgOkHy5IHAQAAnwAAABYCAAAHAAAAmkq-QsKSZUL5w0BDg8MjQAcBAACfAAAAFgIAAAcAAAAqEwAAcaVKAIcIHwNgpUoAWAgfAwQAbwYAAAAA",
+   "location": [
+    4.892017,
+    52.365447
+   ],
+   "name": "Herengracht",
+   "distance": 5.356512661
+  },
+  {
+   "hint": "Yf9-h2b_fodsAAAAdQAAAAAAAAAAAAAAgQIdQpyyJ0IAAAAAAAAAAGwAAAB1AAAAAAAAAAAAAAAqEwAA6opKADPzHgPQikoAQPMeAwAAfwIAAAAA",
+   "location": [
+    4.885226,
+    52.359987
+   ],
+   "name": "Museumstraat",
+   "distance": 2.286444725
+  }
+ ],
+ "_request": {
+  "profile": "bike",
+  "coords": "4.891741,52.373032;4.898200,52.374500;4.902200,52.377300;4.904500,52.374900;4.889400,52.381300;4.884000,52.374700;4.892000,52.365400;4.885200,52.360000"
+ }
+}

@@ -9,7 +9,7 @@
  "intro": {
   "id": "intro",
   "title": "Before you ride",
-  "script": "Welcome to rebel Amsterdam. For three and a half centuries this city has been home to people who refused to think what they were told: a philosopher thrown out of his community, a colonial official who exposed his own government, anarchists with white bicycles, and neighbours who fought riot police to save their streets. This ride of about ten kilometres starts in the Vondelpark, winds through the canals and the old centre, and ends with a ferry ride across the IJ to a shipyard taken over by artists. Take your time. On the bike paths, keep to the right and watch for tram rails. On the ferry, walk your bike on and off. Your first story starts in the Vondelpark, near the statue of the poet Vondel."
+  "script": "Welcome to rebel Amsterdam. For three and a half centuries this city has been home to people who refused to think what they were told: a philosopher thrown out of his community, a colonial official who exposed his own government, anarchists with white bicycles, and neighbours who fought riot police to save their streets. This ride of about nine kilometres starts in the Vondelpark, winds through the canals and the old centre, and ends with a ferry ride across the IJ to a shipyard taken over by artists. Take your time. On the bike paths, keep to the right and watch for tram rails. On the ferry, walk your bike on and off. Your first story starts in the Vondelpark, near the statue of the poet Vondel."
  },
  "outro": {
   "id": "outro",
@@ -47,9 +47,9 @@
    "id": "multatuli",
    "title": "Multatuli at the Torensluis",
    "short": "Torensluis",
-   "lat": 52.3764,
-   "lng": 4.8893,
-   "script": "This is the Torensluis, one of the oldest bridges in Amsterdam and the widest across the Singel, so wide that it's more like a small square. It's named after a tower that once stood here, when the Singel was the city's moat. The statue on the bridge shows a writer who shook the Netherlands. It was made by Hans Bayens and unveiled in 1987. His real name was Eduard Douwes Dekker, and he was born in 1820 in a little street just behind you, where his birthplace is now the Multatuli Museum. As a young man he went to the Dutch East Indies, today's Indonesia, and spent years as a colonial official on Java. In 1856, as assistant resident in the district of Lebak, he accused the local ruler of extorting the Javanese farmers, forcing them to work without pay and taking their buffaloes. His superiors did not want to know, and he resigned. Back in Europe, poor and angry, he wrote a novel. In 1860 he published Max Havelaar, or the Coffee Auctions of the Dutch Trading Company, under a pen name, Multatuli. It's Latin for I have suffered much. The book tells, sometimes furiously, sometimes very funnily, how the colonial system made the Netherlands rich from coffee and sugar grown by Javanese farmers who went hungry. It is framed by the voice of a smug Amsterdam coffee broker called Batavus Droogstoppel, who lives on the Lauriergracht and cannot imagine anything wrong with the trade. Max Havelaar caused a scandal and helped, slowly, to change colonial policy. Multatuli went on writing against hypocrisy, against organised religion and for free thought, and he died in Germany in 1887. Now ride south along the Singel to the Spui, a small square with a little bronze statue of a boy.",
+   "lat": 52.3761,
+   "lng": 4.8906,
+   "script": "This is the Torensluis, one of the oldest bridges in Amsterdam and the widest across the Singel, so wide that it's more like a small square. It's named after a tower that once stood here, when the Singel was the city's moat. The statue on the bridge shows a writer who shook the Netherlands. It was made by Hans Bayens and unveiled in 1987. His real name was Eduard Douwes Dekker, and he was born in 1820 in a little street just behind you, where his birthplace is now the Multatuli Museum. As a young man he went to the Dutch East Indies, today's Indonesia, and spent years as a colonial official on Java. In 1856, as assistant resident in the district of Lebak, he accused the local ruler of extorting the Javanese farmers, forcing them to work without pay and taking their buffaloes. His superiors did not want to know, and he resigned. Back in Europe, poor and angry, he wrote a novel. In 1860 he published Max Havelaar, or the Coffee Auctions of the Dutch Trading Company, under a pen name, Multatuli. It's Latin for I have suffered much. The book tells, sometimes furiously, sometimes very funnily, how the colonial system made the Netherlands rich from coffee and sugar grown by Javanese farmers who went hungry. It is framed by the voice of a smug Amsterdam coffee broker called Batavus Droogstoppel, who lives on the Lauriergracht and cannot imagine anything wrong with the trade. Max Havelaar caused a scandal and helped, slowly, to change colonial policy. Multatuli went on writing against hypocrisy, against organised religion and for free thought, and he died in Germany in 1887. Now ride south along the Spuistraat, beside the Singel, to the Spui, a small square with a little bronze statue of a boy.",
    "sources": [
     "Multatuli Museum, Korsjespoortsteeg 20, multatuli-museum.nl",
     "Digitale Bibliotheek voor de Nederlandse Letteren: Multatuli, Max Havelaar (1860), dbnl.org",
@@ -114,5 +114,2366 @@
   "Russell Shorto, Amsterdam: A History of the World's Most Liberal City (2013)",
   "Geert Mak, Amsterdam: A Brief Life of the City (1999)",
   "International Institute of Social History, iisg.amsterdam"
- ]
+ ],
+ "route": [
+  [
+   52.360825,
+   4.878261
+  ],
+  [
+   52.360848,
+   4.8783
+  ],
+  [
+   52.360875,
+   4.878359
+  ],
+  [
+   52.360933,
+   4.878441
+  ],
+  [
+   52.360987,
+   4.878401
+  ],
+  [
+   52.361017,
+   4.878392
+  ],
+  [
+   52.361044,
+   4.87837
+  ],
+  [
+   52.361833,
+   4.881203
+  ],
+  [
+   52.361867,
+   4.881295
+  ],
+  [
+   52.3619,
+   4.881349
+  ],
+  [
+   52.36182,
+   4.881569
+  ],
+  [
+   52.36179,
+   4.881656
+  ],
+  [
+   52.361763,
+   4.881732
+  ],
+  [
+   52.361739,
+   4.88181
+  ],
+  [
+   52.3618,
+   4.881901
+  ],
+  [
+   52.361839,
+   4.881955
+  ],
+  [
+   52.36186,
+   4.881982
+  ],
+  [
+   52.361904,
+   4.882023
+  ],
+  [
+   52.361927,
+   4.881966
+  ],
+  [
+   52.361962,
+   4.881869
+  ],
+  [
+   52.362178,
+   4.881409
+  ],
+  [
+   52.362198,
+   4.88138
+  ],
+  [
+   52.362228,
+   4.881356
+  ],
+  [
+   52.362364,
+   4.881275
+  ],
+  [
+   52.362449,
+   4.881232
+  ],
+  [
+   52.362524,
+   4.881198
+  ],
+  [
+   52.362582,
+   4.881177
+  ],
+  [
+   52.362662,
+   4.881151
+  ],
+  [
+   52.362756,
+   4.881128
+  ],
+  [
+   52.362794,
+   4.881123
+  ],
+  [
+   52.362844,
+   4.881121
+  ],
+  [
+   52.362914,
+   4.881122
+  ],
+  [
+   52.363035,
+   4.88113
+  ],
+  [
+   52.363061,
+   4.881138
+  ],
+  [
+   52.363079,
+   4.881146
+  ],
+  [
+   52.363112,
+   4.881179
+  ],
+  [
+   52.363136,
+   4.88122
+  ],
+  [
+   52.363244,
+   4.881444
+  ],
+  [
+   52.363307,
+   4.881576
+  ],
+  [
+   52.363491,
+   4.881971
+  ],
+  [
+   52.363603,
+   4.882205
+  ],
+  [
+   52.363662,
+   4.88213
+  ],
+  [
+   52.363677,
+   4.882112
+  ],
+  [
+   52.363689,
+   4.882096
+  ],
+  [
+   52.363691,
+   4.882094
+  ],
+  [
+   52.363721,
+   4.882056
+  ],
+  [
+   52.363763,
+   4.882081
+  ],
+  [
+   52.363778,
+   4.88209
+  ],
+  [
+   52.363794,
+   4.8821
+  ],
+  [
+   52.363828,
+   4.88212
+  ],
+  [
+   52.363843,
+   4.882065
+  ],
+  [
+   52.363858,
+   4.882013
+  ],
+  [
+   52.363871,
+   4.881973
+  ],
+  [
+   52.363885,
+   4.881936
+  ],
+  [
+   52.363912,
+   4.881883
+  ],
+  [
+   52.363943,
+   4.881838
+  ],
+  [
+   52.364298,
+   4.881375
+  ],
+  [
+   52.364361,
+   4.881285
+  ],
+  [
+   52.364671,
+   4.880809
+  ],
+  [
+   52.364709,
+   4.880757
+  ],
+  [
+   52.364752,
+   4.880704
+  ],
+  [
+   52.364803,
+   4.880646
+  ],
+  [
+   52.364874,
+   4.880569
+  ],
+  [
+   52.365036,
+   4.880434
+  ],
+  [
+   52.365072,
+   4.880405
+  ],
+  [
+   52.365127,
+   4.880356
+  ],
+  [
+   52.365225,
+   4.880295
+  ],
+  [
+   52.365315,
+   4.880237
+  ],
+  [
+   52.365388,
+   4.880188
+  ],
+  [
+   52.365669,
+   4.880061
+  ],
+  [
+   52.365979,
+   4.879956
+  ],
+  [
+   52.366072,
+   4.879928
+  ],
+  [
+   52.366215,
+   4.879886
+  ],
+  [
+   52.366268,
+   4.879869
+  ],
+  [
+   52.366379,
+   4.87982
+  ],
+  [
+   52.366439,
+   4.87979
+  ],
+  [
+   52.36646,
+   4.87978
+  ],
+  [
+   52.36654,
+   4.879733
+  ],
+  [
+   52.366583,
+   4.879907
+  ],
+  [
+   52.366627,
+   4.880071
+  ],
+  [
+   52.366734,
+   4.88038
+  ],
+  [
+   52.36714,
+   4.881597
+  ],
+  [
+   52.367343,
+   4.882217
+  ],
+  [
+   52.367388,
+   4.882223
+  ],
+  [
+   52.367454,
+   4.882231
+  ],
+  [
+   52.367496,
+   4.882237
+  ],
+  [
+   52.367649,
+   4.882253
+  ],
+  [
+   52.368019,
+   4.882279
+  ],
+  [
+   52.368158,
+   4.882291
+  ],
+  [
+   52.368677,
+   4.882336
+  ],
+  [
+   52.368736,
+   4.882333
+  ],
+  [
+   52.368792,
+   4.88234
+  ],
+  [
+   52.368919,
+   4.882359
+  ],
+  [
+   52.369588,
+   4.882413
+  ],
+  [
+   52.370091,
+   4.88245
+  ],
+  [
+   52.370164,
+   4.882452
+  ],
+  [
+   52.370253,
+   4.882463
+  ],
+  [
+   52.370433,
+   4.882491
+  ],
+  [
+   52.371,
+   4.882519
+  ],
+  [
+   52.37175,
+   4.882599
+  ],
+  [
+   52.371807,
+   4.882614
+  ],
+  [
+   52.371896,
+   4.882621
+  ],
+  [
+   52.371963,
+   4.882624
+  ],
+  [
+   52.372426,
+   4.882657
+  ],
+  [
+   52.372423,
+   4.882729
+  ],
+  [
+   52.37241,
+   4.883109
+  ],
+  [
+   52.372406,
+   4.883179
+  ],
+  [
+   52.372359,
+   4.884574
+  ],
+  [
+   52.372356,
+   4.884661
+  ],
+  [
+   52.372347,
+   4.885073
+  ],
+  [
+   52.372342,
+   4.885172
+  ],
+  [
+   52.372338,
+   4.885289
+  ],
+  [
+   52.37228,
+   4.886785
+  ],
+  [
+   52.372681,
+   4.886837
+  ],
+  [
+   52.373209,
+   4.886906
+  ],
+  [
+   52.373293,
+   4.886917
+  ],
+  [
+   52.373418,
+   4.88693
+  ],
+  [
+   52.373432,
+   4.886931
+  ],
+  [
+   52.373443,
+   4.886933
+  ],
+  [
+   52.373468,
+   4.886938
+  ],
+  [
+   52.373537,
+   4.886942
+  ],
+  [
+   52.37358,
+   4.88695
+  ],
+  [
+   52.373665,
+   4.88696
+  ],
+  [
+   52.374008,
+   4.886999
+  ],
+  [
+   52.374049,
+   4.887009
+  ],
+  [
+   52.374084,
+   4.887029
+  ],
+  [
+   52.374166,
+   4.887102
+  ],
+  [
+   52.37471,
+   4.887589
+  ],
+  [
+   52.374753,
+   4.887629
+  ],
+  [
+   52.374857,
+   4.887722
+  ],
+  [
+   52.374898,
+   4.887755
+  ],
+  [
+   52.374889,
+   4.887853
+  ],
+  [
+   52.374806,
+   4.888148
+  ],
+  [
+   52.374787,
+   4.888226
+  ],
+  [
+   52.375651,
+   4.889026
+  ],
+  [
+   52.376752,
+   4.890045
+  ],
+  [
+   52.376384,
+   4.890924
+  ],
+  [
+   52.376357,
+   4.89099
+  ],
+  [
+   52.376069,
+   4.890677
+  ],
+  [
+   52.375466,
+   4.890023
+  ],
+  [
+   52.375308,
+   4.889852
+  ],
+  [
+   52.374699,
+   4.889169
+  ],
+  [
+   52.374575,
+   4.889049
+  ],
+  [
+   52.374565,
+   4.889138
+  ],
+  [
+   52.37453,
+   4.889664
+  ],
+  [
+   52.374536,
+   4.889706
+  ],
+  [
+   52.374543,
+   4.889747
+  ],
+  [
+   52.374516,
+   4.889846
+  ],
+  [
+   52.374399,
+   4.890212
+  ],
+  [
+   52.374374,
+   4.890283
+  ],
+  [
+   52.374343,
+   4.89026
+  ],
+  [
+   52.374298,
+   4.89023
+  ],
+  [
+   52.374021,
+   4.890089
+  ],
+  [
+   52.373363,
+   4.889752
+  ],
+  [
+   52.373311,
+   4.889731
+  ],
+  [
+   52.373273,
+   4.889716
+  ],
+  [
+   52.373221,
+   4.889694
+  ],
+  [
+   52.373207,
+   4.889688
+  ],
+  [
+   52.373193,
+   4.889682
+  ],
+  [
+   52.37316,
+   4.889667
+  ],
+  [
+   52.373146,
+   4.889663
+  ],
+  [
+   52.37312,
+   4.889655
+  ],
+  [
+   52.373097,
+   4.889649
+  ],
+  [
+   52.373055,
+   4.889638
+  ],
+  [
+   52.372408,
+   4.889531
+  ],
+  [
+   52.372275,
+   4.88951
+  ],
+  [
+   52.372029,
+   4.889465
+  ],
+  [
+   52.371857,
+   4.889433
+  ],
+  [
+   52.371558,
+   4.889366
+  ],
+  [
+   52.371207,
+   4.889291
+  ],
+  [
+   52.371099,
+   4.889267
+  ],
+  [
+   52.37074,
+   4.88918
+  ],
+  [
+   52.37039,
+   4.88911
+  ],
+  [
+   52.370305,
+   4.889093
+  ],
+  [
+   52.369703,
+   4.88891
+  ],
+  [
+   52.369648,
+   4.888894
+  ],
+  [
+   52.369346,
+   4.888795
+  ],
+  [
+   52.369245,
+   4.888765
+  ],
+  [
+   52.369209,
+   4.888756
+  ],
+  [
+   52.369169,
+   4.888749
+  ],
+  [
+   52.369132,
+   4.888746
+  ],
+  [
+   52.369064,
+   4.888745
+  ],
+  [
+   52.369005,
+   4.888749
+  ],
+  [
+   52.368977,
+   4.888753
+  ],
+  [
+   52.368948,
+   4.888758
+  ],
+  [
+   52.368911,
+   4.888769
+  ],
+  [
+   52.368875,
+   4.888785
+  ],
+  [
+   52.368804,
+   4.88883
+  ],
+  [
+   52.368781,
+   4.888847
+  ],
+  [
+   52.368757,
+   4.888867
+  ],
+  [
+   52.368714,
+   4.888904
+  ],
+  [
+   52.368691,
+   4.888925
+  ],
+  [
+   52.368671,
+   4.888944
+  ],
+  [
+   52.368652,
+   4.888966
+  ],
+  [
+   52.36864,
+   4.888999
+  ],
+  [
+   52.368631,
+   4.889047
+  ],
+  [
+   52.36863,
+   4.889087
+  ],
+  [
+   52.368632,
+   4.889116
+  ],
+  [
+   52.368627,
+   4.889139
+  ],
+  [
+   52.368608,
+   4.889205
+  ],
+  [
+   52.368611,
+   4.889274
+  ],
+  [
+   52.368625,
+   4.889348
+  ],
+  [
+   52.368676,
+   4.889519
+  ],
+  [
+   52.368718,
+   4.889706
+  ],
+  [
+   52.368738,
+   4.889825
+  ],
+  [
+   52.368753,
+   4.88982
+  ],
+  [
+   52.368738,
+   4.889825
+  ],
+  [
+   52.368761,
+   4.890027
+  ],
+  [
+   52.368803,
+   4.890335
+  ],
+  [
+   52.368828,
+   4.890448
+  ],
+  [
+   52.368959,
+   4.891025
+  ],
+  [
+   52.368968,
+   4.891066
+  ],
+  [
+   52.368991,
+   4.89119
+  ],
+  [
+   52.369009,
+   4.891321
+  ],
+  [
+   52.36902,
+   4.89145
+  ],
+  [
+   52.369034,
+   4.891826
+  ],
+  [
+   52.36904,
+   4.891917
+  ],
+  [
+   52.368966,
+   4.891929
+  ],
+  [
+   52.368875,
+   4.891964
+  ],
+  [
+   52.36879,
+   4.89201
+  ],
+  [
+   52.368633,
+   4.8921
+  ],
+  [
+   52.368517,
+   4.892177
+  ],
+  [
+   52.368405,
+   4.892274
+  ],
+  [
+   52.368305,
+   4.892364
+  ],
+  [
+   52.368227,
+   4.892442
+  ],
+  [
+   52.368096,
+   4.892604
+  ],
+  [
+   52.367603,
+   4.893215
+  ],
+  [
+   52.367521,
+   4.893312
+  ],
+  [
+   52.367476,
+   4.893358
+  ],
+  [
+   52.367438,
+   4.893385
+  ],
+  [
+   52.367384,
+   4.893422
+  ],
+  [
+   52.367395,
+   4.893446
+  ],
+  [
+   52.36741,
+   4.89348
+  ],
+  [
+   52.367419,
+   4.893501
+  ],
+  [
+   52.367429,
+   4.893521
+  ],
+  [
+   52.367465,
+   4.893603
+  ],
+  [
+   52.367509,
+   4.893697
+  ],
+  [
+   52.367621,
+   4.893951
+  ],
+  [
+   52.367662,
+   4.89403
+  ],
+  [
+   52.367964,
+   4.894832
+  ],
+  [
+   52.368363,
+   4.895893
+  ],
+  [
+   52.368387,
+   4.895943
+  ],
+  [
+   52.368468,
+   4.896005
+  ],
+  [
+   52.368391,
+   4.896229
+  ],
+  [
+   52.368358,
+   4.896327
+  ],
+  [
+   52.368335,
+   4.896392
+  ],
+  [
+   52.368318,
+   4.896511
+  ],
+  [
+   52.368309,
+   4.896568
+  ],
+  [
+   52.368302,
+   4.896612
+  ],
+  [
+   52.368251,
+   4.897467
+  ],
+  [
+   52.368242,
+   4.89752
+  ],
+  [
+   52.368238,
+   4.897592
+  ],
+  [
+   52.368232,
+   4.897675
+  ],
+  [
+   52.368226,
+   4.897758
+  ],
+  [
+   52.368223,
+   4.897823
+  ],
+  [
+   52.368218,
+   4.89792
+  ],
+  [
+   52.368198,
+   4.898205
+  ],
+  [
+   52.368174,
+   4.898594
+  ],
+  [
+   52.368162,
+   4.898686
+  ],
+  [
+   52.368154,
+   4.898729
+  ],
+  [
+   52.368129,
+   4.898856
+  ],
+  [
+   52.368054,
+   4.899223
+  ],
+  [
+   52.368048,
+   4.899252
+  ],
+  [
+   52.368039,
+   4.899277
+  ],
+  [
+   52.368024,
+   4.899302
+  ],
+  [
+   52.368006,
+   4.89932
+  ],
+  [
+   52.367992,
+   4.899331
+  ],
+  [
+   52.367972,
+   4.899338
+  ],
+  [
+   52.367953,
+   4.899339
+  ],
+  [
+   52.367935,
+   4.899335
+  ],
+  [
+   52.367918,
+   4.899325
+  ],
+  [
+   52.367899,
+   4.899307
+  ],
+  [
+   52.36785,
+   4.899255
+  ],
+  [
+   52.367706,
+   4.899094
+  ],
+  [
+   52.367691,
+   4.899079
+  ],
+  [
+   52.367674,
+   4.899061
+  ],
+  [
+   52.367663,
+   4.899051
+  ],
+  [
+   52.367651,
+   4.899044
+  ],
+  [
+   52.367638,
+   4.899041
+  ],
+  [
+   52.367626,
+   4.899041
+  ],
+  [
+   52.367613,
+   4.899045
+  ],
+  [
+   52.367601,
+   4.899053
+  ],
+  [
+   52.36759,
+   4.899063
+  ],
+  [
+   52.367581,
+   4.899077
+  ],
+  [
+   52.367573,
+   4.899093
+  ],
+  [
+   52.367552,
+   4.899142
+  ],
+  [
+   52.367322,
+   4.899728
+  ],
+  [
+   52.367552,
+   4.899142
+  ],
+  [
+   52.367573,
+   4.899093
+  ],
+  [
+   52.367581,
+   4.899077
+  ],
+  [
+   52.36759,
+   4.899063
+  ],
+  [
+   52.367601,
+   4.899053
+  ],
+  [
+   52.367613,
+   4.899045
+  ],
+  [
+   52.367626,
+   4.899041
+  ],
+  [
+   52.367638,
+   4.899041
+  ],
+  [
+   52.367651,
+   4.899044
+  ],
+  [
+   52.367663,
+   4.899051
+  ],
+  [
+   52.367674,
+   4.899061
+  ],
+  [
+   52.367691,
+   4.899079
+  ],
+  [
+   52.367706,
+   4.899094
+  ],
+  [
+   52.36785,
+   4.899255
+  ],
+  [
+   52.367899,
+   4.899307
+  ],
+  [
+   52.367918,
+   4.899325
+  ],
+  [
+   52.367935,
+   4.899335
+  ],
+  [
+   52.367953,
+   4.899339
+  ],
+  [
+   52.367972,
+   4.899338
+  ],
+  [
+   52.367992,
+   4.899331
+  ],
+  [
+   52.368006,
+   4.89932
+  ],
+  [
+   52.368024,
+   4.899302
+  ],
+  [
+   52.368039,
+   4.899277
+  ],
+  [
+   52.368048,
+   4.899252
+  ],
+  [
+   52.368054,
+   4.899223
+  ],
+  [
+   52.368129,
+   4.898856
+  ],
+  [
+   52.368154,
+   4.898729
+  ],
+  [
+   52.368162,
+   4.898686
+  ],
+  [
+   52.368611,
+   4.899183
+  ],
+  [
+   52.368988,
+   4.899601
+  ],
+  [
+   52.369364,
+   4.900021
+  ],
+  [
+   52.369412,
+   4.900073
+  ],
+  [
+   52.369478,
+   4.900148
+  ],
+  [
+   52.369504,
+   4.900169
+  ],
+  [
+   52.369523,
+   4.900156
+  ],
+  [
+   52.369538,
+   4.900136
+  ],
+  [
+   52.369694,
+   4.899844
+  ],
+  [
+   52.369937,
+   4.900127
+  ],
+  [
+   52.37,
+   4.900209
+  ],
+  [
+   52.370035,
+   4.900318
+  ],
+  [
+   52.37007,
+   4.900343
+  ],
+  [
+   52.370074,
+   4.900722
+  ],
+  [
+   52.370158,
+   4.9007
+  ],
+  [
+   52.370514,
+   4.900636
+  ],
+  [
+   52.37073,
+   4.900604
+  ],
+  [
+   52.371059,
+   4.900556
+  ],
+  [
+   52.371093,
+   4.900551
+  ],
+  [
+   52.371435,
+   4.900493
+  ],
+  [
+   52.371797,
+   4.90044
+  ],
+  [
+   52.371841,
+   4.900435
+  ],
+  [
+   52.371905,
+   4.900428
+  ],
+  [
+   52.371958,
+   4.900433
+  ],
+  [
+   52.372006,
+   4.90045
+  ],
+  [
+   52.372023,
+   4.900455
+  ],
+  [
+   52.372085,
+   4.900483
+  ],
+  [
+   52.372405,
+   4.900667
+  ],
+  [
+   52.372419,
+   4.900637
+  ],
+  [
+   52.37259,
+   4.900287
+  ],
+  [
+   52.372419,
+   4.900637
+  ],
+  [
+   52.372405,
+   4.900667
+  ],
+  [
+   52.372788,
+   4.9009
+  ],
+  [
+   52.372843,
+   4.900933
+  ],
+  [
+   52.372919,
+   4.900973
+  ],
+  [
+   52.373098,
+   4.901075
+  ],
+  [
+   52.37333,
+   4.901194
+  ],
+  [
+   52.373369,
+   4.901212
+  ],
+  [
+   52.373439,
+   4.901251
+  ],
+  [
+   52.373495,
+   4.901277
+  ],
+  [
+   52.373789,
+   4.901419
+  ],
+  [
+   52.373984,
+   4.901507
+  ],
+  [
+   52.374073,
+   4.901548
+  ],
+  [
+   52.374291,
+   4.901653
+  ],
+  [
+   52.374585,
+   4.901813
+  ],
+  [
+   52.375467,
+   4.902248
+  ],
+  [
+   52.375984,
+   4.902503
+  ],
+  [
+   52.376001,
+   4.902514
+  ],
+  [
+   52.376015,
+   4.902524
+  ],
+  [
+   52.376046,
+   4.902557
+  ],
+  [
+   52.376093,
+   4.902559
+  ],
+  [
+   52.376118,
+   4.902579
+  ],
+  [
+   52.376144,
+   4.902607
+  ],
+  [
+   52.376155,
+   4.902623
+  ],
+  [
+   52.376164,
+   4.902638
+  ],
+  [
+   52.376175,
+   4.902661
+  ],
+  [
+   52.37619,
+   4.902696
+  ],
+  [
+   52.376202,
+   4.902724
+  ],
+  [
+   52.376246,
+   4.902674
+  ],
+  [
+   52.376258,
+   4.902659
+  ],
+  [
+   52.376274,
+   4.902641
+  ],
+  [
+   52.376326,
+   4.902591
+  ],
+  [
+   52.376407,
+   4.902502
+  ],
+  [
+   52.376527,
+   4.90236
+  ],
+  [
+   52.376578,
+   4.902301
+  ],
+  [
+   52.376609,
+   4.902267
+  ],
+  [
+   52.376625,
+   4.902248
+  ],
+  [
+   52.376659,
+   4.902205
+  ],
+  [
+   52.376697,
+   4.902162
+  ],
+  [
+   52.376744,
+   4.902107
+  ],
+  [
+   52.376765,
+   4.902083
+  ],
+  [
+   52.376788,
+   4.902058
+  ],
+  [
+   52.376808,
+   4.902033
+  ],
+  [
+   52.376821,
+   4.902013
+  ],
+  [
+   52.376831,
+   4.901995
+  ],
+  [
+   52.376838,
+   4.901979
+  ],
+  [
+   52.376844,
+   4.901963
+  ],
+  [
+   52.376849,
+   4.901943
+  ],
+  [
+   52.376853,
+   4.901923
+  ],
+  [
+   52.376856,
+   4.9019
+  ],
+  [
+   52.376858,
+   4.901886
+  ],
+  [
+   52.376859,
+   4.901875
+  ],
+  [
+   52.376859,
+   4.90186
+  ],
+  [
+   52.376857,
+   4.901835
+  ],
+  [
+   52.376844,
+   4.90171
+  ],
+  [
+   52.376744,
+   4.90068
+  ],
+  [
+   52.376665,
+   4.899882
+  ],
+  [
+   52.376662,
+   4.899841
+  ],
+  [
+   52.376669,
+   4.8998
+  ],
+  [
+   52.376707,
+   4.899644
+  ],
+  [
+   52.37671,
+   4.899612
+  ],
+  [
+   52.376708,
+   4.899573
+  ],
+  [
+   52.376701,
+   4.899513
+  ],
+  [
+   52.376665,
+   4.899214
+  ],
+  [
+   52.376661,
+   4.899165
+  ],
+  [
+   52.376659,
+   4.899104
+  ],
+  [
+   52.376663,
+   4.899056
+  ],
+  [
+   52.376671,
+   4.899008
+  ],
+  [
+   52.376684,
+   4.898952
+  ],
+  [
+   52.376695,
+   4.89892
+  ],
+  [
+   52.376706,
+   4.898892
+  ],
+  [
+   52.376726,
+   4.898855
+  ],
+  [
+   52.376743,
+   4.898827
+  ],
+  [
+   52.376765,
+   4.898786
+  ],
+  [
+   52.376808,
+   4.898715
+  ],
+  [
+   52.376844,
+   4.898641
+  ],
+  [
+   52.376868,
+   4.898576
+  ],
+  [
+   52.376892,
+   4.898555
+  ],
+  [
+   52.376949,
+   4.898484
+  ],
+  [
+   52.376984,
+   4.89844
+  ],
+  [
+   52.376986,
+   4.898438
+  ],
+  [
+   52.377074,
+   4.898338
+  ],
+  [
+   52.377105,
+   4.89832
+  ],
+  [
+   52.377109,
+   4.898318
+  ],
+  [
+   52.37711,
+   4.898317
+  ],
+  [
+   52.377128,
+   4.898304
+  ],
+  [
+   52.377163,
+   4.898277
+  ],
+  [
+   52.377171,
+   4.898267
+  ],
+  [
+   52.377225,
+   4.898197
+  ],
+  [
+   52.377302,
+   4.898093
+  ],
+  [
+   52.377327,
+   4.898043
+  ],
+  [
+   52.377382,
+   4.897925
+  ],
+  [
+   52.377486,
+   4.897741
+  ],
+  [
+   52.377531,
+   4.897668
+  ],
+  [
+   52.377637,
+   4.897483
+  ],
+  [
+   52.377677,
+   4.897417
+  ],
+  [
+   52.377717,
+   4.897355
+  ],
+  [
+   52.377757,
+   4.897297
+  ],
+  [
+   52.377798,
+   4.897246
+  ],
+  [
+   52.377846,
+   4.897321
+  ],
+  [
+   52.377877,
+   4.897349
+  ],
+  [
+   52.377897,
+   4.897366
+  ],
+  [
+   52.377916,
+   4.897383
+  ],
+  [
+   52.377933,
+   4.897403
+  ],
+  [
+   52.377968,
+   4.897442
+  ],
+  [
+   52.378016,
+   4.897447
+  ],
+  [
+   52.378076,
+   4.89746
+  ],
+  [
+   52.378143,
+   4.897453
+  ],
+  [
+   52.378248,
+   4.897394
+  ],
+  [
+   52.378295,
+   4.897392
+  ],
+  [
+   52.378339,
+   4.897416
+  ],
+  [
+   52.378387,
+   4.897472
+  ],
+  [
+   52.378408,
+   4.897427
+  ],
+  [
+   52.378418,
+   4.897407
+  ],
+  [
+   52.378419,
+   4.897404
+  ],
+  [
+   52.378426,
+   4.897388
+  ],
+  [
+   52.378439,
+   4.897362
+  ],
+  [
+   52.378445,
+   4.897348
+  ],
+  [
+   52.37847,
+   4.897378
+  ],
+  [
+   52.378516,
+   4.897408
+  ],
+  [
+   52.378628,
+   4.897547
+  ],
+  [
+   52.378788,
+   4.897731
+  ],
+  [
+   52.378925,
+   4.897901
+  ],
+  [
+   52.378962,
+   4.897947
+  ],
+  [
+   52.379031,
+   4.898008
+  ],
+  [
+   52.37907,
+   4.898031
+  ],
+  [
+   52.3791,
+   4.898047
+  ],
+  [
+   52.379151,
+   4.898076
+  ],
+  [
+   52.379211,
+   4.898105
+  ],
+  [
+   52.379251,
+   4.898142
+  ],
+  [
+   52.380124,
+   4.899005
+  ],
+  [
+   52.380254,
+   4.899134
+  ],
+  [
+   52.380449,
+   4.899323
+  ],
+  [
+   52.380492,
+   4.89937
+  ],
+  [
+   52.380528,
+   4.899276
+  ],
+  [
+   52.380578,
+   4.899134
+  ],
+  [
+   52.380648,
+   4.898935
+  ],
+  [
+   52.38068,
+   4.898977
+  ],
+  [
+   52.380753,
+   4.899073
+  ],
+  [
+   52.380846,
+   4.899192
+  ],
+  [
+   52.381176,
+   4.899602
+  ],
+  [
+   52.38135,
+   4.89973
+  ],
+  [
+   52.381611,
+   4.899754
+  ],
+  [
+   52.381817,
+   4.899696
+  ],
+  [
+   52.397406,
+   4.890307
+  ],
+  [
+   52.398092,
+   4.889904
+  ],
+  [
+   52.39892,
+   4.889553
+  ],
+  [
+   52.399331,
+   4.889499
+  ],
+  [
+   52.399635,
+   4.889672
+  ],
+  [
+   52.400838,
+   4.891008
+  ],
+  [
+   52.40101,
+   4.891213
+  ],
+  [
+   52.401153,
+   4.891395
+  ],
+  [
+   52.401194,
+   4.891451
+  ],
+  [
+   52.400987,
+   4.891895
+  ],
+  [
+   52.400975,
+   4.891992
+  ]
+ ],
+ "legs": [
+  {
+   "distance": 2198,
+   "steps": [
+    {
+     "lat": 52.360825,
+     "lng": 4.878261,
+     "text": "Directions to the next stop. Head north-east, then turn left, then turn right onto Zandpad."
+    },
+    {
+     "lat": 52.3619,
+     "lng": 4.881349,
+     "text": "At the end of the road, turn right onto Stadhouderskade.",
+     "pre": {
+      "text": "In 150 metres, at the end of the road, turn right onto Stadhouderskade."
+     }
+    },
+    {
+     "lat": 52.361739,
+     "lng": 4.88181,
+     "text": "Turn left, then turn left.",
+     "pre": {
+      "text": "In 150 metres, turn left, then turn left."
+     }
+    },
+    {
+     "lat": 52.363603,
+     "lng": 4.882205,
+     "text": "Turn left, then turn right, then turn left onto Marnixstraat.",
+     "pre": {
+      "text": "In 150 metres, turn left, then turn right, then turn left onto Marnixstraat."
+     }
+    },
+    {
+     "lat": 52.36654,
+     "lng": 4.879733,
+     "text": "Turn right onto Passeerdersgracht.",
+     "pre": {
+      "text": "In 150 metres, turn right onto Passeerdersgracht."
+     }
+    },
+    {
+     "lat": 52.367343,
+     "lng": 4.882217,
+     "text": "Turn left onto Prinsengracht, and stay on it for about 600 metres.",
+     "pre": {
+      "text": "In 150 metres, turn left onto Prinsengracht, and stay on it for about 600 metres."
+     }
+    },
+    {
+     "lat": 52.372426,
+     "lng": 4.882657,
+     "text": "Turn right onto Reestraat.",
+     "pre": {
+      "text": "In 150 metres, turn right onto Reestraat."
+     }
+    },
+    {
+     "lat": 52.37228,
+     "lng": 4.886785,
+     "text": "Turn left onto Herengracht.",
+     "pre": {
+      "text": "In 150 metres, turn left onto Herengracht."
+     }
+    }
+   ]
+  },
+  {
+   "distance": 495,
+   "steps": [
+    {
+     "lat": 52.374166,
+     "lng": 4.887102,
+     "text": "Directions to the next stop. Head north-east on Herengracht."
+    },
+    {
+     "lat": 52.374898,
+     "lng": 4.887755,
+     "text": "Turn right onto Anton Jolingbrug.",
+     "pre": {
+      "text": "In 150 metres, turn right onto Anton Jolingbrug."
+     }
+    },
+    {
+     "lat": 52.374787,
+     "lng": 4.888226,
+     "text": "Turn left onto Herengracht.",
+     "pre": {
+      "text": "In 150 metres, turn left onto Herengracht."
+     }
+    },
+    {
+     "lat": 52.376752,
+     "lng": 4.890045,
+     "text": "Turn right onto Blauwburgwal.",
+     "pre": {
+      "text": "In 150 metres, turn right onto Blauwburgwal."
+     }
+    },
+    {
+     "lat": 52.376357,
+     "lng": 4.89099,
+     "text": "Turn right onto Singel.",
+     "pre": {
+      "text": "In 150 metres, turn right onto Singel."
+     }
+    }
+   ]
+  },
+  {
+   "distance": 1004,
+   "steps": [
+    {
+     "lat": 52.376069,
+     "lng": 4.890677,
+     "text": "Directions to the next stop. Head south-west on Singel."
+    },
+    {
+     "lat": 52.374575,
+     "lng": 4.889049,
+     "text": "Turn left.",
+     "pre": {
+      "text": "In 150 metres, turn left."
+     }
+    },
+    {
+     "lat": 52.374536,
+     "lng": 4.889706,
+     "text": "Continue onto Torensteeg.",
+     "pre": {
+      "text": "In 150 metres, continue onto Torensteeg."
+     }
+    },
+    {
+     "lat": 52.374374,
+     "lng": 4.890283,
+     "text": "Turn right onto Spuistraat, and stay on it for about 700 metres.",
+     "pre": {
+      "text": "In 150 metres, turn right onto Spuistraat, and stay on it for about 700 metres."
+     }
+    },
+    {
+     "lat": 52.368608,
+     "lng": 4.889205,
+     "text": "Bear left onto Spui.",
+     "pre": {
+      "text": "In 150 metres, bear left onto Spui."
+     }
+    },
+    {
+     "lat": 52.368738,
+     "lng": 4.889825,
+     "text": "Turn left onto Handboogstraat.",
+     "pre": {
+      "text": "In 150 metres, turn left onto Handboogstraat."
+     }
+    }
+   ]
+  },
+  {
+   "distance": 920,
+   "steps": [
+    {
+     "lat": 52.368753,
+     "lng": 4.88982,
+     "text": "Directions to the next stop. Head south on Handboogstraat, then turn left onto Spui."
+    },
+    {
+     "lat": 52.36904,
+     "lng": 4.891917,
+     "text": "Turn right onto Rokin.",
+     "pre": {
+      "text": "In 150 metres, turn right onto Rokin."
+     }
+    },
+    {
+     "lat": 52.367384,
+     "lng": 4.893422,
+     "text": "Turn left onto Nieuwe Doelenstraat.",
+     "pre": {
+      "text": "In 150 metres, turn left onto Nieuwe Doelenstraat."
+     }
+    },
+    {
+     "lat": 52.368468,
+     "lng": 4.896005,
+     "text": "Turn right onto Nieuwe Doelenstraat.",
+     "pre": {
+      "text": "In 150 metres, turn right onto Nieuwe Doelenstraat."
+     }
+    },
+    {
+     "lat": 52.368318,
+     "lng": 4.896511,
+     "text": "Continue onto Staalstraat.",
+     "pre": {
+      "text": "In 150 metres, continue onto Staalstraat."
+     }
+    },
+    {
+     "lat": 52.367552,
+     "lng": 4.899142,
+     "text": "Turn left onto Amstel.",
+     "pre": {
+      "text": "In 150 metres, turn left onto Amstel."
+     }
+    }
+   ]
+  },
+  {
+   "distance": 742,
+   "steps": [
+    {
+     "lat": 52.367322,
+     "lng": 4.899728,
+     "text": "Directions to the next stop. Head north-west on Amstel."
+    },
+    {
+     "lat": 52.367691,
+     "lng": 4.899079,
+     "text": "Keep right.",
+     "pre": {
+      "text": "In 150 metres, keep right."
+     }
+    },
+    {
+     "lat": 52.367935,
+     "lng": 4.899335,
+     "text": "Turn left onto Ir. B. Bijvoetbrug.",
+     "pre": {
+      "text": "In 150 metres, turn left onto Ir. B. Bijvoetbrug."
+     }
+    },
+    {
+     "lat": 52.368162,
+     "lng": 4.898686,
+     "text": "Turn right onto Zwanenburgwal.",
+     "pre": {
+      "text": "In 150 metres, turn right onto Zwanenburgwal."
+     }
+    },
+    {
+     "lat": 52.369694,
+     "lng": 4.899844,
+     "text": "Turn right onto Zuiderkerkhof.",
+     "pre": {
+      "text": "In 150 metres, turn right onto Zuiderkerkhof."
+     }
+    },
+    {
+     "lat": 52.37007,
+     "lng": 4.900343,
+     "text": "Turn right, then turn left onto Sint Antoniesbreestraat.",
+     "pre": {
+      "text": "In 150 metres, turn right, then turn left onto Sint Antoniesbreestraat."
+     }
+    },
+    {
+     "lat": 52.372405,
+     "lng": 4.900667,
+     "text": "Turn left.",
+     "pre": {
+      "text": "In 150 metres, turn left."
+     }
+    }
+   ]
+  },
+  {
+   "distance": 3845,
+   "steps": [
+    {
+     "lat": 52.37259,
+     "lng": 4.900287,
+     "text": "Directions to the next stop. Head south-east."
+    },
+    {
+     "lat": 52.372405,
+     "lng": 4.900667,
+     "text": "Turn left onto Nieuwmarkt.",
+     "pre": {
+      "text": "In 150 metres, turn left onto Nieuwmarkt."
+     }
+    },
+    {
+     "lat": 52.376046,
+     "lng": 4.902557,
+     "text": "Turn right onto Geldersekade, then turn left onto Prins Hendrikkade.",
+     "pre": {
+      "text": "In 150 metres, turn right onto Geldersekade, then turn left onto Prins Hendrikkade."
+     }
+    },
+    {
+     "lat": 52.376868,
+     "lng": 4.898576,
+     "text": "Keep right onto Prins Hendrikkade.",
+     "pre": {
+      "text": "In 150 metres, keep right onto Prins Hendrikkade."
+     }
+    },
+    {
+     "lat": 52.377798,
+     "lng": 4.897246,
+     "text": "Turn right.",
+     "pre": {
+      "text": "In 150 metres, turn right."
+     }
+    },
+    {
+     "lat": 52.378387,
+     "lng": 4.897472,
+     "text": "Turn left, then turn right onto Stationsplein.",
+     "pre": {
+      "text": "In 150 metres, turn left, then turn right onto Stationsplein."
+     }
+    },
+    {
+     "lat": 52.378925,
+     "lng": 4.897901,
+     "text": "Continue onto Stationsplein.",
+     "pre": {
+      "text": "In 150 metres, continue onto Stationsplein."
+     }
+    },
+    {
+     "lat": 52.380492,
+     "lng": 4.89937,
+     "text": "At the end of the road, turn left onto De Ruijterkade.",
+     "pre": {
+      "text": "In 150 metres, at the end of the road, turn left onto De Ruijterkade."
+     }
+    },
+    {
+     "lat": 52.380648,
+     "lng": 4.898935,
+     "text": "Turn right onto Pontplein, then take the ferry. The crossing is about 2.4 kilometres.",
+     "pre": {
+      "text": "In 150 metres, turn right onto Pontplein, then take the ferry. The crossing is about 2.4 kilometres."
+     }
+    },
+    {
+     "lat": 52.401194,
+     "lng": 4.891451,
+     "text": "Turn right onto NDSM-kade.",
+     "pre": {
+      "text": "In 150 metres, turn right onto NDSM-kade."
+     }
+    }
+   ]
+  }
+ ],
+ "distance_km": 9.2,
+ "ride_min": 51,
+ "turnaround": {
+  "text": "Turn around when it is safe, then ride back to the route."
+ },
+ "offroute": {
+  "text": "You seem to be off the route. Follow the arrow on the screen back to it."
+ },
+ "duration_min": 90
 }
