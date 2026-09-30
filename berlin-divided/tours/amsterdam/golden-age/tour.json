@@ -1,0 +1,132 @@
+{
+ "id": "golden-age",
+ "city": "amsterdam",
+ "title": "The Golden Age by bike",
+ "subtitle": "Merchants, churches, canals and their hidden costs",
+ "mode": "bike",
+ "order": 1,
+ "voice": "en-GB-RyanNeural",
+ "intro": {
+  "id": "intro",
+  "title": "Before you ride",
+  "script": "Welcome to Amsterdam. In the seventeenth century this small city of merchants became, for a while, the richest place in Europe. On this ride of about eight kilometres you'll see where that wealth came from and where it went: a city hall built like a palace, the oldest church in town, the harbour where ships left for Asia and America, the canals of the richest families, and the museum that holds Rembrandt's Night Watch. You'll also hear what the Golden Age cost other people. A word on safety. Amsterdam's bike paths are busy and fast, so keep to the right, give clear hand signals, and cross tram rails at a steep angle. Keep one ear free. Your first story starts on the Dam, in front of the Royal Palace."
+ },
+ "outro": {
+  "id": "outro",
+  "title": "End of the tour",
+  "script": "That's the end of the ride. You've crossed the city that the Golden Age built, from the Dam where it began to the museum where its paintings hang today. The wealth you saw came from trade and invention, but also from war, colonies and the enslavement of people, and Amsterdam is still learning to tell both stories together. If you have time, the Rijksmuseum is right here, and the Museumplein behind it is a good place to rest. Thanks for riding."
+ },
+ "stops": [
+  {
+   "id": "dam",
+   "title": "The Dam and the Royal Palace",
+   "short": "Royal Palace",
+   "lat": 52.3731,
+   "lng": 4.8914,
+   "script": "You're on the Dam, the square that gave Amsterdam its name. Around 1270, people living by the river Amstel built a dam here, and the settlement that grew around it became Amstelredam. The huge stone building in front of you was not built as a palace. It was the city hall, and it was meant to tell the world that this city of merchants had become the richest in Europe. Work began in 1648, the year the Peace of Münster ended eighty years of war with Spain. The architect was Jacob van Campen. The ground here is soft peat and clay, so the building stands on 13,659 wooden piles, driven down through the mud into a layer of firm sand. Amsterdam schoolchildren still learn that number by heart. The city hall opened in 1655, while the builders were still at work, and it took about ten more years to finish. Inside, the great Citizens' Hall has maps of the world set into its marble floor, with Amsterdam at the centre of everything. On the far side of the roof, a statue of Atlas carries the globe on his shoulders. For a century and a half this was where the city was run. The council met here, judges passed sentence here, and the city's exchange bank kept its gold and silver in the cellars. Then, in 1806, Napoleon made his brother Louis King of Holland, and in 1808 Louis turned the city hall into his palace. It has been a royal palace ever since, used today for state visits and receptions. The church to its right, the Nieuwe Kerk, is where Dutch kings and queens are sworn in. Now ride east, away from the palace, into the oldest part of the city, to the Oude Kerk.",
+   "sources": [
+    "Stichting Koninklijk Paleis Amsterdam: history of the palace, paleisamsterdam.nl",
+    "Geert Mak, Amsterdam: A Brief Life of the City (1999)",
+    "Russell Shorto, Amsterdam: A History of the World's Most Liberal City (2013)"
+   ]
+  },
+  {
+   "id": "oudekerk",
+   "title": "The Oude Kerk",
+   "short": "Oude Kerk",
+   "lat": 52.3745,
+   "lng": 4.8982,
+   "script": "This is the Oude Kerk, the Old Church, and it is the oldest building in Amsterdam. It was consecrated in 1306, when Amsterdam was a small town of fishermen and traders, and it was dedicated to Saint Nicholas, the patron saint of sailors. The church grew with the city. Over the next two centuries, chapels, aisles and the tower were added, and the wooden vault inside is one of the largest medieval wooden roofs in Europe. If you step inside, look down. The floor is made almost entirely of gravestones, because for centuries the people of Amsterdam were buried under the church. The church was once full of altars, statues and paintings. In 1566 a wave of image breaking swept through the Low Countries, and in 1578 Amsterdam changed sides in the revolt against Spain and became Protestant. The altars and statues went, the walls were whitewashed, and the church became the plain, bright space you can see today. Two famous names are connected to this floor. Jan Pieterszoon Sweelinck, the greatest Dutch composer of his time, was the organist here for more than forty years and was buried here in 1621. And in 1642, Rembrandt buried his wife, Saskia van Uylenburgh, in this church. She was twenty-nine. That same year he finished The Night Watch, the painting you'll reach at the end of this ride. Look around the square, too. The church stands in the middle of the Wallen, the red light district. Sailors' taverns and brothels have stood around it since the Middle Ages, so this has always been a place where the sacred and the everyday live side by side. Please don't photograph the people working in the windows. Now ride north-east to the waterfront, to a round brick tower on the corner of the old harbour.",
+   "sources": [
+    "Oude Kerk Amsterdam: history of the building, oudekerk.nl",
+    "Stadsarchief Amsterdam (Amsterdam City Archives): burial registers, archief.amsterdam",
+    "Geert Mak, Amsterdam: A Brief Life of the City (1999)"
+   ]
+  },
+  {
+   "id": "schreierstoren",
+   "title": "The Schreierstoren and Henry Hudson",
+   "short": "Schreierstoren",
+   "lat": 52.3773,
+   "lng": 4.9022,
+   "script": "This round, squat tower is the Schreierstoren, one of the last pieces of Amsterdam's medieval city wall. It was built around 1487, when the wall ran along the water here and guarded the point where the harbour met the town. Its name has a story. People like to say it means the Weepers' Tower, where sailors' wives stood crying as their husbands left for sea, and there is a stone on the wall showing a weeping woman. But the name most likely comes from an old Dutch word for a sharp angle, because the tower stands where two walls met at a corner. Now look across the road, at Centraal Station. When this tower was built, all of that was open water. The station was built on artificial islands in the 1880s, and it cut the old town off from its harbour. Imagine instead a forest of masts, ships loading timber from the Baltic, grain, salt and wine, and ships leaving for the other side of the world. One of them left from here on 4 April 1609. It was a small ship called the Halve Maen, the Half Moon, and its captain was an Englishman, Henry Hudson. The Dutch East India Company had hired him to find a northern route to Asia, over the top of Russia. He didn't find it. Blocked by ice, he turned west instead, crossed the Atlantic, and sailed up a river in North America that now carries his name. His voyage led Dutch traders to that river, and within a few years to a small settlement on the island of Manhattan, called New Amsterdam. A plaque on the tower remembers his departure. Now ride east along the water, only a few hundred metres, to a dark, richly decorated brick building on the corner.",
+   "sources": [
+    "Stadsarchief Amsterdam: Schreierstoren, archief.amsterdam",
+    "Russell Shorto, The Island at the Center of the World (2004)",
+    "Monumentenregister, Rijksdienst voor het Cultureel Erfgoed: Schreierstoren"
+   ]
+  },
+  {
+   "id": "scheepvaarthuis",
+   "title": "The Scheepvaarthuis and the VOC",
+   "short": "Scheepvaarthuis",
+   "lat": 52.3749,
+   "lng": 4.9045,
+   "script": "Look up at this building. It looks like the bow of a ship made of brick, and that is exactly the idea. This is the Scheepvaarthuis, the Shipping House, built between 1912 and 1916 as the shared office of six Dutch shipping companies. The architect was Johan van der Mey, working with two young designers, Michel de Klerk and Piet Kramer. Together they created a style that became known as the Amsterdam School, with brick that seems to ripple, sculpted corners and stained glass, and this is its first great building. Everything on it talks about the sea: sea gods, sea horses, anchors, ships and the faces of Dutch seafarers. It stands on the old waterfront for a reason. From here, Amsterdam's ships left for Asia. In 1595 four ships under Cornelis de Houtman set out to find the spice islands of what is now Indonesia. The voyage was a disaster, and most of the crew never came home, but it showed that the route could be sailed. In 1602 the Dutch East India Company, the VOC, was founded, one of the first companies anywhere to sell shares to the public. For almost two hundred years it traded pepper, nutmeg, cloves, textiles and porcelain, and it made Amsterdam rich. It was also a company with its own army and navy, and it ruled with great violence. In 1621, on the Banda Islands, the only place in the world where nutmeg grew, forces under Jan Pieterszoon Coen killed, enslaved or drove out most of the islanders, so that the company could control the trade. The VOC went bankrupt and was dissolved in 1799. Today this building is a hotel, and you can step into its entrance hall. Now ride west across the old city to the Herenmarkt, a quiet square near the Brouwersgracht.",
+   "sources": [
+    "Het Schip, Museum of the Amsterdam School: the Scheepvaarthuis, hetschip.nl",
+    "Monumentenregister, Rijksdienst voor het Cultureel Erfgoed: Scheepvaarthuis",
+    "Femme Gaastra, The Dutch East India Company: Expansion and Decline (2003)",
+    "Rijksmuseum: the VOC and the Banda Islands, rijksmuseum.nl"
+   ]
+  },
+  {
+   "id": "wic",
+   "title": "The West-Indisch Huis",
+   "short": "West-Indisch Huis",
+   "lat": 52.3813,
+   "lng": 4.8894,
+   "script": "This brick building around a courtyard was the headquarters of the Dutch West India Company, the WIC, in its first decades. The company was founded in 1621 to trade in the Atlantic, in West Africa, the Caribbean and the Americas, and to fight Spain and Portugal there. From here, its directors ran a colony in North America called New Netherland, with its main town, New Amsterdam, on the tip of Manhattan. In the courtyard stands a statue of Peter Stuyvesant, the colony's last Dutch governor. In 1664 he surrendered New Amsterdam to an English fleet, and it was renamed New York. In 1628 a WIC fleet under Piet Heyn captured the Spanish silver fleet off the coast of Cuba, and the treasure made the company rich overnight. The Dutch still sing a song about him. But the WIC is remembered today for something much darker. It traded in human beings. The company shipped enslaved men, women and children from the coast of West Africa across the Atlantic to Brazil, Suriname and the Caribbean, hundreds of thousands of people over its lifetime. They were chained below deck for weeks, and many died on the crossing. Those who survived were sold and forced to work on plantations of sugar, coffee and cotton, whose products came back to warehouses in this city. The Netherlands abolished slavery in its colonies only in 1863, and even then, enslaved people in Suriname were forced to keep working on the plantations for ten more years. Every year on 1 July, Keti Koti, which means the chains are broken, is commemorated in Amsterdam. In 2021 the mayor of Amsterdam apologised for the city's role, and in 2023 the King did the same. Now ride south along the canals to the tall tower of the Westerkerk.",
+   "sources": [
+    "Stadsarchief Amsterdam: the West India Company and slavery, archief.amsterdam",
+    "Pepijn Brandon et al. (eds.), De slavernij in Oost en West: het Amsterdam-onderzoek (2020)",
+    "Rijksmuseum, Slavery exhibition catalogue (2021)",
+    "Russell Shorto, The Island at the Center of the World (2004)"
+   ]
+  },
+  {
+   "id": "westerkerk",
+   "title": "The Westerkerk",
+   "short": "Westerkerk",
+   "lat": 52.3747,
+   "lng": 4.884,
+   "script": "This is the Westerkerk, the Western Church, and its tower, about eighty-five metres high, is the tallest church tower in Amsterdam. It was designed by Hendrick de Keyser, the city's master builder, and built between 1620 and 1631 for Amsterdam's Protestants, in the new ring of canals the city was digging for its fast growing population. De Keyser died in 1621, long before it was finished, and his son Pieter completed the work. Look at the very top of the tower. The blue, red and gold crown up there is the imperial crown of Maximilian of Austria, who allowed Amsterdam to put it on its coat of arms in 1489. You'll see the same crown on bridges, lamp posts and buildings all over the city. The church is also where Rembrandt lies. After his bankruptcy he moved to a modest house on the Rozengracht, a few minutes from here. His son Titus died in 1668 and was buried in this church, and a year later, on 8 October 1669, Rembrandt was buried here too, in a rented grave. Nobody knows exactly where. A memorial inside the church remembers him. Listen for the bells. The carillon in the tower plays every quarter of an hour, as it has for centuries. During the Second World War, a teenage girl hiding in a house just around the corner, on the Prinsengracht, wrote in her diary that the sound of these bells comforted her. Her name was Anne Frank. And in 1966, Princess Beatrix married here, on a day of smoke bombs and protests that belongs to another tour. Now ride south along the Herengracht to its most expensive stretch, the Golden Bend.",
+   "sources": [
+    "Westerkerk Amsterdam: history, westerkerk.nl",
+    "Rembrandthuis: Rembrandt's life, rembrandthuis.nl",
+    "Anne Frank House: the Westertoren in the diary, annefrank.org"
+   ]
+  },
+  {
+   "id": "goldenbend",
+   "title": "The Golden Bend",
+   "short": "Golden Bend",
+   "lat": 52.3654,
+   "lng": 4.892,
+   "script": "You're on the Golden Bend, the Gouden Bocht, the stretch of the Herengracht between the Leidsestraat and the Vijzelstraat. Look at the houses. Elsewhere on the canals, most houses are narrow brick fronts, three windows wide. Here, many are double houses, twice as wide, with fronts of sandstone, wide steps up to the door and, behind them, long gardens that you can't see from the street. This is where Amsterdam's richest families lived. In the late sixteenth century the city was bursting. Refugees came from the south, Protestants from Antwerp, Jews from Spain and Portugal, and by 1622 Amsterdam had more than a hundred thousand inhabitants. In 1613 the city began to dig three new canals around the old centre, the Herengracht, the Keizersgracht and the Prinsengracht, in a great half ring. It was a planned city, with rules about building heights, materials and trades. The work went in stages, and this eastern part was laid out in the 1660s. The plots were sold, and the wealthiest buyers bought two side by side to build these wide houses. The Herengracht, the Gentlemen's Canal, was the most prestigious address of all. Look up at the tops of the houses. Almost every one has a beam with a hook sticking out below the roof. The staircases inside are so steep and narrow that furniture still goes up on a rope and in through the windows. Two houses to look out for: number 502 is the official residence of the mayor of Amsterdam, and number 497 is a small museum devoted entirely to cats. In 2010 the whole canal ring became a UNESCO World Heritage site. Now ride south, across the outer canals, to the Rijksmuseum, where the bike path runs right through the building.",
+   "sources": [
+    "UNESCO World Heritage List: Seventeenth-century canal ring area of Amsterdam inside the Singelgracht (2010), whc.unesco.org/en/list/1349",
+    "Stadsarchief Amsterdam: the canal ring expansions, archief.amsterdam",
+    "Geert Mak, Amsterdam: A Brief Life of the City (1999)"
+   ]
+  },
+  {
+   "id": "rijksmuseum",
+   "title": "The Rijksmuseum and The Night Watch",
+   "short": "Rijksmuseum",
+   "lat": 52.36,
+   "lng": 4.8852,
+   "script": "You've reached the Rijksmuseum, the national museum of the Netherlands. The building was designed by Pierre Cuypers, the architect who also designed Centraal Station, and it opened in 1885. The passage under the middle of the building, the one you may be riding through right now, is one of the most famous bike paths in the world. When the museum was rebuilt, in a renovation that took ten years and ended in 2013, there were plans to close it to bikes. Amsterdam's cyclists protested, and the passage stayed open. Inside hangs the painting this whole ride has been leading to: The Night Watch, finished by Rembrandt in 1642, the year Saskia died. It shows a company of the city's civic militia, the volunteer guard of Amsterdam's citizens, led by Captain Frans Banninck Cocq in black with a red sash, and his lieutenant, Willem van Ruytenburch, in pale yellow. Other group portraits of the time lined the men up in neat rows. Rembrandt painted them moving, loading muskets, raising a flag, a drummer beating, a dog barking and a girl in gold running through the crowd. It isn't even a night scene. It got its name much later, when old varnish had turned it dark. It was painted for the militia's hall, but in 1715 it was moved to the city hall on the Dam, the palace where you started this ride. It was too big for its new wall, so it was cut down on every side, and a strip on the left, with two figures, was lost. The museum also holds Vermeer's Milkmaid and works by Frans Hals and Jan Steen, the Golden Age in paint. This is the last stop. Stay a moment for the end of the tour.",
+   "sources": [
+    "Rijksmuseum: The Night Watch and Operation Night Watch, rijksmuseum.nl",
+    "Rijksmuseum: history of the building, rijksmuseum.nl",
+    "Fietsersbond Amsterdam: the Rijksmuseum passage"
+   ]
+  }
+ ],
+ "sources": [
+  "Geert Mak, Amsterdam: A Brief Life of the City (1999)",
+  "Russell Shorto, Amsterdam: A History of the World's Most Liberal City (2013)",
+  "Stadsarchief Amsterdam, archief.amsterdam"
+ ]
+}
