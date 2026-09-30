@@ -1,6 +1,48 @@
 {
  "tours": [
   {
+   "path": "amsterdam/golden-age",
+   "id": "golden-age",
+   "city": "amsterdam",
+   "title": "The Golden Age by bike",
+   "subtitle": "Merchants, churches, canals and their hidden costs",
+   "mode": "bike",
+   "distance_km": null,
+   "duration_min": null,
+   "stops": 8,
+   "ready": false,
+   "langs": [],
+   "order": 1
+  },
+  {
+   "path": "amsterdam/war",
+   "id": "war",
+   "city": "amsterdam",
+   "title": "Amsterdam in the war",
+   "subtitle": "Occupation, persecution and resistance, 1940 to 1945",
+   "mode": "walk",
+   "distance_km": null,
+   "duration_min": null,
+   "stops": 8,
+   "ready": false,
+   "langs": [],
+   "order": 2
+  },
+  {
+   "path": "amsterdam/rebels",
+   "id": "rebels",
+   "city": "amsterdam",
+   "title": "Rebels and freethinkers",
+   "subtitle": "Spinoza, Multatuli, Provo, squatters and the wharf",
+   "mode": "bike",
+   "distance_km": null,
+   "duration_min": null,
+   "stops": 7,
+   "ready": false,
+   "langs": [],
+   "order": 3
+  },
+  {
    "path": "berlin/divided",
    "id": "divided",
    "city": "berlin",

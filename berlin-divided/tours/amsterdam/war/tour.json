@@ -1,0 +1,131 @@
+{
+ "id": "war",
+ "city": "amsterdam",
+ "title": "Amsterdam in the war",
+ "subtitle": "Occupation, persecution and resistance, 1940 to 1945",
+ "mode": "walk",
+ "order": 2,
+ "voice": "en-GB-RyanNeural",
+ "intro": {
+  "id": "intro",
+  "title": "Before you walk",
+  "script": "Welcome. This walk of about four kilometres follows Amsterdam through five years of German occupation, from May 1940 to May 1945. It starts at the house where Anne Frank hid, passes the memorials on the Westermarkt and the Dam, and then crosses into the old Jewish quarter, where most of the stories take place, ending at the Resistance Museum. These are stories of real people, many of whom were murdered, and some of the places you'll visit are memorials. Please be quiet and respectful there, and keep your voice low when you stop. Amsterdam's cyclists are fast, so look both ways at every crossing and walk on the pavement, not the red bike paths. Your first story starts on the Prinsengracht, in front of the Anne Frank House."
+ },
+ "outro": {
+  "id": "outro",
+  "title": "End of the walk",
+  "script": "That's the end of the walk. As you go on through the city, look down now and then. Set into the pavement in front of many houses are small brass stones, each engraved with a name, a date of birth, a date of deportation and a place of death. They are called Stolpersteine, stumbling stones, and each one marks the last home of someone who was taken from it. Every year on 4 May at eight in the evening, the whole country falls silent for two minutes. Thank you for walking."
+ },
+ "stops": [
+  {
+   "id": "annefrank",
+   "title": "The Anne Frank House",
+   "short": "Anne Frank House",
+   "lat": 52.3752,
+   "lng": 4.884,
+   "script": "You're on the Prinsengracht, in front of number 263. In the 1930s, Otto Frank moved his family here from Frankfurt, after the Nazis came to power in Germany, and his company, Opekta, which sold a powder for making jam, had its offices and warehouse in this building. In May 1940 Germany invaded the Netherlands, and the persecution of Jews followed them here. On 5 July 1942, Otto's elder daughter, Margot, who was sixteen, received a call-up to report for a so-called labour camp in Germany. The next morning the family went into hiding, in rooms at the back of this building, behind a movable bookcase. They called it the Secret Annex. Four more people joined them: Hermann and Auguste van Pels, their son Peter, and later a dentist, Fritz Pfeffer. Eight people lived in a few small rooms for more than two years. During working hours, while men worked in the warehouse below, they had to stay silent. They couldn't run water or flush the toilet. Four of Otto's employees, Miep Gies, Johannes Kleiman, Victor Kugler and Bep Voskuijl, brought them food, books and news, at the risk of their own lives. Anne had been given a diary for her thirteenth birthday, on 12 June 1942, and she wrote in it throughout. On 4 August 1944, the police raided the annex and arrested all eight. It is still not known for certain who betrayed them, or whether anyone did. They were sent to Westerbork, and on 3 September 1944 to Auschwitz, on the last train from Westerbork to that camp. Anne and Margot died of typhus in Bergen-Belsen in early 1945, weeks before it was liberated. Only Otto survived. Miep Gies had saved Anne's diary, and she gave it to him. Now walk a few steps south, past the church, to three pink triangles by the Keizersgracht.",
+   "sources": [
+    "Anne Frank House: the Secret Annex, the people in hiding and the helpers, annefrank.org",
+    "NIOD Institute for War, Holocaust and Genocide Studies, The Diary of Anne Frank: The Revised Critical Edition (2003)"
+   ]
+  },
+  {
+   "id": "homomonument",
+   "title": "The Homomonument",
+   "short": "Homomonument",
+   "lat": 52.3743,
+   "lng": 4.8845,
+   "script": "Set into the ground here, by the edge of the Keizersgracht, are three large triangles of pink granite. Together they mark out one much bigger triangle across the square. One steps down to the water, one is level with the street, and one is raised a little above it. This is the Homomonument, designed by Karin Daan and unveiled on 5 September 1987. It remembers gay men and lesbians who have been persecuted for who they are, and when it was made it was one of the first monuments of its kind anywhere in the world. The shape is not chosen by chance. In Nazi concentration camps, men imprisoned for being homosexual had to wear a pink triangle on their clothes. In Germany, thousands of men were convicted under a law against sex between men, and many of them were sent to the camps, where a large number died. In the occupied Netherlands, the Germans brought in a similar law in 1940. After the war, the men who survived the camps were often not recognised as victims at all. The three triangles point in three directions: towards the Anne Frank House, towards the National Monument on the Dam, and towards the office of the COC, the Dutch organisation for gay and lesbian rights, founded in 1946 and one of the oldest of its kind in the world. On one of the triangles you can read a line by the poet Jacob Israël de Haan: Naar vriendschap zulk een mateloos verlangen. It means, such an endless longing for friendship. People leave flowers here on 4 May and during Pride. At the last stop of this walk, you'll hear about a gay artist who fought in the resistance. Now walk east along the Raadhuisstraat, behind the Royal Palace, to the tall white column on the far side of the Dam.",
+   "sources": [
+    "Stichting Homomonument: history and design, homomonument.nl",
+    "Anne Frank House: persecution of homosexuals, annefrank.org",
+    "IHLIA LGBTI Heritage, Amsterdam: the Homomonument"
+   ]
+  },
+  {
+   "id": "monument",
+   "title": "The National Monument on the Dam",
+   "short": "National Monument",
+   "lat": 52.373,
+   "lng": 4.8931,
+   "script": "This white stone column, about twenty-two metres tall, is the National Monument, the country's main memorial to the victims of the Second World War. It was designed by the architect J. J. P. Oud, with sculpture by John Rädecker, and Queen Juliana unveiled it on 4 May 1956. Walk around it slowly. The figures on the column stand for suffering and for hope: bound men, a mother with her child, and doves. In the curved wall behind the column are urns holding earth from the places across the country where resistance fighters and hostages were executed, and one with earth from the former Dutch East Indies, where many Dutch and Indonesian civilians died in Japanese camps. Every year on 4 May, the Day of Remembrance, the King and Queen lay a wreath here, and at eight o'clock in the evening the whole country stops for two minutes of silence. Trains halt, and traffic stands still. The next day, 5 May, is Liberation Day. This square also saw one of the last acts of violence of the war. The German forces in the Netherlands surrendered on 5 May 1945, but the Allied troops had not yet reached Amsterdam. On 7 May, thousands of people gathered here to welcome them, celebrating, waving flags. German soldiers in a building on the corner of the square opened fire on the crowd. More than twenty people were killed, and many more were wounded, two days after the war was supposed to be over. Now walk south-east through the old centre, past the Waterlooplein, to a square beside a large brick synagogue, where a bronze dock worker stands.",
+   "sources": [
+    "Nationaal Comité 4 en 5 mei: the National Monument on the Dam, 4en5mei.nl",
+    "Stadsarchief Amsterdam: the shooting on the Dam, 7 May 1945, archief.amsterdam",
+    "Rijksdienst voor het Cultureel Erfgoed: Nationaal Monument op de Dam"
+   ]
+  },
+  {
+   "id": "dokwerker",
+   "title": "The Dokwerker and the February Strike",
+   "short": "The Dokwerker",
+   "lat": 52.3674,
+   "lng": 4.903,
+   "script": "Before the war, this neighbourhood was the heart of Jewish Amsterdam. Around eighty thousand Jews lived in the city, about one in ten of its people, and many of them lived in the streets around here, among markets, synagogues and small workshops. In February 1941, after fights in the Jewish quarter between Dutch Nazis and young Jewish and non-Jewish men who defended the neighbourhood, the Germans struck back. On 22 and 23 February 1941, German police raided the area. They rounded up 425 Jewish men, most of them between twenty and thirty-five, and drove them onto this square. Many were beaten. They were deported to the camps at Buchenwald and then Mauthausen, and almost none of them came back. Amsterdam answered. On 25 February, called by the banned Communist Party, tram drivers left their trams standing in the streets. Dock workers, city workers and factory workers downed tools, and the strike spread to towns around Amsterdam. It lasted two days before the Germans crushed it, with shootings and arrests. It was one of the very few mass protests against the persecution of Jews anywhere in occupied Europe. The bronze figure in front of you is De Dokwerker, the Dock Worker, by the sculptor Mari Andriessen, unveiled in 1952. He stands with his sleeves rolled up, facing the square. Every year on 25 February, people gather here to remember the strike. The square itself is named after Jonas Daniël Meijer, who became the first Jewish lawyer in the Netherlands in 1796, the year Dutch Jews were given equal rights. The large brick building next to you is the Portuguese Synagogue. Its entrance is just around the corner.",
+   "sources": [
+    "Stadsarchief Amsterdam: the February Strike of 1941, archief.amsterdam",
+    "NIOD Institute for War, Holocaust and Genocide Studies: the February raids and strike, niod.nl",
+    "Bob Moore, Victims and Survivors: The Nazi Persecution of the Jews in the Netherlands 1940-1945 (1997)"
+   ]
+  },
+  {
+   "id": "synagogue",
+   "title": "The Portuguese Synagogue",
+   "short": "Portuguese Synagogue",
+   "lat": 52.3676,
+   "lng": 4.9046,
+   "script": "In the late sixteenth century, families began to arrive in Amsterdam from Spain and Portugal. Their ancestors had been Jews forced to become Christians, and many had kept their faith in secret, under the threat of the Inquisition. Here, in a city that wanted their trade and asked few questions, they could return openly to Judaism. They became known as the Portuguese Jews. They prospered, and on 2 August 1675 they inaugurated this synagogue, designed by Elias Bouman. At the time it was one of the largest synagogues in the world. Step inside if it's open. There is no electric light. The great hall is lit by daylight through its high windows and by hundreds of candles in brass chandeliers. The wooden floor is covered in fine sand, as it has been for centuries. Next to the synagogue is the library of Ets Haim, founded in 1616 and one of the oldest Jewish libraries still working today. This was also the community of the philosopher Baruch Spinoza, who was expelled from it in 1656, before this building existed. Across the road stand the Ashkenazi synagogues, built by Jews from Germany and Eastern Europe, which are now the Jewish Museum. During the occupation, Jews across the Netherlands were registered, marked, robbed of their jobs and property, and deported. Of about 140,000 Jews in the country, around 102,000 were murdered, a higher proportion than anywhere else in Western Europe. Most of this congregation was among them. The building itself survived the war undamaged, and it is still used for services today. Now walk east along the Plantage Middenlaan, past the botanical garden, to a white theatre front with an open space behind it.",
+   "sources": [
+    "Jewish Cultural Quarter: the Portuguese Synagogue and Ets Haim, jck.nl",
+    "Portugees-Israëlietische Gemeente Amsterdam, portugesesynagoge.nl",
+    "NIOD Institute for War, Holocaust and Genocide Studies: numbers of victims, niod.nl"
+   ]
+  },
+  {
+   "id": "schouwburg",
+   "title": "The Hollandsche Schouwburg",
+   "short": "Hollandsche Schouwburg",
+   "lat": 52.3665,
+   "lng": 4.9086,
+   "script": "This was a theatre. It opened in 1892, and for fifty years Amsterdam came here for plays and operettas. In 1941 the Germans turned it into the Jewish Theatre, the only theatre where Jewish performers could still appear and Jewish audiences could still go. Then, from the summer of 1942, it became something else. It was the place where Jews in Amsterdam were held before deportation. People were brought here after round-ups, often at night, with a suitcase or a rucksack, and kept in the dark auditorium for days, sometimes weeks, with little air, food or sleep. From here they were taken to Westerbork, and from Westerbork to Auschwitz, Sobibor and other camps. About forty-six thousand people passed through this building. Young children were separated from their parents and kept across the street, in a crèche run by Henriëtte Pimentel. Walter Süskind, a German Jew placed in charge of the administration here, began to falsify the lists, so that children disappeared from them. With Pimentel and the head of the teachers' college next to the crèche, Johan van Hulst, they smuggled children out: in bags and baskets, or passed through the college garden while a passing tram blocked the guards' view. Resistance groups took them to hiding places across the country. Around six hundred children were saved this way. Henriëtte Pimentel was murdered in Auschwitz in 1943, and Walter Süskind died in 1945. Johan van Hulst survived and lived to be a hundred and seven. Inside, the auditorium is now an open courtyard with a memorial where the stage used to be, and a wall with the family names of the Dutch Jews who were murdered. Now cross the street, to the building where Johan van Hulst's college stood.",
+   "sources": [
+    "Jewish Cultural Quarter: the Hollandsche Schouwburg memorial, jck.nl",
+    "Yad Vashem: Johan van Hulst, Righteous Among the Nations, yadvashem.org",
+    "Mark Schellekens, Walter Süskind (2012)"
+   ]
+  },
+  {
+   "id": "holocaustmuseum",
+   "title": "The National Holocaust Museum",
+   "short": "Holocaust Museum",
+   "lat": 52.3668,
+   "lng": 4.9094,
+   "script": "This is the National Holocaust Museum. It opened on 10 March 2024, the first museum in the Netherlands devoted entirely to the persecution and murder of Jews in the Holocaust, and it is housed in the old teachers' college where Johan van Hulst worked. The children saved from the crèche next door passed through this building. The museum shows how persecution came step by step, and how ordinary it was made to look. In the autumn of 1940, Jewish civil servants were dismissed. In January 1941, every Jew had to register. Then came the bans: Jews could no longer go to parks, cinemas, markets or swimming pools, or ride trams or bicycles. Jewish children were sent to separate schools. From May 1942 every Jew aged six and over had to wear a yellow star with the word Jood on it. Each rule was published in the newspaper, and each one made the next easier. In July 1942 the deportations began. Trains took people from Amsterdam to the transit camps of Westerbork and Vught, and from there to the extermination camps in the east. Most were murdered on arrival. Dutch Sinti and Roma were also rounded up, in May 1944, and deported to Auschwitz, and few of them survived. A short walk from here, on the Weesperstraat, is the Holocaust Names Monument by Daniel Libeskind, opened in 2021. Its walls are made of bricks, each carrying the name of one of the Jews, Sinti and Roma from the Netherlands who were murdered. If you have time, walk along them after the tour. Now walk on east and turn into the Plantage Kerklaan, to the Resistance Museum, opposite the entrance to the zoo.",
+   "sources": [
+    "Jewish Cultural Quarter: National Holocaust Museum, jck.nl",
+    "NIOD Institute for War, Holocaust and Genocide Studies: anti-Jewish measures, niod.nl",
+    "Holocaust Names Monument, holocaustnamenmonument.nl",
+    "Jacques Presser, Ondergang: de vervolging en verdelging van het Nederlandse Jodendom (1965)"
+   ]
+  },
+  {
+   "id": "verzetsmuseum",
+   "title": "The Resistance Museum",
+   "short": "Resistance Museum",
+   "lat": 52.3664,
+   "lng": 4.9127,
+   "script": "This is the Verzetsmuseum, the Resistance Museum. It tells the story of the occupation through the choices people made. Most Dutch people did not resist and did not collaborate. They adapted, kept their heads down and waited. A minority joined the Dutch Nazi party or worked for the occupier. And a small minority resisted. They printed underground newspapers, some of which, like Het Parool and Trouw, are still published today. They forged identity cards, stole ration coupons, and hid people in attics and farmhouses across the country. Tens of thousands of Jews went into hiding, and many of them survived only because someone took that risk. One of the boldest acts took place a short walk from here, on this same street. The city's population register was kept in a building at Plantage Kerklaan 36, and its files helped the Germans find Jews and people in hiding. On the night of 27 March 1943, a group of resistance fighters, some disguised as police officers, got into the building, overpowered the guards and set the records on fire. Among them were the sculptor Gerrit van der Veen and the artist and writer Willem Arondeus, who was openly gay. Firemen who knew what was happening used so much water that they soaked even more files. Many of the records survived, but the attack became a symbol. Within weeks most of the group had been arrested. On 1 July 1943, twelve of them were executed. Before his death, Arondeus sent a message that people should know that homosexuals are not cowards. Amsterdam was liberated in May 1945, after a winter of famine, the Hunger Winter, in which thousands in the city died. This is the last stop. Stay a moment for the end of the walk.",
+   "sources": [
+    "Verzetsmuseum Amsterdam (Dutch Resistance Museum), verzetsmuseum.org",
+    "Stadsarchief Amsterdam: the attack on the population register, 27 March 1943, archief.amsterdam",
+    "Stichting Homomonument: Willem Arondeus, homomonument.nl"
+   ]
+  }
+ ],
+ "sources": [
+  "NIOD Institute for War, Holocaust and Genocide Studies, niod.nl",
+  "Jewish Cultural Quarter, Amsterdam, jck.nl",
+  "Bob Moore, Victims and Survivors: The Nazi Persecution of the Jews in the Netherlands 1940-1945 (1997)",
+  "Geert Mak, Amsterdam: A Brief Life of the City (1999)"
+ ]
+}

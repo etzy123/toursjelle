@@ -1,0 +1,118 @@
+{
+ "id": "rebels",
+ "city": "amsterdam",
+ "title": "Rebels and freethinkers",
+ "subtitle": "Spinoza, Multatuli, Provo, squatters and the wharf",
+ "mode": "bike",
+ "order": 3,
+ "voice": "en-GB-RyanNeural",
+ "intro": {
+  "id": "intro",
+  "title": "Before you ride",
+  "script": "Welcome to rebel Amsterdam. For three and a half centuries this city has been home to people who refused to think what they were told: a philosopher thrown out of his community, a colonial official who exposed his own government, anarchists with white bicycles, and neighbours who fought riot police to save their streets. This ride of about ten kilometres starts in the Vondelpark, winds through the canals and the old centre, and ends with a ferry ride across the IJ to a shipyard taken over by artists. Take your time. On the bike paths, keep to the right and watch for tram rails. On the ferry, walk your bike on and off. Your first story starts in the Vondelpark, near the statue of the poet Vondel."
+ },
+ "outro": {
+  "id": "outro",
+  "title": "End of the tour",
+  "script": "That's the end of the ride. From Spinoza's freedom to think to the squatters' right to a home, Amsterdam's rebels rarely won the fight in front of them, but again and again the city ended up adopting their ideas. Stay a while here on the wharf. There are cafés, street art and, on some weekends, a huge flea market. The ferry back to Centraal Station leaves from the same pier. Thanks for riding."
+ },
+ "stops": [
+  {
+   "id": "vondelpark",
+   "title": "The Vondelpark and the hippie years",
+   "short": "Vondelpark",
+   "lat": 52.3608,
+   "lng": 4.8783,
+   "script": "The Vondelpark opened in 1865, laid out for Amsterdam's well-off citizens to stroll and ride in, and at first it was simply called the New Park. Two years later a statue of the poet Joost van den Vondel was put up, and the park took his name. It's a fitting start for this ride, because Vondel was a troublemaker too. In 1654 his play Lucifer, about the angel who rebelled against God, was banned by the city after protests from Calvinist preachers, after only two performances. Three hundred years later, the park became the centre of a very different rebellion. In the late 1960s, Amsterdam became a magnet for young people from all over Europe and America. Paradiso, a former church a few minutes from here, opened as a music venue in 1968, and the Melkweg, in an old dairy, followed in 1970. Every summer, thousands of young travellers arrived with rucksacks and sleeping bags, and many of them slept here, in the park, among the trees and on the lawns, while the city looked on and, for a while, let them. There was music, and there was hashish. In 1976 the Netherlands changed its drug law to treat soft drugs differently from hard drugs, and the coffeeshops you see around the city grew out of that choice. It was not the end of the argument, and it still isn't. As the 1970s went on, the city grew tired of the crowds and the mess, and sleeping in the park came to an end. But the Vondelpark stayed what the hippies made it: everybody's garden, where on a sunny day half the city lies on the grass. Now ride north-east, across the canals, to the Raadhuisstraat, the wide street that runs to the Westerkerk.",
+   "sources": [
+    "Stadsarchief Amsterdam: the Vondelpark, archief.amsterdam",
+    "Geert Mak, Amsterdam: A Brief Life of the City (1999)",
+    "Trimbos Institute: Dutch drug policy and the Opium Act of 1976, trimbos.nl"
+   ]
+  },
+  {
+   "id": "wedding",
+   "title": "The royal wedding of 1966",
+   "short": "Raadhuisstraat",
+   "lat": 52.3741,
+   "lng": 4.8873,
+   "script": "On 10 March 1966, Princess Beatrix, heir to the Dutch throne, married Claus von Amsberg, a German diplomat. Only twenty-one years after the end of the occupation, many people in Amsterdam were furious. As a boy Claus had been a member of the Hitler Youth, and at the end of the war he had served in the German army. The government and the royal family decided to hold the wedding here anyway, in the capital. The couple rode through the city in the Golden Coach to the church service in the Westerkerk, and this street, the Raadhuisstraat, was the last stretch. Thousands of police and soldiers lined the route. Then the smoke bombs came. Young members of a movement called Provo, whom you'll meet at the Spui, threw them at the procession, and clouds of white smoke rolled over the street and around the coach. Photographs of it went around the world. The police hit back hard, beating protesters and bystanders alike, and the city's image of calm and order was broken. It was the start of a restless year. That summer, after a construction worker died during a protest, riots broke out in the city centre, and in 1967 the mayor, Gijsbert van Hall, was dismissed. Many people saw the royal wedding as the moment that Amsterdam's young stopped asking for permission. The story has a quieter ending. Claus learned Dutch, worked on development aid and spoke openly about his depression, and over the years he became one of the most loved members of the royal family. When he died in 2002, many of the people who had once protested against him mourned him. Now ride a few hundred metres north along the Singel, to a wide bridge with a statue of a man in a long coat.",
+   "sources": [
+    "Stadsarchief Amsterdam: the wedding of Beatrix and Claus, 10 March 1966, archief.amsterdam",
+    "Richard Kempton, Provo: Amsterdam's Anarchist Revolt (2007)",
+    "Geert Mak, Amsterdam: A Brief Life of the City (1999)"
+   ]
+  },
+  {
+   "id": "multatuli",
+   "title": "Multatuli at the Torensluis",
+   "short": "Torensluis",
+   "lat": 52.3764,
+   "lng": 4.8893,
+   "script": "This is the Torensluis, one of the oldest bridges in Amsterdam and the widest across the Singel, so wide that it's more like a small square. It's named after a tower that once stood here, when the Singel was the city's moat. The statue on the bridge shows a writer who shook the Netherlands. It was made by Hans Bayens and unveiled in 1987. His real name was Eduard Douwes Dekker, and he was born in 1820 in a little street just behind you, where his birthplace is now the Multatuli Museum. As a young man he went to the Dutch East Indies, today's Indonesia, and spent years as a colonial official on Java. In 1856, as assistant resident in the district of Lebak, he accused the local ruler of extorting the Javanese farmers, forcing them to work without pay and taking their buffaloes. His superiors did not want to know, and he resigned. Back in Europe, poor and angry, he wrote a novel. In 1860 he published Max Havelaar, or the Coffee Auctions of the Dutch Trading Company, under a pen name, Multatuli. It's Latin for I have suffered much. The book tells, sometimes furiously, sometimes very funnily, how the colonial system made the Netherlands rich from coffee and sugar grown by Javanese farmers who went hungry. It is framed by the voice of a smug Amsterdam coffee broker called Batavus Droogstoppel, who lives on the Lauriergracht and cannot imagine anything wrong with the trade. Max Havelaar caused a scandal and helped, slowly, to change colonial policy. Multatuli went on writing against hypocrisy, against organised religion and for free thought, and he died in Germany in 1887. Now ride south along the Singel to the Spui, a small square with a little bronze statue of a boy.",
+   "sources": [
+    "Multatuli Museum, Korsjespoortsteeg 20, multatuli-museum.nl",
+    "Digitale Bibliotheek voor de Nederlandse Letteren: Multatuli, Max Havelaar (1860), dbnl.org",
+    "Stadsarchief Amsterdam: the Torensluis, archief.amsterdam"
+   ]
+  },
+  {
+   "id": "spui",
+   "title": "Het Lieverdje and Provo",
+   "short": "Spui",
+   "lat": 52.3688,
+   "lng": 4.8898,
+   "script": "The small bronze boy on the Spui, hands on his hips, is Het Lieverdje, the Little Darling, by the sculptor Carel Kneulman, placed here in 1960. It was paid for by a tobacco company, and that turned it into a target. Robert Jasper Grootveld, a window cleaner and performance artist who had his own war against smoking, saw the boy as a symbol of the addicted consumer. From 1964, every Saturday at midnight, he held happenings around the statue, dressed as a kind of medicine man, chanting and coughing against tobacco and advertising, while crowds gathered and police watched. In 1965 a group of young anarchists, among them Roel van Duijn and Rob Stolk, joined in and founded Provo, from the word provoke. Their idea was to provoke the authorities, with humour and absurd plans, until they showed their true face. And the authorities often obliged, arresting people for handing out raisins or leaflets. Provo's most famous idea came from Luud Schimmelpennink: the White Bicycle Plan. Paint bicycles white, leave them unlocked all over the city, and let anyone use them for free. The police took the bikes away, saying unlocked bicycles invited theft. Today there are shared bikes in cities all over the world. In 1966 Provo won a seat on the city council, and in May 1967 it dissolved itself, in a happening in the Vondelpark. But the spirit stayed on this square. The building across the Spui, the Maagdenhuis, is the old head office of the University of Amsterdam. In May 1969, students occupied it for days, demanding a say in how their university was run. Now ride east, across the Rokin and along the canals, to the Zwanenburgwal, where a bronze philosopher stands by the water in front of the city hall.",
+   "sources": [
+    "International Institute of Social History: the Provo archives, iisg.amsterdam",
+    "Richard Kempton, Provo: Amsterdam's Anarchist Revolt (2007)",
+    "Niek Pas, Imaazje! De verbeelding van Provo 1965-1967 (2003)",
+    "Stadsarchief Amsterdam: the Maagdenhuis occupation of 1969, archief.amsterdam"
+   ]
+  },
+  {
+   "id": "spinoza",
+   "title": "Spinoza by the Zwanenburgwal",
+   "short": "Spinoza",
+   "lat": 52.3672,
+   "lng": 4.8996,
+   "script": "The man in the long coat, standing by the water, is Baruch Spinoza. He was born in Amsterdam on 24 November 1632, into a family of Portuguese Jewish merchants, a few hundred metres from here, in the old Jewish quarter, where the Waterlooplein market is now. He studied at the community's school and worked in the family business. But he began to ask questions: whether the soul lives on after death, whether the Bible was written by people rather than by God, and whether God might be nothing other than nature itself. On 27 July 1656, when he was twenty-three, the leaders of the Portuguese Jewish community expelled him in some of the harshest words they ever used. No one was to speak to him, stay under the same roof, or read anything he wrote. He never returned. He changed his first name to Benedictus, lived simply, and earned his living grinding lenses for microscopes and telescopes, while he wrote. In 1670 he published, without his name on it, the Theological-Political Treatise. It argued that the state should let people think what they want and say what they think, and it was banned. He died in The Hague in 1677, only forty-four years old, and his great work, the Ethics, was published after his death. His ideas travelled far, to the Enlightenment and beyond. The statue, by Nicolas Dings, was unveiled in 2008. Spinoza's coat is covered in flowers and birds from all over the world, a picture of Amsterdam as a city of newcomers, and a green parakeet sits on it. Read the words on the base: Het doel van de staat is de vrijheid. The purpose of the state is freedom. Now ride north, only a few hundred metres, to the Nieuwmarkt, the square around a small castle.",
+   "sources": [
+    "Steven Nadler, Spinoza: A Life (1999)",
+    "Stadsarchief Amsterdam: the Spinoza statue by Nicolas Dings (2008), archief.amsterdam",
+    "Portugees-Israëlietische Gemeente Amsterdam: the cherem of 1656"
+   ]
+  },
+  {
+   "id": "nieuwmarkt",
+   "title": "The Nieuwmarkt riots of 1975",
+   "short": "Nieuwmarkt",
+   "lat": 52.3726,
+   "lng": 4.9003,
+   "script": "The small castle in the middle of the square is the Waag. It was built in 1488 as a gate in the city wall, and when the city outgrew its walls it became a public weigh house, where goods were weighed and taxed. Look around the square. In the 1960s and 70s, the city had big plans for this neighbourhood. A new metro line would run from Centraal Station to new housing in the south-east, and it would be built by digging open the ground beneath these streets. There were also plans for a wide road through the area, lined with offices. Whole blocks of old houses were bought up and emptied. The people who lived here, joined by students and squatters, refused to go. They occupied the empty houses, painted slogans on the walls and hung banners from the windows, and for years they fought the plans at meetings and in the streets. Squatting was widespread in Amsterdam then, and it was only made illegal in 2010. On Monday 24 March 1975, the city sent in the riot police to clear the squatted houses. Police with batons, tear gas and water cannons fought residents and their supporters for a whole day, barricade by barricade, and many people were injured and arrested. The houses were cleared, and the metro was built. But in the longer fight, the neighbourhood won. The wide road was dropped, and the area was rebuilt with homes at the old scale of the streets. Inside Nieuwmarkt metro station, artworks and photographs remember the struggle. Now ride north to Centraal Station and take the free ferry from behind the station across the IJ to the NDSM wharf. The crossing takes about fifteen minutes, and the next story starts when you land.",
+   "sources": [
+    "Stadsarchief Amsterdam: the Nieuwmarkt riots, 24 March 1975, archief.amsterdam",
+    "International Institute of Social History: squatters' movement archives, iisg.amsterdam",
+    "Geert Mak, Amsterdam: A Brief Life of the City (1999)"
+   ]
+  },
+  {
+   "id": "ndsm",
+   "title": "The NDSM wharf",
+   "short": "NDSM wharf",
+   "lat": 52.401,
+   "lng": 4.892,
+   "script": "You've crossed the IJ to Amsterdam Noord and the NDSM wharf. The letters stand for the Nederlandsche Dok en Scheepsbouw Maatschappij, the Netherlands Dock and Shipbuilding Company, formed in 1946 from two older yards. For decades this was one of the biggest shipyards in the country. Thousands of workers crossed the IJ every morning to build tankers and cargo ships on the slipways here, and the launch of a new ship was a public event. Look at the size of the halls and cranes around you, built for ships that dwarfed the houses of the city across the water. From the 1970s, competition from yards in Asia and a crisis in shipbuilding hit hard, and in 1984 the company went bankrupt. The yard fell silent, and the halls stood empty. Then, in the 1990s, artists and squatters moved in, looking for space the city centre could no longer give them. They built studios, workshops and theatres inside the enormous shipbuilding hall, a whole town of small workplaces under one roof, and in the end the city chose to support them rather than clear them out. That's the pattern you've seen all along this ride. Amsterdam's rebels usually lose the first fight: Spinoza is expelled, Multatuli is ignored, the white bicycles are taken away and the Nieuwmarkt is cleared. Then, years later, the city quietly adopts their ideas. Today the wharf is known for its street art, festivals and a huge flea market, and one of the old cranes has been turned into a hotel. Take a look at the walls around you, which are covered in some of the best street art in the city. This is the last stop. Stay a moment for the end of the tour.",
+   "sources": [
+    "NDSM-werf: history of the wharf, ndsm.nl",
+    "Stadsarchief Amsterdam: NDSM shipyard, archief.amsterdam",
+    "Geert Mak, Amsterdam: A Brief Life of the City (1999)"
+   ]
+  }
+ ],
+ "sources": [
+  "Russell Shorto, Amsterdam: A History of the World's Most Liberal City (2013)",
+  "Geert Mak, Amsterdam: A Brief Life of the City (1999)",
+  "International Institute of Social History, iisg.amsterdam"
+ ]
+}
