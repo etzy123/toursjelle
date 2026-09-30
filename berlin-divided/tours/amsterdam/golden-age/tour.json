@@ -9,12 +9,16 @@
  "intro": {
   "id": "intro",
   "title": "Before you ride",
-  "script": "Welcome to Amsterdam. In the seventeenth century this small city of merchants became, for a while, the richest place in Europe. On this ride of about six and a half kilometres you'll see where that wealth came from and where it went: a city hall built like a palace, the oldest church in town, the harbour where ships left for Asia and America, the canals of the richest families, and the museum that holds Rembrandt's Night Watch. You'll also hear what the Golden Age cost other people. A word on safety. Amsterdam's bike paths are busy and fast, so keep to the right, give clear hand signals, and cross tram rails at a steep angle. Keep one ear free. Your first story starts on the Dam, in front of the Royal Palace."
+  "script": "Welcome to Amsterdam. In the seventeenth century this small city of merchants became, for a while, the richest place in Europe. On this ride of about six and a half kilometres you'll see where that wealth came from and where it went: a city hall built like a palace, the oldest church in town, the harbour where ships left for Asia and America, the canals of the richest families, and the museum that holds Rembrandt's Night Watch. You'll also hear what the Golden Age cost other people. A word on safety. Amsterdam's bike paths are busy and fast, so keep to the right, give clear hand signals, and cross tram rails at a steep angle. Keep one ear free. Your first story starts on the Dam, in front of the Royal Palace.",
+  "audio": "audio/stories/intro-557b0b6d.mp3",
+  "dur": 47.5
  },
  "outro": {
   "id": "outro",
   "title": "End of the tour",
-  "script": "That's the end of the ride. You've crossed the city that the Golden Age built, from the Dam where it began to the museum where its paintings hang today. The wealth you saw came from trade and invention, but also from war, colonies and the enslavement of people, and Amsterdam is still learning to tell both stories together. If you have time, the Rijksmuseum is right here, and the Museumplein behind it is a good place to rest. Thanks for riding."
+  "script": "That's the end of the ride. You've crossed the city that the Golden Age built, from the Dam where it began to the museum where its paintings hang today. The wealth you saw came from trade and invention, but also from war, colonies and the enslavement of people, and Amsterdam is still learning to tell both stories together. If you have time, the Rijksmuseum is right here, and the Museumplein behind it is a good place to rest. Thanks for riding.",
+  "audio": "audio/stories/outro-01502873.mp3",
+  "dur": 28.4
  },
  "stops": [
   {
@@ -28,7 +32,9 @@
     "Stichting Koninklijk Paleis Amsterdam: history of the palace, paleisamsterdam.nl",
     "Geert Mak, Amsterdam: A Brief Life of the City (1999)",
     "Russell Shorto, Amsterdam: A History of the World's Most Liberal City (2013)"
-   ]
+   ],
+   "audio": "audio/stories/dam-d6edccc5.mp3",
+   "dur": 107.3
   },
   {
    "id": "oudekerk",
@@ -41,7 +47,9 @@
     "Oude Kerk Amsterdam: history of the building, oudekerk.nl",
     "Stadsarchief Amsterdam (Amsterdam City Archives): burial registers, archief.amsterdam",
     "Geert Mak, Amsterdam: A Brief Life of the City (1999)"
-   ]
+   ],
+   "audio": "audio/stories/oudekerk-db7968f3.mp3",
+   "dur": 113.8
   },
   {
    "id": "schreierstoren",
@@ -54,7 +62,9 @@
     "Stadsarchief Amsterdam: Schreierstoren, archief.amsterdam",
     "Russell Shorto, The Island at the Center of the World (2004)",
     "Monumentenregister, Rijksdienst voor het Cultureel Erfgoed: Schreierstoren"
-   ]
+   ],
+   "audio": "audio/stories/schreierstoren-2ed6b918.mp3",
+   "dur": 104.9
   },
   {
    "id": "scheepvaarthuis",
@@ -68,7 +78,9 @@
     "Monumentenregister, Rijksdienst voor het Cultureel Erfgoed: Scheepvaarthuis",
     "Femme Gaastra, The Dutch East India Company: Expansion and Decline (2003)",
     "Rijksmuseum: the VOC and the Banda Islands, rijksmuseum.nl"
-   ]
+   ],
+   "audio": "audio/stories/scheepvaarthuis-d8fbe04b.mp3",
+   "dur": 116.2
   },
   {
    "id": "wic",
@@ -82,7 +94,9 @@
     "Pepijn Brandon et al. (eds.), De slavernij in Oost en West: het Amsterdam-onderzoek (2020)",
     "Rijksmuseum, Slavery exhibition catalogue (2021)",
     "Russell Shorto, The Island at the Center of the World (2004)"
-   ]
+   ],
+   "audio": "audio/stories/wic-f4024e81.mp3",
+   "dur": 114.7
   },
   {
    "id": "westerkerk",
@@ -95,7 +109,9 @@
     "Westerkerk Amsterdam: history, westerkerk.nl",
     "Rembrandthuis: Rembrandt's life, rembrandthuis.nl",
     "Anne Frank House: the Westertoren in the diary, annefrank.org"
-   ]
+   ],
+   "audio": "audio/stories/westerkerk-a927b0c4.mp3",
+   "dur": 108.1
   },
   {
    "id": "goldenbend",
@@ -108,7 +124,9 @@
     "UNESCO World Heritage List: Seventeenth-century canal ring area of Amsterdam inside the Singelgracht (2010), whc.unesco.org/en/list/1349",
     "Stadsarchief Amsterdam: the canal ring expansions, archief.amsterdam",
     "Geert Mak, Amsterdam: A Brief Life of the City (1999)"
-   ]
+   ],
+   "audio": "audio/stories/goldenbend-be1fddb3.mp3",
+   "dur": 114.8
   },
   {
    "id": "rijksmuseum",
@@ -121,7 +139,9 @@
     "Rijksmuseum: The Night Watch and Operation Night Watch, rijksmuseum.nl",
     "Rijksmuseum: history of the building, rijksmuseum.nl",
     "Fietsersbond Amsterdam: the Rijksmuseum passage"
-   ]
+   ],
+   "audio": "audio/stories/rijksmuseum-a6ea4517.mp3",
+   "dur": 104.9
   }
  ],
  "sources": [
@@ -2158,55 +2178,68 @@
     {
      "lat": 52.373032,
      "lng": 4.891741,
-     "text": "Directions to the next stop. Head south."
+     "text": "Directions to the next stop. Head south.",
+     "clip": "audio/nav/96350cded7.mp3"
     },
     {
      "lat": 52.372785,
      "lng": 4.890741,
      "text": "At the end of the road, turn left.",
      "pre": {
-      "text": "In 150 metres, at the end of the road, turn left."
-     }
+      "text": "In 150 metres, at the end of the road, turn left.",
+      "clip": "audio/nav/5b974fad3a.mp3"
+     },
+     "clip": "audio/nav/135a0325a4.mp3"
     },
     {
      "lat": 52.372741,
      "lng": 4.892781,
      "text": "Turn right onto Dam, then turn left onto Dam.",
      "pre": {
-      "text": "In 150 metres, turn right onto Dam, then turn left onto Dam."
-     }
+      "text": "In 150 metres, turn right onto Dam, then turn left onto Dam.",
+      "clip": "audio/nav/daa30c4266.mp3"
+     },
+     "clip": "audio/nav/521038d91a.mp3"
     },
     {
      "lat": 52.372509,
      "lng": 4.893971,
      "text": "Turn left onto Dam.",
      "pre": {
-      "text": "In 150 metres, turn left onto Dam."
-     }
+      "text": "In 150 metres, turn left onto Dam.",
+      "clip": "audio/nav/c4094540d5.mp3"
+     },
+     "clip": "audio/nav/0aef0b4c81.mp3"
     },
     {
      "lat": 52.37372,
      "lng": 4.895771,
      "text": "Continue onto Warmoesstraat.",
      "pre": {
-      "text": "In 150 metres, continue onto Warmoesstraat."
-     }
+      "text": "In 150 metres, continue onto Warmoesstraat.",
+      "clip": "audio/nav/b78f3add74.mp3"
+     },
+     "clip": "audio/nav/59ade8469b.mp3"
     },
     {
      "lat": 52.374424,
      "lng": 4.89683,
      "text": "Turn right onto Wijde Kerksteeg.",
      "pre": {
-      "text": "In 150 metres, turn right onto Wijde Kerksteeg."
-     }
+      "text": "In 150 metres, turn right onto Wijde Kerksteeg.",
+      "clip": "audio/nav/66c0b529f7.mp3"
+     },
+     "clip": "audio/nav/7b6c9a71dc.mp3"
     },
     {
      "lat": 52.374355,
      "lng": 4.897426,
      "text": "At the end of the road, turn left.",
      "pre": {
-      "text": "In 150 metres, at the end of the road, turn left."
-     }
+      "text": "In 150 metres, at the end of the road, turn left.",
+      "clip": "audio/nav/5b974fad3a.mp3"
+     },
+     "clip": "audio/nav/135a0325a4.mp3"
     }
    ]
   },
@@ -2216,55 +2249,68 @@
     {
      "lat": 52.374651,
      "lng": 4.898227,
-     "text": "Directions to the next stop. Head east."
+     "text": "Directions to the next stop. Head east.",
+     "clip": "audio/nav/cf614126b2.mp3"
     },
     {
      "lat": 52.374484,
      "lng": 4.898827,
      "text": "Turn left.",
      "pre": {
-      "text": "In 150 metres, turn left."
-     }
+      "text": "In 150 metres, turn left.",
+      "clip": "audio/nav/c84f179b71.mp3"
+     },
+     "clip": "audio/nav/214975c935.mp3"
     },
     {
      "lat": 52.37481,
      "lng": 4.899164,
      "text": "Turn left onto Lange Niezel.",
      "pre": {
-      "text": "In 150 metres, turn left onto Lange Niezel."
-     }
+      "text": "In 150 metres, turn left onto Lange Niezel.",
+      "clip": "audio/nav/0658d1b7bf.mp3"
+     },
+     "clip": "audio/nav/ff6a874927.mp3"
     },
     {
      "lat": 52.375234,
      "lng": 4.897999,
      "text": "Turn right onto Warmoesstraat.",
      "pre": {
-      "text": "In 150 metres, turn right onto Warmoesstraat."
-     }
+      "text": "In 150 metres, turn right onto Warmoesstraat.",
+      "clip": "audio/nav/21cbc0d5c8.mp3"
+     },
+     "clip": "audio/nav/a710d7da6e.mp3"
     },
     {
      "lat": 52.376361,
      "lng": 4.899982,
      "text": "At the end of the road, turn left onto Prins Hendrikkade, then turn right onto Prins Hendrikkade.",
      "pre": {
-      "text": "In 150 metres, at the end of the road, turn left onto Prins Hendrikkade, then turn right onto Prins Hendrikkade."
-     }
+      "text": "In 150 metres, at the end of the road, turn left onto Prins Hendrikkade, then turn right onto Prins Hendrikkade.",
+      "clip": "audio/nav/cdeca8942f.mp3"
+     },
+     "clip": "audio/nav/685900fde9.mp3"
     },
     {
      "lat": 52.376744,
      "lng": 4.90068,
      "text": "Turn right onto Prins Hendrikkade.",
      "pre": {
-      "text": "In 150 metres, turn right onto Prins Hendrikkade."
-     }
+      "text": "In 150 metres, turn right onto Prins Hendrikkade.",
+      "clip": "audio/nav/3b95460f75.mp3"
+     },
+     "clip": "audio/nav/9f39e38459.mp3"
     },
     {
      "lat": 52.376856,
      "lng": 4.9019,
      "text": "Turn left.",
      "pre": {
-      "text": "In 150 metres, turn left."
-     }
+      "text": "In 150 metres, turn left.",
+      "clip": "audio/nav/c84f179b71.mp3"
+     },
+     "clip": "audio/nav/214975c935.mp3"
     }
    ]
   },
@@ -2274,31 +2320,38 @@
     {
      "lat": 52.377309,
      "lng": 4.90216,
-     "text": "Directions to the next stop. Head south."
+     "text": "Directions to the next stop. Head south.",
+     "clip": "audio/nav/96350cded7.mp3"
     },
     {
      "lat": 52.376933,
      "lng": 4.901945,
      "text": "Turn left onto Prins Hendrikkade.",
      "pre": {
-      "text": "In 150 metres, turn left onto Prins Hendrikkade."
-     }
+      "text": "In 150 metres, turn left onto Prins Hendrikkade.",
+      "clip": "audio/nav/256f2d8e26.mp3"
+     },
+     "clip": "audio/nav/fb75682fec.mp3"
     },
     {
      "lat": 52.376713,
      "lng": 4.902313,
      "text": "Turn right onto Geldersekade, then turn left onto Prins Hendrikkade.",
      "pre": {
-      "text": "In 150 metres, turn right onto Geldersekade, then turn left onto Prins Hendrikkade."
-     }
+      "text": "In 150 metres, turn right onto Geldersekade, then turn left onto Prins Hendrikkade.",
+      "clip": "audio/nav/6aed35091f.mp3"
+     },
+     "clip": "audio/nav/591b456647.mp3"
     },
     {
      "lat": 52.374842,
      "lng": 4.903803,
      "text": "Turn left.",
      "pre": {
-      "text": "In 150 metres, turn left."
-     }
+      "text": "In 150 metres, turn left.",
+      "clip": "audio/nav/c84f179b71.mp3"
+     },
+     "clip": "audio/nav/214975c935.mp3"
     }
    ]
   },
@@ -2308,55 +2361,68 @@
     {
      "lat": 52.374884,
      "lng": 4.904478,
-     "text": "Directions to the next stop. Head north-west."
+     "text": "Directions to the next stop. Head north-west.",
+     "clip": "audio/nav/b342302fe5.mp3"
     },
     {
      "lat": 52.375033,
      "lng": 4.904053,
      "text": "Turn left, then turn right onto Prins Hendrikkade.",
      "pre": {
-      "text": "In 150 metres, turn left, then turn right onto Prins Hendrikkade."
-     }
+      "text": "In 150 metres, turn left, then turn right onto Prins Hendrikkade.",
+      "clip": "audio/nav/4e3b7ab8e9.mp3"
+     },
+     "clip": "audio/nav/ab6312d125.mp3"
     },
     {
      "lat": 52.375624,
      "lng": 4.90345,
      "text": "Turn left onto Kromme Waal, then bear left onto Kromme Waal, then turn right onto Prins Hendrikkade.",
      "pre": {
-      "text": "In 150 metres, turn left onto Kromme Waal, then bear left onto Kromme Waal, then turn right onto Prins Hendrikkade."
-     }
+      "text": "In 150 metres, turn left onto Kromme Waal, then bear left onto Kromme Waal, then turn right onto Prins Hendrikkade.",
+      "clip": "audio/nav/701d37f640.mp3"
+     },
+     "clip": "audio/nav/336a149bab.mp3"
     },
     {
      "lat": 52.376868,
      "lng": 4.898576,
      "text": "Keep right onto Prins Hendrikkade.",
      "pre": {
-      "text": "In 150 metres, keep right onto Prins Hendrikkade."
-     }
+      "text": "In 150 metres, keep right onto Prins Hendrikkade.",
+      "clip": "audio/nav/b8788fc915.mp3"
+     },
+     "clip": "audio/nav/a0c9fc718d.mp3"
     },
     {
      "lat": 52.379224,
      "lng": 4.895312,
      "text": "Turn left onto Prins Hendrikkade.",
      "pre": {
-      "text": "In 150 metres, turn left onto Prins Hendrikkade."
-     }
+      "text": "In 150 metres, turn left onto Prins Hendrikkade.",
+      "clip": "audio/nav/256f2d8e26.mp3"
+     },
+     "clip": "audio/nav/fb75682fec.mp3"
     },
     {
      "lat": 52.378958,
      "lng": 4.894675,
      "text": "Turn right.",
      "pre": {
-      "text": "In 150 metres, turn right."
-     }
+      "text": "In 150 metres, turn right.",
+      "clip": "audio/nav/cfde85d4b1.mp3"
+     },
+     "clip": "audio/nav/e881cc5b22.mp3"
     },
     {
      "lat": 52.381369,
      "lng": 4.889516,
      "text": "Turn left onto Korte Prinsengracht.",
      "pre": {
-      "text": "In 150 metres, turn left onto Korte Prinsengracht."
-     }
+      "text": "In 150 metres, turn left onto Korte Prinsengracht.",
+      "clip": "audio/nav/e52f3a6b63.mp3"
+     },
+     "clip": "audio/nav/376dc944d2.mp3"
     }
    ]
   },
@@ -2366,39 +2432,48 @@
     {
      "lat": 52.381286,
      "lng": 4.88944,
-     "text": "Directions to the next stop. Head south-west on Korte Prinsengracht."
+     "text": "Directions to the next stop. Head south-west on Korte Prinsengracht.",
+     "clip": "audio/nav/e7000cf64e.mp3"
     },
     {
      "lat": 52.380267,
      "lng": 4.888506,
      "text": "Turn left onto Brouwersgracht.",
      "pre": {
-      "text": "In 150 metres, turn left onto Brouwersgracht."
-     }
+      "text": "In 150 metres, turn left onto Brouwersgracht.",
+      "clip": "audio/nav/35e80bc8d8.mp3"
+     },
+     "clip": "audio/nav/e64dae5ff1.mp3"
     },
     {
      "lat": 52.37969,
      "lng": 4.889522,
      "text": "Turn right onto Keizersgracht, and stay on it for about 600 metres.",
      "pre": {
-      "text": "In 150 metres, turn right onto Keizersgracht, and stay on it for about 600 metres."
-     }
+      "text": "In 150 metres, turn right onto Keizersgracht, and stay on it for about 600 metres.",
+      "clip": "audio/nav/1ed3e4b171.mp3"
+     },
+     "clip": "audio/nav/8f5134f16a.mp3"
     },
     {
      "lat": 52.374598,
      "lng": 4.88492,
      "text": "Turn right onto Westermarkt.",
      "pre": {
-      "text": "In 150 metres, turn right onto Westermarkt."
-     }
+      "text": "In 150 metres, turn right onto Westermarkt.",
+      "clip": "audio/nav/c175ca1535.mp3"
+     },
+     "clip": "audio/nav/3b1665dbaa.mp3"
     },
     {
      "lat": 52.374835,
      "lng": 4.884219,
      "text": "Turn left onto Westermarkt.",
      "pre": {
-      "text": "In 150 metres, turn left onto Westermarkt."
-     }
+      "text": "In 150 metres, turn left onto Westermarkt.",
+      "clip": "audio/nav/e1e37b950f.mp3"
+     },
+     "clip": "audio/nav/4af4724e03.mp3"
     }
    ]
   },
@@ -2408,39 +2483,48 @@
     {
      "lat": 52.374794,
      "lng": 4.884183,
-     "text": "Directions to the next stop. Head north-east on Westermarkt, then turn right onto Westermarkt."
+     "text": "Directions to the next stop. Head north-east on Westermarkt, then turn right onto Westermarkt.",
+     "clip": "audio/nav/183d3655d7.mp3"
     },
     {
      "lat": 52.374598,
      "lng": 4.88492,
      "text": "Turn right onto Keizersgracht.",
      "pre": {
-      "text": "In 150 metres, turn right onto Keizersgracht."
-     }
+      "text": "In 150 metres, turn right onto Keizersgracht.",
+      "clip": "audio/nav/4a3e92bc8e.mp3"
+     },
+     "clip": "audio/nav/74f3dd613d.mp3"
     },
     {
      "lat": 52.372359,
      "lng": 4.884574,
      "text": "Turn left onto Hartenstraat.",
      "pre": {
-      "text": "In 150 metres, turn left onto Hartenstraat."
-     }
+      "text": "In 150 metres, turn left onto Hartenstraat.",
+      "clip": "audio/nav/73882ec29c.mp3"
+     },
+     "clip": "audio/nav/2f42817e9c.mp3"
     },
     {
      "lat": 52.37228,
      "lng": 4.886785,
      "text": "Turn right onto Herengracht, and stay on it for about 700 metres.",
      "pre": {
-      "text": "In 150 metres, turn right onto Herengracht, and stay on it for about 700 metres."
-     }
+      "text": "In 150 metres, turn right onto Herengracht, and stay on it for about 700 metres.",
+      "clip": "audio/nav/8aef096cc5.mp3"
+     },
+     "clip": "audio/nav/d418bbb8ba.mp3"
     },
     {
      "lat": 52.366669,
      "lng": 4.888044,
      "text": "Bear left, then turn left, then bear right onto Koningsplein, then turn right onto Herengracht.",
      "pre": {
-      "text": "In 150 metres, bear left, then turn left, then bear right onto Koningsplein, then turn right onto Herengracht."
-     }
+      "text": "In 150 metres, bear left, then turn left, then bear right onto Koningsplein, then turn right onto Herengracht.",
+      "clip": "audio/nav/8f99deaa31.mp3"
+     },
+     "clip": "audio/nav/c9a64d1743.mp3"
     }
    ]
   },
@@ -2450,55 +2534,68 @@
     {
      "lat": 52.365447,
      "lng": 4.892017,
-     "text": "Directions to the next stop. Head east on Herengracht."
+     "text": "Directions to the next stop. Head east on Herengracht.",
+     "clip": "audio/nav/6b9d94dbb0.mp3"
     },
     {
      "lat": 52.365332,
      "lng": 4.892877,
      "text": "Turn right onto Vijzelstraat.",
      "pre": {
-      "text": "In 150 metres, turn right onto Vijzelstraat."
-     }
+      "text": "In 150 metres, turn right onto Vijzelstraat.",
+      "clip": "audio/nav/3013fb0487.mp3"
+     },
+     "clip": "audio/nav/3cfe8ccab5.mp3"
     },
     {
      "lat": 52.364041,
      "lng": 4.892428,
      "text": "Turn right onto Keizersgracht.",
      "pre": {
-      "text": "In 150 metres, turn right onto Keizersgracht."
-     }
+      "text": "In 150 metres, turn right onto Keizersgracht.",
+      "clip": "audio/nav/4a3e92bc8e.mp3"
+     },
+     "clip": "audio/nav/74f3dd613d.mp3"
     },
     {
      "lat": 52.364426,
      "lng": 4.889591,
      "text": "Turn left onto Nieuwe Spiegelstraat.",
      "pre": {
-      "text": "In 150 metres, turn left onto Nieuwe Spiegelstraat."
-     }
+      "text": "In 150 metres, turn left onto Nieuwe Spiegelstraat.",
+      "clip": "audio/nav/e7dd9fecfa.mp3"
+     },
+     "clip": "audio/nav/885bf9e93f.mp3"
     },
     {
      "lat": 52.362551,
      "lng": 4.887901,
      "text": "Go straight on.",
      "pre": {
-      "text": "In 150 metres, go straight on."
-     }
+      "text": "In 150 metres, go straight on.",
+      "clip": "audio/nav/826541b18b.mp3"
+     },
+     "clip": "audio/nav/0a1394f5b0.mp3"
     },
     {
      "lat": 52.361333,
      "lng": 4.886806,
      "text": "Continue onto Weteringschans.",
      "pre": {
-      "text": "In 150 metres, continue onto Weteringschans."
-     }
+      "text": "In 150 metres, continue onto Weteringschans.",
+      "clip": "audio/nav/c03b29fb78.mp3"
+     },
+     "clip": "audio/nav/2719bce0f1.mp3"
     },
     {
      "lat": 52.361018,
      "lng": 4.886559,
      "text": "Bear right.",
      "pre": {
-      "text": "In 150 metres, bear right."
-     }
+      "text": "In 150 metres, bear right.",
+      "clip": "audio/nav/f8f9f6f4f0.mp3"
+     },
+     "clip": "audio/nav/1d86cca335.mp3"
     }
    ]
   }
@@ -2506,10 +2603,12 @@
  "distance_km": 6.5,
  "ride_min": 40,
  "turnaround": {
-  "text": "Turn around when it is safe, then ride back to the route."
+  "text": "Turn around when it is safe, then ride back to the route.",
+  "clip": "audio/nav/5a0d7c8ace.mp3"
  },
  "offroute": {
-  "text": "You seem to be off the route. Follow the arrow on the screen back to it."
+  "text": "You seem to be off the route. Follow the arrow on the screen back to it.",
+  "clip": "audio/nav/94fbc41b71.mp3"
  },
- "duration_min": 81
+ "duration_min": 80
 }

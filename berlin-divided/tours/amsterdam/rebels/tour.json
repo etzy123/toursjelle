@@ -9,12 +9,16 @@
  "intro": {
   "id": "intro",
   "title": "Before you ride",
-  "script": "Welcome to rebel Amsterdam. For three and a half centuries this city has been home to people who refused to think what they were told: a philosopher thrown out of his community, a colonial official who exposed his own government, anarchists with white bicycles, and neighbours who fought riot police to save their streets. This ride of about nine kilometres starts in the Vondelpark, winds through the canals and the old centre, and ends with a ferry ride across the IJ to a shipyard taken over by artists. Take your time. On the bike paths, keep to the right and watch for tram rails. On the ferry, walk your bike on and off. Your first story starts in the Vondelpark, near the statue of the poet Vondel."
+  "script": "Welcome to rebel Amsterdam. For three and a half centuries this city has been home to people who refused to think what they were told: a philosopher thrown out of his community, a colonial official who exposed his own government, anarchists with white bicycles, and neighbours who fought riot police to save their streets. This ride of about nine kilometres starts in the Vondelpark, winds through the canals and the old centre, and ends with a ferry ride across the IJ to a shipyard taken over by artists. Take your time. On the bike paths, keep to the right and watch for tram rails. On the ferry, walk your bike on and off. Your first story starts in the Vondelpark, near the statue of the poet Vondel.",
+  "audio": "audio/stories/intro-3816390d.mp3",
+  "dur": 45.2
  },
  "outro": {
   "id": "outro",
   "title": "End of the tour",
-  "script": "That's the end of the ride. From Spinoza's freedom to think to the squatters' right to a home, Amsterdam's rebels rarely won the fight in front of them, but again and again the city ended up adopting their ideas. Stay a while here on the wharf. There are cafés, street art and, on some weekends, a huge flea market. The ferry back to Centraal Station leaves from the same pier. Thanks for riding."
+  "script": "That's the end of the ride. From Spinoza's freedom to think to the squatters' right to a home, Amsterdam's rebels rarely won the fight in front of them, but again and again the city ended up adopting their ideas. Stay a while here on the wharf. There are cafés, street art and, on some weekends, a huge flea market. The ferry back to Centraal Station leaves from the same pier. Thanks for riding.",
+  "audio": "audio/stories/outro-62d00ffa.mp3",
+  "dur": 27.0
  },
  "stops": [
   {
@@ -28,7 +32,9 @@
     "Stadsarchief Amsterdam: the Vondelpark, archief.amsterdam",
     "Geert Mak, Amsterdam: A Brief Life of the City (1999)",
     "Trimbos Institute: Dutch drug policy and the Opium Act of 1976, trimbos.nl"
-   ]
+   ],
+   "audio": "audio/stories/vondelpark-a5accc99.mp3",
+   "dur": 107.2
   },
   {
    "id": "wedding",
@@ -41,7 +47,9 @@
     "Stadsarchief Amsterdam: the wedding of Beatrix and Claus, 10 March 1966, archief.amsterdam",
     "Richard Kempton, Provo: Amsterdam's Anarchist Revolt (2007)",
     "Geert Mak, Amsterdam: A Brief Life of the City (1999)"
-   ]
+   ],
+   "audio": "audio/stories/wedding-d1b9c63e.mp3",
+   "dur": 108.0
   },
   {
    "id": "multatuli",
@@ -54,7 +62,9 @@
     "Multatuli Museum, Korsjespoortsteeg 20, multatuli-museum.nl",
     "Digitale Bibliotheek voor de Nederlandse Letteren: Multatuli, Max Havelaar (1860), dbnl.org",
     "Stadsarchief Amsterdam: the Torensluis, archief.amsterdam"
-   ]
+   ],
+   "audio": "audio/stories/multatuli-3498fe93.mp3",
+   "dur": 113.9
   },
   {
    "id": "spui",
@@ -68,7 +78,9 @@
     "Richard Kempton, Provo: Amsterdam's Anarchist Revolt (2007)",
     "Niek Pas, Imaazje! De verbeelding van Provo 1965-1967 (2003)",
     "Stadsarchief Amsterdam: the Maagdenhuis occupation of 1969, archief.amsterdam"
-   ]
+   ],
+   "audio": "audio/stories/spui-15fcfb73.mp3",
+   "dur": 117.2
   },
   {
    "id": "spinoza",
@@ -81,7 +93,9 @@
     "Steven Nadler, Spinoza: A Life (1999)",
     "Stadsarchief Amsterdam: the Spinoza statue by Nicolas Dings (2008), archief.amsterdam",
     "Portugees-Israëlietische Gemeente Amsterdam: the cherem of 1656"
-   ]
+   ],
+   "audio": "audio/stories/spinoza-622294da.mp3",
+   "dur": 115.3
   },
   {
    "id": "nieuwmarkt",
@@ -94,7 +108,9 @@
     "Stadsarchief Amsterdam: the Nieuwmarkt riots, 24 March 1975, archief.amsterdam",
     "International Institute of Social History: squatters' movement archives, iisg.amsterdam",
     "Geert Mak, Amsterdam: A Brief Life of the City (1999)"
-   ]
+   ],
+   "audio": "audio/stories/nieuwmarkt-62fb7b9f.mp3",
+   "dur": 107.5
   },
   {
    "id": "ndsm",
@@ -107,7 +123,9 @@
     "NDSM-werf: history of the wharf, ndsm.nl",
     "Stadsarchief Amsterdam: NDSM shipyard, archief.amsterdam",
     "Geert Mak, Amsterdam: A Brief Life of the City (1999)"
-   ]
+   ],
+   "audio": "audio/stories/ndsm-961dab2c.mp3",
+   "dur": 105.5
   }
  ],
  "sources": [
@@ -2124,63 +2142,78 @@
     {
      "lat": 52.360825,
      "lng": 4.878261,
-     "text": "Directions to the next stop. Head north-east, then turn left, then turn right onto Zandpad."
+     "text": "Directions to the next stop. Head north-east, then turn left, then turn right onto Zandpad.",
+     "clip": "audio/nav/247dcc275a.mp3"
     },
     {
      "lat": 52.3619,
      "lng": 4.881349,
      "text": "At the end of the road, turn right onto Stadhouderskade.",
      "pre": {
-      "text": "In 150 metres, at the end of the road, turn right onto Stadhouderskade."
-     }
+      "text": "In 150 metres, at the end of the road, turn right onto Stadhouderskade.",
+      "clip": "audio/nav/8d7bad43a3.mp3"
+     },
+     "clip": "audio/nav/7629b29795.mp3"
     },
     {
      "lat": 52.361739,
      "lng": 4.88181,
      "text": "Turn left, then turn left.",
      "pre": {
-      "text": "In 150 metres, turn left, then turn left."
-     }
+      "text": "In 150 metres, turn left, then turn left.",
+      "clip": "audio/nav/be504888f3.mp3"
+     },
+     "clip": "audio/nav/2bb307dc27.mp3"
     },
     {
      "lat": 52.363603,
      "lng": 4.882205,
      "text": "Turn left, then turn right, then turn left onto Marnixstraat.",
      "pre": {
-      "text": "In 150 metres, turn left, then turn right, then turn left onto Marnixstraat."
-     }
+      "text": "In 150 metres, turn left, then turn right, then turn left onto Marnixstraat.",
+      "clip": "audio/nav/29d5767fa4.mp3"
+     },
+     "clip": "audio/nav/3634e5c3f5.mp3"
     },
     {
      "lat": 52.36654,
      "lng": 4.879733,
      "text": "Turn right onto Passeerdersgracht.",
      "pre": {
-      "text": "In 150 metres, turn right onto Passeerdersgracht."
-     }
+      "text": "In 150 metres, turn right onto Passeerdersgracht.",
+      "clip": "audio/nav/1308a65434.mp3"
+     },
+     "clip": "audio/nav/de85a3dd9a.mp3"
     },
     {
      "lat": 52.367343,
      "lng": 4.882217,
      "text": "Turn left onto Prinsengracht, and stay on it for about 600 metres.",
      "pre": {
-      "text": "In 150 metres, turn left onto Prinsengracht, and stay on it for about 600 metres."
-     }
+      "text": "In 150 metres, turn left onto Prinsengracht, and stay on it for about 600 metres.",
+      "clip": "audio/nav/d5aaf6b60d.mp3"
+     },
+     "clip": "audio/nav/d35674f67a.mp3"
     },
     {
      "lat": 52.372426,
      "lng": 4.882657,
      "text": "Turn right onto Reestraat.",
      "pre": {
-      "text": "In 150 metres, turn right onto Reestraat."
-     }
+      "text": "In 150 metres, turn right onto Reestraat.",
+      "clip": "audio/nav/6b8510aee1.mp3"
+     },
+     "clip": "audio/nav/d4a34cfe04.mp3"
     },
     {
      "lat": 52.37228,
      "lng": 4.886785,
      "text": "Turn left onto Herengracht.",
      "pre": {
-      "text": "In 150 metres, turn left onto Herengracht."
-     }
+      "text": "In 150 metres, turn left onto Herengracht.",
+      "clip": "audio/nav/bda79f71d1.mp3"
+     },
+     "clip": "audio/nav/4464dcc302.mp3"
     }
    ]
   },
@@ -2190,39 +2223,48 @@
     {
      "lat": 52.374166,
      "lng": 4.887102,
-     "text": "Directions to the next stop. Head north-east on Herengracht."
+     "text": "Directions to the next stop. Head north-east on Herengracht.",
+     "clip": "audio/nav/9e8101030e.mp3"
     },
     {
      "lat": 52.374898,
      "lng": 4.887755,
      "text": "Turn right onto Anton Jolingbrug.",
      "pre": {
-      "text": "In 150 metres, turn right onto Anton Jolingbrug."
-     }
+      "text": "In 150 metres, turn right onto Anton Jolingbrug.",
+      "clip": "audio/nav/b6c1504e9d.mp3"
+     },
+     "clip": "audio/nav/879d36a0f6.mp3"
     },
     {
      "lat": 52.374787,
      "lng": 4.888226,
      "text": "Turn left onto Herengracht.",
      "pre": {
-      "text": "In 150 metres, turn left onto Herengracht."
-     }
+      "text": "In 150 metres, turn left onto Herengracht.",
+      "clip": "audio/nav/bda79f71d1.mp3"
+     },
+     "clip": "audio/nav/4464dcc302.mp3"
     },
     {
      "lat": 52.376752,
      "lng": 4.890045,
      "text": "Turn right onto Blauwburgwal.",
      "pre": {
-      "text": "In 150 metres, turn right onto Blauwburgwal."
-     }
+      "text": "In 150 metres, turn right onto Blauwburgwal.",
+      "clip": "audio/nav/bb3c5b8a15.mp3"
+     },
+     "clip": "audio/nav/fd9f91de45.mp3"
     },
     {
      "lat": 52.376357,
      "lng": 4.89099,
      "text": "Turn right onto Singel.",
      "pre": {
-      "text": "In 150 metres, turn right onto Singel."
-     }
+      "text": "In 150 metres, turn right onto Singel.",
+      "clip": "audio/nav/7254fefdf5.mp3"
+     },
+     "clip": "audio/nav/96931f5a83.mp3"
     }
    ]
   },
@@ -2232,47 +2274,58 @@
     {
      "lat": 52.376069,
      "lng": 4.890677,
-     "text": "Directions to the next stop. Head south-west on Singel."
+     "text": "Directions to the next stop. Head south-west on Singel.",
+     "clip": "audio/nav/dad3b3aa5b.mp3"
     },
     {
      "lat": 52.374575,
      "lng": 4.889049,
      "text": "Turn left.",
      "pre": {
-      "text": "In 150 metres, turn left."
-     }
+      "text": "In 150 metres, turn left.",
+      "clip": "audio/nav/c84f179b71.mp3"
+     },
+     "clip": "audio/nav/214975c935.mp3"
     },
     {
      "lat": 52.374536,
      "lng": 4.889706,
      "text": "Continue onto Torensteeg.",
      "pre": {
-      "text": "In 150 metres, continue onto Torensteeg."
-     }
+      "text": "In 150 metres, continue onto Torensteeg.",
+      "clip": "audio/nav/e16012b61d.mp3"
+     },
+     "clip": "audio/nav/bbfff0be2e.mp3"
     },
     {
      "lat": 52.374374,
      "lng": 4.890283,
      "text": "Turn right onto Spuistraat, and stay on it for about 700 metres.",
      "pre": {
-      "text": "In 150 metres, turn right onto Spuistraat, and stay on it for about 700 metres."
-     }
+      "text": "In 150 metres, turn right onto Spuistraat, and stay on it for about 700 metres.",
+      "clip": "audio/nav/dd5436e565.mp3"
+     },
+     "clip": "audio/nav/23f65ac90a.mp3"
     },
     {
      "lat": 52.368608,
      "lng": 4.889205,
      "text": "Bear left onto Spui.",
      "pre": {
-      "text": "In 150 metres, bear left onto Spui."
-     }
+      "text": "In 150 metres, bear left onto Spui.",
+      "clip": "audio/nav/136f9de111.mp3"
+     },
+     "clip": "audio/nav/6c96ad4a91.mp3"
     },
     {
      "lat": 52.368738,
      "lng": 4.889825,
      "text": "Turn left onto Handboogstraat.",
      "pre": {
-      "text": "In 150 metres, turn left onto Handboogstraat."
-     }
+      "text": "In 150 metres, turn left onto Handboogstraat.",
+      "clip": "audio/nav/6811f389ce.mp3"
+     },
+     "clip": "audio/nav/e59059149c.mp3"
     }
    ]
   },
@@ -2282,47 +2335,58 @@
     {
      "lat": 52.368753,
      "lng": 4.88982,
-     "text": "Directions to the next stop. Head south on Handboogstraat, then turn left onto Spui."
+     "text": "Directions to the next stop. Head south on Handboogstraat, then turn left onto Spui.",
+     "clip": "audio/nav/8ed04e1c40.mp3"
     },
     {
      "lat": 52.36904,
      "lng": 4.891917,
      "text": "Turn right onto Rokin.",
      "pre": {
-      "text": "In 150 metres, turn right onto Rokin."
-     }
+      "text": "In 150 metres, turn right onto Rokin.",
+      "clip": "audio/nav/50c64db7f4.mp3"
+     },
+     "clip": "audio/nav/88a5a5ce48.mp3"
     },
     {
      "lat": 52.367384,
      "lng": 4.893422,
      "text": "Turn left onto Nieuwe Doelenstraat.",
      "pre": {
-      "text": "In 150 metres, turn left onto Nieuwe Doelenstraat."
-     }
+      "text": "In 150 metres, turn left onto Nieuwe Doelenstraat.",
+      "clip": "audio/nav/c24e9f4440.mp3"
+     },
+     "clip": "audio/nav/de04921cc3.mp3"
     },
     {
      "lat": 52.368468,
      "lng": 4.896005,
      "text": "Turn right onto Nieuwe Doelenstraat.",
      "pre": {
-      "text": "In 150 metres, turn right onto Nieuwe Doelenstraat."
-     }
+      "text": "In 150 metres, turn right onto Nieuwe Doelenstraat.",
+      "clip": "audio/nav/9d1ce55e10.mp3"
+     },
+     "clip": "audio/nav/2d86a02808.mp3"
     },
     {
      "lat": 52.368318,
      "lng": 4.896511,
      "text": "Continue onto Staalstraat.",
      "pre": {
-      "text": "In 150 metres, continue onto Staalstraat."
-     }
+      "text": "In 150 metres, continue onto Staalstraat.",
+      "clip": "audio/nav/182f3fd1fb.mp3"
+     },
+     "clip": "audio/nav/5cb8b38a43.mp3"
     },
     {
      "lat": 52.367552,
      "lng": 4.899142,
      "text": "Turn left onto Amstel.",
      "pre": {
-      "text": "In 150 metres, turn left onto Amstel."
-     }
+      "text": "In 150 metres, turn left onto Amstel.",
+      "clip": "audio/nav/872af2817b.mp3"
+     },
+     "clip": "audio/nav/2952ac0f3d.mp3"
     }
    ]
   },
@@ -2332,55 +2396,68 @@
     {
      "lat": 52.367322,
      "lng": 4.899728,
-     "text": "Directions to the next stop. Head north-west on Amstel."
+     "text": "Directions to the next stop. Head north-west on Amstel.",
+     "clip": "audio/nav/e56ca40b07.mp3"
     },
     {
      "lat": 52.367691,
      "lng": 4.899079,
      "text": "Keep right.",
      "pre": {
-      "text": "In 150 metres, keep right."
-     }
+      "text": "In 150 metres, keep right.",
+      "clip": "audio/nav/806df2435c.mp3"
+     },
+     "clip": "audio/nav/ae58c67f64.mp3"
     },
     {
      "lat": 52.367935,
      "lng": 4.899335,
      "text": "Turn left onto Ir. B. Bijvoetbrug.",
      "pre": {
-      "text": "In 150 metres, turn left onto Ir. B. Bijvoetbrug."
-     }
+      "text": "In 150 metres, turn left onto Ir. B. Bijvoetbrug.",
+      "clip": "audio/nav/ff00bd5e5e.mp3"
+     },
+     "clip": "audio/nav/5b66793fa6.mp3"
     },
     {
      "lat": 52.368162,
      "lng": 4.898686,
      "text": "Turn right onto Zwanenburgwal.",
      "pre": {
-      "text": "In 150 metres, turn right onto Zwanenburgwal."
-     }
+      "text": "In 150 metres, turn right onto Zwanenburgwal.",
+      "clip": "audio/nav/6a051e7853.mp3"
+     },
+     "clip": "audio/nav/7ccc9b82ce.mp3"
     },
     {
      "lat": 52.369694,
      "lng": 4.899844,
      "text": "Turn right onto Zuiderkerkhof.",
      "pre": {
-      "text": "In 150 metres, turn right onto Zuiderkerkhof."
-     }
+      "text": "In 150 metres, turn right onto Zuiderkerkhof.",
+      "clip": "audio/nav/50f45bb348.mp3"
+     },
+     "clip": "audio/nav/577c3630f9.mp3"
     },
     {
      "lat": 52.37007,
      "lng": 4.900343,
      "text": "Turn right, then turn left onto Sint Antoniesbreestraat.",
      "pre": {
-      "text": "In 150 metres, turn right, then turn left onto Sint Antoniesbreestraat."
-     }
+      "text": "In 150 metres, turn right, then turn left onto Sint Antoniesbreestraat.",
+      "clip": "audio/nav/a42963bb71.mp3"
+     },
+     "clip": "audio/nav/2fd0e26f4f.mp3"
     },
     {
      "lat": 52.372405,
      "lng": 4.900667,
      "text": "Turn left.",
      "pre": {
-      "text": "In 150 metres, turn left."
-     }
+      "text": "In 150 metres, turn left.",
+      "clip": "audio/nav/c84f179b71.mp3"
+     },
+     "clip": "audio/nav/214975c935.mp3"
     }
    ]
   },
@@ -2390,79 +2467,98 @@
     {
      "lat": 52.37259,
      "lng": 4.900287,
-     "text": "Directions to the next stop. Head south-east."
+     "text": "Directions to the next stop. Head south-east.",
+     "clip": "audio/nav/73d8f9de69.mp3"
     },
     {
      "lat": 52.372405,
      "lng": 4.900667,
      "text": "Turn left onto Nieuwmarkt.",
      "pre": {
-      "text": "In 150 metres, turn left onto Nieuwmarkt."
-     }
+      "text": "In 150 metres, turn left onto Nieuwmarkt.",
+      "clip": "audio/nav/d7cac3f892.mp3"
+     },
+     "clip": "audio/nav/8908c14697.mp3"
     },
     {
      "lat": 52.376046,
      "lng": 4.902557,
      "text": "Turn right onto Geldersekade, then turn left onto Prins Hendrikkade.",
      "pre": {
-      "text": "In 150 metres, turn right onto Geldersekade, then turn left onto Prins Hendrikkade."
-     }
+      "text": "In 150 metres, turn right onto Geldersekade, then turn left onto Prins Hendrikkade.",
+      "clip": "audio/nav/6aed35091f.mp3"
+     },
+     "clip": "audio/nav/591b456647.mp3"
     },
     {
      "lat": 52.376868,
      "lng": 4.898576,
      "text": "Keep right onto Prins Hendrikkade.",
      "pre": {
-      "text": "In 150 metres, keep right onto Prins Hendrikkade."
-     }
+      "text": "In 150 metres, keep right onto Prins Hendrikkade.",
+      "clip": "audio/nav/b8788fc915.mp3"
+     },
+     "clip": "audio/nav/a0c9fc718d.mp3"
     },
     {
      "lat": 52.377798,
      "lng": 4.897246,
      "text": "Turn right.",
      "pre": {
-      "text": "In 150 metres, turn right."
-     }
+      "text": "In 150 metres, turn right.",
+      "clip": "audio/nav/cfde85d4b1.mp3"
+     },
+     "clip": "audio/nav/e881cc5b22.mp3"
     },
     {
      "lat": 52.378387,
      "lng": 4.897472,
      "text": "Turn left, then turn right onto Stationsplein.",
      "pre": {
-      "text": "In 150 metres, turn left, then turn right onto Stationsplein."
-     }
+      "text": "In 150 metres, turn left, then turn right onto Stationsplein.",
+      "clip": "audio/nav/c79983a24f.mp3"
+     },
+     "clip": "audio/nav/f797c91833.mp3"
     },
     {
      "lat": 52.378925,
      "lng": 4.897901,
      "text": "Continue onto Stationsplein.",
      "pre": {
-      "text": "In 150 metres, continue onto Stationsplein."
-     }
+      "text": "In 150 metres, continue onto Stationsplein.",
+      "clip": "audio/nav/4b124aef7a.mp3"
+     },
+     "clip": "audio/nav/935f0bb814.mp3"
     },
     {
      "lat": 52.380492,
      "lng": 4.89937,
      "text": "At the end of the road, turn left onto De Ruijterkade.",
      "pre": {
-      "text": "In 150 metres, at the end of the road, turn left onto De Ruijterkade."
-     }
+      "text": "In 150 metres, at the end of the road, turn left onto De Ruijterkade.",
+      "clip": "audio/nav/18ce8e5a56.mp3"
+     },
+     "clip": "audio/nav/1d1110642b.mp3"
     },
     {
      "lat": 52.380648,
      "lng": 4.898935,
      "text": "Turn right onto Pontplein, then take the ferry. The crossing is about 2.4 kilometres.",
      "pre": {
-      "text": "In 150 metres, turn right onto Pontplein, then take the ferry. The crossing is about 2.4 kilometres."
-     }
+      "text": "In 150 metres, turn right onto Pontplein, then take the ferry. The crossing is about 2.4 kilometres.",
+      "clip": "audio/nav/bbb13d38ec.mp3"
+     },
+     "clip": "audio/nav/9329b7acf1.mp3"
     },
     {
      "lat": 52.401194,
      "lng": 4.891451,
      "text": "Turn right onto NDSM-kade.",
      "pre": {
-      "text": "In 150 metres, turn right onto NDSM-kade."
-     }
+      "text": "In 150 metres, turn right onto NDSM-kade.",
+      "clip": "audio/nav/1912ad4a68.mp3"
+     },
+     "clip": "audio/nav/4d2818a759.mp3"
     }
    ]
   }
@@ -2470,10 +2566,12 @@
  "distance_km": 9.2,
  "ride_min": 51,
  "turnaround": {
-  "text": "Turn around when it is safe, then ride back to the route."
+  "text": "Turn around when it is safe, then ride back to the route.",
+  "clip": "audio/nav/5a0d7c8ace.mp3"
  },
  "offroute": {
-  "text": "You seem to be off the route. Follow the arrow on the screen back to it."
+  "text": "You seem to be off the route. Follow the arrow on the screen back to it.",
+  "clip": "audio/nav/94fbc41b71.mp3"
  },
- "duration_min": 90
+ "duration_min": 89
 }
