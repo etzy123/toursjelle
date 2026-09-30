@@ -1,7 +1,7 @@
 name: Tour maker smoke test
 
 # Runs the tour maker against the real OpenStreetMap, Wikipedia, Nominatim and OSRM (Claude is
-# stood in for), in Amsterdam on foot and Utrecht by bike, whenever its code changes.
+# stood in for, voices recorded), in Amsterdam and Amstelveen on foot and Utrecht by bike, whenever its code changes.
 on:
   push:
     paths: ['berlin-divided/lib/**', 'tests/generate-live.mjs', '.github/workflows/tour-maker.yml']
@@ -19,3 +19,4 @@ jobs:
       - run: cd berlin-divided && npm ci
       - run: node tests/generate-live.mjs 52.3731 4.8914 60 walk
       - run: node tests/generate-live.mjs 52.0907 5.1214 90 bike
+      - run: node tests/generate-live.mjs 52.3030 4.8570 60 walk  # Amstelveen: a suburb with fewer famous sights
