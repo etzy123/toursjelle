@@ -61,6 +61,15 @@ class Directions(unittest.TestCase):
         t = [s["text"] for s in b.leg_directions([{"distance": 100, "steps": a}, {"distance": 200, "steps": c}])]
         self.assertEqual(t, ["Directions to the next stop. Head east.", "Turn right onto Spui."])
 
+    def test_ferry(self):
+        leg = [step("depart", 0, 100, bearing_after=0, ), step("notification", 100, 1000, "NDSM", "straight"),
+               step("notification", 1100, 100, "", "straight"), step("turn", 1200, 100, "TT Neveritaweg", "left"), step("arrive", 1300, 0)]
+        for s_, m in zip(leg, ["cycling", "ferry", "cycling", "cycling", "cycling"]):
+            s_["mode"] = m
+        t = [s["text"] for s in b.leg_directions([{"distance": 1300, "steps": leg}])]
+        self.assertEqual(t[1], "Take the ferry, and stay on it for about 1.1 kilometres.")
+        self.assertEqual(t[2], "Turn left onto TT Neveritaweg.")
+
     def test_roundabout_and_about(self):
         s = step("roundabout", 0, 0, "Weteringcircuit", "right", exit=2)
         self.assertEqual(b.maneuver_text(s), "At the roundabout, take the second exit onto Weteringcircuit")

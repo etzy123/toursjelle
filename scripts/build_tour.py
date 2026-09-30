@@ -143,7 +143,7 @@ def lower_first(s):
 
 def leg_directions(osrm_legs):
     """Spoken steps for one stop-to-stop leg, made of one or more OSRM legs (more when via points are used)."""
-    kept, pos = [], 0.0
+    kept, pos, mode = [], 0.0, None
     total = sum(l["distance"] for l in osrm_legs)
     for li, leg in enumerate(osrm_legs):
         for step in leg["steps"]:
@@ -151,7 +151,9 @@ def leg_directions(osrm_legs):
             if li > 0 and t == "depart":  # leaving a via point is not a new direction
                 pos += step["distance"]
                 continue
-            text = maneuver_text(step)
+            ferry = step.get("mode") == "ferry" and mode not in (None, "ferry")
+            mode = step.get("mode", mode)
+            text = "Take the ferry" if ferry else maneuver_text(step)
             if text:
                 lng, lat = step["maneuver"]["location"]
                 kept.append({"pos": pos, "lat": round(lat, 6), "lng": round(lng, 6), "text": text})
