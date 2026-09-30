@@ -4,7 +4,7 @@
 // Audio: cache first (the page pre-caches every file after first load), with Range support,
 // because iPhone Safari only plays audio served as byte ranges.
 // OpenStreetMap tiles are left to the browser: the tile usage policy forbids bulk offline caching.
-const SHELL = 'bd-shell-v5', AUDIO = 'bd-audio', FONTS = 'bd-fonts';
+const SHELL = 'bd-shell-v6', AUDIO = 'bd-audio', FONTS = 'bd-fonts';
 const SHELL_FILES = [
   './', 'manifest.webmanifest', 'strings.js?v=5', 'data/berlin-divided.json',
   'vendor/leaflet/leaflet.js', 'vendor/leaflet/leaflet.css',
