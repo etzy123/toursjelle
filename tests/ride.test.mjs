@@ -402,13 +402,13 @@ test('no untranslated text names on any screen, in any language', { timeout: 120
 async function withTestCity(ctx) {
   await ctx.route('**/tours/index.json', async r => {
     const j = await (await r.fetch()).json();
-    j.tours.push({ path: 'amsterdam/test', id: 'test', city: 'amsterdam', title: 'Test tour', subtitle: 'For the tests', mode: 'walk', distance_km: 4.2, duration_min: 95, stops: 11, ready: true, langs: [], order: 1 },
-      { path: 'amsterdam/later', id: 'later', city: 'amsterdam', title: 'Later tour', subtitle: '', mode: 'bike', stops: 7, ready: false, langs: [], order: 2 });
+    j.tours.push({ path: 'testville/test', id: 'test', city: 'testville', title: 'Test tour', subtitle: 'For the tests', mode: 'walk', distance_km: 4.2, duration_min: 95, stops: 11, ready: true, langs: [], order: 1 },
+      { path: 'testville/later', id: 'later', city: 'testville', title: 'Later tour', subtitle: '', mode: 'bike', stops: 7, ready: false, langs: [], order: 2 });
     r.fulfill({ json: j });
   });
-  await ctx.route('**/tours/amsterdam/test/tour.json', async r => {
+  await ctx.route('**/tours/testville/test/tour.json', async r => {
     const j = JSON.parse(fs.readFileSync(path.join(ROOT, BASE, 'tour.json'), 'utf8'));
-    j.id = 'test'; j.city = 'amsterdam'; j.title = 'Test tour'; j.mode = 'walk';
+    j.id = 'test'; j.city = 'testville'; j.title = 'Test tour'; j.mode = 'walk';
     const up = x => x && x.replace(/^audio\//, '../../berlin/divided/audio/');
     for (const x of [j.intro, j.outro, ...j.stops, ...j.bonus]) { x.audio = up(x.audio); if (x.more) x.more.audio = up(x.more.audio); }
     for (const l of j.legs) for (const st of l.steps) st.clip = up(st.clip);
@@ -424,15 +424,15 @@ test('catalogue: city chips, tours per city, coming soon, switching tours keeps 
   await page.reload(); await page.waitForFunction(() => !document.getElementById('startBtn').disabled);
   assert.equal(await page.textContent('#brandCity'), 'Berlin');
   await page.click('#tabbar [data-go="tours"]');
-  assert.deepEqual(await page.$$eval('#cityChips button', b => b.map(x => x.textContent)), ['Amsterdam', 'Berlin']);
+  assert.deepEqual(await page.$$eval('#cityChips button', b => b.map(x => x.textContent)), ['Amsterdam', 'Berlin', 'Testville']);
   assert.match(await page.textContent('#tourList'), /Berlin divided\s*Current/);
-  await page.click('#cityChips [data-city="amsterdam"]');
+  await page.click('#cityChips [data-city="testville"]');
   assert.equal(await page.$$eval('#tourList button', b => b.length), 2);
-  assert.equal(await page.isDisabled('#tourList [data-path="amsterdam/later"]'), true, 'a tour without a route is not ready');
-  assert.match(await page.textContent('#tourList [data-path="amsterdam/later"]'), /Coming soon/);
-  assert.match(await page.textContent('#tourList [data-path="amsterdam/test"]'), /4\.2 km/);
-  await page.click('#tourList [data-path="amsterdam/test"]');
-  await page.waitForFunction(() => document.getElementById('brandCity')?.textContent === 'Amsterdam');
+  assert.equal(await page.isDisabled('#tourList [data-path="testville/later"]'), true, 'a tour without a route is not ready');
+  assert.match(await page.textContent('#tourList [data-path="testville/later"]'), /Coming soon/);
+  assert.match(await page.textContent('#tourList [data-path="testville/test"]'), /4\.2 km/);
+  await page.click('#tourList [data-path="testville/test"]');
+  await page.waitForFunction(() => document.getElementById('brandCity')?.textContent === 'Testville');
   await page.waitForFunction(() => !document.getElementById('startBtn').disabled);
   assert.equal(await page.textContent('#homeCard .name'), 'Test tour');
   assert.equal(await page.evaluate(() => __tour.travel), 'walk', 'a walking tour starts on foot');
@@ -460,8 +460,8 @@ test('catalogue: progress from before there were several tours carries over to B
 test('group ride: a follower on another tour switches to the leader\'s tour', { timeout: 60000 }, async () => {
   const lead = await openTour();
   await withTestCity(lead.ctx);
-  await lead.page.evaluate(() => localStorage.setItem('bd_tour', JSON.stringify('amsterdam/test')));
-  await lead.page.reload(); await lead.page.waitForFunction(() => document.getElementById('brandCity')?.textContent === 'Amsterdam');
+  await lead.page.evaluate(() => localStorage.setItem('bd_tour', JSON.stringify('testville/test')));
+  await lead.page.reload(); await lead.page.waitForFunction(() => document.getElementById('brandCity')?.textContent === 'Testville');
   await lead.page.click('#tileGroup'); await lead.page.fill('#groupName', 'Anna'); await lead.page.click('#groupCreate');
   await lead.page.waitForFunction(() => __tour.group && __tour.group.online && __tour.group.code);
   const code = await lead.page.textContent('#groupCodeShow');
@@ -469,7 +469,7 @@ test('group ride: a follower on another tour switches to the leader\'s tour', { 
   await withTestCity(fol.ctx);
   await fol.page.reload(); await fol.page.waitForFunction(() => !document.getElementById('startBtn').disabled);
   await fol.page.click('#tileGroup'); await fol.page.fill('#groupName', 'Ben'); await fol.page.fill('#groupCode', code); await fol.page.click('#groupJoin');
-  await fol.page.waitForFunction(() => window.__tour && document.getElementById('brandCity')?.textContent === 'Amsterdam' && __tour.group && __tour.group.online, null, { timeout: 15000 });
+  await fol.page.waitForFunction(() => window.__tour && document.getElementById('brandCity')?.textContent === 'Testville' && __tour.group && __tour.group.online, null, { timeout: 15000 });
   assert.equal(await fol.page.evaluate(() => __tour.group.members), 2);
   assert.deepEqual([...lead.errors, ...fol.errors], []);
   await lead.ctx.close(); await fol.ctx.close();
