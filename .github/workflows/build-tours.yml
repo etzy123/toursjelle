@@ -1,0 +1,67 @@
+name: Build tours
+
+# Runs scripts/build_tour.py (OSRM routing, directions, edge-tts voice) for the given tours,
+# rides each one in Playwright with fake GPS, and commits the result to the branch it ran on
+# only when every ride passes. It runs by itself when a push to a feature branch changes a
+# tour.json (the bot's own commit does not trigger it again), or from the Actions tab.
+on:
+  push:
+    branches-ignore: [main]
+    paths: ['berlin-divided/tours/*/*/tour.json']
+  workflow_dispatch:
+    inputs:
+      tours:
+        description: Tour folders, space separated
+        default: tours/amsterdam/golden-age tours/amsterdam/war tours/amsterdam/rebels
+      reroute:
+        description: Ask OSRM again even when a cached route exists
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Which tours
+        env:
+          INPUT: ${{ inputs.tours }}
+          BEFORE: ${{ github.event.before }}
+        run: |
+          if [ -n "$INPUT" ]; then T="$INPUT"
+          else T=$(git diff --name-only "$BEFORE" HEAD -- 'berlin-divided/tours/*/*/tour.json' | sed -E 's#^berlin-divided/(tours/[^/]+/[^/]+)/tour.json$#\1#' | sort -u | tr '\n' ' '); fi
+          echo "TOURS=$T" >> "$GITHUB_ENV"; echo "tours: $T"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install edge-tts imageio-ffmpeg
+      - name: Build
+        env:
+          REROUTE: ${{ inputs.reroute && '--reroute' || '' }}
+        run: |
+          python -m unittest scripts/test_build_tour.py
+          for t in $TOURS; do python scripts/build_tour.py "$t" $REROUTE; done
+          python scripts/build_tour.py --catalogue
+          git status --short
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Ride every tour in Playwright
+        run: |
+          (cd berlin-divided && npm ci)
+          cd tests && npm ci && npx playwright install --with-deps chromium
+          TOURS="$(echo $TOURS | sed 's#tours/##g')" node --test --test-concurrency=1 tours.test.mjs
+      - name: Commit
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add berlin-divided/tours
+          git diff --cached --quiet && { echo 'nothing to commit'; exit 0; }
+          git commit -m "Build tours: $TOURS" -m 'Routing, directions and voice from scripts/build_tour.py; every tour ridden in Playwright.'
+          git push
