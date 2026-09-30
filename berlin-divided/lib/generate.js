@@ -43,7 +43,11 @@ async function getJSON(fetchImpl, url, opts = {}) {
 
 const COUNTRY_LANG = { nl: 'nl', be: 'nl', de: 'de', at: 'de', ch: 'de', fr: 'fr', it: 'it', es: 'es', pt: 'pt', pl: 'pl', cz: 'cs', dk: 'da', se: 'sv', no: 'no', hu: 'hu', gr: 'el' };
 
-const AREA = /\b(district|borough|neighbou?rhood|municipality|quarter|city|town|village|hamlet|province|region|stadsdeel|wijk|buurt|woonwijk|gemeente|stadtteil|ortsteil|gemeinde|bezirk|railway station|metro station|tram stop|bus stop|station|street|road|avenue|straat|weg|laan|school|university campus|college|company|hotel|restaurant|shop|shopping cent(re|er)|winkelcentrum|supermarket|office building|kantoorgebouw|sports club|football club|voetbalclub|sportpark|stadium|hospital|ziekenhuis|motorway|snelweg|bridge over|residential|flat|apartment)\b/i;
+const AREA = /\b(district|borough|neighbou?rhood|municipality|quarter|city|town|village|hamlet|province|region|stadsdeel|wijk|buurt|woonwijk|gemeente|stadtteil|ortsteil|gemeinde|bezirk|railway station|metro station|tram stop|bus stop|station|busstation|treinstation|bahnhof|street|road|avenue|straat|weg|laan|school|university campus|college|company|hotel|restaurant|shop|shopping cent(re|er)|winkelcentrum|supermarket|office building|kantoorgebouw|sports club|football club|voetbalclub|sportpark|stadium|hospital|ziekenhuis|motorway|snelweg|bridge over|residential|flat|apartment)\b/i;
+
+// what a place is, from its short description: the words before "in", "of" and the like
+// ("museum of modern art in the city of Amstelveen" is a museum, not a city)
+const kindOf = d => String(d || '').split(/\s(?:in|of|at|on|near|from|for|van|voor|bij|aan|op|im|in der|am|von|des|der|de)\s/i)[0];
 
 // Wikipedia articles with coordinates near the start, in a few languages, with their intro text:
 // the main source, because every place found this way comes with its facts
@@ -60,7 +64,7 @@ async function wikiNearby(fetchImpl, lang, lat, lng, radius) {
     for (const h of batch) {
       const pg = pages.get(h.title) || {};
       if (!pg.extract || pg.extract.length < 120) continue; // stubs make poor stories
-      if (AREA.test(pg.description || '')) continue; // districts and towns are where you are, not something to look at
+      if (AREA.test(kindOf(pg.description))) continue; // districts and towns are where you are, not something to look at
       out.push({ name: h.title.replace(/ \([^)]*\)$/, ''), lat: h.lat, lng: h.lon, kind: pg.description || '', summary: pg.extract.slice(0, 1400), size: pg.extract.length,
         views: Object.values(pg.pageviews || {}).reduce((t, v) => t + (v || 0), 0), // readers in the last 30 days
         url: `https://${lang}.wikipedia.org/wiki/${encodeURIComponent(h.title.replace(/ /g, '_'))}`, wiki: true });
@@ -103,7 +107,7 @@ async function places(fetchImpl, lat, lng, radius, langs, want = 6, maxRadius = 
   for (;;) {
     const lists = await Promise.all([...langs.map(l => wikiNearby(fetchImpl, l, lat, lng, radius).catch(() => [])), osmPlaces(fetchImpl, lat, lng, radius)]);
     const found = merge(lat, lng, radius, lists);
-    const notable = found.filter(x => (x.views || 0) >= 300 || (x.size || 0) >= 1200).length; // read by a few hundred a month, or a long intro
+    const notable = found.filter(x => (x.views || 0) >= 200).length; // read by a couple of hundred people a month
     if (notable >= want * 2 || radius >= maxRadius) return found;
     radius = Math.min(maxRadius, radius * 2); // a quiet suburb: look further out
   }
