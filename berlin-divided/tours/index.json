@@ -10,6 +10,10 @@
    "distance_km": 6.5,
    "duration_min": 80,
    "stops": 8,
+   "start": [
+    52.373032,
+    4.891741
+   ],
    "ready": true,
    "langs": [],
    "order": 1
@@ -24,6 +28,10 @@
    "distance_km": 2.8,
    "duration_min": 78,
    "stops": 8,
+   "start": [
+    52.3752,
+    4.884
+   ],
    "ready": true,
    "langs": [],
    "order": 2
@@ -38,6 +46,10 @@
    "distance_km": 9.2,
    "duration_min": 89,
    "stops": 7,
+   "start": [
+    52.3608,
+    4.8783
+   ],
    "ready": true,
    "langs": [],
    "order": 3
@@ -52,6 +64,10 @@
    "distance_km": 15.3,
    "duration_min": 123,
    "stops": 11,
+   "start": [
+    52.5186,
+    13.3769
+   ],
    "ready": true,
    "langs": [
     "de",

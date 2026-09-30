@@ -427,7 +427,8 @@ def build_catalogue(app):
             langs = sorted(f[5:-5] for f in os.listdir(os.path.join(cdir, tid)) if re.fullmatch(r"tour\.\w\w\.json", f))
             tours.append({"path": f"{city}/{tid}", "id": t["id"], "city": t["city"], "title": t["title"], "subtitle": t.get("subtitle", ""),
                           "mode": t["mode"], "distance_km": t.get("distance_km"), "duration_min": t.get("duration_min"),
-                          "stops": len(t["stops"]), "ready": bool(t.get("route")), "langs": langs, "order": t.get("order", 99)})
+                          "stops": len(t["stops"]), "start": [t["stops"][0]["lat"], t["stops"][0]["lng"]] if t["stops"] and "lat" in t["stops"][0] else None,
+                          "ready": bool(t.get("route")), "langs": langs, "order": t.get("order", 99)})
     tours.sort(key=lambda x: (x["city"], x["order"], x["title"]))
     out = {"tours": tours}
     with open(os.path.join(base, "index.json"), "w", encoding="utf-8") as f:
