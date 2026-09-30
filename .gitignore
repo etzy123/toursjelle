@@ -1,3 +1,10 @@
 node_modules/
 tests/test-results/
 __pycache__/
+
+# Android build output
+android/.gradle/
+android/build/
+android/app/build/
+android/local.properties
+__pycache__/

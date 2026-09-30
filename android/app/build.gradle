@@ -1,0 +1,22 @@
+plugins { id 'com.android.application' }
+
+// The web app this APK opens. Pass -PtourUrl=https://... when building; left empty, the app asks on first start.
+def tourUrl = (project.findProperty('tourUrl') ?: '').toString()
+
+android {
+    namespace 'com.toursjelle.app'
+    compileSdk 34
+    defaultConfig {
+        applicationId 'com.toursjelle.app'
+        minSdk 24
+        targetSdk 34
+        versionCode 1
+        versionName '1.0'
+        buildConfigField 'String', 'TOUR_URL', "\"${tourUrl}\""
+    }
+    buildFeatures { buildConfig true }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
