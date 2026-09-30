@@ -688,10 +688,6 @@ summary{cursor:pointer;font-weight:600;font-size:14px;color:var(--muted)}
     </div>
     <p class="label" data-t="tourMode">Tour mode</p>
     <div class="card modes"><button id="modeBike" aria-pressed="true"></button><button id="modeWalk" aria-pressed="false"></button></div>
-    <p class="label" data-t="startingPoint">Starting point</p>
-    <div class="card fieldbox"><select class="field" id="startSel" aria-label="Starting point" data-t-aria="startingPoint"></select></div>
-    <p class="label" data-t="bonusStops">Bonus stops</p>
-    <div class="card rows" id="bonusPick"></div>
     <p class="label" data-t="storySettings">Story settings</p>
     <div class="card rows">
       <div class="row"><div><b data-t="autoPlay">Auto-play stories</b><small data-t="autoPlaySub"></small></div><button class="toggle" id="autoToggle" role="switch" aria-checked="false" aria-label="Auto-play stories" data-t-aria="autoPlay"></button></div>
@@ -821,7 +817,7 @@ const cum=[0];for(let i=1;i<ROUTE.length;i++)cum.push(cum[i-1]+dist(ROUTE[i-1],R
 
 /* ---------- state ---------- */
 let played=new Set(store.get(K('bd_played'),[]));
-let startAt=Math.min(Math.max(0,store.get(K('bd_start'),0)|0),STOPS.length-1); // index of the first stop on this ride
+const startAt=0; // every ride starts at the first stop
 const active=i=>i>=startAt;                                   // stops before the starting point are skipped
 const activeStops=()=>STOPS.filter((s,i)=>active(i));
 const allHeard=()=>activeStops().every(s=>played.has(s.id));
@@ -838,7 +834,7 @@ const preDone=new Set(), log=[];             // log: what was spoken, for the ri
 let lastTurnaround=0;
 let moreFor=null, tts=null;
 const BONUS=(DATA.bonus||[]).map(b=>({...b,bonus:true,dur:b.dur||b.text.split(/\s+/).length/2.5}));
-let bonusOn=new Set(store.get(K('bd_bonus'),[]).filter(id=>BONUS.some(b=>b.id===id))), bonusSkipped=new Set();
+const bonusOn=new Set(), bonusSkipped=new Set(); // bonus stops are not offered any more
 const bonusAfter=id=>STOPS.findIndex(s=>s.id===id);
 // the bonus stop to head for now: switched on, not yet heard or skipped, its stop heard and the next one not yet
 function bonusTarget(){
@@ -1274,15 +1270,6 @@ function renderStart(){
   $('ledeMode').textContent=t({tap:'ledeTap',stopped:'ledeStopped',auto:'ledeAuto'}[storyMode]);
   if(uiReady)renderMeta();
 }
-const sel=$('startSel');
-STOPS.forEach((s,i)=>{const o=document.createElement('option');o.value=i;o.textContent=`${i+1}. ${s.title}`;sel.appendChild(o);});
-sel.value=startAt;
-sel.onchange=()=>{
-  startAt=+sel.value; store.set(K('bd_start'),startAt);
-  queue=queue.filter(s=>active(STOPS.indexOf(s))); if(pending&&!active(STOPS.indexOf(pending)))pending=null;
-  leg=-1; navIdx=0; if(!simOn)simPos=simStart();
-  renderStart(); render(true); renderNav();
-};
 $('changeStart').onclick=()=>go('settings');
 simPos=simStart();
 /* ---------- ride together ---------- */
@@ -1787,18 +1774,6 @@ $('autoToggle').onclick=()=>setStoryMode(storyMode==='tap'?(prefStopped?'stopped
 $('stopToggle').onclick=()=>{if(storyMode==='tap')return;prefStopped=storyMode!=='stopped';setStoryMode(prefStopped?'stopped':'auto');};
 if(storyMode==='auto')prefStopped=false;
 $('settingsTest').onclick=()=>begin(true);
-function buildBonusRows(){
-  $('bonusPick').innerHTML='';
-  BONUS.forEach(b=>{const a=bonusAfter(b.after),r=document.createElement('div');r.className='row bonusrow';
-    r.innerHTML=`<div><b></b><small></small></div><button class="toggle" role="switch"></button>`;
-    r.querySelector('b').textContent=b.title;
-    r.querySelector('small').textContent=a===STOPS.length-1?t('afterLast',{km:kmStr(b.detour)}):t('detourAfter',{km:kmStr(b.detour),n:a+1});
-    const tg=r.querySelector('button');tg.value=b.id;tg.setAttribute('aria-label',b.title);tg.setAttribute('aria-checked',bonusOn.has(b.id));
-    tg.onclick=()=>{bonusOn.has(b.id)?bonusOn.delete(b.id):bonusOn.add(b.id);store.set(K('bd_bonus'),[...bonusOn]);tg.setAttribute('aria-checked',bonusOn.has(b.id));renderStart();render(true);};
-    $('bonusPick').appendChild(r);});
-  $('bonusPick').hidden=!BONUS.length;$('bonusPick').previousElementSibling.hidden=!BONUS.length;
-}
-buildBonusRows();
 
 /* ---------- lobby ---------- */
 const COLORS=['#584DD3','#D35F4D','#4DB36B','#D3A34D','#3A8FD3','#B34DA8','#4DB3AE','#8A6A4D'];
