@@ -432,7 +432,7 @@ test('catalogue: city chips, tours per city, coming soon, switching tours keeps 
   assert.match(await page.textContent('#tourList [data-path="testville/later"]'), /Coming soon/);
   assert.match(await page.textContent('#tourList [data-path="testville/test"]'), /4\.2 km/);
   await page.click('#tourList [data-path="testville/test"]');
-  await page.waitForFunction(() => document.getElementById('brandCity')?.textContent === 'Testville');
+  await page.waitForFunction(() => document.querySelector('#homeCard .name')?.textContent === 'Test tour');
   await page.waitForFunction(() => !document.getElementById('startBtn').disabled);
   assert.equal(await page.textContent('#homeCard .name'), 'Test tour');
   assert.equal(await page.evaluate(() => __tour.travel), 'walk', 'a walking tour starts on foot');
@@ -461,7 +461,7 @@ test('group ride: a follower on another tour switches to the leader\'s tour', { 
   const lead = await openTour();
   await withTestCity(lead.ctx);
   await lead.page.evaluate(() => localStorage.setItem('bd_tour', JSON.stringify('testville/test')));
-  await lead.page.reload(); await lead.page.waitForFunction(() => document.getElementById('brandCity')?.textContent === 'Testville');
+  await lead.page.reload(); await lead.page.waitForFunction(() => document.querySelector('#homeCard .name')?.textContent === 'Test tour');
   await lead.page.click('#tileGroup'); await lead.page.fill('#groupName', 'Anna'); await lead.page.click('#groupCreate');
   await lead.page.waitForFunction(() => __tour.group && __tour.group.online && __tour.group.code);
   const code = await lead.page.textContent('#groupCodeShow');
@@ -469,18 +469,53 @@ test('group ride: a follower on another tour switches to the leader\'s tour', { 
   await withTestCity(fol.ctx);
   await fol.page.reload(); await fol.page.waitForFunction(() => !document.getElementById('startBtn').disabled);
   await fol.page.click('#tileGroup'); await fol.page.fill('#groupName', 'Ben'); await fol.page.fill('#groupCode', code); await fol.page.click('#groupJoin');
-  await fol.page.waitForFunction(() => window.__tour && document.getElementById('brandCity')?.textContent === 'Testville' && __tour.group && __tour.group.online, null, { timeout: 15000 });
+  await fol.page.waitForFunction(() => window.__tour && document.querySelector('#homeCard .name')?.textContent === 'Test tour' && __tour.group && __tour.group.online, null, { timeout: 15000 });
   assert.equal(await fol.page.evaluate(() => __tour.group.members), 2);
   assert.deepEqual([...lead.errors, ...fol.errors], []);
   await lead.ctx.close(); await fol.ctx.close();
 });
 
+test('home: a first visit in Amsterdam opens on the tours there, nearest first; picking one loads it', async () => {
+  const { ctx, page, errors } = await openTour({ at: [52.3731, 4.8914] }); // the Dam
+  await page.waitForFunction(() => window.__tour && document.getElementById('brandCity')?.textContent === 'Amsterdam', null, { timeout: 15000 });
+  await page.waitForFunction(() => !document.getElementById('startBtn').disabled);
+  assert.equal(await page.textContent('#homeCard .name'), 'The Golden Age by bike', 'the tour starting nearest is loaded');
+  assert.equal(await page.textContent('#homeNear .label'), 'Tours in Amsterdam');
+  assert.deepEqual(await page.$$eval('#homeNear .tourcard', b => b.map(x => x.dataset.path)), ['amsterdam/war', 'amsterdam/rebels']);
+  assert.match(await page.textContent('#homeNear [data-path="amsterdam/war"]'), /Start \d+ m away/);
+  await page.click('#homeNear [data-path="amsterdam/war"]');
+  await page.waitForFunction(() => window.__tour && document.querySelector('#homeCard .name')?.textContent === 'Amsterdam in the war');
+  assert.equal(await page.evaluate(() => __tour.travel), 'walk');
+  await page.click('#tabbar [data-go="tours"]');
+  assert.equal(await page.textContent('#cityChips .chip.on'), 'Amsterdam', 'the Tours tab opens on the city you are in');
+  assert.deepEqual(errors, []);
+  await ctx.close();
+});
+
+test('home: without location access it asks, instead of guessing a city', async () => {
+  const ctx = await browser.newContext({ viewport: { width: 390, height: 800 }, serviceWorkers: 'block' });
+  await ctx.route(/tile\.openstreetmap\.org|fonts\.googleapis\.com|fonts\.gstatic\.com/, r => r.abort());
+  const page = await ctx.newPage(); const errors = [];
+  page.on('pageerror', e => errors.push(e.message));
+  await page.goto(server.url); await page.waitForFunction(() => !document.getElementById('startBtn').disabled);
+  assert.equal(await page.textContent('#brandCity'), 'Audio tours');
+  assert.equal(await page.isVisible('#locateBtn'), true);
+  assert.equal(await page.textContent('#homeCurLbl'), 'Featured tour');
+  await ctx.grantPermissions(['geolocation']); await ctx.setGeolocation({ latitude: 52.3731, longitude: 4.8914 });
+  await page.click('#locateBtn');
+  await page.waitForFunction(() => window.__tour && document.querySelector('#homeCard .name')?.textContent === 'The Golden Age by bike', null, { timeout: 15000 });
+  assert.deepEqual(errors, []);
+  await ctx.close();
+});
+
 test('far from Berlin: says so instead of a long dotted line; app code is never kept stale', async () => {
-  const { ctx, page, errors } = await openTour({ at: [52.3702, 4.8952] }); // Amsterdam
+  const { ctx, page, errors } = await openTour({ at: [52.3702, 4.8952] }); // Amsterdam, with Berlin chosen
+  await page.evaluate(() => { localStorage.setItem('bd_tour', '"berlin/divided"'); location.replace(location.pathname); });
+  await page.waitForFunction(() => window.__tour && document.querySelector('#homeCard .name')?.textContent === 'Berlin divided' && !document.getElementById('startBtn').disabled);
   await startTour(page);
   await page.waitForFunction(() => document.getElementById('navInstr').textContent === 'You are not in Berlin yet');
   assert.equal(await page.textContent('#navEta'), '');
-  for (const f of ['', 'strings.js', 'strings.js?v=6', 'tours/index.json', BASE + 'tour.json', 'sw.js'])
+  for (const f of ['', 'strings.js', 'strings.js?v=7', 'tours/index.json', BASE + 'tour.json', 'sw.js'])
     assert.equal((await fetch(server.url + f)).headers.get('cache-control'), 'no-cache', `${f || 'index'} is revalidated`);
   assert.match((await fetch(server.url + 'vendor/leaflet/leaflet.js')).headers.get('cache-control'), /max-age/);
   assert.deepEqual(errors, []);
