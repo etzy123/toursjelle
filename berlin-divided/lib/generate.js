@@ -4,6 +4,7 @@
 'use strict';
 const crypto = require('node:crypto');
 const { dist, applyRoute } = require('./directions');
+const speech = require('./speech');
 
 const MODEL = 'claude-opus-5-5';
 const UA = 'audio-tours/1.0 (https://github.com/etzy123/toursjelle)';
@@ -42,7 +43,7 @@ async function getJSON(fetchImpl, url, opts = {}) {
 
 const COUNTRY_LANG = { nl: 'nl', be: 'nl', de: 'de', at: 'de', ch: 'de', fr: 'fr', it: 'it', es: 'es', pt: 'pt', pl: 'pl', cz: 'cs', dk: 'da', se: 'sv', no: 'no', hu: 'hu', gr: 'el' };
 
-const AREA = /\b(district|borough|neighbou?rhood|municipality|quarter|city|town|village|province|region|stadsdeel|wijk|buurt|gemeente|stadtteil|ortsteil|gemeinde|bezirk|railway station|metro station|tram stop|bus stop)\b/i;
+const AREA = /\b(district|borough|neighbou?rhood|municipality|quarter|city|town|village|hamlet|province|region|stadsdeel|wijk|buurt|woonwijk|gemeente|stadtteil|ortsteil|gemeinde|bezirk|railway station|metro station|tram stop|bus stop|station|street|road|avenue|straat|weg|laan|school|university campus|college|company|hotel|restaurant|shop|shopping cent(re|er)|winkelcentrum|supermarket|office building|kantoorgebouw|sports club|football club|voetbalclub|sportpark|stadium|hospital|ziekenhuis|motorway|snelweg|bridge over|residential|flat|apartment)\b/i;
 
 // Wikipedia articles with coordinates near the start, in a few languages, with their intro text:
 // the main source, because every place found this way comes with its facts
@@ -96,9 +97,14 @@ function merge(lat, lng, radius, lists) {
   return all.filter(x => dist([lat, lng], [x.lat, x.lng]) <= radius * 1.2).sort((x, y) => score(y) - score(x)).slice(0, 40);
 }
 
-async function places(fetchImpl, lat, lng, radius, langs) {
-  const lists = await Promise.all([...langs.map(l => wikiNearby(fetchImpl, l, lat, lng, radius).catch(() => [])), osmPlaces(fetchImpl, lat, lng, radius)]);
-  return merge(lat, lng, radius, lists);
+async function places(fetchImpl, lat, lng, radius, langs, want = 6, maxRadius = radius) {
+  for (;;) {
+    const lists = await Promise.all([...langs.map(l => wikiNearby(fetchImpl, l, lat, lng, radius).catch(() => [])), osmPlaces(fetchImpl, lat, lng, radius)]);
+    const found = merge(lat, lng, radius, lists);
+    const notable = found.filter(x => (x.size || 0) >= 700).length; // an intro of a few paragraphs: something to tell
+    if (notable >= want * 2 || radius >= maxRadius) return found;
+    radius = Math.min(maxRadius, radius * 2); // a quiet suburb: look further out
+  }
 }
 
 async function locality(fetchImpl, lat, lng, lang) {
@@ -115,7 +121,9 @@ You get the traveller's start point, how long they have, how they travel, what i
 
 Choosing stops:
 - Use only places from the list, by number. Never invent a place.
-- Prefer places that fit the interests and have a summary. If the list is thin, choose fewer stops rather than weak ones.
+- Only choose places a visitor would be glad to stand in front of: landmarks, notable buildings, monuments, memorials, museums, historic sites, art in public space, parks or water with a story. Skip ordinary streets, offices, schools, shops, hotels, stations, sports grounds, companies and anything whose summary gives you no real story to tell. article_length is a rough sign of how much there is to say.
+- Fit the interests where you can, but a strong story beats a weak match.
+- Fewer good stops are better than more weak ones: choose as few as two if that is all that is worth it. If nothing on the list is worth a stop, return an empty stops list.
 - Order them as a route: the first stop is one of the closest to the start, each next stop is near the previous one, and there is no doubling back.
 
 Writing:
@@ -144,7 +152,7 @@ async function write(anthropic, req, p, list, city) {
     start: { lat: req.lat, lng: req.lng, city }, minutes: req.minutes, travel: req.mode === 'bike' ? 'cycling' : 'walking',
     language: LANG_NAME[req.lang] || 'English', stops_wanted: p.stops, words_per_stop: p.words, intro_words: 60, outro_words: 40,
     route_length_km: p.km, interests: (req.interests || []).map(i => INTERESTS[i]).filter(Boolean), wish: req.note || null,
-    places: list.map((x, i) => ({ number: i, name: x.name, kind: x.kind, metres_from_start: Math.round(dist([req.lat, req.lng], [x.lat, x.lng])), lat: +x.lat.toFixed(5), lng: +x.lng.toFixed(5), summary: x.summary || null })),
+    places: list.map((x, i) => ({ number: i, name: x.name, kind: x.kind, metres_from_start: Math.round(dist([req.lat, req.lng], [x.lat, x.lng])), article_length: x.size || (x.summary ? x.summary.length : 0), lat: +x.lat.toFixed(5), lng: +x.lng.toFixed(5), summary: x.summary || null })),
   };
   const params = {
     model: MODEL, max_tokens: 32000, system: SYSTEM,
@@ -169,13 +177,35 @@ const clean = s => String(s || '').replace(/\s*[—–]\s*/g, ', ').replace(/\s+
 const words = s => (s.match(/\S+/g) || []).length;
 
 // the whole pipeline; onStep(name) reports progress: places, writing, route
-async function generateTour(req, { fetch: fetchImpl = fetch, anthropic, onStep = () => {} } = {}) {
+// every story (in the tour's language) and every direction (in English) as an MP3; a clip that
+// fails is left to the phone's own voice, so a speech hiccup never costs the whole tour
+async function record(tour, lang, saveAudio, speak) {
+  const jobs = [
+    ...[tour.intro, tour.outro, ...tour.stops].map(x => ({ item: x, text: x.script, name: x.id, voice: speech.VOICES[lang] || speech.VOICES.en, rate: '-4%', story: true })),
+    ...tour.legs.flatMap((l, i) => l.steps.flatMap((st, j) => [{ item: st, text: st.text, name: `nav-${i}-${j}` }, ...(st.pre ? [{ item: st.pre, text: st.pre.text, name: `pre-${i}-${j}` }] : [])]))
+      .map(j => ({ ...j, voice: speech.VOICES.en, rate: '-2%' })),
+  ];
+  let next = 0;
+  const worker = async () => {
+    while (next < jobs.length) {
+      const j = jobs[next++];
+      try {
+        const buf = await speak(j.text, { voice: j.voice, rate: j.rate });
+        const url = await saveAudio(tour.id, `${j.name}.mp3`, buf);
+        if (j.story) { j.item.audio = url; j.item.dur = speech.seconds(buf); } else j.item.clip = url;
+      } catch (e) { if (next <= 1) console.error('speech:', e.message); }
+    }
+  };
+  await Promise.all([1, 2, 3, 4].map(worker));
+}
+
+async function generateTour(req, { fetch: fetchImpl = fetch, anthropic, onStep = () => {}, saveAudio = null, speak = speech.speak } = {}) {
   const p = plan(req.minutes, req.mode);
   const step = async (name, fn) => { try { return await fn(); } catch (e) { e.message = `${name}: ${e.message}`; throw e; } };
   onStep('places');
   const where = await locality(fetchImpl, req.lat, req.lng, req.lang || 'en'), city = where.city;
   const langs = [...new Set(['en', req.lang, COUNTRY_LANG[where.country]].filter(l => /^[a-z]{2}$/.test(l || '')))];
-  const found = await step('places', () => places(fetchImpl, req.lat, req.lng, p.radius, langs));
+  const found = await step('places', () => places(fetchImpl, req.lat, req.lng, p.radius, langs, p.stops, req.mode === 'bike' ? 8000 : 3000));
   if (found.filter(x => x.summary).length < 2) throw Object.assign(new Error('too few places'), { code: 'no-places' });
   onStep('writing');
   const out = await step('writing', () => write(anthropic, req, p, found, city));
@@ -204,6 +234,8 @@ async function generateTour(req, { fetch: fetchImpl = fetch, anthropic, onStep =
     sources: ['Places: OpenStreetMap contributors (ODbL)', 'Facts: Wikipedia (CC BY-SA)', `Written by AI (${MODEL}) from those sources`],
   };
   applyRoute(tour, osrm);
+  if (saveAudio) { onStep('voice'); await record(tour, lang, saveAudio, speak); }
+  for (const x of [tour.intro, tour.outro, ...tour.stops]) if (!x.dur) x.dur = Math.round(words(x.script) / 2.5);
   const storyMin = [tour.intro, tour.outro, ...tour.stops].reduce((t, x) => t + words(x.script) / 150, 0);
   tour.duration_min = Math.round(tour.ride_min * 1.2 + storyMin + 2 * tour.stops.length);
   return tour;

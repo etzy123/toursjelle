@@ -1,7 +1,9 @@
 // Smoke test of the tour maker against the real OpenStreetMap, Wikipedia, Nominatim and OSRM,
-// with Claude replaced by a stand-in that takes the best-ranked places, nearest first. Needs internet.
+// and the Edge voices, with Claude replaced by a stand-in that takes the best-ranked places, nearest first. Needs internet.
 //   node tests/generate-live.mjs [lat lng minutes walk|bike]
 import path from 'node:path';
+import fs from 'node:fs';
+import os from 'node:os';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 
@@ -25,7 +27,12 @@ const anthropic = { beta: { messages: { stream(params) {
 
 const t0 = Date.now();
 try {
-  const tour = await generateTour({ lat, lng, minutes, mode, interests: ['famous'], lang: 'en' }, { anthropic, onStep: s => console.log(`${((Date.now() - t0) / 1000).toFixed(1)} s  ${s}`) });
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'tour-'));
+  const saveAudio = async (id, name, buf) => { fs.writeFileSync(path.join(dir, name), buf); return `/gen/audio/${id}/${name}`; };
+  const tour = await generateTour({ lat, lng, minutes, mode, interests: ['famous'], lang: 'nl' }, { anthropic, saveAudio, onStep: s => console.log(`${((Date.now() - t0) / 1000).toFixed(1)} s  ${s}`) });
+  const clips = fs.readdirSync(dir), stories = [tour.intro, tour.outro, ...tour.stops];
+  console.log(`voice: ${clips.length} clips, ${stories.filter(x => x.audio).length} of ${stories.length} stories recorded, intro ${tour.intro.dur} s`);
+  if (!stories.every(x => x.audio)) throw new Error('not every story was recorded');
   console.log(`places ${places} (with a Wikipedia summary: ${withSummary}); city ${tour.city_name}; ${tour.stops.length} stops, ${tour.distance_km} km, ${tour.ride_min} min moving`);
   for (const s of tour.stops) console.log(`  ${s.title}  ${s.sources[0] || ''}`);
   console.log(`  first directions: ${tour.legs[0].steps.map(s => s.text).join(' | ')}`);
