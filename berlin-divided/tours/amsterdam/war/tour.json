@@ -9,12 +9,16 @@
  "intro": {
   "id": "intro",
   "title": "Before you walk",
-  "script": "Welcome. This walk of about three kilometres follows Amsterdam through five years of German occupation, from May 1940 to May 1945. It starts at the house where Anne Frank hid, passes the memorials on the Westermarkt and the Dam, and then crosses into the old Jewish quarter, where most of the stories take place, ending at the Resistance Museum. These are stories of real people, many of whom were murdered, and some of the places you'll visit are memorials. Please be quiet and respectful there, and keep your voice low when you stop. Amsterdam's cyclists are fast, so look both ways at every crossing and walk on the pavement, not the red bike paths. Your first story starts on the Prinsengracht, in front of the Anne Frank House."
+  "script": "Welcome. This walk of about three kilometres follows Amsterdam through five years of German occupation, from May 1940 to May 1945. It starts at the house where Anne Frank hid, passes the memorials on the Westermarkt and the Dam, and then crosses into the old Jewish quarter, where most of the stories take place, ending at the Resistance Museum. These are stories of real people, many of whom were murdered, and some of the places you'll visit are memorials. Please be quiet and respectful there, and keep your voice low when you stop. Amsterdam's cyclists are fast, so look both ways at every crossing and walk on the pavement, not the red bike paths. Your first story starts on the Prinsengracht, in front of the Anne Frank House.",
+  "audio": "audio/stories/intro-39d2f2d4.mp3",
+  "dur": 48.0
  },
  "outro": {
   "id": "outro",
   "title": "End of the walk",
-  "script": "That's the end of the walk. As you go on through the city, look down now and then. Set into the pavement in front of many houses are small brass stones, each engraved with a name, a date of birth, a date of deportation and a place of death. They are called Stolpersteine, stumbling stones, and each one marks the last home of someone who was taken from it. Every year on 4 May at eight in the evening, the whole country falls silent for two minutes. Thank you for walking."
+  "script": "That's the end of the walk. As you go on through the city, look down now and then. Set into the pavement in front of many houses are small brass stones, each engraved with a name, a date of birth, a date of deportation and a place of death. They are called Stolpersteine, stumbling stones, and each one marks the last home of someone who was taken from it. Every year on 4 May at eight in the evening, the whole country falls silent for two minutes. Thank you for walking.",
+  "audio": "audio/stories/outro-beefebf1.mp3",
+  "dur": 31.7
  },
  "stops": [
   {
@@ -27,7 +31,9 @@
    "sources": [
     "Anne Frank House: the Secret Annex, the people in hiding and the helpers, annefrank.org",
     "NIOD Institute for War, Holocaust and Genocide Studies, The Diary of Anne Frank: The Revised Critical Edition (2003)"
-   ]
+   ],
+   "audio": "audio/stories/annefrank-28f44b7d.mp3",
+   "dur": 125.2
   },
   {
    "id": "homomonument",
@@ -40,7 +46,9 @@
     "Stichting Homomonument: history and design, homomonument.nl",
     "Anne Frank House: persecution of homosexuals, annefrank.org",
     "IHLIA LGBTI Heritage, Amsterdam: the Homomonument"
-   ]
+   ],
+   "audio": "audio/stories/homomonument-34dfdc46.mp3",
+   "dur": 109.9
   },
   {
    "id": "monument",
@@ -53,7 +61,9 @@
     "Nationaal Comité 4 en 5 mei: the National Monument on the Dam, 4en5mei.nl",
     "Stadsarchief Amsterdam: the shooting on the Dam, 7 May 1945, archief.amsterdam",
     "Rijksdienst voor het Cultureel Erfgoed: Nationaal Monument op de Dam"
-   ]
+   ],
+   "audio": "audio/stories/monument-3f5aa33d.mp3",
+   "dur": 101.2
   },
   {
    "id": "dokwerker",
@@ -66,7 +76,9 @@
     "Stadsarchief Amsterdam: the February Strike of 1941, archief.amsterdam",
     "NIOD Institute for War, Holocaust and Genocide Studies: the February raids and strike, niod.nl",
     "Bob Moore, Victims and Survivors: The Nazi Persecution of the Jews in the Netherlands 1940-1945 (1997)"
-   ]
+   ],
+   "audio": "audio/stories/dokwerker-92073f30.mp3",
+   "dur": 112.0
   },
   {
    "id": "synagogue",
@@ -79,7 +91,9 @@
     "Jewish Cultural Quarter: the Portuguese Synagogue and Ets Haim, jck.nl",
     "Portugees-Israëlietische Gemeente Amsterdam, portugesesynagoge.nl",
     "NIOD Institute for War, Holocaust and Genocide Studies: numbers of victims, niod.nl"
-   ]
+   ],
+   "audio": "audio/stories/synagogue-13fdf619.mp3",
+   "dur": 112.1
   },
   {
    "id": "schouwburg",
@@ -92,7 +106,9 @@
     "Jewish Cultural Quarter: the Hollandsche Schouwburg memorial, jck.nl",
     "Yad Vashem: Johan van Hulst, Righteous Among the Nations, yadvashem.org",
     "Mark Schellekens, Walter Süskind (2012)"
-   ]
+   ],
+   "audio": "audio/stories/schouwburg-14486ac8.mp3",
+   "dur": 112.2
   },
   {
    "id": "holocaustmuseum",
@@ -106,7 +122,9 @@
     "NIOD Institute for War, Holocaust and Genocide Studies: anti-Jewish measures, niod.nl",
     "Holocaust Names Monument, holocaustnamenmonument.nl",
     "Jacques Presser, Ondergang: de vervolging en verdelging van het Nederlandse Jodendom (1965)"
-   ]
+   ],
+   "audio": "audio/stories/holocaustmuseum-3d8e2b3c.mp3",
+   "dur": 110.4
   },
   {
    "id": "verzetsmuseum",
@@ -119,7 +137,9 @@
     "Verzetsmuseum Amsterdam (Dutch Resistance Museum), verzetsmuseum.org",
     "Stadsarchief Amsterdam: the attack on the population register, 27 March 1943, archief.amsterdam",
     "Stichting Homomonument: Willem Arondeus, homomonument.nl"
-   ]
+   ],
+   "audio": "audio/stories/verzetsmuseum-c94d6fcd.mp3",
+   "dur": 117.1
   }
  ],
  "sources": [
@@ -1137,23 +1157,28 @@
     {
      "lat": 52.37523,
      "lng": 4.88391,
-     "text": "Directions to the next stop. Head south-west on Prinsengracht, then turn left onto Westermarkt."
+     "text": "Directions to the next stop. Head south-west on Prinsengracht, then turn left onto Westermarkt.",
+     "clip": "audio/nav/457d71905a.mp3"
     },
     {
      "lat": 52.374598,
      "lng": 4.88492,
      "text": "Turn right onto Keizersgracht.",
      "pre": {
-      "text": "In 150 metres, turn right onto Keizersgracht."
-     }
+      "text": "In 150 metres, turn right onto Keizersgracht.",
+      "clip": "audio/nav/4a3e92bc8e.mp3"
+     },
+     "clip": "audio/nav/74f3dd613d.mp3"
     },
     {
      "lat": 52.374156,
      "lng": 4.884751,
      "text": "Turn sharp right onto Westermarkt.",
      "pre": {
-      "text": "In 150 metres, turn sharp right onto Westermarkt."
-     }
+      "text": "In 150 metres, turn sharp right onto Westermarkt.",
+      "clip": "audio/nav/b1e266288a.mp3"
+     },
+     "clip": "audio/nav/6e53466843.mp3"
     }
    ]
   },
@@ -1163,23 +1188,28 @@
     {
      "lat": 52.374221,
      "lng": 4.884495,
-     "text": "Directions to the next stop. Head east on Westermarkt, and stay on it for about 500 metres."
+     "text": "Directions to the next stop. Head east on Westermarkt, and stay on it for about 500 metres.",
+     "clip": "audio/nav/7dabf5a577.mp3"
     },
     {
      "lat": 52.373668,
      "lng": 4.890605,
      "text": "Turn right.",
      "pre": {
-      "text": "In 150 metres, turn right."
-     }
+      "text": "In 150 metres, turn right.",
+      "clip": "audio/nav/cfde85d4b1.mp3"
+     },
+     "clip": "audio/nav/e881cc5b22.mp3"
     },
     {
      "lat": 52.373223,
      "lng": 4.893201,
      "text": "Turn right onto Dam.",
      "pre": {
-      "text": "In 150 metres, turn right onto Dam."
-     }
+      "text": "In 150 metres, turn right onto Dam.",
+      "clip": "audio/nav/2759f30baf.mp3"
+     },
+     "clip": "audio/nav/1c2d79d6f4.mp3"
     }
    ]
   },
@@ -1189,87 +1219,108 @@
     {
      "lat": 52.373006,
      "lng": 4.893073,
-     "text": "Directions to the next stop. Head south on Dam."
+     "text": "Directions to the next stop. Head south on Dam.",
+     "clip": "audio/nav/0bf05f24e3.mp3"
     },
     {
      "lat": 52.372701,
      "lng": 4.892889,
      "text": "Turn left onto Dam, then turn right, then turn left.",
      "pre": {
-      "text": "In 150 metres, turn left onto Dam, then turn right, then turn left."
-     }
+      "text": "In 150 metres, turn left onto Dam, then turn right, then turn left.",
+      "clip": "audio/nav/171be6284c.mp3"
+     },
+     "clip": "audio/nav/929c0b5fe7.mp3"
     },
     {
      "lat": 52.372428,
      "lng": 4.894149,
      "text": "Bear right onto Damstraat.",
      "pre": {
-      "text": "In 150 metres, bear right onto Damstraat."
-     }
+      "text": "In 150 metres, bear right onto Damstraat.",
+      "clip": "audio/nav/92311ec918.mp3"
+     },
+     "clip": "audio/nav/fc030ffd97.mp3"
     },
     {
      "lat": 52.371463,
      "lng": 4.896982,
      "text": "Continue onto Oude Hoogstraat.",
      "pre": {
-      "text": "In 150 metres, continue onto Oude Hoogstraat."
-     }
+      "text": "In 150 metres, continue onto Oude Hoogstraat.",
+      "clip": "audio/nav/20b05b0849.mp3"
+     },
+     "clip": "audio/nav/acc25489b9.mp3"
     },
     {
      "lat": 52.370933,
      "lng": 4.898974,
      "text": "Continue onto Nieuwe Hoogstraat.",
      "pre": {
-      "text": "In 150 metres, continue onto Nieuwe Hoogstraat."
-     }
+      "text": "In 150 metres, continue onto Nieuwe Hoogstraat.",
+      "clip": "audio/nav/1e3526a77d.mp3"
+     },
+     "clip": "audio/nav/84fd059d19.mp3"
     },
     {
      "lat": 52.370514,
      "lng": 4.900636,
      "text": "Turn right onto Sint Antoniesbreestraat.",
      "pre": {
-      "text": "In 150 metres, turn right onto Sint Antoniesbreestraat."
-     }
+      "text": "In 150 metres, turn right onto Sint Antoniesbreestraat.",
+      "clip": "audio/nav/390bba612a.mp3"
+     },
+     "clip": "audio/nav/b504bee94c.mp3"
     },
     {
      "lat": 52.36952,
      "lng": 4.901175,
      "text": "Turn right onto Waterlooplein.",
      "pre": {
-      "text": "In 150 metres, turn right onto Waterlooplein."
-     }
+      "text": "In 150 metres, turn right onto Waterlooplein.",
+      "clip": "audio/nav/ce8b438613.mp3"
+     },
+     "clip": "audio/nav/2a8fed55ef.mp3"
     },
     {
      "lat": 52.368794,
      "lng": 4.900344,
      "text": "Turn left.",
      "pre": {
-      "text": "In 150 metres, turn left."
-     }
+      "text": "In 150 metres, turn left.",
+      "clip": "audio/nav/c84f179b71.mp3"
+     },
+     "clip": "audio/nav/214975c935.mp3"
     },
     {
      "lat": 52.36823,
      "lng": 4.901673,
      "text": "Turn right, then turn left onto Lange Houtgang.",
      "pre": {
-      "text": "In 150 metres, turn right, then turn left onto Lange Houtgang."
-     }
+      "text": "In 150 metres, turn right, then turn left onto Lange Houtgang.",
+      "clip": "audio/nav/9a1ec1c050.mp3"
+     },
+     "clip": "audio/nav/267cf3f096.mp3"
     },
     {
      "lat": 52.36764,
      "lng": 4.902333,
      "text": "Turn right, then turn left.",
      "pre": {
-      "text": "In 150 metres, turn right, then turn left."
-     }
+      "text": "In 150 metres, turn right, then turn left.",
+      "clip": "audio/nav/0ed7410afe.mp3"
+     },
+     "clip": "audio/nav/4631f8a1f5.mp3"
     },
     {
      "lat": 52.367348,
      "lng": 4.902609,
      "text": "At the end of the road, turn left, then turn right onto Turfsteeg.",
      "pre": {
-      "text": "In 150 metres, at the end of the road, turn left, then turn right onto Turfsteeg."
-     }
+      "text": "In 150 metres, at the end of the road, turn left, then turn right onto Turfsteeg.",
+      "clip": "audio/nav/9b24cc6a6a.mp3"
+     },
+     "clip": "audio/nav/80c7a0090c.mp3"
     }
    ]
   },
@@ -1279,15 +1330,18 @@
     {
      "lat": 52.367383,
      "lng": 4.902977,
-     "text": "Directions to the next stop. Head south-east on Turfsteeg, then turn left onto Nieuwe Amstelstraat."
+     "text": "Directions to the next stop. Head south-east on Turfsteeg, then turn left onto Nieuwe Amstelstraat.",
+     "clip": "audio/nav/40b17bd988.mp3"
     },
     {
      "lat": 52.367618,
      "lng": 4.90428,
      "text": "Bear right onto Jonas Daniël Meijerplein.",
      "pre": {
-      "text": "In 150 metres, bear right onto Jonas Daniël Meijerplein."
-     }
+      "text": "In 150 metres, bear right onto Jonas Daniël Meijerplein.",
+      "clip": "audio/nav/1e6f2584c0.mp3"
+     },
+     "clip": "audio/nav/e745474ec8.mp3"
     }
    ]
   },
@@ -1297,15 +1351,18 @@
     {
      "lat": 52.367525,
      "lng": 4.904535,
-     "text": "Directions to the next stop. Head north-west on Jonas Daniël Meijerplein, then turn right onto Meester Visserplein."
+     "text": "Directions to the next stop. Head north-west on Jonas Daniël Meijerplein, then turn right onto Meester Visserplein.",
+     "clip": "audio/nav/231d108989.mp3"
     },
     {
      "lat": 52.367902,
      "lng": 4.905038,
      "text": "Turn right onto Muiderstraat.",
      "pre": {
-      "text": "In 150 metres, turn right onto Muiderstraat."
-     }
+      "text": "In 150 metres, turn right onto Muiderstraat.",
+      "clip": "audio/nav/3cb06f743c.mp3"
+     },
+     "clip": "audio/nav/4e636ff2b2.mp3"
     }
    ]
   },
@@ -1315,7 +1372,8 @@
     {
      "lat": 52.367126,
      "lng": 4.90935,
-     "text": "Directions to the next stop. Head east, then turn left, then turn right onto Plantage Middenlaan."
+     "text": "Directions to the next stop. Head east, then turn left, then turn right onto Plantage Middenlaan.",
+     "clip": "audio/nav/6ba1a51978.mp3"
     }
    ]
   },
@@ -1325,15 +1383,18 @@
     {
      "lat": 52.367224,
      "lng": 4.909755,
-     "text": "Directions to the next stop. Head south-east on Plantage Middenlaan."
+     "text": "Directions to the next stop. Head south-east on Plantage Middenlaan.",
+     "clip": "audio/nav/7e5f9bddd0.mp3"
     },
     {
      "lat": 52.366281,
      "lng": 4.912478,
      "text": "Turn left.",
      "pre": {
-      "text": "In 150 metres, turn left."
-     }
+      "text": "In 150 metres, turn left.",
+      "clip": "audio/nav/c84f179b71.mp3"
+     },
+     "clip": "audio/nav/214975c935.mp3"
     }
    ]
   }
@@ -1341,10 +1402,12 @@
  "distance_km": 2.8,
  "ride_min": 38,
  "turnaround": {
-  "text": "Turn around when it is safe, then walk back to the route."
+  "text": "Turn around when it is safe, then walk back to the route.",
+  "clip": "audio/nav/12c58e30ac.mp3"
  },
  "offroute": {
-  "text": "You seem to be off the route. Follow the arrow on the screen back to it."
+  "text": "You seem to be off the route. Follow the arrow on the screen back to it.",
+  "clip": "audio/nav/94fbc41b71.mp3"
  },
  "duration_min": 78
 }
