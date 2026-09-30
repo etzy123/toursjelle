@@ -1,7 +1,14 @@
 {
   "name": "berlin-divided",
   "private": true,
-  "scripts": { "start": "node server.js" },
-  "dependencies": { "ws": "^8.18.0" },
-  "engines": { "node": ">=18" }
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.129.0",
+    "ws": "^8.18.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
 }

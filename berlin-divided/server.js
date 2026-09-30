@@ -14,7 +14,7 @@ const TYPES = {
   '.json': 'application/json; charset=utf-8', '.webmanifest': 'application/manifest+json', '.svg': 'image/svg+xml',
   '.mp3': 'audio/mpeg', '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.md': 'text/plain; charset=utf-8',
 };
-const PRIVATE = /^\/(server\.js|package(-lock)?\.json|serve\.json|node_modules(\/|$))|\/\./; // never served
+const PRIVATE = /^\/(server\.js|package(-lock)?\.json|serve\.json|node_modules(\/|$)|lib(\/|$))|\/\./; // never served
 const COMPRESS = /^(text\/|application\/(json|manifest\+json)|image\/svg)/;
 
 /* ---------- static files ---------- */
@@ -48,6 +48,65 @@ function serveFile(req, res) {
     res.writeHead(200, { ...headers, 'Content-Length': st.size });
     fs.createReadStream(file).pipe(res);
   });
+}
+
+/* ---------- tours made on the spot ---------- */
+// POST /api/tour {lat, lng, minutes, mode, interests[], note, lang} answers with newline-separated
+// JSON: progress lines {step}, then {tour} or {error}. Needs ANTHROPIC_API_KEY; GET /api/status says
+// whether it is available. Each phone may make MAKE_PER_HOUR tours an hour, the server
+// TOUR_DAILY_LIMIT a day (default 200), and the same request within 6 hours is answered from memory.
+const MAKE_PER_HOUR = 6, CACHE_MS = 6 * 3600e3;
+const made = new Map(), cache = new Map(); let today = { day: '', count: 0 };
+function makerFromEnv() {
+  if (!process.env.ANTHROPIC_API_KEY) return null;
+  const Anthropic = require('@anthropic-ai/sdk');
+  const anthropic = new Anthropic({ timeout: 180e3, maxRetries: 1 });
+  const { generateTour } = require('./lib/generate');
+  return (req, onStep) => generateTour(req, { anthropic, onStep });
+}
+function readBody(req, max) {
+  return new Promise((ok, fail) => {
+    let size = 0; const parts = [];
+    req.on('data', c => { size += c.length; if (size > max) { fail(new Error('too big')); req.destroy(); } else parts.push(c); });
+    req.on('end', () => ok(Buffer.concat(parts).toString('utf8')));
+    req.on('error', fail);
+  });
+}
+const INTEREST_KEYS = ['history', 'war', 'architecture', 'art', 'famous', 'hidden', 'religion', 'local'];
+function tourRequest(raw) {
+  let b; try { b = JSON.parse(raw); } catch { return null; }
+  const lat = num(b.lat, -90, 90), lng = num(b.lng, -180, 180), minutes = num(b.minutes, 15, 240);
+  if (lat == null || lng == null || minutes == null) return null;
+  return { lat: +lat.toFixed(5), lng: +lng.toFixed(5), minutes: Math.round(minutes), mode: b.mode === 'bike' ? 'bike' : 'walk',
+    interests: (Array.isArray(b.interests) ? b.interests : []).filter(i => INTEREST_KEYS.includes(i)).slice(0, 8),
+    note: clean(b.note, 200) || null, lang: ['en', 'nl', 'de'].includes(b.lang) ? b.lang : 'en' };
+}
+async function makeTour(req, res, maker) {
+  res.setHeader('Cache-Control', 'no-store');
+  if (!maker) { res.writeHead(503, { 'Content-Type': 'application/json' }).end(JSON.stringify({ error: 'not-configured' })); return; }
+  let body; try { body = tourRequest(await readBody(req, 4096)); } catch { body = null; }
+  if (!body) { res.writeHead(400, { 'Content-Type': 'application/json' }).end(JSON.stringify({ error: 'bad-request' })); return; }
+  const key = JSON.stringify({ ...body, lat: body.lat.toFixed(3), lng: body.lng.toFixed(3), interests: [...body.interests].sort() });
+  const hit = cache.get(key);
+  res.writeHead(200, { 'Content-Type': 'application/x-ndjson; charset=utf-8', 'X-Accel-Buffering': 'no' });
+  const line = o => res.write(JSON.stringify(o) + '\n');
+  if (hit && Date.now() - hit.at < CACHE_MS) { line({ tour: hit.tour }); res.end(); return; }
+  const ip = String(req.headers['x-forwarded-for'] || req.socket.remoteAddress || '').split(',')[0].trim();
+  const now = Date.now(), mine = (made.get(ip) || []).filter(t => now - t < 3600e3);
+  const day = new Date().toISOString().slice(0, 10); if (today.day !== day) today = { day, count: 0 };
+  if (mine.length >= MAKE_PER_HOUR) { line({ error: 'rate-limit' }); res.end(); return; }
+  if (today.count >= (+process.env.TOUR_DAILY_LIMIT || 200)) { line({ error: 'busy' }); res.end(); return; }
+  made.set(ip, [...mine, now]); today.count++;
+  const beat = setInterval(() => line({ step: 'wait' }), 10e3); // keeps proxies from closing a quiet connection
+  try {
+    const tour = await maker(body, step => line({ step }));
+    cache.set(key, { at: Date.now(), tour });
+    if (cache.size > 200) cache.delete(cache.keys().next().value);
+    line({ tour });
+  } catch (e) {
+    console.error('make tour:', e.message);
+    line({ error: e.code || 'failed' });
+  } finally { clearInterval(beat); res.end(); }
 }
 
 /* ---------- group rides ---------- */
@@ -129,8 +188,11 @@ function onSocket(ws) {
   ws.on('error', () => {});
 }
 
-function createServer() {
+function createServer({ maker = makerFromEnv() } = {}) {
   const server = http.createServer((req, res) => {
+    const pathname = req.url.split('?')[0];
+    if (pathname === '/api/tour' && req.method === 'POST') { makeTour(req, res, maker); return; }
+    if (pathname === '/api/status') { res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' }).end(JSON.stringify({ make: !!maker })); return; }
     if (req.method !== 'GET' && req.method !== 'HEAD') { res.writeHead(405).end(); return; }
     serveFile(req, res);
   });

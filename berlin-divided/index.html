@@ -125,6 +125,24 @@ select.field{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w
 .brand small{display:block;font-size:11px;color:var(--muted);font-weight:500}
 .brand b{display:block;font-size:15px;font-weight:700;line-height:1.2}
 .grow{flex:1;min-height:120px}
+.makecta{display:flex;align-items:center;gap:14px;width:100%;padding:18px;margin-bottom:20px;border:0;border-radius:24px;background:var(--accent);color:#fff;text-align:left;box-shadow:0 8px 24px rgba(88,77,211,.35)}
+.makecta b{display:block;font-size:17px}
+.makecta small{display:block;font-size:12px;opacity:.85;margin-top:2px}
+.makecta .spark{flex:none;width:44px;height:44px;border-radius:14px;background:rgba(255,255,255,.18);display:grid;place-items:center}
+.makecta svg{width:24px;height:24px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round}
+.makebox{padding:16px;margin-bottom:18px}
+.makebox .chips{margin-bottom:12px}
+.makebox .chip[aria-pressed="true"]{background:var(--accent);color:#fff}
+#scr-make .btn.primary{margin:4px 0 12px}
+.makesteps{padding:18px;display:flex;flex-direction:column;gap:14px;margin-bottom:14px}
+.makesteps div{display:flex;align-items:center;gap:12px;font-weight:600;color:var(--muted)}
+.makesteps i{width:20px;height:20px;border-radius:50%;border:2px solid var(--chip);flex:none}
+.makesteps .now{color:var(--text)}
+.makesteps .now i{border-color:var(--accent);border-top-color:transparent;animation:spin 1s linear infinite}
+.makesteps .done i{border-color:var(--accent);background:var(--accent)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ainote{margin:0 0 18px}
+.tag.ai{background:var(--chip);color:var(--muted)}
 .homenear{margin:0 0 20px}
 #homeCurrent+.homenear{margin-top:24px}
 .homenear .sectionhead{margin:0 4px 10px;align-items:center}
@@ -418,6 +436,7 @@ summary{cursor:pointer;font-weight:600;font-size:14px;color:var(--muted)}
       <button class="iconbtn" id="homeSettings" style="margin-left:auto" aria-label="Settings" data-t-aria="settingsTitle"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></button>
     </div>
     <div class="grow"></div>
+    <button class="makecta" id="makeCta" hidden><span class="spark"><svg viewBox="0 0 24 24"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6"/></svg></span><span><b data-t="makeCta">Make a tour right here</b><small data-t="makeCtaSub">Three quick questions. Your tour is ready in about a minute.</small></span></button>
     <div id="homeNear" class="homenear"></div>
     <div id="homeCurrent">
     <p class="label homelabel" id="homeCurLbl"></p>
@@ -438,6 +457,37 @@ summary{cursor:pointer;font-weight:600;font-size:14px;color:var(--muted)}
       <button class="stat" id="tileStart"><svg viewBox="0 0 24 24"><path d="M12 2 19 21l-7-4-7 4z" fill="currentColor"/></svg><small id="tileStartLbl"></small><b id="tileStartVal"></b><span id="tileStartUnit"></span></button>
       <button class="stat" id="tileGroup"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="9" cy="7" r="3"/><circle cx="17" cy="9" r="2.5" opacity=".6"/><path d="M3 19a6 6 0 0 1 12 0z"/><path d="M17 13a4 4 0 0 1 4 4h-3" opacity=".6"/></svg><small data-t="rideTogether">Ride together</small><b id="tileGroupVal"></b><span id="tileGroupUnit"></span></button>
     </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== make a tour ========== -->
+<section class="screen" id="scr-make" data-screen="make" hidden>
+  <div class="col">
+    <div class="head">
+      <button class="iconbtn" id="makeBack" aria-label="Back" data-t-aria="back"><svg viewBox="0 0 24 24"><path d="M19 12H5m7 7-7-7 7-7"/></svg></button>
+      <div><h1 data-t="makeTitle">Make your tour</h1><p id="makeWhere"></p></div>
+    </div>
+    <div id="makeForm">
+      <p class="label" data-t="qInterest">What would you like to hear about?</p>
+      <div class="card makebox"><div class="chips" id="interestPick"></div>
+        <input class="field" id="makeNote" maxlength="200" placeholder="Anything else? For example: canals, a painter, bridges" data-t-ph="notePh" aria-label="Anything else?" data-t-aria="noteLbl"></div>
+      <p class="label" data-t="qTime">How much time do you have?</p>
+      <div class="card speeds"><div id="timePick"></div></div>
+      <p class="label" data-t="qMode">How are you getting around?</p>
+      <div class="card modes" id="makeModes"><button id="makeWalk" aria-pressed="true"></button><button id="makeBike" aria-pressed="false"></button></div>
+      <button class="btn primary" id="makeGo" data-t="makeGo">Make my tour</button>
+      <p class="note" data-t="makeNoteAi">Stories are written by AI from Wikipedia and OpenStreetMap, and read by your phone's voice. Details can be wrong.</p>
+    </div>
+    <div id="makeBusy" hidden>
+      <div class="card makesteps" aria-live="polite">
+        <div data-step="places"><i></i><span data-t="stepPlaces">Finding places near you</span></div>
+        <div data-step="writing"><i></i><span data-t="stepWriting">Writing your stories</span></div>
+        <div data-step="route"><i></i><span data-t="stepRoute">Planning the route</span></div>
+      </div>
+      <p class="note" data-t="makeWait">This takes about a minute. Keep this screen open.</p>
+      <p class="err" id="makeErr" hidden></p>
+      <button class="btn secondary" id="makeRetry" hidden data-t="tryAgain">Try again</button>
     </div>
   </div>
 </section>
@@ -470,14 +520,15 @@ summary{cursor:pointer;font-weight:600;font-size:14px;color:var(--muted)}
       <div><b id="factStops">11</b><span data-t="stops">stops</span></div>
       <div><b id="factTime">~2 h</b><span data-t="withStories">with stories</span></div>
     </div>
-    <div class="sectionhead"><p class="label" data-t="tourStops">Tour stops</p><span class="muted" style="font-size:12px" id="progress"></span></div>
-    <ol class="tl" id="stopList"></ol>
     <div class="stack">
       <div class="btn secondary downloadbox"><p class="offline" id="offlineStart"></p></div>
       <button class="btn secondary" id="toLobby"><svg viewBox="0 0 24 24"><circle cx="9" cy="7" r="3"/><path d="M3 19a6 6 0 0 1 12 0M16 4a3 3 0 0 1 0 6M21 19a5 5 0 0 0-3-4.6"/></svg><span data-t="rideTogether">Ride together</span></button>
       <button class="btn primary" id="startBtn" disabled data-t="loading">Loading tour…</button>
     </div>
     <button class="linkbtn" id="testBtn" disabled data-t="testRide">Try a test ride from here</button>
+    <p class="note ainote" id="aiNote" hidden data-t="aiNote">Written by AI from Wikipedia and OpenStreetMap, and read by your phone's voice. Details can be wrong.</p>
+    <div class="sectionhead"><p class="label" data-t="tourStops">Tour stops</p><span class="muted" style="font-size:12px" id="progress"></span></div>
+    <ol class="tl" id="stopList"></ol>
     <p class="note"><span data-t="note">Keep this page open with the screen on, and allow location access. Your phone's silent switch can mute the audio.</span> <span id="safety"></span></p>
   </div>
 </section>
@@ -682,7 +733,7 @@ summary{cursor:pointer;font-weight:600;font-size:14px;color:var(--muted)}
 <audio id="audio" preload="auto" playsinline></audio>
 
 <script type="module">
-import { STRINGS, LANGS, SPEECH } from './strings.js?v=7'; // the version query gets past copies cached by older app versions
+import { STRINGS, LANGS, SPEECH } from './strings.js?v=8'; // the version query gets past copies cached by older app versions
 // language: saved choice, else the phone's language if we have it, else English
 let lang=(()=>{try{const v=JSON.parse(localStorage.getItem('bd_lang'));if(STRINGS[v])return v;}catch(e){}
   for(const l of navigator.languages||[navigator.language]){const k=String(l||'').slice(0,2).toLowerCase();if(STRINGS[k])return k;}return 'en';})();
@@ -718,6 +769,8 @@ function adapt(T,base){
   return {...T,intro:story(T.intro),outro:story(T.outro),stops:(T.stops||[]).map(story),bonus:(T.bonus||[]).map(story),
     nav:(T.legs||[]).map(l=>l.steps.map(st=>({...st,clip:clip(st.clip),pre:prompt(st.pre)}))),clips,turnaround:prompt(T.turnaround),offroute:prompt(T.offroute)};
 }
+function genEntry(g){return {path:'gen/'+g.id,id:g.id,city:g.city,city_name:g.city_name,title:g.title,subtitle:g.subtitle,mode:g.mode,distance_km:g.distance_km,duration_min:g.duration_min,
+  stops:g.stops.length,start:[g.stops[0].lat,g.stops[0].lng],ready:true,langs:[],generated:true,order:0};}
 const store={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
 let DATA, CATALOGUE, TOUR, clang='en'; // clang: the language the tour content is in (English when there is no translation)
 try{
@@ -726,17 +779,20 @@ try{
   const last=store.get('bd_pos',null), hav=(a,b)=>Math.hypot((a[0]-b[0])*111,(a[1]-b[1])*111*Math.cos(a[0]*Math.PI/180));
   const nearest=last&&[...CATALOGUE].filter(x=>x.ready&&x.start).sort((a,b)=>hav(last,a.start)-hav(last,b.start))[0];
   const want=new URLSearchParams(location.search).get('tour')||store.get('bd_tour',null)||(nearest&&nearest.path)||'berlin/divided';
-  TOUR=CATALOGUE.find(x=>x.path===want&&x.ready)||CATALOGUE.find(x=>x.ready);
+  // tours made on this phone: kept in localStorage as bd_gen:<id>, listed in bd_gens
+  for(const id of store.get('bd_gens',[])){const g=store.get('bd_gen:'+id,null);if(g)CATALOGUE.push(genEntry(g));}
+  TOUR=CATALOGUE.find(x=>x.path===want&&x.ready)||CATALOGUE.find(x=>x.path===(nearest&&nearest.path))||CATALOGUE.find(x=>x.ready);
   const base=`tours/${TOUR.path}/`;
-  DATA=adapt(await get(base+'tour.json'),base);
-  if(lang!=='en'&&(TOUR.langs||[]).includes(lang))try{localise(DATA,adapt(await get(`${base}tour.${lang}.json`),base));clang=lang;}catch(e){}
+  if(TOUR.generated){const g=store.get('bd_gen:'+TOUR.id);DATA=adapt(g,'');clang=g.lang||'en';}
+  else DATA=adapt(await get(base+'tour.json'),base);
+  if(!TOUR.generated&&lang!=='en'&&(TOUR.langs||[]).includes(lang))try{localise(DATA,adapt(await get(`${base}tour.${lang}.json`),base));clang=lang;}catch(e){}
 }
 catch(e){document.getElementById('startBtn').textContent=t('loadFail');throw e;}
 // progress and choices are kept per tour; Berlin's from before there were several tours carry over
 const K=k=>`${k}:${TOUR.path}`;
 for(const k of ['bd_played','bd_start','bd_bonus','bd_travel','bd_rating'])
   try{if(TOUR.path==='berlin/divided'&&localStorage.getItem(k)!=null&&localStorage.getItem(K(k))==null)localStorage.setItem(K(k),localStorage.getItem(k));}catch(e){}
-const cityName=c=>STRINGS[lang]['city_'+c]||STRINGS.en['city_'+c]||c.charAt(0).toUpperCase()+c.slice(1);
+const cityName=c=>STRINGS[lang]['city_'+c]||STRINGS.en['city_'+c]||(CATALOGUE.find(x=>x.city===c&&x.city_name)||{}).city_name||c.charAt(0).toUpperCase()+c.slice(1);
 const TITLE=DATA.title||TOUR.title;
 document.querySelectorAll('[data-tour-name]').forEach(e=>{e.textContent=TITLE;});
 document.getElementById('brandCity').textContent=cityName(TOUR.city);
@@ -1388,6 +1444,7 @@ function show(s){
   const prev=screen; screen=s;
   document.querySelectorAll('.screen').forEach(e=>{e.hidden=e.dataset.screen!==s;});
   $('tabbar').hidden=!['home','tours','settings'].includes(s);
+  if(s==='make')renderMake();
   document.querySelectorAll('#tabbar [data-go]').forEach(b=>{if(b.dataset.go===s)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');});
   if(s!=='ride'&&s!=='story'&&navOn){navOn=false;if(guide)guide.remove();if(simOn)toggleSim(false);}
   if(s==='ride'){navOn=true;$('rideMapSlot').appendChild($('mapWrap'));$('navSim').hidden=!simOn;
@@ -1503,7 +1560,7 @@ function tourCard(x,p){
   const meta=x.ready?`<span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" fill="currentColor"/><circle cx="12" cy="12" r="8"/></svg><b>${x.stops}</b> ${t('stops')}</span><span><b>${x.distance_km!=null?kmStr(x.distance_km*1000):'?'}</b> ${t('km')}</span><span>${x.duration_min?fmtMins(x.duration_min):''}</span>`
     :`<span>${x.stops} ${t('stops')} · ${t('comingSoon')}</span>`;
   return `<button class="tourcard" data-path="${esc(x.path)}"${x.ready?'':' disabled'}><div class="tile">${x.mode==='walk'?SVG.walk:SVG.bike}</div>
-    <div style="flex:1;min-width:0"><b>${esc(cur?TITLE:x.title)}${cur?`<span class="tag">${t('current')}</span>`:''}</b><small>${esc(cur&&DATA.subtitle||x.subtitle)}</small>${isFinite(d)?`<span class="away">${t('startAway',{dist:fmtDist(d)})}</span>`:''}<div class="meta">${meta}</div></div></button>`;
+    <div style="flex:1;min-width:0"><b>${esc(cur?TITLE:x.title)}${cur?`<span class="tag">${t('current')}</span>`:x.generated?`<span class="tag ai">${t('madeForYou')}</span>`:''}</b><small>${esc(cur&&DATA.subtitle||x.subtitle)}</small>${isFinite(d)?`<span class="away">${t('startAway',{dist:fmtDist(d)})}</span>`:''}<div class="meta">${meta}</div></div></button>`;
 }
 function pickTour(path){
   if(path===TOUR.path){go('detail');return;}
@@ -1539,6 +1596,64 @@ function locate(){
     cityPick=n.city||cityPick;renderHome();
   },()=>{if(b){b.disabled=false;b.lastChild.textContent=t('locBlocked');}},{enableHighAccuracy:false,maximumAge:600000,timeout:20000});
 }
+/* ---------- make a tour ---------- */
+// three questions, then POST /api/tour; the answer streams progress lines, then the tour
+const INTERESTS=['famous','history','war','architecture','art','hidden','religion','local'];
+const make={interests:new Set(store.get('bd_make',{}).interests||['famous','history']),minutes:store.get('bd_make',{}).minutes||60,mode:store.get('bd_make',{}).mode||'walk',busy:false};
+let canMake=false;
+fetch('api/status').then(r=>r.ok?r.json():{}).then(j=>{canMake=!!j.make;$('makeCta').hidden=!canMake;}).catch(()=>{});
+function renderMake(){
+  const p=me||homePos||seenPos, n=nearby(p);
+  $('makeWhere').textContent=p?(n.city?t('makeIn',{city:cityName(n.city)}):t('makeHere')):t('makeNoPos');
+  $('interestPick').innerHTML=INTERESTS.map(k=>`<button class="chip" data-k="${k}" aria-pressed="${make.interests.has(k)}">${t('int_'+k)}</button>`).join('');
+  $('interestPick').querySelectorAll('button').forEach(b=>{b.onclick=()=>{const k=b.dataset.k;make.interests.has(k)?make.interests.delete(k):make.interests.add(k);renderMake();};});
+  $('timePick').innerHTML=[30,60,90,120].map(m=>`<button data-m="${m}" aria-pressed="${make.minutes===m}">${m<60?`${m} ${t('min')}`:t('hours',{n:String(m/60).replace('.',lang==='en'?'.':',')}).replace('~','')}</button>`).join('');
+  $('timePick').querySelectorAll('button').forEach(b=>{b.onclick=()=>{make.minutes=+b.dataset.m;renderMake();};});
+  $('makeWalk').innerHTML=`${SVG.walk}${t('walking')}`;$('makeBike').innerHTML=`${SVG.bike}${t('cycling')}`;
+  $('makeWalk').setAttribute('aria-pressed',make.mode==='walk');$('makeBike').setAttribute('aria-pressed',make.mode==='bike');
+  $('makeGo').disabled=make.busy;
+}
+$('makeWalk').onclick=()=>{make.mode='walk';renderMake();};$('makeBike').onclick=()=>{make.mode='bike';renderMake();};
+$('makeCta').onclick=()=>go('make');$('makeBack').onclick=()=>back('home');
+$('makeRetry').onclick=()=>{$('makeBusy').hidden=true;$('makeForm').hidden=false;renderMake();};
+function makeStep(step){
+  const order=['places','writing','route'],i=order.indexOf(step);if(i<0)return;
+  $('makeBusy').querySelectorAll('[data-step]').forEach(e=>{const j=order.indexOf(e.dataset.step);e.className=j<i?'done':j===i?'now':'';});
+}
+function makeFail(code){
+  make.busy=false;$('makeErr').hidden=false;$('makeRetry').hidden=false;
+  $('makeErr').textContent=t({'rate-limit':'errRate',busy:'errBusy','no-places':'errPlaces','not-configured':'errOff',refused:'errFailed',offline:'errOffline',nopos:'errNoPos'}[code]||'errFailed');
+  $('makeBusy').querySelectorAll('[data-step]').forEach(e=>{e.className='';});
+}
+function position(){
+  const p=me||homePos;if(p)return Promise.resolve(p);
+  return new Promise((ok,fail)=>navigator.geolocation?navigator.geolocation.getCurrentPosition(q=>{homePos=[q.coords.latitude,q.coords.longitude];savePos(homePos);ok(homePos);},fail,{maximumAge:120000,timeout:20000}):fail());
+}
+$('makeGo').onclick=async()=>{
+  if(make.busy)return;make.busy=true;
+  store.set('bd_make',{interests:[...make.interests],minutes:make.minutes,mode:make.mode});
+  $('makeForm').hidden=true;$('makeBusy').hidden=false;$('makeErr').hidden=true;$('makeRetry').hidden=true;makeStep('places');
+  let p;try{p=await position();}catch(e){makeFail('nopos');return;}
+  try{
+    const r=await fetch('api/tour',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({lat:p[0],lng:p[1],minutes:make.minutes,mode:make.mode,interests:[...make.interests],note:$('makeNote').value.trim()||null,lang})});
+    if(!r.ok){let j={};try{j=await r.json();}catch(e){}makeFail(j.error);return;}
+    const reader=r.body.getReader(),dec=new TextDecoder();let buf='',tour=null,err=null;
+    for(;;){const {value,done}=await reader.read();if(done)break;buf+=dec.decode(value,{stream:true});
+      let i;while((i=buf.indexOf('\n'))>=0){const line=buf.slice(0,i);buf=buf.slice(i+1);if(!line.trim())continue;
+        const m=JSON.parse(line);if(m.step)makeStep(m.step);if(m.tour)tour=m.tour;if(m.error)err=m.error;}}
+    if(!tour){makeFail(err);return;}
+    saveGenerated(tour);
+    try{sessionStorage.setItem('bd_open','detail');}catch(e){}
+    location.replace(location.pathname);
+  }catch(e){makeFail(navigator.onLine?'failed':'offline');}
+};
+function saveGenerated(tour){
+  const ids=[tour.id,...store.get('bd_gens',[]).filter(x=>x!==tour.id)];
+  for(const old of ids.slice(8))try{localStorage.removeItem('bd_gen:'+old);}catch(e){}
+  store.set('bd_gen:'+tour.id,tour);store.set('bd_gens',ids.slice(0,8));store.set('bd_tour','gen/'+tour.id);
+}
+
 let cityPick=nearby(seenPos).city||TOUR.city;
 function renderTours(){
   const cities=[...new Set(CATALOGUE.map(x=>x.city))].sort((a,b)=>cityName(a).localeCompare(cityName(b),lang));
@@ -1551,7 +1666,7 @@ function renderTours(){
 
 /* ---------- detail ---------- */
 function renderMeta(){
-  $('routePill').textContent=routeName();$('routeTitle').textContent=routeName();
+  $('routePill').textContent=routeName();$('routeTitle').textContent=TITLE;
   $('lobbySub').textContent=`${TITLE} · ${STOPS.length-startAt} ${t('stops')}`;
   $('lobbyRoute').textContent=`${$('factKm').textContent} · ${STOPS.length-startAt} ${t('stops')} · ${$('factTime').textContent}`;
   renderHome();
@@ -1713,6 +1828,8 @@ $('startBtn').disabled=$('testBtn').disabled=false;
 history.replaceState({s:'home',depth:0},'');
 show('home');
 if(new URLSearchParams(location.search).get('group'))go('lobby');
+$('aiNote').hidden=!TOUR.generated;
+try{if(sessionStorage.getItem('bd_open')==='detail'){sessionStorage.removeItem('bd_open');go('detail');}}catch(e){}
 window.addEventListener('resize',()=>{setView();updateRide();});
 </script>
 </body>
