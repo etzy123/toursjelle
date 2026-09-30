@@ -1,7 +1,7 @@
 {
-  "name": "Berlin divided: Cold War bike tour",
-  "short_name": "Berlin divided",
-  "description": "A self-guided Cold War bike tour from the Reichstag to Bernauer Strasse.",
+  "name": "Audio tours: self-guided city tours",
+  "short_name": "Audio tours",
+  "description": "Self-guided audio tours by bike and on foot, with stories that play where they happened.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

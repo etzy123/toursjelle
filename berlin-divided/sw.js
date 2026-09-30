@@ -1,12 +1,12 @@
-// Berlin divided service worker.
+// Audio tours service worker.
 // App shell, scripts and tour data: network first, cache as fallback, so updates arrive when online.
 // Photos: cache first, pre-cached by the page with the audio.
-// Audio: cache first (the page pre-caches every file after first load), with Range support,
+// Audio: cache first (the page pre-caches each tour into its own cache, bd-tour:<path>), with Range support,
 // because iPhone Safari only plays audio served as byte ranges.
 // OpenStreetMap tiles are left to the browser: the tile usage policy forbids bulk offline caching.
-const SHELL = 'bd-shell-v6', AUDIO = 'bd-audio', FONTS = 'bd-fonts';
+const SHELL = 'bd-shell-v7', FONTS = 'bd-fonts';
 const SHELL_FILES = [
-  './', 'manifest.webmanifest', 'strings.js?v=5', 'data/berlin-divided.json',
+  './', 'manifest.webmanifest', 'strings.js?v=6', 'tours/index.json',
   'vendor/leaflet/leaflet.js', 'vendor/leaflet/leaflet.css',
   'icons/icon-192.png', 'icons/apple-touch-icon.png'
 ];
@@ -17,7 +17,7 @@ self.addEventListener('install', e => {
 });
 self.addEventListener('activate', e => {
   e.waitUntil(caches.keys()
-    .then(keys => Promise.all(keys.filter(k => k.startsWith('bd-shell-') && k !== SHELL).map(k => caches.delete(k))))
+    .then(keys => Promise.all(keys.filter(k => (k.startsWith('bd-shell-') && k !== SHELL) || k === 'bd-audio').map(k => caches.delete(k))))
     .then(() => self.clients.claim()));
 });
 
@@ -52,7 +52,7 @@ async function ranged(req, res) {
     'Content-Length': end - start + 1, 'Accept-Ranges': 'bytes' } });
 }
 async function audio(req) {
-  const hit = await (await caches.open(AUDIO)).match(req.url);
+  const hit = await caches.match(req.url); // whichever tour cache holds it
   if (hit) return ranged(req, hit);
   return fetch(req); // not downloaded yet: straight from the network, Range and all
 }

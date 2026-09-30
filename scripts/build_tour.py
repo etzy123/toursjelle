@@ -5,6 +5,7 @@
     python scripts/build_tour.py tours/amsterdam/golden-age --reroute  # ask OSRM again
     python scripts/build_tour.py tours/amsterdam/golden-age --no-audio # route + texts only
     python scripts/build_tour.py tours/berlin/divided --lang nl        # voice a translation
+    python scripts/build_tour.py tours/amsterdam/golden-age --check    # only the content checks
     python scripts/build_tour.py --catalogue                           # only rebuild tours/index.json
 
 Paths are relative to the app folder (berlin-divided/) or the current directory.
@@ -440,6 +441,7 @@ def main():
     ap.add_argument("--lang", default="en", help="voice tour.<lang>.json instead")
     ap.add_argument("--strict", action="store_true", help="content problems stop the build")
     ap.add_argument("--catalogue", action="store_true", help="only rebuild tours/index.json")
+    ap.add_argument("--check", action="store_true", help="only check the content; no routing, no audio, nothing written")
     a = ap.parse_args()
     if a.catalogue or not a.tour:
         build_catalogue(APP)
@@ -450,6 +452,14 @@ def main():
     tour = json.load(open(path, encoding="utf-8"))
     print(f"{tour.get('title', tour.get('id'))} ({a.lang})")
     problems = []
+    if a.check:
+        check(tour, problems)
+        for s in tour["stops"]:
+            print(f"  {s['id']}: {words(s['script'])} words")
+        print(f"  intro {words(tour['intro']['script'])}, outro {words(tour['outro']['script'])} words")
+        for p in problems:
+            print("  CHECK:", p)
+        sys.exit(1 if problems else 0)
     if a.lang == "en":
         cache = os.path.join(root, ".osrm.json")
         if tour.get("keep_route") and tour.get("route") and not a.reroute:
