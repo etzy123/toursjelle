@@ -364,6 +364,9 @@ summary{cursor:pointer;font-weight:600;font-size:14px;color:var(--muted)}
 .map{position:absolute;inset:0;isolation:isolate}
 .mapoff{margin:0;padding:80px 24px;text-align:center;color:var(--muted);font-size:14px}
 .leaflet-container{font-family:var(--font);background:var(--chip)}
+.leaflet-tile-pane{filter:saturate(.75) brightness(1.03)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .leaflet-tile-pane{filter:invert(1) hue-rotate(200deg) brightness(.85) contrast(.9) saturate(.6)}}
+:root[data-theme="dark"] .leaflet-tile-pane{filter:invert(1) hue-rotate(200deg) brightness(.85) contrast(.9) saturate(.6)}
 .leaflet-control-attribution{font-size:9px!important;background:color-mix(in srgb,var(--card) 70%,transparent)!important;color:var(--muted)!important}
 .leaflet-control-attribution a{color:inherit!important}
 .stopicon{display:grid;place-items:center;border-radius:50%;background:#fff;color:#8888A0;border:2px solid #C0C0D0;font-weight:700;font-size:11px;box-shadow:0 2px 8px rgba(0,0,0,.25)}
@@ -663,7 +666,7 @@ summary{cursor:pointer;font-weight:600;font-size:14px;color:var(--muted)}
 <audio id="audio" preload="auto" playsinline></audio>
 
 <script type="module">
-import { STRINGS, LANGS, SPEECH } from './strings.js';
+import { STRINGS, LANGS, SPEECH } from './strings.js?v=5'; // the version query gets past copies cached by older app versions
 // language: saved choice, else the phone's language if we have it, else English
 let lang=(()=>{try{const v=JSON.parse(localStorage.getItem('bd_lang'));if(STRINGS[v])return v;}catch(e){}
   for(const l of navigator.languages||[navigator.language]){const k=String(l||'').slice(0,2).toLowerCase();if(STRINGS[k])return k;}return 'en';})();
@@ -757,12 +760,8 @@ const audio=$('audio');
 const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
 let map=null, stopMarkers=[], bonusMarkers=[], meDot=null, meHalo=null, ridden=null, guide=null;
 function stopIcon(i){return L.divIcon({className:'stopicon',html:String(i+1),iconSize:[28,28],iconAnchor:[14,14]});}
-// street map tiles that follow light and dark mode
-const darkMq=window.matchMedia&&matchMedia('(prefers-color-scheme: dark)');
-const tileUrl=()=>`https://{s}.basemaps.cartocdn.com/${darkMq&&darkMq.matches?'dark_all':'rastertiles/voyager'}/{z}/{x}/{y}{r}.png`;
-const tileLayers=[];
-function tiles(m){const l=L.tileLayer(tileUrl(),{subdomains:'abcd',maxZoom:20,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'}).addTo(m);tileLayers.push(l);return l;}
-if(darkMq&&darkMq.addEventListener)darkMq.addEventListener('change',()=>tileLayers.forEach(l=>l.setUrl(tileUrl())));
+// OpenStreetMap tiles; in dark mode CSS dims them (see .leaflet-tile-pane)
+function tiles(m){return L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'}).addTo(m);}
 function initMap(){
   if(!window.L){$('mapCanvas').innerHTML=`<p class="mapoff">${t('mapOffline')}</p>`;return;}
   map=L.map('mapCanvas',{zoomControl:false});
@@ -1063,6 +1062,8 @@ const ICONS={
 const clean=x=>x.replace(t('navIntro'),'').replace('Directions to the next stop. ','');
 function turnKind(t){const m=/(turn|bear|keep) (left|right)|straight|head/i.exec(t);if(!m||!m[2])return 'straight';return (/turn/i.test(m[1])?'':'s')+m[2].toLowerCase();}
 const firstClause=x=>clean(x).split(new RegExp(t('thenSplit')))[0].replace(/\.$/,'');
+const FAR=20000; // metres from the route: not in Berlin yet
+const far=(p=me)=>!!p&&snap(p,null).d>FAR;
 function navTarget(){ // the next unheard stop ahead of you on the route
   if(ridePos!=null)for(let i=startAt;i<STOPS.length;i++)if(!played.has(STOPS[i].id)&&stopCum[i]>=ridePos-P.radius)return i;
   return nextIndex();
@@ -1088,6 +1089,8 @@ function updateNav0(){
       // arrow points at the nearest point on the route: relative to your direction when known, else to north (map is north-up)
       const r=snap(me,ridePos),b=bearing(me,r.pt),rel=heading!=null?b-heading:b,away=heading!=null&&Math.abs(((rel%360)+540)%360-180)>120;
       guideTo=r.pt;banner('straight',fmtDist(r.d),away?t('turnAroundBack'):t('headBack'),t('continueTo',{n:ti+1,title:s.title}),true,rel);
+    }else if(far()){
+      banner('wait',fmtDist(dist(me,[s.lat,s.lng])),t('farTitle'),t('farSub'));
     }else if(!onRoute||ridePos==null||stopCum[ti]<ridePos){
       guideTo=[s.lat,s.lng];banner('straight',fmtDist(dist(me,guideTo)),t('headTo',{n:ti+1,title:s.title}),t('dottedLine'));
     }else{
@@ -1107,7 +1110,7 @@ function updateNav0(){
     $('navGmaps').href=`https://www.google.com/maps/dir/?api=1&destination=${bt.lat},${bt.lng}&travelmode=${travel==='walk'?'walking':'bicycling'}`;return;}
   if(ti<0){$('navStop').textContent=t('tourComplete');$('navEta').textContent='';return;}
   const s=STOPS[ti];$('navStop').textContent=`${ti+1}. ${s.title}`;
-  if(!me){$('navEta').textContent='';return;}
+  if(!me||far()){$('navEta').textContent='';return;}
   const m=(snapNow.d<=40&&ridePos!=null&&stopCum[ti]>=ridePos)?stopCum[ti]-ridePos:dist(me,[s.lat,s.lng])*1.3;
   const min=Math.max(1,Math.round(m/P.speed/60)),at=new Date(Date.now()+min*60000);
   $('navEta').textContent=t('eta',{dist:fmtDist(m),min,time:`${at.getHours()}:${String(at.getMinutes()).padStart(2,'0')}`});
@@ -1409,7 +1412,8 @@ function renderHome(){
   $('homeMap').innerHTML=miniMap();
   $('chipMode').innerHTML=`${travel==='walk'?SVG.walk:SVG.bike}${t(travel)}`;
   $('chipTime').innerHTML=`${SVG.clock}${$('factTime').textContent}`;
-  if(pos){$('tileStartLbl').textContent=t('toStart');$('tileStartVal').textContent=Math.max(1,Math.round(dist(pos,[st.lat,st.lng])*1.3/P.speed/60));$('tileStartUnit').textContent=t('min');}
+  if(pos&&far(pos)){const [v,u]=fmtDist(dist(pos,[st.lat,st.lng])).split(' ');$('tileStartLbl').textContent=t('toStart');$('tileStartVal').textContent=Math.round(+v);$('tileStartUnit').textContent=u;}
+  else if(pos){$('tileStartLbl').textContent=t('toStart');$('tileStartVal').textContent=Math.max(1,Math.round(dist(pos,[st.lat,st.lng])*1.3/P.speed/60));$('tileStartUnit').textContent=t('min');}
   else{$('tileStartLbl').textContent=t('progressLbl');$('tileStartVal').textContent=`${n}/${activeStops().length}`;$('tileStartUnit').textContent='';}
   $('tileGroupVal').textContent=group&&group.code?group.code:t('startShort');
   $('tileGroupUnit').textContent=group&&group.code?`${gMembers.length} ${t(gMembers.length===1?'rider':'riders')}`:'';

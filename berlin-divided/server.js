@@ -30,7 +30,7 @@ function serveFile(req, res) {
     const type = TYPES[path.extname(file).toLowerCase()] || 'application/octet-stream';
     const headers = { 'Content-Type': type, 'Accept-Ranges': 'bytes', 'X-Content-Type-Options': 'nosniff' };
     // the app shell, service worker and tour data must update quickly; everything else is versioned by name
-    headers['Cache-Control'] = /\.(html|json|webmanifest)$|\/sw\.js$|\/$/.test(file) || pathname.endsWith('/') ? 'no-cache' : 'public, max-age=86400';
+    headers['Cache-Control'] = /\.(html|js|css|json|webmanifest)$/.test(file) && !pathname.startsWith('/vendor/') ? 'no-cache' : 'public, max-age=86400';
     if (req.method === 'HEAD') { res.writeHead(200, { ...headers, 'Content-Length': st.size }).end(); return; }
     const m = /bytes=(\d*)-(\d*)/.exec(req.headers.range || '');
     if (m) { // byte ranges, which iPhone Safari needs for audio
