@@ -60,7 +60,7 @@ async function wikiNearby(fetchImpl, lang, lat, lng, radius) {
       const pg = pages.get(h.title) || {};
       if (!pg.extract || pg.extract.length < 120) continue; // stubs make poor stories
       if (AREA.test(pg.description || '')) continue; // districts and towns are where you are, not something to look at
-      out.push({ name: h.title.replace(/ \([^)]*\)$/, ''), lat: h.lat, lng: h.lon, kind: pg.description || '', summary: pg.extract.slice(0, 1400),
+      out.push({ name: h.title.replace(/ \([^)]*\)$/, ''), lat: h.lat, lng: h.lon, kind: pg.description || '', summary: pg.extract.slice(0, 1400), size: pg.extract.length,
         url: `https://${lang}.wikipedia.org/wiki/${encodeURIComponent(h.title.replace(/ /g, '_'))}`, wiki: true });
     }
   }));
@@ -88,11 +88,11 @@ function merge(lat, lng, radius, lists) {
   const all = [];
   for (const x of lists.flat()) {
     const dupe = all.find(y => y.name.toLowerCase() === x.name.toLowerCase() || (dist([x.lat, x.lng], [y.lat, y.lng]) < 40 && (y.summary || !x.summary)));
-    if (dupe) { if (x.summary && !dupe.summary) Object.assign(dupe, x); continue; }
+    if (dupe) { if (x.summary && (!dupe.summary || (x.size || 0) > (dupe.size || 0))) Object.assign(dupe, x); continue; } // keep the fuller article
     all.push({ ...x });
   }
   // a longer article is a fair sign of a more notable place; distance counts, but less, so a long tour gets a spread
-  const score = x => (x.summary ? 2 + Math.min(3, x.summary.length / 400) : 0) + (/attraction|museum|monument|church|castle|palace|memorial/i.test(x.kind) ? 1 : 0) - 0.7 * dist([lat, lng], [x.lat, x.lng]) / radius;
+  const score = x => (x.summary ? 2 + Math.min(4, (x.size || x.summary.length) / 600) : 0) + (/attraction|museum|monument|church|castle|palace|memorial/i.test(x.kind) ? 1 : 0) - 0.7 * dist([lat, lng], [x.lat, x.lng]) / radius;
   return all.filter(x => dist([lat, lng], [x.lat, x.lng]) <= radius * 1.2).sort((x, y) => score(y) - score(x)).slice(0, 40);
 }
 
