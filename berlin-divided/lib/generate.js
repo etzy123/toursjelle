@@ -50,10 +50,11 @@ async function wikiNearby(fetchImpl, lang, lat, lng, radius) {
   const api = `https://${lang}.wikipedia.org/w/api.php?format=json&formatversion=2&action=query`;
   const geo = await getJSON(fetchImpl, `${api}&list=geosearch&gscoord=${lat}%7C${lng}&gsradius=${Math.min(10000, radius)}&gslimit=150`, { timeout: 12000 });
   const hits = (geo.query && geo.query.geosearch) || [];
+  const batches = [];
+  for (let i = 0; i < hits.length; i += 20) batches.push(hits.slice(i, i + 20));
   const out = [];
-  for (let i = 0; i < hits.length; i += 20) {
-    const batch = hits.slice(i, i + 20);
-    const ex = await getJSON(fetchImpl, `${api}&prop=extracts%7Cdescription&exintro=1&explaintext=1&exlimit=20&titles=${encodeURIComponent(batch.map(h => h.title).join('|'))}`, { timeout: 12000 });
+  await Promise.all(batches.map(async batch => { // all at once: a few requests of 20 articles each
+    const ex = await getJSON(fetchImpl, `${api}&prop=extracts%7Cdescription&exintro=1&explaintext=1&exlimit=20&titles=${encodeURIComponent(batch.map(h => h.title).join('|'))}`, { timeout: 12000 }).catch(() => ({}));
     const pages = new Map(((ex.query && ex.query.pages) || []).map(pg => [pg.title, pg]));
     for (const h of batch) {
       const pg = pages.get(h.title) || {};
@@ -62,7 +63,7 @@ async function wikiNearby(fetchImpl, lang, lat, lng, radius) {
       out.push({ name: h.title.replace(/ \([^)]*\)$/, ''), lat: h.lat, lng: h.lon, kind: pg.description || '', summary: pg.extract.slice(0, 1400),
         url: `https://${lang}.wikipedia.org/wiki/${encodeURIComponent(h.title.replace(/ /g, '_'))}`, wiki: true });
     }
-  }
+  }));
   return out;
 }
 
