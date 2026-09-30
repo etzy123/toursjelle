@@ -475,6 +475,58 @@ test('group ride: a follower on another tour switches to the leader\'s tour', { 
   await lead.ctx.close(); await fol.ctx.close();
 });
 
+test('make a tour: three questions, progress, then the new tour opens and is read by the phone', { timeout: 90000 }, async () => {
+  const { ctx, page, errors } = await openTour({ at: [52.3752, 4.884] });
+  const war = JSON.parse(fs.readFileSync(path.join(ROOT, 'tours/amsterdam/war/tour.json'), 'utf8'));
+  const strip = x => { const { audio, dur, ...rest } = x; return rest; };
+  const made = { ...war, id: 'gen-test1', city: 'amsterdam', city_name: 'Amsterdam', generated: true, lang: 'en', title: 'Resistance on foot',
+    intro: strip(war.intro), outro: strip(war.outro), stops: war.stops.map(strip), legs: war.legs.map(l => ({ ...l, steps: l.steps.map(({ clip, ...st }) => ({ ...st, pre: st.pre && { text: st.pre.text } })) })),
+    offroute: { text: 'You seem to be off the route.' }, turnaround: { text: 'Turn around.' } };
+  let asked;
+  await ctx.route('**/api/status', r => r.fulfill({ json: { make: true } }));
+  await ctx.route('**/api/tour', r => { asked = JSON.parse(r.request().postData());
+    r.fulfill({ contentType: 'application/x-ndjson', body: ['places', 'writing', 'route'].map(step => JSON.stringify({ step })).join('\n') + '\n' + JSON.stringify({ tour: made }) + '\n' }); });
+  await page.waitForFunction(() => window.__tour && document.querySelector('#homeCard .name')?.textContent === 'Amsterdam in the war'); // the first visit moved to the nearest tour
+  await page.reload(); await page.waitForFunction(() => !document.getElementById('startBtn').disabled);
+  await page.waitForSelector('#makeCta:not([hidden])');
+  await page.click('#makeCta');
+  assert.equal(await page.evaluate(() => __tour.screen), 'make');
+  assert.match(await page.textContent('#makeWhere'), /in Amsterdam/);
+  await page.click('#interestPick [data-k="famous"]'); // off
+  await page.click('#interestPick [data-k="war"]');    // on
+  await page.click('#timePick [data-m="90"]');
+  await page.fill('#makeNote', 'Anne Frank');
+  await page.click('#makeGo');
+  await page.waitForFunction(() => window.__tour && __tour.screen === 'detail', null, { timeout: 15000 });
+  assert.deepEqual({ ...asked, lat: Math.round(asked.lat * 100), lng: Math.round(asked.lng * 100) },
+    { lat: 5238, lng: 488, minutes: 90, mode: 'walk', interests: ['history', 'war'], note: 'Anne Frank', lang: 'en' });
+  assert.equal(await page.textContent('#routeTitle'), 'Resistance on foot');
+  assert.equal(await page.isVisible('#aiNote'), true);
+  assert.equal(await page.evaluate(() => JSON.parse(localStorage.getItem('bd_tour'))), 'gen/gen-test1');
+  await page.click('#startBtn');
+  await page.waitForFunction(() => window.__spoken.some(x => x.startsWith('Welcome.')), null, { timeout: 10000 });
+  await page.goBack(); await page.goBack();
+  await page.click('#tabbar [data-go="tours"]');
+  assert.match(await page.textContent('#tourList'), /Resistance on foot\s*Current/);
+  assert.deepEqual(errors, []);
+  await ctx.close();
+});
+
+test('make a tour: a clear message when it fails, and the questions come back', async () => {
+  const { ctx, page, errors } = await openTour({ at: [52.3752, 4.884] });
+  await ctx.route('**/api/status', r => r.fulfill({ json: { make: true } }));
+  await ctx.route('**/api/tour', r => r.fulfill({ contentType: 'application/x-ndjson', body: '{"step":"places"}\n{"error":"no-places"}\n' }));
+  await page.waitForFunction(() => window.__tour && document.querySelector('#homeCard .name')?.textContent === 'Amsterdam in the war');
+  await page.reload(); await page.waitForSelector('#makeCta:not([hidden])');
+  await page.click('#makeCta'); await page.click('#makeGo');
+  await page.waitForSelector('#makeErr:not([hidden])');
+  assert.match(await page.textContent('#makeErr'), /not enough places/);
+  await page.click('#makeRetry');
+  assert.equal(await page.isVisible('#makeGo'), true);
+  assert.deepEqual(errors, []);
+  await ctx.close();
+});
+
 test('home: a first visit in Amsterdam opens on the tours there, nearest first; picking one loads it', async () => {
   const { ctx, page, errors } = await openTour({ at: [52.3731, 4.8914] }); // the Dam
   await page.waitForFunction(() => window.__tour && document.getElementById('brandCity')?.textContent === 'Amsterdam', null, { timeout: 15000 });
@@ -510,12 +562,14 @@ test('home: without location access it asks, instead of guessing a city', async 
 
 test('far from Berlin: says so instead of a long dotted line; app code is never kept stale', async () => {
   const { ctx, page, errors } = await openTour({ at: [52.3702, 4.8952] }); // Amsterdam, with Berlin chosen
+  await page.waitForFunction(() => window.__tour && localStorage.getItem('bd_tour'), null, { timeout: 15000 }); // the first visit moves to an Amsterdam tour
+  await page.waitForFunction(() => !document.getElementById('startBtn').disabled);
   await page.evaluate(() => { localStorage.setItem('bd_tour', '"berlin/divided"'); location.replace(location.pathname); });
   await page.waitForFunction(() => window.__tour && document.querySelector('#homeCard .name')?.textContent === 'Berlin divided' && !document.getElementById('startBtn').disabled);
   await startTour(page);
   await page.waitForFunction(() => document.getElementById('navInstr').textContent === 'You are not in Berlin yet');
   assert.equal(await page.textContent('#navEta'), '');
-  for (const f of ['', 'strings.js', 'strings.js?v=7', 'tours/index.json', BASE + 'tour.json', 'sw.js'])
+  for (const f of ['', 'strings.js', 'strings.js?v=8', 'tours/index.json', BASE + 'tour.json', 'sw.js'])
     assert.equal((await fetch(server.url + f)).headers.get('cache-control'), 'no-cache', `${f || 'index'} is revalidated`);
   assert.match((await fetch(server.url + 'vendor/leaflet/leaflet.js')).headers.get('cache-control'), /max-age/);
   assert.deepEqual(errors, []);

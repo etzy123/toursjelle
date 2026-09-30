@@ -15,6 +15,21 @@ The Tours tab lists cities and their tours; tours that are not built yet show as
 Progress, starting point and settings are kept per tour, each tour is downloaded for offline
 use into its own cache, and a group follows the leader's tour.
 
+## Tours made on the spot ("Make a tour right here")
+
+The home page asks three questions (interests, time, walking or cycling) and makes a tour from
+where the phone is: `lib/generate.js` finds named places nearby on OpenStreetMap (Overpass), takes
+their Wikipedia summaries as the facts, has Claude (`claude-opus-5-5`, structured JSON output,
+refusal fallback on) choose, order and write the stops, and routes them with OSRM
+(`lib/directions.js`, the same rules as the Python build). The phone's own voice reads the stories,
+so the tour starts about a minute after asking. Tours are kept on the phone (localStorage).
+
+To switch it on, set **`ANTHROPIC_API_KEY`** in Railway (service > Variables). Without it the button
+stays hidden. `TOUR_DAILY_LIMIT` (default 200) caps tours per day; each phone may make 6 an hour,
+and the same request within 6 hours is served from memory. A tour costs roughly $0.05 to $0.15 in
+API usage. The server needs outbound access to overpass-api.de, wikipedia.org,
+nominatim.openstreetmap.org, routing.openstreetmap.de and api.anthropic.com.
+
 Build a tour: `python scripts/build_tour.py tours/amsterdam/golden-age` (routing, checks,
 directions, voice). See `tours/SCHEMA.md`.
 
