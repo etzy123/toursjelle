@@ -64,21 +64,19 @@ async function wikiNearby(fetchImpl, lang, lat, lng, radius) {
 }
 
 // named sights from OpenStreetMap, as an extra: the public Overpass servers are often busy,
-// so each mirror gets a short time and the tour goes ahead without them if all fail
+// so three mirrors are asked at once, the first answer wins, and after 10 seconds the tour goes ahead without them
 const OVERPASS_MIRRORS = [OVERPASS, 'https://overpass.private.coffee/api/interpreter', 'https://overpass.kumi.systems/api/interpreter'];
 async function osmPlaces(fetchImpl, lat, lng, radius) {
   const a = `(around:${Math.min(radius, 3000)},${lat},${lng})`;
   const q = `[out:json][timeout:12];(nwr${a}["tourism"~"^(attraction|museum|artwork|viewpoint|gallery)$"]["name"];nwr${a}["historic"~"^(monument|memorial|castle|building|church|ruins|city_gate|archaeological_site)$"]["name"];);out center tags 200;`;
-  for (const url of OVERPASS_MIRRORS) {
-    try {
-      const data = await getJSON(fetchImpl, url, { method: 'POST', body: 'data=' + encodeURIComponent(q), headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, timeout: 15000 });
-      return (data.elements || []).map(el => {
-        const t = el.tags || {}, p = el.lat != null ? [el.lat, el.lon] : el.center ? [el.center.lat, el.center.lon] : null;
-        return p && t.name ? { name: t.name, lat: p[0], lng: p[1], kind: t.tourism || t.historic || '' } : null;
-      }).filter(Boolean);
-    } catch (e) { /* try the next mirror */ }
-  }
-  return [];
+  const ask = async url => {
+    const data = await getJSON(fetchImpl, url, { method: 'POST', body: 'data=' + encodeURIComponent(q), headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, timeout: 10000 });
+    return (data.elements || []).map(el => {
+      const t = el.tags || {}, p = el.lat != null ? [el.lat, el.lon] : el.center ? [el.center.lat, el.center.lon] : null;
+      return p && t.name ? { name: t.name, lat: p[0], lng: p[1], kind: t.tourism || t.historic || '' } : null;
+    }).filter(Boolean);
+  };
+  try { return await Promise.any(OVERPASS_MIRRORS.map(ask)); } catch (e) { return []; } // the first mirror to answer wins
 }
 
 // every candidate once, best first: with facts, attractions, then by distance
