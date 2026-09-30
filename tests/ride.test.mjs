@@ -4,7 +4,7 @@
 //   (cd berlin-divided && npm install) && cd tests && npm install && npm test
 //
 // Set CHROMIUM_PATH to use a specific browser binary. Map tiles and web fonts are blocked so the
-// tests run offline and do not load the OpenStreetMap tile servers.
+// tests run offline and do not load the map tile servers.
 import { test, before, after } from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
@@ -51,7 +51,7 @@ async function openTour({ mode = 'tap', travel = 'bike', bonus = [], at = ROUTE[
   const ctx = await browser.newContext({
     viewport: { width: 390, height: 800 }, geolocation: geo(at), permissions: ['geolocation'], serviceWorkers, locale,
   });
-  await ctx.route(/tile\.openstreetmap\.org|fonts\.googleapis\.com|fonts\.gstatic\.com/, r => r.abort());
+  await ctx.route(/tile\.openstreetmap\.org|basemaps\.cartocdn\.com|fonts\.googleapis\.com|fonts\.gstatic\.com/, r => r.abort());
   await ctx.addInitScript(([m, t, b]) => { if (!sessionStorage.seeded) { localStorage.clear(); localStorage.setItem('bd_storymode', JSON.stringify(m)); localStorage.setItem('bd_travel', JSON.stringify(t)); localStorage.setItem('bd_bonus', JSON.stringify(b)); sessionStorage.seeded = 1; } }, [mode, travel, bonus]);
   // headless Chromium has no voices; a stand-in that "speaks" each sentence in 20 ms keeps runs deterministic
   await ctx.addInitScript(() => {
@@ -90,11 +90,14 @@ async function finishAudio(page) {
   throw new Error('audio never finished');
 }
 const log = page => page.evaluate(() => __tour.log.map(x => ({ ...x })));
+async function openTourPage(page) { if (!(await page.isVisible('#startBtn'))) await page.click('#homeCard'); }
+async function startTour(page) { await openTourPage(page); await page.click('#startBtn'); }
+async function testRide(page) { await openTourPage(page); await page.click('#testBtn'); }
 
 // ---------- tests ----------
 test('full ride with GPS along the route: all stories in order, turn prompts fire, nothing throws', { timeout: 600000 }, async () => {
   const { ctx, page, errors } = await openTour({ mode: 'auto' });
-  await page.click('#startBtn');
+  await startTour(page);
   for (let d = 0; d <= TOTAL + 8; d += 8) {
     await ctx.setGeolocation(geo(pointAt(d)));
     await page.waitForTimeout(12);
@@ -117,6 +120,8 @@ test('full ride with GPS along the route: all stories in order, turn prompts fir
   assert.ok(pre.length >= 5, `pre-announcements: ${pre.length}`);
   assert.ok(pre.every(p => /^In 150 metres, /.test(p.text)));
   assert.ok(!spoken.some(x => x.clip === TOUR.offroute), 'no off-route warning while on the route');
+  await page.waitForFunction(() => __tour.screen === 'complete');
+  assert.equal(await page.textContent('#cStories'), '11/11', 'the finish screen counts every story');
   assert.deepEqual(errors, []);
   console.log(`  stories ${stories.length}, turn prompts ${fired}/${turns.length}, pre-announcements ${pre.length}`);
   for (const [l, leg] of TOUR.nav.entries()) for (const st of leg.slice(1)) if (!clips.has(st.clip))
@@ -126,7 +131,7 @@ test('full ride with GPS along the route: all stories in order, turn prompts fir
 
 test('tap mode: arriving never starts the story by itself', async () => {
   const { ctx, page, errors } = await openTour({ mode: 'tap' });
-  await page.click('#startBtn');
+  await startTour(page);
   await finishAudio(page); // intro
   await ctx.setGeolocation(geo(pointAt(5)));
   await page.waitForFunction(() => __tour.pending === 'reichstag');
@@ -141,7 +146,7 @@ test('tap mode: arriving never starts the story by itself', async () => {
 
 test('tell me more: offered after the story, then read out in full', async () => {
   const { ctx, page, errors } = await openTour({ mode: 'tap' });
-  await page.click('#startBtn');
+  await startTour(page);
   await finishAudio(page);
   await ctx.setGeolocation(geo(pointAt(5)));
   await page.waitForFunction(() => __tour.pending === 'reichstag');
@@ -152,6 +157,7 @@ test('tell me more: offered after the story, then read out in full', async () =>
   assert.match(await page.textContent('#moreBtn'), /Tell me more about the Reichstag/);
   assert.match(await page.textContent('#kicker'), /Tell me more/);
   const before = await page.evaluate(() => window.__spoken.length);
+  await page.click('#openStory');
   await page.click('#moreBtn');
   assert.equal(await page.isHidden('#moreBtn'), true, 'no offer while it plays');
   await page.waitForFunction(() => !__tour.tts, null, { timeout: 20000 });
@@ -167,7 +173,7 @@ test('bonus stop: detour after its stop, story, back to the route; can be skippe
   const bonus = TOUR.bonus.find(b => b.id === 'traenenpalast');
   const { ctx, page, errors } = await openTour({ mode: 'auto', bonus: ['traenenpalast'] });
   assert.match(await page.textContent('#bonusPick'), /Tränenpalast/);
-  await page.click('#startBtn');
+  await startTour(page);
   await ctx.setGeolocation(geo(pointAt(5)));
   await finishAudio(page); await page.waitForFunction(() => __tour.current === 'reichstag'); await finishAudio(page);
   await page.waitForFunction(() => __tour.bonus === 'traenenpalast');
@@ -192,7 +198,7 @@ test('bonus stop: detour after its stop, story, back to the route; can be skippe
 
   // skipping it starts the normal directions straight away
   const second = await openTour({ mode: 'auto', bonus: ['traenenpalast'] });
-  await second.page.click('#startBtn');
+  await startTour(second.page);
   await second.ctx.setGeolocation(geo(pointAt(5)));
   await finishAudio(second.page); await second.page.waitForFunction(() => __tour.current === 'reichstag'); await finishAudio(second.page);
   await second.page.waitForFunction(() => __tour.bonus === 'traenenpalast');
@@ -212,12 +218,13 @@ test('then and now: the stop photo shows with its credit and licence, and opens 
     const j = await (await r.fetch()).json(); j.stops[0].photo = photo; r.fulfill({ json: j });
   });
   await page.reload(); await page.waitForFunction(() => !document.getElementById('startBtn').disabled);
-  await page.click('#startBtn');
-  assert.equal(await page.isHidden('#photo'), true, 'no photo with the intro');
+  await startTour(page);
+  assert.equal(await page.isHidden('#photoImg'), true, 'no photo with the intro');
   await finishAudio(page);
   await ctx.setGeolocation(geo(pointAt(5)));
   await page.waitForFunction(() => __tour.pending === 'reichstag');
-  assert.equal(await page.isVisible('#photo'), true, 'photo shows on arrival');
+  await page.click('#openStory');
+  assert.equal(await page.isVisible('#photoImg'), true, 'photo shows on arrival');
   assert.equal(await page.textContent('#photoCap'), 'A test photo, 1961.');
   assert.match(await page.textContent('#photoCredit'), /Test Author, CC BY-SA 3\.0 de/);
   await page.click('#photoOpen');
@@ -232,6 +239,7 @@ test('then and now: the stop photo shows with its credit and licence, and opens 
 
 test('group ride: followers hear the leader\'s story in step and see each other on the map', { timeout: 90000 }, async () => {
   const lead = await openTour({ mode: 'auto', at: [52.5203, 13.3738] }); // 250 m from the first stop
+  await lead.page.click('#tileGroup');
   await lead.page.fill('#groupName', 'Anna');
   await lead.page.click('#groupCreate');
   await lead.page.waitForFunction(() => __tour.group && __tour.group.online && __tour.group.code);
@@ -240,6 +248,7 @@ test('group ride: followers hear the leader\'s story in step and see each other 
 
   // the follower stands somewhere else: stories follow the leader, not the follower's own position
   const fol = await openTour({ mode: 'auto', at: pointAt(3000) });
+  await fol.page.click('#tileGroup');
   await fol.page.fill('#groupName', 'Ben');
   await fol.page.fill('#groupCode', code.toLowerCase());
   await fol.page.click('#groupJoin');
@@ -248,7 +257,7 @@ test('group ride: followers hear the leader\'s story in step and see each other 
   await lead.page.waitForFunction(() => __tour.group.members === 2);
   assert.match(await lead.page.textContent('#groupWho'), /You lead · 1 rider with you/);
 
-  await lead.page.click('#startBtn'); await fol.page.click('#startBtn');
+  await lead.page.click('#groupGo'); await fol.page.click('#groupGo');
   await finishAudio(lead.page);
   await lead.ctx.setGeolocation(geo(pointAt(5)));
   await lead.page.waitForFunction(() => __tour.current === 'reichstag' && !document.getElementById('audio').paused);
@@ -280,6 +289,7 @@ test('group ride: followers hear the leader\'s story in step and see each other 
 
 test('group ride: a wrong code says so', async () => {
   const { ctx, page, errors } = await openTour();
+  await page.click('#tileGroup');
   await page.fill('#groupCode', 'QQQQ'); await page.click('#groupJoin');
   await page.waitForFunction(() => !document.getElementById('groupErr').hidden);
   assert.match(await page.textContent('#groupErr'), /No group with that code/);
@@ -295,8 +305,8 @@ test('languages: Dutch from the phone setting, spoken and shown in Dutch; switch
   assert.equal(await page.textContent('#startBtn'), 'Start de tour');
   assert.equal(await page.textContent('#factHow'), 'op de fiets');
   assert.match(await page.textContent('#ledeMain'), /van de Rijksdag en de luchtbrug naar de Bernauer Straße/);
-  assert.equal(await page.inputValue('#langSel'), 'nl');
-  await page.click('#startBtn');
+  assert.equal(await page.getAttribute('[data-lang="nl"]', 'aria-checked'), 'true');
+  await startTour(page);
   const spoken = () => page.evaluate(() => window.__spoken.join(' | '));
   await page.waitForFunction(() => window.__spoken.some(x => x.startsWith('Welkom in Berlijn')));
   await page.waitForFunction(() => !__tour.tts);
@@ -318,7 +328,7 @@ test('languages: Dutch from the phone setting, spoken and shown in Dutch; switch
   assert.match(await page.textContent('#progress'), /^3 van 11 stops$/);
   // switching language reloads in German
   await page.click('#navExit'); await page.click('#changeStart');
-  await page.selectOption('#langSel', 'de');
+  await page.click('[data-lang="de"]');
   await page.waitForFunction(() => window.__tour && __tour.lang === 'de');
   await page.waitForFunction(() => !document.getElementById('startBtn').disabled);
   assert.equal(await page.textContent('#startBtn'), 'Tour fortsetzen');
@@ -328,9 +338,37 @@ test('languages: Dutch from the phone setting, spoken and shown in Dutch; switch
   await ctx.close();
 });
 
+test('settings: story start, voice speed and tour mode; continuing skips the introduction', async () => {
+  const { ctx, page, errors } = await openTour({ mode: 'tap' });
+  await page.click('#tabbar [data-go="settings"]');
+  await page.click('#autoToggle');
+  assert.equal(await page.evaluate(() => __tour.mode), 'stopped', 'auto-play on, only when stopped (default on)');
+  await page.click('#stopToggle');
+  assert.equal(await page.evaluate(() => __tour.mode), 'auto');
+  await page.click('#autoToggle');
+  assert.equal(await page.evaluate(() => __tour.mode), 'tap');
+  assert.equal(await page.isDisabled('#stopToggle'), true);
+  await page.click('#speedPick button:nth-child(3)');
+  assert.equal(await page.evaluate(() => document.getElementById('audio').defaultPlaybackRate), 1.25);
+  await page.click('#modeWalk');
+  assert.equal(await page.evaluate(() => __tour.travel), 'walk');
+  assert.equal(await page.textContent('#factHow'), 'on foot');
+  // a tour already under way: starting again goes straight on, without the introduction
+  await page.evaluate(() => localStorage.setItem('bd_played', JSON.stringify(['reichstag'])));
+  await page.reload(); await page.waitForFunction(() => !document.getElementById('startBtn').disabled);
+  assert.equal(await page.evaluate(() => document.getElementById('audio').defaultPlaybackRate), 1.25, 'speed is remembered');
+  assert.equal(await page.textContent('#startBtn'), 'Continue the tour');
+  await startTour(page);
+  await page.waitForTimeout(500);
+  assert.equal(await page.evaluate(() => __tour.screen), 'ride');
+  assert.ok(!(await log(page)).some(x => x.kind === 'story' && x.id === 'intro'), 'no introduction when continuing');
+  assert.deepEqual(errors, []);
+  await ctx.close();
+});
+
 test('stop-safe mode: waits until the rider has stopped for 5 seconds', { timeout: 60000 }, async () => {
   const { ctx, page, errors } = await openTour({ mode: 'stopped', at: pointAt(0) });
-  await page.click('#startBtn');
+  await startTour(page);
   await finishAudio(page);
   // ride through the stop radius at about 20 km/h
   const t0 = Date.now();
@@ -349,7 +387,7 @@ test('stop-safe mode: waits until the rider has stopped for 5 seconds', { timeou
 
 test('off route: arrow and distance back to the route, warning and "turn around"', { timeout: 60000 }, async () => {
   const { ctx, page, errors } = await openTour({ mode: 'auto' });
-  await page.click('#startBtn');
+  await startTour(page);
   await ctx.setGeolocation(geo(pointAt(5)));
   await finishAudio(page); await page.waitForFunction(() => __tour.current === 'reichstag'); await finishAudio(page);
   // ride 20 m per second heading due west, away from the route (which runs south here)
@@ -360,6 +398,10 @@ test('off route: arrow and distance back to the route, warning and "turn around"
     await page.evaluate(() => { const a = document.getElementById('audio'); if (!a.paused && isFinite(a.duration)) a.currentTime = a.duration - 0.05; });
   }
   assert.equal(await page.evaluate(() => __tour.offRoute), true);
+  assert.equal(await page.isVisible('#offCard'), true, 'off-route card');
+  assert.match(await page.textContent('#offFrom'), /\d+ m from the route/);
+  await page.click('#offBack');
+  assert.equal(await page.isVisible('#offPill'), true, 'dismissed card leaves a pill');
   assert.match(await page.getAttribute('#navBanner', 'class'), /\boff\b/);
   assert.match(await page.textContent('#navInstr'), /Turn around/);
   assert.match(await page.textContent('#navDist'), /\d+ m/);
@@ -380,7 +422,7 @@ test('walking vs cycling: smaller stop radius and longer time estimate on foot',
     const stop = [TOUR.stops[0].lat, TOUR.stops[0].lng], along = m => { let d = 0; while (dist(pointAt(d), stop) < m) d += 1; return pointAt(d); };
     const { ctx, page, errors } = await openTour({ mode: 'auto', travel, at: along(70) });
     facts[travel] = [await page.textContent('#factHow'), await page.textContent('#factTime')];
-    await page.click('#startBtn');
+    await startTour(page);
     await finishAudio(page);
     await page.waitForTimeout(800);
     assert.equal(await page.evaluate(() => __tour.pending), null, '70 m away is outside both radii');
@@ -406,7 +448,7 @@ test('offline: after the first visit the tour loads and plays without a connecti
   await ctx.setOffline(true);
   await page.reload();
   await page.waitForFunction(() => !document.getElementById('startBtn').disabled, null, { timeout: 15000 });
-  await page.click('#testBtn');
+  await testRide(page);
   await page.waitForFunction(() => document.getElementById('audio').currentTime > 0.3, null, { timeout: 15000 });
   await page.evaluate(() => { document.getElementById('audio').currentTime = 20; }); // seeking needs byte ranges from the cache
   await page.waitForFunction(() => document.getElementById('audio').currentTime > 20.2, null, { timeout: 10000 });
