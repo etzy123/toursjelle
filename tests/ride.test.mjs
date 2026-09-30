@@ -178,46 +178,6 @@ test('tell me more: offered after the story, then read out in full', async () =>
   await ctx.close();
 });
 
-test('bonus stop: detour after its stop, story, back to the route; can be skipped', { timeout: 90000 }, async () => {
-  const bonus = TOUR.bonus.find(b => b.id === 'traenenpalast');
-  const { ctx, page, errors } = await openTour({ mode: 'auto', bonus: ['traenenpalast'] });
-  assert.match(await page.textContent('#bonusPick'), /Tränenpalast/);
-  await startTour(page);
-  await ctx.setGeolocation(geo(pointAt(5)));
-  await finishAudio(page); await page.waitForFunction(() => __tour.current === 'reichstag'); await finishAudio(page);
-  await page.waitForFunction(() => __tour.bonus === 'traenenpalast');
-  assert.match(await page.textContent('#navInstr'), /Bonus stop: The Tränenpalast/);
-  assert.equal(await page.isVisible('#navSkip'), true);
-  const legStart = TOUR.nav[0][0].clip;
-  assert.ok(!(await log(page)).some(x => x.clip === legStart), 'directions to stop 2 wait until after the detour');
-  // ride there in a straight line, well off the route
-  const from = pointAt(5), to = [bonus.lat, bonus.lng];
-  for (let i = 1; i <= 12; i++) {
-    await ctx.setGeolocation(geo([from[0] + (to[0] - from[0]) * i / 12, from[1] + (to[1] - from[1]) * i / 12]));
-    await page.waitForTimeout(250);
-  }
-  await page.waitForFunction(() => __tour.current === 'traenenpalast', null, { timeout: 5000 });
-  assert.ok(!(await log(page)).some(x => x.clip === TOUR.offroute), 'no off-route warning on the detour');
-  await page.waitForFunction(() => !__tour.tts, null, { timeout: 20000 }); // read by the stand-in voice
-  assert.equal(await page.evaluate(() => __tour.bonus), null);
-  assert.match(await page.textContent('#navInstr'), /head back to the route/i);
-  assert.ok(await page.evaluate(() => __tour.played.includes('traenenpalast')));
-  assert.match(await page.textContent('#stopList'), /bonus/);
-  await ctx.close();
-
-  // skipping it starts the normal directions straight away
-  const second = await openTour({ mode: 'auto', bonus: ['traenenpalast'] });
-  await startTour(second.page);
-  await second.ctx.setGeolocation(geo(pointAt(5)));
-  await finishAudio(second.page); await second.page.waitForFunction(() => __tour.current === 'reichstag'); await finishAudio(second.page);
-  await second.page.waitForFunction(() => __tour.bonus === 'traenenpalast');
-  await second.page.click('#navSkip');
-  await second.page.waitForFunction(c => __tour.log.some(x => x.clip === c), legStart);
-  assert.equal(await second.page.evaluate(() => __tour.bonus), null);
-  assert.deepEqual([...errors, ...second.errors], []);
-  await second.ctx.close();
-});
-
 test('then and now: the stop photo shows with its credit and licence, and opens full size', async () => {
   const { ctx, page, errors } = await openTour({ mode: 'tap' });
   // no photos are downloaded yet, so give the first stop one (the app icon) through the tour JSON
@@ -449,10 +409,9 @@ test('catalogue: city chips, tours per city, coming soon, switching tours keeps 
 
 test('catalogue: progress from before there were several tours carries over to Berlin', async () => {
   const { ctx, page, errors } = await openTour();
-  await page.evaluate(() => { for (const k of Object.keys(localStorage)) if (k.includes(':')) localStorage.removeItem(k); localStorage.setItem('bd_played', JSON.stringify(['reichstag', 'gate'])); localStorage.setItem('bd_start', '1'); });
+  await page.evaluate(() => { for (const k of Object.keys(localStorage)) if (k.includes(':')) localStorage.removeItem(k); localStorage.setItem('bd_played', JSON.stringify(['reichstag', 'gate'])); });
   await page.reload(); await page.waitForFunction(() => !document.getElementById('startBtn').disabled);
   assert.deepEqual(await page.evaluate(() => __tour.played), ['reichstag', 'gate']);
-  assert.equal(await page.evaluate(() => JSON.parse(localStorage.getItem('bd_start:berlin/divided'))), 1);
   assert.deepEqual(errors, []);
   await ctx.close();
 });

@@ -1,5 +1,5 @@
-// Tours made on the spot: real places near the traveller from OpenStreetMap, their Wikipedia
-// summaries as the facts, Claude to choose, order and write the stops, OSRM for the route.
+// Tours made on the spot: real places near the traveller from Wikipedia (with their intro text as
+// the facts) and OpenStreetMap, Claude to choose, order and write the stops, OSRM for the route.
 // The stories are read by the phone's own voice, so a tour is ready as soon as it is written.
 'use strict';
 const crypto = require('node:crypto');
@@ -40,46 +40,73 @@ async function getJSON(fetchImpl, url, opts = {}) {
   return r.json();
 }
 
-// named places worth a story, best first: those with a Wikipedia article, then attractions
-async function places(fetchImpl, lat, lng, radius) {
-  const a = `(around:${radius},${lat},${lng})`;
-  const q = `[out:json][timeout:25];(nwr${a}["historic"]["name"];nwr${a}["tourism"~"^(attraction|museum|artwork|viewpoint|gallery)$"]["name"];`
-    + `nwr${a}["memorial"]["name"];nwr${a}["amenity"="place_of_worship"]["name"]["wikidata"];nwr${a}["building"~"^(church|cathedral|castle|palace)$"]["name"]["wikidata"];);out center tags 400;`;
-  const data = await getJSON(fetchImpl, OVERPASS, { method: 'POST', body: 'data=' + encodeURIComponent(q), headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, timeout: 40000 });
-  const seen = new Map();
-  for (const el of data.elements || []) {
-    const t = el.tags || {}, p = el.lat != null ? [el.lat, el.lon] : el.center ? [el.center.lat, el.center.lon] : null;
-    if (!p || !t.name) continue;
-    const key = t.name.toLowerCase();
-    const score = (t.wikipedia ? 4 : 0) + (t.wikidata ? 2 : 0) + (/^(attraction|museum)$/.test(t.tourism || '') ? 2 : 0) + (t.historic ? 1 : 0) - dist([lat, lng], p) / radius;
-    const kind = t.historic || t.tourism || t.memorial || t.amenity || t.building || '';
-    const prev = seen.get(key);
-    if (!prev || prev.score < score) seen.set(key, { name: t.name, lat: p[0], lng: p[1], kind, wikipedia: t.wikipedia || null, score });
-  }
-  return [...seen.values()].sort((x, y) => y.score - x.score).slice(0, 40);
+const COUNTRY_LANG = { nl: 'nl', be: 'nl', de: 'de', at: 'de', ch: 'de', fr: 'fr', it: 'it', es: 'es', pt: 'pt', pl: 'pl', cz: 'cs', dk: 'da', se: 'sv', no: 'no', hu: 'hu', gr: 'el' };
+
+const AREA = /\b(district|borough|neighbou?rhood|municipality|quarter|city|town|village|province|region|stadsdeel|wijk|buurt|gemeente|stadtteil|ortsteil|gemeinde|bezirk|railway station|metro station|tram stop|bus stop)\b/i;
+
+// Wikipedia articles with coordinates near the start, in a few languages, with their intro text:
+// the main source, because every place found this way comes with its facts
+async function wikiNearby(fetchImpl, lang, lat, lng, radius) {
+  const api = `https://${lang}.wikipedia.org/w/api.php?format=json&formatversion=2&action=query`;
+  const geo = await getJSON(fetchImpl, `${api}&list=geosearch&gscoord=${lat}%7C${lng}&gsradius=${Math.min(10000, radius)}&gslimit=150`, { timeout: 12000 });
+  const hits = (geo.query && geo.query.geosearch) || [];
+  const batches = [];
+  for (let i = 0; i < hits.length; i += 20) batches.push(hits.slice(i, i + 20));
+  const out = [];
+  await Promise.all(batches.map(async batch => { // all at once: a few requests of 20 articles each
+    const ex = await getJSON(fetchImpl, `${api}&prop=extracts%7Cdescription&exintro=1&explaintext=1&exlimit=20&titles=${encodeURIComponent(batch.map(h => h.title).join('|'))}`, { timeout: 12000 }).catch(() => ({}));
+    const pages = new Map(((ex.query && ex.query.pages) || []).map(pg => [pg.title, pg]));
+    for (const h of batch) {
+      const pg = pages.get(h.title) || {};
+      if (!pg.extract || pg.extract.length < 120) continue; // stubs make poor stories
+      if (AREA.test(pg.description || '')) continue; // districts and towns are where you are, not something to look at
+      out.push({ name: h.title.replace(/ \([^)]*\)$/, ''), lat: h.lat, lng: h.lon, kind: pg.description || '', summary: pg.extract.slice(0, 1400), size: pg.extract.length,
+        url: `https://${lang}.wikipedia.org/wiki/${encodeURIComponent(h.title.replace(/ /g, '_'))}`, wiki: true });
+    }
+  }));
+  return out;
 }
 
-// the Wikipedia summary of each place that has an article, a few requests at a time
-async function summaries(fetchImpl, list) {
-  const todo = list.filter(p => p.wikipedia).slice(0, 30);
-  const one = async p => {
-    const m = /^(\w+):(.+)$/.exec(p.wikipedia);
-    if (!m) return;
-    try {
-      const s = await getJSON(fetchImpl, `https://${m[1]}.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(m[2].replace(/ /g, '_'))}`, { timeout: 10000 });
-      if (s.extract) { p.summary = s.extract.slice(0, 1400); p.url = s.content_urls && s.content_urls.desktop && s.content_urls.desktop.page; }
-    } catch (e) { /* a place without a summary can still be chosen */ }
+// named sights from OpenStreetMap, as an extra: the public Overpass servers are often busy,
+// so three mirrors are asked at once, the first answer wins, and after 10 seconds the tour goes ahead without them
+const OVERPASS_MIRRORS = [OVERPASS, 'https://overpass.private.coffee/api/interpreter', 'https://overpass.kumi.systems/api/interpreter'];
+async function osmPlaces(fetchImpl, lat, lng, radius) {
+  const a = `(around:${Math.min(radius, 3000)},${lat},${lng})`;
+  const q = `[out:json][timeout:12];(nwr${a}["tourism"~"^(attraction|museum|artwork|viewpoint|gallery)$"]["name"];nwr${a}["historic"~"^(monument|memorial|castle|building|church|ruins|city_gate|archaeological_site)$"]["name"];);out center tags 200;`;
+  const ask = async url => {
+    const data = await getJSON(fetchImpl, url, { method: 'POST', body: 'data=' + encodeURIComponent(q), headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, timeout: 10000 });
+    return (data.elements || []).map(el => {
+      const t = el.tags || {}, p = el.lat != null ? [el.lat, el.lon] : el.center ? [el.center.lat, el.center.lon] : null;
+      return p && t.name ? { name: t.name, lat: p[0], lng: p[1], kind: t.tourism || t.historic || '' } : null;
+    }).filter(Boolean);
   };
-  for (let i = 0; i < todo.length; i += 8) await Promise.all(todo.slice(i, i + 8).map(one));
-  return list;
+  try { return await Promise.any(OVERPASS_MIRRORS.map(ask)); } catch (e) { return []; } // the first mirror to answer wins
 }
 
-async function cityName(fetchImpl, lat, lng, lang) {
+// every candidate once, best first: with facts, attractions, then by distance
+function merge(lat, lng, radius, lists) {
+  const all = [];
+  for (const x of lists.flat()) {
+    const dupe = all.find(y => y.name.toLowerCase() === x.name.toLowerCase() || (dist([x.lat, x.lng], [y.lat, y.lng]) < 40 && (y.summary || !x.summary)));
+    if (dupe) { if (x.summary && (!dupe.summary || (x.size || 0) > (dupe.size || 0))) Object.assign(dupe, x); continue; } // keep the fuller article
+    all.push({ ...x });
+  }
+  // a longer article is a fair sign of a more notable place; distance counts, but less, so a long tour gets a spread
+  const score = x => (x.summary ? 2 + Math.min(4, (x.size || x.summary.length) / 600) : 0) + (/attraction|museum|monument|church|castle|palace|memorial/i.test(x.kind) ? 1 : 0) - 0.7 * dist([lat, lng], [x.lat, x.lng]) / radius;
+  return all.filter(x => dist([lat, lng], [x.lat, x.lng]) <= radius * 1.2).sort((x, y) => score(y) - score(x)).slice(0, 40);
+}
+
+async function places(fetchImpl, lat, lng, radius, langs) {
+  const lists = await Promise.all([...langs.map(l => wikiNearby(fetchImpl, l, lat, lng, radius).catch(() => [])), osmPlaces(fetchImpl, lat, lng, radius)]);
+  return merge(lat, lng, radius, lists);
+}
+
+async function locality(fetchImpl, lat, lng, lang) {
   try {
     const r = await getJSON(fetchImpl, `https://nominatim.openstreetmap.org/reverse?format=json&zoom=10&lat=${lat}&lon=${lng}&accept-language=${lang}`, { timeout: 10000 });
     const a = r.address || {};
-    return a.city || a.town || a.village || a.municipality || a.county || null;
-  } catch (e) { return null; }
+    return { city: a.city || a.town || a.village || a.municipality || a.county || null, country: a.country_code || null };
+  } catch (e) { return { city: null, country: null }; }
 }
 
 const SYSTEM = `You write short self-guided audio tours. A phone reads them aloud while someone walks or cycles through a city, so everything you write is heard, not read.
@@ -144,12 +171,14 @@ const words = s => (s.match(/\S+/g) || []).length;
 // the whole pipeline; onStep(name) reports progress: places, writing, route
 async function generateTour(req, { fetch: fetchImpl = fetch, anthropic, onStep = () => {} } = {}) {
   const p = plan(req.minutes, req.mode);
+  const step = async (name, fn) => { try { return await fn(); } catch (e) { e.message = `${name}: ${e.message}`; throw e; } };
   onStep('places');
-  const [found, city] = await Promise.all([places(fetchImpl, req.lat, req.lng, p.radius), cityName(fetchImpl, req.lat, req.lng, req.lang || 'en')]);
-  if (found.length < 2) throw Object.assign(new Error('too few places'), { code: 'no-places' });
-  await summaries(fetchImpl, found);
+  const where = await locality(fetchImpl, req.lat, req.lng, req.lang || 'en'), city = where.city;
+  const langs = [...new Set(['en', req.lang, COUNTRY_LANG[where.country]].filter(l => /^[a-z]{2}$/.test(l || '')))];
+  const found = await step('places', () => places(fetchImpl, req.lat, req.lng, p.radius, langs));
+  if (found.filter(x => x.summary).length < 2) throw Object.assign(new Error('too few places'), { code: 'no-places' });
   onStep('writing');
-  const out = await write(anthropic, req, p, found, city);
+  const out = await step('writing', () => write(anthropic, req, p, found, city));
   const used = new Set();
   const stops = (out.stops || []).filter(s => found[s.place] && !used.has(s.place) && used.add(s.place) && clean(s.script)).map((s, i) => {
     const pl = found[s.place];
@@ -160,7 +189,7 @@ async function generateTour(req, { fetch: fetchImpl = fetch, anthropic, onStep =
   onStep('route');
   const profile = req.mode === 'bike' ? 'bike' : 'foot';
   const coords = stops.map(s => `${s.lng.toFixed(6)},${s.lat.toFixed(6)}`).join(';');
-  const osrm = await getJSON(fetchImpl, OSRM.replace('{profile}', profile).replace('{coords}', coords), { timeout: 30000 });
+  const osrm = await step('route', () => getJSON(fetchImpl, OSRM.replace('{profile}', profile).replace('{coords}', coords), { timeout: 30000 }));
   if (osrm.code !== 'Ok') throw new Error(`routing: ${osrm.code}`);
   const lang = TEXT[req.lang] ? req.lang : 'en';
   const citySlug = (city || 'nearby').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'nearby';
@@ -180,4 +209,4 @@ async function generateTour(req, { fetch: fetchImpl = fetch, anthropic, onStep =
   return tour;
 }
 
-module.exports = { generateTour, plan, places, INTERESTS, SYSTEM, SCHEMA };
+module.exports = { generateTour, plan, places, merge, INTERESTS, SYSTEM, SCHEMA };

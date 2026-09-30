@@ -104,8 +104,8 @@ async function makeTour(req, res, maker) {
     if (cache.size > 200) cache.delete(cache.keys().next().value);
     line({ tour });
   } catch (e) {
-    console.error('make tour:', e.message);
-    line({ error: e.code || 'failed' });
+    console.error('make tour:', e.stack || e.message);
+    line({ error: e.code || 'failed', detail: String(e.message || e).slice(0, 200) });
   } finally { clearInterval(beat); res.end(); }
 }
 
