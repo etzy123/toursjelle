@@ -1,5 +1,5 @@
 // Smoke test of the tour maker against the real OpenStreetMap, Wikipedia, Nominatim and OSRM,
-// with Claude replaced by a stand-in that takes the nearest places in order. Needs internet.
+// with Claude replaced by a stand-in that takes the best-ranked places, nearest first. Needs internet.
 //   node tests/generate-live.mjs [lat lng minutes walk|bike]
 import path from 'node:path';
 import { createRequire } from 'node:module';
@@ -14,7 +14,10 @@ let places = 0, withSummary = 0;
 const anthropic = { beta: { messages: { stream(params) {
   const ctx = JSON.parse(params.messages[0].content);
   places = ctx.places.length; withSummary = ctx.places.filter(p => p.summary).length;
-  const pick = [...ctx.places].sort((a, b) => a.metres_from_start - b.metres_from_start).slice(0, ctx.stops_wanted);
+  // the best-ranked places, visited nearest-first from the start
+  const left = ctx.places.slice(0, ctx.stops_wanted), pick = [];
+  let at = [ctx.start.lat, ctx.start.lng];
+  while (left.length) { left.sort((a, b) => Math.hypot(a.lat - at[0], a.lng - at[1]) - Math.hypot(b.lat - at[0], b.lng - at[1])); const p = left.shift(); pick.push(p); at = [p.lat, p.lng]; }
   const text = JSON.stringify({ title: 'Smoke test', subtitle: 'Nearest places', intro: 'Hello.', outro: 'Bye.',
     stops: pick.map(p => ({ place: p.number, title: p.name, short: p.name, script: `About ${p.name}.` })) });
   return { finalMessage: async () => ({ stop_reason: 'end_turn', content: [{ type: 'text', text }] }) };

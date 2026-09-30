@@ -42,11 +42,13 @@ async function getJSON(fetchImpl, url, opts = {}) {
 
 const COUNTRY_LANG = { nl: 'nl', be: 'nl', de: 'de', at: 'de', ch: 'de', fr: 'fr', it: 'it', es: 'es', pt: 'pt', pl: 'pl', cz: 'cs', dk: 'da', se: 'sv', no: 'no', hu: 'hu', gr: 'el' };
 
+const AREA = /\b(district|borough|neighbou?rhood|municipality|quarter|city|town|village|province|region|stadsdeel|wijk|buurt|gemeente|stadtteil|ortsteil|gemeinde|bezirk|railway station|metro station|tram stop|bus stop)\b/i;
+
 // Wikipedia articles with coordinates near the start, in a few languages, with their intro text:
 // the main source, because every place found this way comes with its facts
 async function wikiNearby(fetchImpl, lang, lat, lng, radius) {
   const api = `https://${lang}.wikipedia.org/w/api.php?format=json&formatversion=2&action=query`;
-  const geo = await getJSON(fetchImpl, `${api}&list=geosearch&gscoord=${lat}%7C${lng}&gsradius=${Math.min(10000, radius)}&gslimit=80`, { timeout: 12000 });
+  const geo = await getJSON(fetchImpl, `${api}&list=geosearch&gscoord=${lat}%7C${lng}&gsradius=${Math.min(10000, radius)}&gslimit=150`, { timeout: 12000 });
   const hits = (geo.query && geo.query.geosearch) || [];
   const out = [];
   for (let i = 0; i < hits.length; i += 20) {
@@ -56,6 +58,7 @@ async function wikiNearby(fetchImpl, lang, lat, lng, radius) {
     for (const h of batch) {
       const pg = pages.get(h.title) || {};
       if (!pg.extract || pg.extract.length < 120) continue; // stubs make poor stories
+      if (AREA.test(pg.description || '')) continue; // districts and towns are where you are, not something to look at
       out.push({ name: h.title.replace(/ \([^)]*\)$/, ''), lat: h.lat, lng: h.lon, kind: pg.description || '', summary: pg.extract.slice(0, 1400),
         url: `https://${lang}.wikipedia.org/wiki/${encodeURIComponent(h.title.replace(/ /g, '_'))}`, wiki: true });
     }
@@ -87,7 +90,8 @@ function merge(lat, lng, radius, lists) {
     if (dupe) { if (x.summary && !dupe.summary) Object.assign(dupe, x); continue; }
     all.push({ ...x });
   }
-  const score = x => (x.summary ? 4 : 0) + (/attraction|museum|monument|church|castle/i.test(x.kind) ? 1 : 0) - dist([lat, lng], [x.lat, x.lng]) / radius;
+  // a longer article is a fair sign of a more notable place; distance counts, but less, so a long tour gets a spread
+  const score = x => (x.summary ? 2 + Math.min(3, x.summary.length / 400) : 0) + (/attraction|museum|monument|church|castle|palace|memorial/i.test(x.kind) ? 1 : 0) - 0.7 * dist([lat, lng], [x.lat, x.lng]) / radius;
   return all.filter(x => dist([lat, lng], [x.lat, x.lng]) <= radius * 1.2).sort((x, y) => score(y) - score(x)).slice(0, 40);
 }
 
