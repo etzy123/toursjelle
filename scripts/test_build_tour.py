@@ -67,8 +67,15 @@ class Directions(unittest.TestCase):
         for s_, m in zip(leg, ["cycling", "ferry", "cycling", "cycling", "cycling"]):
             s_["mode"] = m
         t = [s["text"] for s in b.leg_directions([{"distance": 1300, "steps": leg}])]
-        self.assertEqual(t[1], "Take the ferry, and stay on it for about 1.1 kilometres.")
+        self.assertEqual(t[1], "Take the ferry. The crossing is about 1 kilometre.")
         self.assertEqual(t[2], "Turn left onto TT Neveritaweg.")
+
+    def test_ferry_by_name(self):
+        leg = [step("depart", 0, 100, bearing_after=0), step("turn", 100, 2400, "NDSM-werfveer", "straight"),
+               step("turn", 2500, 100, "NDSM-kade", "right"), step("arrive", 2600, 0)]
+        t = [s["text"] for s in b.leg_directions([{"distance": 2600, "steps": leg}])]
+        self.assertEqual(t[1:], ["Take the ferry. The crossing is about 2.4 kilometres.", "Turn right onto NDSM-kade."])
+        self.assertEqual(b.maneuver_text(step("turn", 0, 0, "Warmoesstraat", "straight")), "Continue onto Warmoesstraat")
 
     def test_roundabout_and_about(self):
         s = step("roundabout", 0, 0, "Weteringcircuit", "right", exit=2)

@@ -49,6 +49,7 @@ STOP_TOLERANCE = 20      # metres: every stop must be this close to the route
 MAX_SNAP = 150           # metres: further than this and the stop needs a via point instead
 MERGE_BELOW = 30         # metres between maneuvers that are spoken as one
 STAY_ON_ABOVE = 450      # metres to the next maneuver before "and stay on it for about ..."
+FERRY_NAME = re.compile(r"(veer|ferry|fähre|traghetto|ferri)\b", re.I)
 PRE_DISTANCE = 150       # metres, the pre-announcement; must match PRE_AT in index.html
 LEG_INTRO = "Directions to the next stop. "
 PRE_PREFIX = {"en": f"In {PRE_DISTANCE} metres, ", "nl": f"Over {PRE_DISTANCE} meter ", "de": f"In {PRE_DISTANCE} Metern "}
@@ -127,7 +128,7 @@ def maneuver_text(step):
     if mod == "uturn":
         return "Make a U-turn" + (f" onto {name}" if name else "")
     if mod == "straight":
-        return f"Go straight on{onto}"
+        return f"Continue onto {name}" if name else "Go straight on"
     if mod in ("slight left", "slight right"):
         return f"Bear {side}{onto}"
     if mod in ("sharp left", "sharp right"):
@@ -143,7 +144,7 @@ def lower_first(s):
 
 def leg_directions(osrm_legs):
     """Spoken steps for one stop-to-stop leg, made of one or more OSRM legs (more when via points are used)."""
-    kept, pos, mode = [], 0.0, None
+    kept, pos, mode = [], 0.0, False
     total = sum(l["distance"] for l in osrm_legs)
     for li, leg in enumerate(osrm_legs):
         for step in leg["steps"]:
@@ -151,12 +152,14 @@ def leg_directions(osrm_legs):
             if li > 0 and t == "depart":  # leaving a via point is not a new direction
                 pos += step["distance"]
                 continue
-            ferry = step.get("mode") == "ferry" and mode not in (None, "ferry")
-            mode = step.get("mode", mode)
-            text = "Take the ferry" if ferry else maneuver_text(step)
+            # some profiles give ferries their own mode, others only a name like "NDSM-werfveer"
+            on_ferry = step.get("mode") == "ferry" or bool(FERRY_NAME.search(step.get("name") or ""))
+            text = "Take the ferry" if on_ferry and not mode else maneuver_text(step)
+            mode = on_ferry
             if text:
                 lng, lat = step["maneuver"]["location"]
-                kept.append({"pos": pos, "lat": round(lat, 6), "lng": round(lng, 6), "text": text})
+                kept.append({"pos": pos, "lat": round(lat, 6), "lng": round(lng, 6), "text": text,
+                             "ferry": step["distance"] if on_ferry and text == "Take the ferry" else 0})
             pos += step["distance"]
     # maneuvers closer than MERGE_BELOW are spoken together
     groups = []
@@ -170,7 +173,10 @@ def leg_directions(osrm_legs):
         text = g[0]["text"] + "".join(", then " + lower_first(x["text"]) for x in g[1:])
         nxt = groups[i + 1][0]["pos"] if i + 1 < len(groups) else total
         gap = nxt - g[-1]["pos"]
-        if gap > STAY_ON_ABOVE:
+        crossing = sum(x["ferry"] for x in g)
+        if crossing:
+            text += f". The crossing is {about(crossing)}"
+        elif gap > STAY_ON_ABOVE:
             text += f", and stay on it for {about(gap)}"
         text += "."
         if i == 0:
@@ -287,7 +293,12 @@ def mp3_duration(path):
 async def speak(text, voice, rate, out):
     import edge_tts  # only needed when audio is built
     raw = out + ".raw.mp3"
-    await edge_tts.Communicate(spoken(text), voice, rate=rate).save(raw)
+    try:
+        await edge_tts.Communicate(spoken(text), voice, rate=rate).save(raw)
+    except Exception:
+        if os.path.exists(raw):
+            os.remove(raw)
+        raise
     if not os.path.exists(raw) or os.path.getsize(raw) == 0:
         raise RuntimeError(f"edge-tts returned no audio for: {text[:60]}")
     subprocess.run([ffmpeg_exe(), "-y", "-loglevel", "error", "-i", raw, "-ac", "1", "-ar", "22050", "-b:a", "32k", out], check=True)
