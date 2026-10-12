@@ -123,6 +123,48 @@ async function makeTour(req, res, maker) {
   } finally { clearInterval(beat); res.end(); }
 }
 
+/* ---------- the Android app ---------- */
+// Digital Asset Links: proves to Android that the Play Store app and this site belong together, so
+// the app opens the site full screen. ANDROID_CERT_SHA256 holds the signing certificate fingerprints
+// (Play Console > App integrity), comma separated; ANDROID_PACKAGE the app id.
+function assetLinks(res) {
+  const prints = String(process.env.ANDROID_CERT_SHA256 || '').split(',').map(x => x.trim().toUpperCase()).filter(x => /^([0-9A-F]{2}:){31}[0-9A-F]{2}$/.test(x));
+  if (!prints.length) { res.writeHead(404, { 'Content-Type': 'text/plain' }).end('Not configured'); return; }
+  res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'public, max-age=3600' }).end(JSON.stringify([{
+    relation: ['delegate_permission/common.handle_all_urls'],
+    target: { namespace: 'android_app', package_name: process.env.ANDROID_PACKAGE || 'com.toursjelle.app', sha256_cert_fingerprints: prints },
+  }]));
+}
+
+/* ---------- ask the guide ---------- */
+// POST /api/ask {question, place, story, summary, city, lang} answers {answer, audio}; 30 an hour per phone
+const ASK_PER_HOUR = 30, asked = new Map();
+function askerFromEnv() {
+  if (!process.env.ANTHROPIC_API_KEY) return null;
+  const Anthropic = require('@anthropic-ai/sdk');
+  const anthropic = new Anthropic({ timeout: 60e3, maxRetries: 1 });
+  const { askGuide } = require('./lib/ask');
+  const speech = require('./lib/speech');
+  return async q => {
+    const answer = await askGuide(anthropic, q);
+    let audio = null;
+    try { audio = await saveAudio('ask', `${crypto.randomBytes(6).toString('hex')}.mp3`, await speech.speak(answer, { voice: speech.VOICES[q.lang] || speech.VOICES.en })); } catch (e) { /* the phone reads it instead */ }
+    return { answer, audio };
+  };
+}
+async function askGuideRoute(req, res, asker) {
+  const out = (code, body) => res.writeHead(code, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' }).end(JSON.stringify(body));
+  if (!asker) return out(503, { error: 'not-configured' });
+  let b; try { b = JSON.parse(await readBody(req, 12000)); } catch { return out(400, { error: 'bad-request' }); }
+  const q = { question: clean(b.question, 300), place: clean(b.place, 120), story: clean(b.story, 5000), summary: clean(b.summary, 2000), city: clean(b.city, 60), lang: ['en', 'nl', 'de'].includes(b.lang) ? b.lang : 'en' };
+  if (!q.question || !q.place) return out(400, { error: 'bad-request' });
+  const ip = String(req.headers['x-forwarded-for'] || req.socket.remoteAddress || '').split(',')[0].trim();
+  const now = Date.now(), mine = (asked.get(ip) || []).filter(t => now - t < 3600e3);
+  if (mine.length >= ASK_PER_HOUR) return out(429, { error: 'rate-limit' });
+  asked.set(ip, [...mine, now]);
+  try { out(200, await asker(q)); } catch (e) { console.error('ask:', e.message); out(502, { error: e.code || 'failed' }); }
+}
+
 /* ---------- group rides ---------- */
 // A group: one leader whose story playback everyone follows, and members who share their position.
 // State lives in memory only; groups disappear after 12 hours without activity.
@@ -202,12 +244,14 @@ function onSocket(ws) {
   ws.on('error', () => {});
 }
 
-function createServer({ maker = makerFromEnv() } = {}) {
+function createServer({ maker = makerFromEnv(), asker = askerFromEnv() } = {}) {
   const server = http.createServer((req, res) => {
     const pathname = req.url.split('?')[0];
     if (pathname === '/api/tour' && req.method === 'POST') { makeTour(req, res, maker); return; }
+    if (pathname === '/api/ask' && req.method === 'POST') { askGuideRoute(req, res, asker); return; }
     if (pathname.startsWith('/gen/audio/') && (req.method === 'GET' || req.method === 'HEAD')) { serveFile(req, res, GEN_AUDIO, '/gen/audio'); return; }
-    if (pathname === '/api/status') { res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' }).end(JSON.stringify({ make: !!maker })); return; }
+    if (pathname === '/.well-known/assetlinks.json') { assetLinks(res); return; }
+    if (pathname === '/api/status') { res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' }).end(JSON.stringify({ make: !!maker, ask: !!asker })); return; }
     if (req.method !== 'GET' && req.method !== 'HEAD') { res.writeHead(405).end(); return; }
     serveFile(req, res);
   });

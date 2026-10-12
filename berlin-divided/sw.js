@@ -3,11 +3,11 @@
 // Photos: cache first, pre-cached by the page with the audio.
 // Audio: cache first (the page pre-caches each tour into its own cache, bd-tour:<path>), with Range support,
 // because iPhone Safari only plays audio served as byte ranges.
-// OpenStreetMap tiles are left to the browser: the tile usage policy forbids bulk offline caching.
-const SHELL = 'bd-shell-v10', FONTS = 'bd-fonts';
+// Map tiles (OpenFreeMap) are left to the browser's own cache.
+const SHELL = 'bd-shell-v11', FONTS = 'bd-fonts';
 const SHELL_FILES = [
-  './', 'manifest.webmanifest', 'strings.js?v=9', 'tours/index.json',
-  'vendor/leaflet/leaflet.js', 'vendor/leaflet/leaflet.css',
+  './', 'manifest.webmanifest', 'strings.js?v=10', 'tours/index.json',
+  'vendor/maplibre/maplibre-gl.js', 'vendor/maplibre/maplibre-gl.css',
   'icons/icon-192.png', 'icons/apple-touch-icon.png'
 ];
 

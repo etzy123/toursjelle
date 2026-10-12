@@ -61,7 +61,7 @@ for (const entry of TOURS) {
     const key = st => (st.clip ? new URL(base + st.clip, server.url).pathname.slice(1) : st.text);
 
     const ctx = await browser.newContext({ viewport: { width: 390, height: 800 }, geolocation: geo(route[0]), permissions: ['geolocation'], serviceWorkers: 'block', locale: 'en-GB' });
-    await ctx.route(/tile\.openstreetmap\.org|fonts\.googleapis\.com|fonts\.gstatic\.com/, r => r.abort());
+    await ctx.route(/tile\.openstreetmap\.org|tiles\.openfreemap\.org|fonts\.googleapis\.com|fonts\.gstatic\.com/, r => r.abort());
     await ctx.addInitScript(p => {
       if (!sessionStorage.seeded) { localStorage.clear(); localStorage.setItem('bd_storymode', '"auto"'); localStorage.setItem('bd_tour', JSON.stringify(p)); sessionStorage.seeded = 1; }
       const q = []; let busy = false; // headless Chromium has no voices: "speak" each sentence in 20 ms

@@ -60,7 +60,7 @@ async function openTour({ mode = 'tap', travel = 'bike', bonus = [], at = ROUTE[
   const ctx = await browser.newContext({
     viewport: { width: 390, height: 800 }, geolocation: geo(at), permissions: ['geolocation'], serviceWorkers, locale,
   });
-  await ctx.route(/tile\.openstreetmap\.org|basemaps\.cartocdn\.com|fonts\.googleapis\.com|fonts\.gstatic\.com/, r => r.abort());
+  await ctx.route(/tile\.openstreetmap\.org|tiles\.openfreemap\.org|basemaps\.cartocdn\.com|fonts\.googleapis\.com|fonts\.gstatic\.com/, r => r.abort());
   await ctx.addInitScript(([m, t, b]) => { if (!sessionStorage.seeded) { localStorage.clear(); localStorage.setItem('bd_storymode', JSON.stringify(m)); localStorage.setItem('bd_travel:berlin/divided', JSON.stringify(t)); localStorage.setItem('bd_bonus:berlin/divided', JSON.stringify(b)); sessionStorage.seeded = 1; } }, [mode, travel, bonus]);
   // headless Chromium has no voices; a stand-in that "speaks" each sentence in 20 ms keeps runs deterministic
   await ctx.addInitScript(() => {
@@ -486,6 +486,29 @@ test('make a tour: a clear message when it fails, and the questions come back', 
   await ctx.close();
 });
 
+test('ask the guide: a question about the stop you are at is answered and read aloud', async () => {
+  const { ctx, page, errors } = await openTour({ mode: 'tap' });
+  let asked;
+  await ctx.route('**/api/status', r => r.fulfill({ json: { make: false, ask: true } }));
+  await ctx.route('**/api/ask', r => { asked = JSON.parse(r.request().postData()); r.fulfill({ json: { answer: 'It was built in 1894.', audio: null } }); });
+  await page.reload(); await page.waitForFunction(() => !document.getElementById('startBtn').disabled);
+  await startTour(page); await finishAudio(page);
+  await ctx.setGeolocation(geo(pointAt(5)));
+  await page.waitForFunction(() => __tour.pending === 'reichstag');
+  await page.click('#openStory');
+  await page.waitForSelector('#askBox:not([hidden])');
+  await page.fill('#askInput', 'When was it built?');
+  await page.click('#askGo');
+  await page.waitForFunction(() => document.getElementById('askAnswer').textContent === 'It was built in 1894.');
+  assert.equal(asked.question, 'When was it built?');
+  assert.equal(asked.place, TOUR.stops[0].title);
+  assert.ok(asked.story.startsWith(TOUR.stops[0].text.slice(0, 40)), 'the stop\'s story goes along as context');
+  assert.equal(asked.lang, 'en');
+  await page.waitForFunction(() => window.__spoken.includes('It was built in 1894.'), null, { timeout: 5000 });
+  assert.deepEqual(errors, []);
+  await ctx.close();
+});
+
 test('home: a first visit in Amsterdam opens on the tours there, nearest first; picking one loads it', async () => {
   const { ctx, page, errors } = await openTour({ at: [52.3731, 4.8914] }); // the Dam
   await page.waitForFunction(() => window.__tour && document.getElementById('brandCity')?.textContent === 'Amsterdam', null, { timeout: 15000 });
@@ -505,7 +528,7 @@ test('home: a first visit in Amsterdam opens on the tours there, nearest first; 
 
 test('home: without location access it asks, instead of guessing a city', async () => {
   const ctx = await browser.newContext({ viewport: { width: 390, height: 800 }, serviceWorkers: 'block' });
-  await ctx.route(/tile\.openstreetmap\.org|fonts\.googleapis\.com|fonts\.gstatic\.com/, r => r.abort());
+  await ctx.route(/tile\.openstreetmap\.org|tiles\.openfreemap\.org|fonts\.googleapis\.com|fonts\.gstatic\.com/, r => r.abort());
   const page = await ctx.newPage(); const errors = [];
   page.on('pageerror', e => errors.push(e.message));
   await page.goto(server.url); await page.waitForFunction(() => !document.getElementById('startBtn').disabled);
@@ -528,9 +551,9 @@ test('far from Berlin: says so instead of a long dotted line; app code is never 
   await startTour(page);
   await page.waitForFunction(() => document.getElementById('navInstr').textContent === 'You are not in Berlin yet');
   assert.equal(await page.textContent('#navEta'), '');
-  for (const f of ['', 'strings.js', 'strings.js?v=9', 'tours/index.json', BASE + 'tour.json', 'sw.js'])
+  for (const f of ['', 'strings.js', 'strings.js?v=10', 'tours/index.json', BASE + 'tour.json', 'sw.js'])
     assert.equal((await fetch(server.url + f)).headers.get('cache-control'), 'no-cache', `${f || 'index'} is revalidated`);
-  assert.match((await fetch(server.url + 'vendor/leaflet/leaflet.js')).headers.get('cache-control'), /max-age/);
+  assert.match((await fetch(server.url + 'vendor/maplibre/maplibre-gl.js')).headers.get('cache-control'), /max-age/);
   assert.deepEqual(errors, []);
   await ctx.close();
 });

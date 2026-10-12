@@ -1,0 +1,34 @@
+name: Store screenshots
+
+# Takes the Google Play screenshots (English and Dutch) and the feature graphic from the real app,
+# with real map tiles, and puts them on the store-assets branch. Run it from the Actions tab.
+on:
+  workflow_dispatch:
+  push:
+    paths: ['tests/store-shots.mjs', '.github/workflows/store-assets.yml']
+
+permissions:
+  contents: write
+
+jobs:
+  shots:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: |
+          (cd berlin-divided && npm ci)
+          cd tests && npm ci && npx playwright install --with-deps chromium
+          node store-shots.mjs "$RUNNER_TEMP/store-assets"
+      - name: Publish to the store-assets branch
+        run: |
+          cd "$RUNNER_TEMP/store-assets"
+          git init -q -b store-assets
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -q -m "Store screenshots from ${GITHUB_SHA::7}"
+          git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" store-assets
