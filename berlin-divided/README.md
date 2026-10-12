@@ -9,7 +9,8 @@ WebSocket at `/group`. `index.html` holds the app; the tours live in `tours/`:
 - `tours/<city>/<tour>/audio/`: stories and spoken directions, `photos/`: then and now photos
 - `tours/SCHEMA.md`: the tour format and the build pipeline; `tours/FACTCHECK.md`: open questions
 - `strings.js`: interface text in English, Dutch and German, including city names
-- `vendor/leaflet/`: Leaflet 1.9.4 (BSD-2-Clause), served locally so the map works offline
+- `vendor/maplibre/`: MapLibre GL JS 5.24 (BSD-3-Clause), served locally; vector map tiles with 3D
+  buildings come from OpenFreeMap (free, no key)
 
 The Tours tab lists cities and their tours; tours that are not built yet show as "Coming soon".
 Progress, starting point and settings are kept per tour, each tour is downloaded for offline
@@ -35,8 +36,8 @@ directions, voice). See `tours/SCHEMA.md`.
 
 Interface: built from the Figma design "Berlin Divided Bike Tour App" (Plus Jakarta Sans, indigo
 #584DD3, white cards) with a matching dark palette. Screens: home, tours, tour page, group lobby,
-riding, story, tour complete, settings. Street map tiles come from OpenStreetMap (dimmed in dark
-mode); a paid tile provider is needed before heavy or commercial use.
+riding, story, tour complete, settings. The map is MapLibre GL with OpenFreeMap's vector tiles (liberty style, dark style in dark mode);
+while riding it tilts to 3D and turns with you.
 
 App code (html, js, css, json) is served no-cache and fetched network-first by the service worker,
 so phones never keep an old interface. After changing strings.js, also bump its ?v= in index.html

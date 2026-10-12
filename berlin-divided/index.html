@@ -13,8 +13,8 @@
 <meta name="apple-mobile-web-app-title" content="Audio tours">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="vendor/leaflet/leaflet.css">
-<script src="vendor/leaflet/leaflet.js"></script>
+<link rel="stylesheet" href="vendor/maplibre/maplibre-gl.css">
+<script src="vendor/maplibre/maplibre-gl.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 /* ---------- tokens (light, then dark) ---------- */
@@ -130,6 +130,7 @@ select.field{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w
 .makecta small{display:block;font-size:12px;opacity:.85;margin-top:2px}
 .makecta .spark{flex:none;width:44px;height:44px;border-radius:14px;background:rgba(255,255,255,.18);display:grid;place-items:center}
 .makecta svg{width:24px;height:24px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round}
+.makequick{display:block;margin:-10px auto 18px;font-size:13px}
 .makebox{padding:16px;margin-bottom:18px}
 .makebox .chips{margin-bottom:12px}
 .makebox .chip[aria-pressed="true"]{background:var(--accent);color:#fff}
@@ -142,6 +143,13 @@ select.field{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w
 .makesteps .done i{border-color:var(--accent);background:var(--accent)}
 @keyframes spin{to{transform:rotate(360deg)}}
 .ainote{margin:0 0 18px}
+.askbox{margin:18px 0 6px}
+.askrow{display:flex;gap:8px;align-items:center}
+.askrow .field{flex:1;min-width:0}
+.askgo{width:auto;padding:12px 18px}
+.askmic-on{background:var(--accent)!important;color:#fff!important}
+.askanswer{margin:12px 0 0;padding:14px 16px;border-radius:16px;background:var(--accent-soft);color:var(--text);font-size:14px;line-height:1.5}
+.askanswer.wait{color:var(--muted)}
 .tag.ai{background:var(--chip);color:var(--muted)}
 .homenear{margin:0 0 20px}
 #homeCurrent+.homenear{margin-top:24px}
@@ -396,12 +404,10 @@ summary{cursor:pointer;font-weight:600;font-size:14px;color:var(--muted)}
 #mapCanvas{position:absolute;inset:0;background:var(--chip)}
 .map{position:absolute;inset:0;isolation:isolate}
 .mapoff{margin:0;padding:80px 24px;text-align:center;color:var(--muted);font-size:14px}
-.leaflet-container{font-family:var(--font);background:var(--chip)}
-.leaflet-tile-pane{filter:saturate(.75) brightness(1.03)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .leaflet-tile-pane{filter:invert(1) hue-rotate(200deg) brightness(.85) contrast(.9) saturate(.6)}}
-:root[data-theme="dark"] .leaflet-tile-pane{filter:invert(1) hue-rotate(200deg) brightness(.85) contrast(.9) saturate(.6)}
-.leaflet-control-attribution{font-size:9px!important;background:color-mix(in srgb,var(--card) 70%,transparent)!important;color:var(--muted)!important}
-.leaflet-control-attribution a{color:inherit!important}
+.maplibregl-map{font-family:var(--font);background:var(--chip)}
+.maplibregl-ctrl-attrib{font-size:9px!important;background:color-mix(in srgb,var(--card) 70%,transparent)!important;color:var(--muted)!important}
+.maplibregl-ctrl-attrib a{color:inherit!important}
+.stopicon{width:28px;height:28px;cursor:pointer}
 .stopicon{display:grid;place-items:center;border-radius:50%;background:#fff;color:#8888A0;border:2px solid #C0C0D0;font-weight:700;font-size:11px;box-shadow:0 2px 8px rgba(0,0,0,.25)}
 .stopicon.played{background:var(--accent);border-color:var(--accent);color:#fff}
 .stopicon.is-next{background:var(--next);border-color:var(--next);color:#fff}
@@ -417,7 +423,8 @@ summary{cursor:pointer;font-weight:600;font-size:14px;color:var(--muted)}
 .memberdot{display:grid;place-items:center}
 .memberdot i{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;border:2.5px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.35);font-style:normal;font-size:10px;font-weight:800;color:#fff}
 .memberdot.away i{opacity:.45}
-.leaflet-tooltip.membername{font-family:var(--font);font-weight:700;font-size:11px;border-radius:8px;padding:2px 8px}
+.memberwrap{position:relative;width:20px;height:20px}
+.membername{position:absolute;left:26px;top:50%;transform:translateY(-50%);white-space:nowrap;font-family:var(--font);font-weight:700;font-size:11px;border-radius:8px;padding:2px 8px;background:var(--card);color:var(--text);box-shadow:0 1px 4px rgba(0,0,0,.25)}
 @media (prefers-reduced-motion:reduce){.play.nudge{animation:none}}
 </style>
 </head>
@@ -437,6 +444,7 @@ summary{cursor:pointer;font-weight:600;font-size:14px;color:var(--muted)}
     </div>
     <div class="grow"></div>
     <button class="makecta" id="makeCta" hidden><span class="spark"><svg viewBox="0 0 24 24"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6"/></svg></span><span><b data-t="makeCta">Make a tour right here</b><small data-t="makeCtaSub">Three quick questions. Your tour is ready in about a minute.</small></span></button>
+    <button class="linkbtn makequick" id="makeQuick" hidden></button>
     <div id="homeNear" class="homenear"></div>
     <div id="homeCurrent">
     <p class="label homelabel" id="homeCurLbl"></p>
@@ -648,6 +656,15 @@ summary{cursor:pointer;font-weight:600;font-size:14px;color:var(--muted)}
       <button class="skip" id="fwd15" aria-label="Forward 15 seconds" data-t-aria="fwd15"><svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-3-6.7L21 8M21 3v5h-5"/></svg><em>15</em></button>
     </div>
     <button class="btn outline" id="moreBtn" hidden><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4m0 4h.01"/></svg><b>Tell me more</b><span id="moreLen" class="muted" style="font-weight:600"></span></button>
+    <div class="askbox" id="askBox" hidden>
+      <p class="label" data-t="askTitle">Ask the guide</p>
+      <div class="askrow">
+        <input class="field" id="askInput" maxlength="300" placeholder="Ask anything about this place" data-t-ph="askPh" aria-label="Ask the guide" data-t-aria="askTitle">
+        <button class="iconbtn" id="askMic" hidden aria-label="Speak your question" data-t-aria="askMic"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
+        <button class="btn primary askgo" id="askGo" data-t="askGo">Ask</button>
+      </div>
+      <p class="askanswer" id="askAnswer" hidden></p>
+    </div>
     <details>
       <summary data-t="readAlong">Read along</summary>
       <div class="transcript" id="transcript"></div>
@@ -730,7 +747,7 @@ summary{cursor:pointer;font-weight:600;font-size:14px;color:var(--muted)}
 <audio id="audio" preload="auto" playsinline></audio>
 
 <script type="module">
-import { STRINGS, LANGS, SPEECH } from './strings.js?v=9'; // the version query gets past copies cached by older app versions
+import { STRINGS, LANGS, SPEECH } from './strings.js?v=10'; // the version query gets past copies cached by older app versions
 // language: saved choice, else the phone's language if we have it, else English
 let lang=(()=>{try{const v=JSON.parse(localStorage.getItem('bd_lang'));if(STRINGS[v])return v;}catch(e){}
   for(const l of navigator.languages||[navigator.language]){const k=String(l||'').slice(0,2).toLowerCase();if(STRINGS[k])return k;}return 'en';})();
@@ -852,48 +869,85 @@ const audio=$('audio');
 
 /* ---------- map ---------- */
 const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
-let map=null, stopMarkers=[], bonusMarkers=[], meDot=null, meHalo=null, ridden=null, guide=null;
-function stopIcon(i){return L.divIcon({className:'stopicon',html:String(i+1),iconSize:[28,28],iconAnchor:[14,14]});}
-// OpenStreetMap tiles; in dark mode CSS dims them (see .leaflet-tile-pane)
-function tiles(m){return L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'}).addTo(m);}
+let map=null, stopMarkers=[], bonusMarkers=[], meDot=null, meHalo=null, ridden=null, guide=null, mapReady=false;
+// Vector map from OpenFreeMap (free, no key), drawn by MapLibre GL with 3D buildings; light or dark
+const darkMap=()=>document.documentElement.dataset.theme==='dark'||(document.documentElement.dataset.theme!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches);
+const mapStyle=()=>`https://tiles.openfreemap.org/styles/${darkMap()?'dark':'liberty'}`;
+const ll=p=>[p[1],p[0]];                     // [lat, lng] to MapLibre's [lng, lat]
+const lineGeo=c=>({type:'Feature',properties:{},geometry:{type:'LineString',coordinates:c.map(ll)}});
+if(window.maplibregl)maplibregl.Map.prototype.invalidateSize=function(){this.resize();};
+// a line drawn as a GeoJSON layer; kept in JS so it survives a style (re)load
+const overlays=[];
+function lineLayer(id,paint,layout={}){
+  const o={id,coords:[],on:true,paint,layout,
+    setLatLngs(c){this.coords=c;const src=mapReady&&map.getSource(id);if(src)src.setData(lineGeo(c));return this;},
+    addTo(){if(!this.on){this.on=true;if(mapReady&&map.getLayer(id))map.setLayoutProperty(id,'visibility','visible');}return this;},
+    remove(){if(this.on){this.on=false;if(mapReady&&map.getLayer(id))map.setLayoutProperty(id,'visibility','none');}return this;}};
+  overlays.push(o);return o;
+}
+// a DOM marker with the old Leaflet-style calls the rest of the app uses
+function domMarker(el,at,z){
+  const m=new maplibregl.Marker({element:el,anchor:'center'}).setLngLat(ll(at));if(z)el.style.zIndex=z;
+  return {m,el,added:false,addTo(){if(!this.added&&map){this.m.addTo(map);this.added=true;}return this;},
+    remove(){if(this.added){this.m.remove();this.added=false;}return this;},setLatLng(p){this.m.setLngLat(ll(p));return this;},getElement(){return el;}};
+}
+function stopEl(cls,html,title){const e=document.createElement('div');e.className=cls;e.innerHTML=html;e.title=title;return e;}
+// your accuracy, as a circle that keeps its size in metres at every zoom
+const halo={at:null,m:0,setLatLng(p){this.at=p;return this;},setRadius(r){this.m=r;this.draw();return this;},addTo(){return this;},
+  draw(){if(!mapReady||!this.at||!map.getSource('me-halo'))return;
+    map.getSource('me-halo').setData({type:'Feature',properties:{},geometry:{type:'Point',coordinates:ll(this.at)}});
+    const px0=this.m/(40075016.686*Math.cos(this.at[0]*Math.PI/180)/512); // pixels at zoom 0
+    map.setPaintProperty('me-halo','circle-radius',['interpolate',['exponential',2],['zoom'],0,px0,22,px0*4194304]);}};
+function addOverlays(){
+  if(!map.getSource('me-halo')){map.addSource('me-halo',{type:'geojson',data:{type:'FeatureCollection',features:[]}});
+    map.addLayer({id:'me-halo',type:'circle',source:'me-halo',paint:{'circle-color':'#584DD3','circle-opacity':.12,'circle-radius':0}});}
+  for(const o of overlays){if(map.getSource(o.id))continue;
+    map.addSource(o.id,{type:'geojson',data:lineGeo(o.coords)});
+    map.addLayer({id:o.id,type:'line',source:o.id,paint:o.paint,layout:{'line-join':'round','line-cap':'round',...o.layout,visibility:o.on?'visible':'none'}});}
+  halo.draw();
+}
 function initMap(){
-  if(!window.L){$('mapCanvas').innerHTML=`<p class="mapoff">${t('mapOffline')}</p>`;return;}
-  map=L.map('mapCanvas',{zoomControl:false});
-  tiles(map);
-  L.polyline(ROUTE,{color:'#fff',weight:7,opacity:.8,lineJoin:'round',interactive:false}).addTo(map);
-  L.polyline(ROUTE,{color:'#584DD3',weight:4,opacity:1,dashArray:'10, 7',lineCap:'round',lineJoin:'round',interactive:false}).addTo(map);
-  stopMarkers=STOPS.map((s,i)=>L.marker([s.lat,s.lng],{icon:stopIcon(i),title:`${i+1}. ${s.title}`,keyboard:false})
-    .bindTooltip(`${i+1}. ${s.title}`,{direction:'top',offset:[0,-14]}).addTo(map));
-  bonusMarkers=BONUS.map(b=>L.marker([b.lat,b.lng],{icon:L.divIcon({className:'stopicon bonus',html:'+',iconSize:[28,28],iconAnchor:[14,14]}),title:b.title,keyboard:false})
-    .bindTooltip(`Bonus: ${b.title}`,{direction:'top',offset:[0,-14]}));
-  meHalo=L.circle([0,0],{radius:0,stroke:false,fillColor:'#584DD3',fillOpacity:.12,interactive:false});
-  meDot=L.marker([0,0],{interactive:false,keyboard:false,zIndexOffset:1000,icon:L.divIcon({className:'',iconSize:[36,36],iconAnchor:[18,18],
-    html:`<div class="mepin"><span class="hd"></span><i>${travel==='walk'?SVG.walk:SVG.bike}</i></div>`})});
-  ridden=L.polyline([],{color:'#584DD3',weight:5,opacity:.9,lineJoin:'round',interactive:false}).addTo(map);
-  guide=L.polyline([],{color:'#584DD3',weight:3,dashArray:'1 9',lineCap:'round',interactive:false});
+  if(!window.maplibregl){$('mapCanvas').innerHTML=`<p class="mapoff">${t('mapOffline')}</p>`;return;}
+  try{map=new maplibregl.Map({container:'mapCanvas',style:mapStyle(),bounds:[[bb.minLng,bb.minLat],[bb.maxLng,bb.maxLat]],fitBoundsOptions:{padding:40},
+    attributionControl:{compact:true},pitchWithRotate:true,dragRotate:true,maxPitch:65});}
+  catch(e){map=null;$('mapCanvas').innerHTML=`<p class="mapoff">${t('mapOffline')}</p>`;return;} // no WebGL
+  map.on('error',()=>{}); // missing tiles offline are expected; the route and stops are drawn regardless
+  map.on('style.load',()=>{mapReady=true;addOverlays();});
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>{mapReady=false;map.setStyle(mapStyle());});
+  lineLayer('route-casing',{'line-color':'#fff','line-width':9,'line-opacity':.9}).setLatLngs(ROUTE);
+  lineLayer('route',{'line-color':'#584DD3','line-width':5}).setLatLngs(ROUTE);
+  ridden=lineLayer('ridden',{'line-color':'#A9A3E8','line-width':5});
+  guide=lineLayer('guide',{'line-color':'#584DD3','line-width':3,'line-dasharray':[0.2,2.5]}).remove();
+  stopMarkers=STOPS.map((s,i)=>{const mk=domMarker(stopEl('stopicon',String(i+1),`${i+1}. ${s.title}`),[s.lat,s.lng]).addTo();
+    mk.el.onclick=()=>{if(screen==='detail')$('stopList').children[i]&&$('stopList').children[i].scrollIntoView({behavior:'smooth',block:'center'});};return mk;});
+  bonusMarkers=BONUS.map(b=>domMarker(stopEl('stopicon bonus','+',`Bonus: ${b.title}`),[b.lat,b.lng]));
+  meHalo=halo;
+  const pin=document.createElement('div');pin.innerHTML=`<div class="mepin"><span class="hd"></span><i>${travel==='walk'?SVG.walk:SVG.bike}</i></div>`;
+  meDot=domMarker(pin,[0,0],1000);
   map.on('dragstart',()=>{if(zoomMe)setMode(false,false);}); // panning by hand stops following you
   // the map's height changes with the turn banner's text, so re-measure whenever it resizes
-  if('ResizeObserver' in window)new ResizeObserver(()=>{map.invalidateSize({pan:false});follow();}).observe($('mapCanvas'));
-  fitRoute();
+  if('ResizeObserver' in window)new ResizeObserver(()=>{map.resize();follow();}).observe($('mapCanvas'));
 }
-function fitRoute(){if(map)map.fitBounds(L.latLngBounds(ROUTE),{paddingTopLeft:[24,70],paddingBottomRight:[24,16]});}
+function fitRoute(){if(map)map.fitBounds([[bb.minLng,bb.minLat],[bb.maxLng,bb.maxLat]],{padding:{top:70,left:24,right:24,bottom:16},pitch:0,bearing:0,duration:0});}
+// riding: tilted 3D view that turns with you, you just below the middle; otherwise flat and north up
 function follow(){
   if(!map||!zoomMe||!me)return;
-  if(navOn){const z=17,c=map.project(me,z).add([0,map.getSize().y*0.14]);map.setView(map.unproject(c,z),z,{animate:!simOn});} // you sit above the middle, clear of the bottom sheet
-  else map.setView(me,Math.max(map.getZoom(),16),{animate:!simOn});
+  const h=map.getContainer().clientHeight;
+  if(navOn)map.easeTo({center:ll(me),zoom:17.2,pitch:55,bearing:heading!=null?heading:map.getBearing(),offset:[0,h*0.18],duration:simOn?0:700});
+  else map.easeTo({center:ll(me),zoom:Math.max(map.getZoom(),16),pitch:0,bearing:0,duration:simOn?0:500});
 }
 function setMode(aroundMe,move=true){
   zoomMe=aroundMe;$('recenter').setAttribute('aria-pressed',aroundMe);
   if(!move)return; if(aroundMe)follow(); else fitRoute();
 }
-function setView(){if(map)map.invalidateSize();}
+function setView(){if(map)map.resize();}
 
 /* ---------- list ---------- */
 function nextIndex(){let last=startAt-1;STOPS.forEach((s,i)=>{if(active(i)&&played.has(s.id))last=Math.max(last,i)});for(let i=last+1;i<STOPS.length;i++)if(!played.has(STOPS[i].id))return i;for(let i=startAt;i<STOPS.length;i++)if(!played.has(STOPS[i].id))return i;return -1;}
 function render(force){
   const ni=nextIndex();
   stopMarkers.forEach((m,i)=>{const e=m.getElement();if(!e)return;e.classList.toggle('played',played.has(STOPS[i].id));e.classList.toggle('is-next',i===ni);e.classList.toggle('skipped',!active(i));});
-  bonusMarkers.forEach((m,i)=>{const on=bonusOn.has(BONUS[i].id);if(on&&map&&!map.hasLayer(m))m.addTo(map);if(!on&&map&&map.hasLayer(m))m.remove();
+  bonusMarkers.forEach((m,i)=>{const on=bonusOn.has(BONUS[i].id);if(on&&map&&!m.added)m.addTo();if(!on&&m.added)m.remove();
     const e=m.getElement();if(e)e.classList.toggle('played',played.has(BONUS[i].id));});
   const act=activeStops();
   $('progress').textContent=t('progress',{n:act.filter(s=>played.has(s.id)).length,total:act.length});
@@ -1095,7 +1149,7 @@ function onPosition(lat,lng,acc,sim,hdg,spd){
   if(hdg!=null&&isFinite(hdg))heading=hdg; else if(prev&&dist(prev,me)>=4)heading=bearing(prev,me);
   snapNow=snap(me,ridePos);
   if(snapNow.d<=Math.max(40,acc||0))ridePos=snapNow.pos;
-  if(map){meDot.setLatLng(me).addTo(map);meHalo.setLatLng(me).setRadius(acc||0).addTo(map);
+  if(map){meDot.setLatLng(me).addTo();meHalo.setLatLng(me).setRadius(acc||0);
     const e=meDot.getElement()&&meDot.getElement().firstChild;if(e){e.classList.toggle('dir',heading!=null);if(heading!=null)e.querySelector('.hd').style.transform=`rotate(${heading}deg)`;}}
   $('gps').textContent=sim?t('testRideGps'):t('gpsAcc',{m:Math.round(acc)});
   const radius=Math.max(P.radius,Math.min(acc||0,P.maxRadius));
@@ -1196,7 +1250,7 @@ function updateNav0(){
       }else banner('arrive',fmtDist(Math.max(0,stopCum[ti]-ridePos)),t('arriveAt',{n:ti+1,title:s.title}),'');
     }
   }
-  if(map){if(guideTo){guide.setLatLngs([me,guideTo]);guide.addTo(map);}else guide.remove();}
+  if(map){if(guideTo){guide.setLatLngs([me,guideTo]);guide.addTo();}else guide.remove();}
   // next stop, distance and arrival time
   const bt=bonusTarget(); $('navSkip').hidden=!bt; $('navGmaps').hidden=!bt;
   if(bt&&me){const m=dist(me,[bt.lat,bt.lng])*1.3,min=Math.max(1,Math.round(m/P.speed/60));
@@ -1357,9 +1411,9 @@ function renderGroup(){
   const seen=new Set();
   if(map)for(const m of gMembers){if(m.id===memberId||m.lat==null)continue;seen.add(m.id);
     let mk=memberMarkers.get(m.id);
-    if(!mk){mk=L.marker([m.lat,m.lng],{interactive:false,keyboard:false,zIndexOffset:900,icon:L.divIcon({className:'',iconSize:[20,20],iconAnchor:[10,10],html:'<div class="memberdot"><i></i></div>'})})
-      .bindTooltip('',{permanent:true,direction:'right',offset:[8,0],className:'membername'}).addTo(map);memberMarkers.set(m.id,mk);}
-    mk.setLatLng([m.lat,m.lng]);mk.setTooltipContent(m.leader?t('leads',{name:m.name}):m.name);
+    if(!mk){const el=document.createElement('div');el.className='memberwrap';el.innerHTML='<div class="memberdot"><i></i></div><span class="membername"></span>';
+      mk=domMarker(el,[m.lat,m.lng],900).addTo();memberMarkers.set(m.id,mk);}
+    mk.setLatLng([m.lat,m.lng]);mk.el.querySelector('.membername').textContent=m.leader?t('leads',{name:m.name}):m.name;
     const e=mk.getElement()&&mk.getElement().firstChild;if(e){e.classList.toggle('leader',m.leader);e.classList.toggle('away',!m.online);e.firstChild.textContent=initials(m.name);e.firstChild.style.background=colorFor(m.id);}}
   memberMarkers.forEach((mk,id)=>{if(!seen.has(id)){mk.remove();memberMarkers.delete(id);}});
   if(uiReady)renderLobby();
@@ -1589,7 +1643,7 @@ function locate(){
 const INTERESTS=['famous','history','war','architecture','art','hidden','religion','local'];
 const make={interests:new Set(store.get('bd_make',{}).interests||['famous','history']),minutes:store.get('bd_make',{}).minutes||60,mode:store.get('bd_make',{}).mode||'walk',busy:false};
 let canMake=false;
-fetch('api/status').then(r=>r.ok?r.json():{}).then(j=>{canMake=!!j.make;$('makeCta').hidden=!canMake;}).catch(()=>{});
+fetch('api/status').then(r=>r.ok?r.json():{}).then(j=>{canMake=!!j.make;$('makeCta').hidden=$('makeQuick').hidden=!canMake;quickLabel();$('askBox').hidden=!j.ask;}).catch(()=>{});
 function renderMake(){
   const p=me||homePos||seenPos, n=nearby(p);
   $('makeWhere').textContent=p?(n.city?t('makeIn',{city:cityName(n.city)}):t('makeHere')):t('makeNoPos');
@@ -1602,7 +1656,10 @@ function renderMake(){
   $('makeGo').disabled=make.busy;
 }
 $('makeWalk').onclick=()=>{make.mode='walk';renderMake();};$('makeBike').onclick=()=>{make.mode='bike';renderMake();};
-$('makeCta').onclick=()=>go('make');$('makeBack').onclick=()=>back('home');
+$('makeCta').onclick=()=>go('make');
+// one tap: the answers from last time (or famous sights and history, an hour on foot), no questions
+function quickLabel(){$('makeQuick').textContent=t('makeQuick',{min:make.minutes,how:t(make.mode==='bike'?'byBike':'onFoot')});}
+$('makeQuick').onclick=()=>{go('make');$('makeGo').click();};$('makeBack').onclick=()=>back('home');
 $('makeRetry').onclick=()=>{$('makeBusy').hidden=true;$('makeForm').hidden=false;renderMake();};
 function makeStep(step){
   const order=['places','writing','route','voice'],i=order.indexOf(step);if(i<0)return;
@@ -1641,6 +1698,36 @@ function saveGenerated(tour){
   for(const old of ids.slice(8))try{localStorage.removeItem('bd_gen:'+old);}catch(e){}
   store.set('bd_gen:'+tour.id,tour);store.set('bd_gens',ids.slice(0,8));store.set('bd_tour','gen/'+tour.id);
 }
+
+/* ---------- ask the guide ---------- */
+// a question about the place you are at; the answer is shown and read aloud (recorded on the server,
+// or by the phone when that fails); the story pauses meanwhile
+let askAudio=null;
+function askContext(){
+  const x=current&&current!==INTRO&&current!==OUTRO?current:(pending||current),s=x&&(x.stop||x);
+  return s&&(STOPS.includes(s)||s.bonus)?{place:s.title,story:s.text,summary:s.summary||null}:{place:TITLE,story:INTRO.text,summary:null};
+}
+async function askGuide(){
+  const question=$('askInput').value.trim();if(!question)return;
+  const a=$('askAnswer');a.hidden=false;a.className='askanswer wait';a.textContent=t('askThinking');$('askGo').disabled=true;
+  if(!audio.paused){audio.pause();setPlay(PLAY);} stopTTS(); if(askAudio)askAudio.pause();
+  try{
+    const r=await fetch('api/ask',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({question,...askContext(),city:cityName(TOUR.city),lang:clang})});
+    const j=await r.json().catch(()=>({}));
+    if(!r.ok||!j.answer){a.textContent=t(j.error==='rate-limit'?'askLimit':'askFail');return;}
+    a.className='askanswer';a.textContent=j.answer;log.push({kind:'ask',question});
+    if(j.audio){askAudio=new Audio(j.audio);askAudio.playbackRate=rate;askAudio.play().catch(()=>{});}
+    else if('speechSynthesis' in window){const u=new SpeechSynthesisUtterance(j.answer);u.lang=SPEECH[clang];u.rate=rate;speechSynthesis.speak(u);}
+  }catch(e){a.textContent=t(navigator.onLine?'askFail':'errOffline');}
+  finally{$('askGo').disabled=false;}
+}
+$('askGo').onclick=askGuide;
+$('askInput').onkeydown=e=>{if(e.key==='Enter')askGuide();};
+const Recog=window.SpeechRecognition||window.webkitSpeechRecognition;
+if(Recog){$('askMic').hidden=false;
+  $('askMic').onclick=()=>{const r=new Recog();r.lang=SPEECH[clang];r.interimResults=false;$('askMic').classList.add('askmic-on');
+    r.onresult=e=>{$('askInput').value=e.results[0][0].transcript;askGuide();};
+    r.onend=()=>$('askMic').classList.remove('askmic-on');try{r.start();}catch(e){$('askMic').classList.remove('askmic-on');}};}
 
 let cityPick=nearby(seenPos).city||TOUR.city;
 function renderTours(){
@@ -1724,10 +1811,11 @@ function setNow(on){
   const ph=shownPhoto;on=on&&!!ph;
   $('segThen').setAttribute('aria-pressed',!on);$('segNow').setAttribute('aria-pressed',on);
   $('nowMap').hidden=!on;$('photoImg').hidden=!ph||on;$('photoOpen').hidden=!ph||on;
-  if(!on||!window.L)return;
+  if(!on||!window.maplibregl)return;
   const x=current&&(current.stop||current),c=x&&x.lat?[x.lat,x.lng]:[STOPS[startAt].lat,STOPS[startAt].lng];
-  if(!nowMap){nowMap=L.map('nowMap',{zoomControl:false,attributionControl:true});tiles(nowMap);nowMap._pin=L.circleMarker(c,{radius:9,color:'#fff',weight:3,fillColor:'#584DD3',fillOpacity:1}).addTo(nowMap);}
-  requestAnimationFrame(()=>{nowMap.invalidateSize();nowMap.setView(c,17);nowMap._pin.setLatLng(c);});
+  try{if(!nowMap){nowMap=new maplibregl.Map({container:'nowMap',style:mapStyle(),center:ll(c),zoom:17,pitch:50,attributionControl:{compact:true}});nowMap.on('error',()=>{});
+    const pin=document.createElement('div');pin.className='stopicon is-next';pin.style.cssText='width:18px;height:18px';nowMap._pin=new maplibregl.Marker({element:pin}).setLngLat(ll(c)).addTo(nowMap);}}catch(e){return;}
+  requestAnimationFrame(()=>{nowMap.resize();nowMap.jumpTo({center:ll(c),zoom:17,pitch:50});nowMap._pin.setLngLat(ll(c));});
 }
 $('segThen').onclick=()=>setNow(false);$('segNow').onclick=()=>setNow(true);
 

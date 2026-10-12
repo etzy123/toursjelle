@@ -27,7 +27,13 @@ function fakes({ refuse = false } = {}) {
     }
     if (url.includes('prop=extracts')) {
       const titles = decodeURIComponent(url.split('titles=')[1]).split('|');
-      return json({ query: { pages: titles.map(title => ({ title, description: 'memorial', extract: title === 'A stub' ? 'Short.' : `Summary of ${title}. `.repeat(8) })) } });
+      return json({ query: { pages: titles.map((title, i) => ({ title, description: 'memorial', pageimage: `${title}.jpg`, extract: title === 'A stub' ? 'Short.' : `Summary of ${title}. `.repeat(8) })) } });
+    }
+    if (url.includes('commons.wikimedia.org')) {
+      const file = decodeURIComponent(url.split('titles=')[1]);
+      const free = !file.includes('Homomonument'); // pretend one photo has an unusable licence
+      return json({ query: { pages: [{ imageinfo: [{ thumburl: `https://upload.wikimedia.org/${encodeURIComponent(file)}`, descriptionurl: `https://commons.wikimedia.org/wiki/${encodeURIComponent(file)}`,
+        extmetadata: { Artist: { value: '<a href="x">Jan Fotograaf</a>' }, LicenseShortName: { value: free ? 'CC BY-SA 4.0' : 'Fair use' }, LicenseUrl: { value: 'https://creativecommons.org/licenses/by-sa/4.0' } } }] }] } });
     }
     if (url.includes('nominatim')) return json({ address: { city: 'Amsterdam', country_code: 'nl' } });
     if (url.includes('routing.openstreetmap.de')) { assert.match(url, /routed-foot/); return json(OSRM); }
@@ -78,6 +84,11 @@ test('a tour is made from real places, in the order written, with a route and di
   assert.ok(!JSON.stringify(tour).includes('—'), 'em dashes are removed');
   assert.match(tour.stops[0].sources[0], /^https:\/\/en\.wikipedia\.org\/wiki\/The_Anne_Frank_House$/);
   assert.ok(tour.duration_min > tour.ride_min);
+  assert.equal(tour.stops[0].photo.author, 'Jan Fotograaf', 'photo credit without HTML');
+  assert.equal(tour.stops[0].photo.licence, 'CC BY-SA 4.0');
+  assert.match(tour.stops[0].photo.src, /^https:\/\/upload\.wikimedia\.org\//);
+  assert.equal(tour.stops.find(s => s.title.includes('Homomonument')).photo, undefined, 'no photo without a free licence');
+  assert.ok(tour.stops.every(s => !('image' in s)));
 });
 
 test('the directions match the Python build for the same route', () => {

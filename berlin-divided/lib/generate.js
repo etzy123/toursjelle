@@ -59,7 +59,7 @@ async function wikiNearby(fetchImpl, lang, lat, lng, radius) {
   for (let i = 0; i < hits.length; i += 20) batches.push(hits.slice(i, i + 20));
   const out = [];
   await Promise.all(batches.map(async batch => { // all at once: a few requests of 20 articles each
-    const ex = await getJSON(fetchImpl, `${api}&prop=extracts%7Cdescription%7Cpageviews&pvipdays=30&exintro=1&explaintext=1&exlimit=20&titles=${encodeURIComponent(batch.map(h => h.title).join('|'))}`, { timeout: 12000 }).catch(() => ({}));
+    const ex = await getJSON(fetchImpl, `${api}&prop=extracts%7Cdescription%7Cpageviews%7Cpageimages&piprop=name&pilicense=free&pvipdays=30&exintro=1&explaintext=1&exlimit=20&titles=${encodeURIComponent(batch.map(h => h.title).join('|'))}`, { timeout: 12000 }).catch(() => ({}));
     const pages = new Map(((ex.query && ex.query.pages) || []).map(pg => [pg.title, pg]));
     for (const h of batch) {
       const pg = pages.get(h.title) || {};
@@ -67,6 +67,7 @@ async function wikiNearby(fetchImpl, lang, lat, lng, radius) {
       if (AREA.test(kindOf(pg.description))) continue; // districts and towns are where you are, not something to look at
       out.push({ name: h.title.replace(/ \([^)]*\)$/, ''), lat: h.lat, lng: h.lon, kind: pg.description || '', summary: pg.extract.slice(0, 1400), size: pg.extract.length,
         views: Object.values(pg.pageviews || {}).reduce((t, v) => t + (v || 0), 0), // readers in the last 30 days
+        image: pg.pageimage || null, // the article's lead photo, only if it is freely licensed
         url: `https://${lang}.wikipedia.org/wiki/${encodeURIComponent(h.title.replace(/ /g, '_'))}`, wiki: true });
     }
   }));
@@ -87,6 +88,23 @@ async function osmPlaces(fetchImpl, lat, lng, radius) {
     }).filter(Boolean);
   };
   try { return await Promise.any(OVERPASS_MIRRORS.map(ask)); } catch (e) { return []; } // the first mirror to answer wins
+}
+
+// the lead photo of each chosen place, with its author and licence from Wikimedia Commons;
+// only free licences (pilicense=free above), credited the way the app shows then-and-now photos
+const strip = h => String(h || '').replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
+async function photos(fetchImpl, stops) {
+  await Promise.all(stops.map(async s => {
+    if (!s.image) return;
+    try {
+      const r = await getJSON(fetchImpl, `https://commons.wikimedia.org/w/api.php?format=json&formatversion=2&action=query&prop=imageinfo&iiprop=url%7Cextmetadata&iiurlwidth=1024&titles=${encodeURIComponent('File:' + s.image)}`, { timeout: 10000 });
+      const ii = (((r.query || {}).pages || [])[0] || {}).imageinfo, info = ii && ii[0], m = (info && info.extmetadata) || {};
+      const licence = strip(m.LicenseShortName && m.LicenseShortName.value);
+      if (!info || !info.thumburl || !/^(cc|public domain|pd)/i.test(licence)) return;
+      s.photo = { src: info.thumburl, caption: s.title, author: strip(m.Artist && m.Artist.value).slice(0, 80) || 'Wikimedia Commons',
+        licence, licenceUrl: m.LicenseUrl ? m.LicenseUrl.value : null, source: info.descriptionurl };
+    } catch (e) { /* a stop without a photo is fine */ }
+  }));
 }
 
 // every candidate once, best first: with facts, attractions, then by distance
@@ -219,9 +237,11 @@ async function generateTour(req, { fetch: fetchImpl = fetch, anthropic, onStep =
   const stops = (out.stops || []).filter(s => found[s.place] && !used.has(s.place) && used.add(s.place) && clean(s.script)).map((s, i) => {
     const pl = found[s.place];
     return { id: `s${i + 1}`, title: clean(s.title) || pl.name, short: clean(s.short) || pl.name, lat: pl.lat, lng: pl.lng, script: clean(s.script),
-      sources: [pl.url || null, 'OpenStreetMap contributors'].filter(Boolean) };
+      sources: [pl.url || null, 'OpenStreetMap contributors'].filter(Boolean), image: pl.image || null, summary: pl.summary || null };
   });
   if (stops.length < 2) throw Object.assign(new Error('too few stops'), { code: 'no-places' });
+  await photos(fetchImpl, stops);
+  for (const s of stops) delete s.image;
   onStep('route');
   const profile = req.mode === 'bike' ? 'bike' : 'foot';
   const coords = stops.map(s => `${s.lng.toFixed(6)},${s.lat.toFixed(6)}`).join(';');
