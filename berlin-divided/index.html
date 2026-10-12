@@ -725,6 +725,7 @@ summary{cursor:pointer;font-weight:600;font-size:14px;color:var(--muted)}
       <button class="row" id="reset"><div><b data-t="reset" style="color:var(--danger)">Reset tour progress</b></div></button>
     </div>
     <p class="note" data-t="foot">Narration voice is synthetic. Route distances are from OpenStreetMap bike routing.</p>
+    <p class="note"><a href="privacy.html" target="_blank" rel="noopener" data-t="privacy">Privacy</a></p>
   </div>
 </section>
 
@@ -911,8 +912,11 @@ function initMap(){
   try{map=new maplibregl.Map({container:'mapCanvas',style:mapStyle(),bounds:[[bb.minLng,bb.minLat],[bb.maxLng,bb.maxLat]],fitBoundsOptions:{padding:40},
     attributionControl:{compact:true},pitchWithRotate:true,dragRotate:true,maxPitch:65});}
   catch(e){map=null;$('mapCanvas').innerHTML=`<p class="mapoff">${t('mapOffline')}</p>`;return;} // no WebGL
-  map.on('error',()=>{}); // missing tiles offline are expected; the route and stops are drawn regardless
-  map.on('style.load',()=>{mapReady=true;addOverlays();});
+  // offline or without the map server: a plain background, so the route, stops and you still show
+  const plain=()=>{if(mapReady)return;mapReady=false;map.setStyle({version:8,sources:{},layers:[{id:'bg',type:'background',paint:{'background-color':darkMap()?'#1A1B2E':'#EEF0F7'}}]});};
+  map.on('error',()=>{if(!mapReady)plain();}); // missing tiles later on are expected and harmless
+  const styleTimer=setTimeout(plain,8000);
+  map.on('style.load',()=>{clearTimeout(styleTimer);mapReady=true;addOverlays();});
   matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>{mapReady=false;map.setStyle(mapStyle());});
   lineLayer('route-casing',{'line-color':'#fff','line-width':9,'line-opacity':.9}).setLatLngs(ROUTE);
   lineLayer('route',{'line-color':'#584DD3','line-width':5}).setLatLngs(ROUTE);

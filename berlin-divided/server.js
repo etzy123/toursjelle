@@ -123,6 +123,19 @@ async function makeTour(req, res, maker) {
   } finally { clearInterval(beat); res.end(); }
 }
 
+/* ---------- the Android app ---------- */
+// Digital Asset Links: proves to Android that the Play Store app and this site belong together, so
+// the app opens the site full screen. ANDROID_CERT_SHA256 holds the signing certificate fingerprints
+// (Play Console > App integrity), comma separated; ANDROID_PACKAGE the app id.
+function assetLinks(res) {
+  const prints = String(process.env.ANDROID_CERT_SHA256 || '').split(',').map(x => x.trim().toUpperCase()).filter(x => /^([0-9A-F]{2}:){31}[0-9A-F]{2}$/.test(x));
+  if (!prints.length) { res.writeHead(404, { 'Content-Type': 'text/plain' }).end('Not configured'); return; }
+  res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'public, max-age=3600' }).end(JSON.stringify([{
+    relation: ['delegate_permission/common.handle_all_urls'],
+    target: { namespace: 'android_app', package_name: process.env.ANDROID_PACKAGE || 'com.toursjelle.app', sha256_cert_fingerprints: prints },
+  }]));
+}
+
 /* ---------- ask the guide ---------- */
 // POST /api/ask {question, place, story, summary, city, lang} answers {answer, audio}; 30 an hour per phone
 const ASK_PER_HOUR = 30, asked = new Map();
@@ -237,6 +250,7 @@ function createServer({ maker = makerFromEnv(), asker = askerFromEnv() } = {}) {
     if (pathname === '/api/tour' && req.method === 'POST') { makeTour(req, res, maker); return; }
     if (pathname === '/api/ask' && req.method === 'POST') { askGuideRoute(req, res, asker); return; }
     if (pathname.startsWith('/gen/audio/') && (req.method === 'GET' || req.method === 'HEAD')) { serveFile(req, res, GEN_AUDIO, '/gen/audio'); return; }
+    if (pathname === '/.well-known/assetlinks.json') { assetLinks(res); return; }
     if (pathname === '/api/status') { res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' }).end(JSON.stringify({ make: !!maker, ask: !!asker })); return; }
     if (req.method !== 'GET' && req.method !== 'HEAD') { res.writeHead(405).end(); return; }
     serveFile(req, res);

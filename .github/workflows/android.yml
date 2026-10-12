@@ -1,19 +1,23 @@
-name: Android APK
+name: Android app
 
-# Builds a debug-signed APK that opens the tour web app. Download it from the run's Artifacts.
-# Set the repository variable TOUR_URL (Settings > Secrets and variables > Actions > Variables) to
-# the Railway address, or type it when running by hand; without one the app asks on first start.
+# Builds the Android app: a Trusted Web Activity that opens the tour site in Chrome.
+# Always a debug APK for testing; with the upload key in the repository secrets also the signed
+# release bundle (.aab) for Google Play and a signed APK. Download them from the run's Artifacts.
+#
+# Secrets (Settings > Secrets and variables > Actions): ANDROID_KEYSTORE_BASE64 (the .jks file,
+# base64), ANDROID_KEYSTORE_PASSWORD, ANDROID_KEY_ALIAS, ANDROID_KEY_PASSWORD.
+# Variable TOUR_URL overrides the site (default: the Railway address in android/app/build.gradle).
 on:
   workflow_dispatch:
     inputs:
       url:
-        description: Web address of the tour app (https://...)
+        description: Web address of the tour app (https://...), empty for the default
         required: false
   push:
     paths: ['android/**', '.github/workflows/android.yml']
 
 jobs:
-  apk:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -23,12 +27,42 @@ jobs:
           java-version: '17'
       - uses: gradle/actions/setup-gradle@v4
         with:
-          gradle-version: '8.7'
+          gradle-version: '8.14.3'
+      - name: Upload key
+        env:
+          KS: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+        run: |
+          if [ -n "$KS" ]; then
+            echo "$KS" | base64 -d > "$RUNNER_TEMP/upload.jks"
+            echo "ANDROID_KEYSTORE_FILE=$RUNNER_TEMP/upload.jks" >> "$GITHUB_ENV"
+          else
+            echo "No upload key in the secrets: building the debug APK only."
+          fi
       - name: Build
-        run: gradle -p android assembleDebug --no-daemon -PtourUrl="${URL}"
         env:
           URL: ${{ inputs.url || vars.TOUR_URL }}
+          VERSION_CODE: ${{ github.run_number }}
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: |
+          TASKS="assembleDebug"
+          [ -n "$ANDROID_KEYSTORE_FILE" ] && TASKS="$TASKS bundleRelease assembleRelease"
+          gradle -p android $TASKS --no-daemon -PtourUrl="$URL"
+      - name: Fingerprint for assetlinks.json
+        if: env.ANDROID_KEYSTORE_FILE != ''
+        env:
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+        run: keytool -list -v -keystore "$ANDROID_KEYSTORE_FILE" -storepass "$ANDROID_KEYSTORE_PASSWORD" -alias "$ANDROID_KEY_ALIAS" | grep 'SHA256:'
       - uses: actions/upload-artifact@v4
         with:
           name: audio-tours-apk
           path: android/app/build/outputs/apk/debug/app-debug.apk
+      - uses: actions/upload-artifact@v4
+        with:
+          name: audio-tours-play-release
+          path: |
+            android/app/build/outputs/bundle/release/app-release.aab
+            android/app/build/outputs/apk/release/app-release.apk
+          if-no-files-found: ignore
