@@ -907,6 +907,7 @@ function addOverlays(){
     map.addLayer({id:o.id,type:'line',source:o.id,paint:o.paint,layout:{'line-join':'round','line-cap':'round',...o.layout,visibility:o.on?'visible':'none'}});}
   halo.draw();
 }
+const shutAttrib=id=>document.querySelectorAll('#'+id+' .maplibregl-ctrl-attrib').forEach(e=>{e.classList.remove('maplibregl-compact-show');e.removeAttribute('open');}); // start folded, the (i) opens it
 function initMap(){
   if(!window.maplibregl){$('mapCanvas').innerHTML=`<p class="mapoff">${t('mapOffline')}</p>`;return;}
   try{map=new maplibregl.Map({container:'mapCanvas',style:mapStyle(),bounds:[[bb.minLng,bb.minLat],[bb.maxLng,bb.maxLat]],fitBoundsOptions:{padding:40},
@@ -917,6 +918,7 @@ function initMap(){
   map.on('error',()=>{if(!mapReady)plain();}); // missing tiles later on are expected and harmless
   const styleTimer=setTimeout(plain,8000);
   map.on('style.load',()=>{clearTimeout(styleTimer);mapReady=true;addOverlays();});
+  map.once('load',()=>shutAttrib('mapCanvas'));
   matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>{mapReady=false;map.setStyle(mapStyle());});
   lineLayer('route-casing',{'line-color':'#fff','line-width':9,'line-opacity':.9}).setLatLngs(ROUTE);
   lineLayer('route',{'line-color':'#584DD3','line-width':5}).setLatLngs(ROUTE);
@@ -1817,7 +1819,7 @@ function setNow(on){
   $('nowMap').hidden=!on;$('photoImg').hidden=!ph||on;$('photoOpen').hidden=!ph||on;
   if(!on||!window.maplibregl)return;
   const x=current&&(current.stop||current),c=x&&x.lat?[x.lat,x.lng]:[STOPS[startAt].lat,STOPS[startAt].lng];
-  try{if(!nowMap){nowMap=new maplibregl.Map({container:'nowMap',style:mapStyle(),center:ll(c),zoom:17,pitch:50,attributionControl:{compact:true}});nowMap.on('error',()=>{});
+  try{if(!nowMap){nowMap=new maplibregl.Map({container:'nowMap',style:mapStyle(),center:ll(c),zoom:17,pitch:50,attributionControl:{compact:true}});nowMap.on('error',()=>{});nowMap.once('load',()=>shutAttrib('nowMap'));
     const pin=document.createElement('div');pin.className='stopicon is-next';pin.style.cssText='width:18px;height:18px';nowMap._pin=new maplibregl.Marker({element:pin}).setLngLat(ll(c)).addTo(nowMap);}}catch(e){return;}
   requestAnimationFrame(()=>{nowMap.resize();nowMap.jumpTo({center:ll(c),zoom:17,pitch:50});nowMap._pin.setLngLat(ll(c));});
 }
